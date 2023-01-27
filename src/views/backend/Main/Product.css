@@ -1,0 +1,70 @@
+/* Table custom css */
+
+
+.prodSt {
+    width: 95% !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.myContainerStyleProduct {
+    width: 95% !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    border-radius: 10px;
+    padding-top: 15px !important;
+    padding-bottom: 40px !important;
+    background-color: white;
+    margin-bottom: 15px !important;
+}
+
+.gapStyleProduct {
+    display: grid;
+    gap: 15px !important;
+}
+
+.myStyleProduct {
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+.myStyleProduct:hover {
+    background: #FBF7EA;
+    border: 1px solid #C47500 !important;
+}
+
+.myHeaderProductStyle {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 20px;
+    letter-spacing: 0.01em;
+    color: #222222;
+    border: 0px !important;
+}
+
+.ownStylePro {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: 0.01em;
+    color: #222222;
+}
+
+.myButtonProducts {
+    margin-left: 15px !important; 
+    border-radius: 10px !important;
+}
+
+.qushishProduct {
+    background-color: #C47500 !important;
+    border: 1px solid #C47500 !important;
+    color: white !important;
+
+}
+
+.qushishProduct:hover {
+    background-color: #d98302 !important;
+}
