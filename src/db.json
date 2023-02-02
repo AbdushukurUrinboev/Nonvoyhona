@@ -111,7 +111,7 @@
       "productName": "Yog'",
       "productDes": "yog'li Sut",
       "productPrice": 50,
-      "poductQuantity": 45,
+      "poductQuantity": 3,
       "umumiyNarhi": 2500000,
       "olinganSana": "15 avgust 2022",
       "olinganSoat": "15:00",
@@ -125,7 +125,7 @@
       "productName": "Suzma",
       "productDes": "osh Tuzi",
       "productPrice": 50,
-      "poductQuantity": 45,
+      "poductQuantity": 0,
       "umumiyNarhi": 2500000,
       "olinganSana": "15 avgust 2022",
       "olinganSoat": "15:00",
@@ -138,7 +138,7 @@
       "id": 4,
       "productName": "Suhoy",
       "productPrice": 50,
-      "poductQuantity": 45,
+      "poductQuantity": 11,
       "umumiyNarhi": 2500000,
       "olinganSana": "15 avgust 2022",
       "olinganSoat": "15:00",
@@ -152,7 +152,7 @@
       "productName": "Droj'",
       "productDes": "Farg'ona yog'i",
       "productPrice": 50,
-      "poductQuantity": 45,
+      "poductQuantity": 10,
       "umumiyNarhi": 2500000,
       "olinganSana": "15 avgust 2022",
       "olinganSoat": "15:00",
@@ -166,7 +166,7 @@
       "productName": "Kunjut",
       "productDes": "O'zbekiston qora sedana",
       "productPrice": 50,
-      "poductQuantity": 45,
+      "poductQuantity": 3,
       "umumiyNarhi": 2500000,
       "olinganSana": "15 avgust 2022",
       "olinganSoat": "15:00",
@@ -180,7 +180,7 @@
       "productName": "Sedana",
       "productDes": "O'zbekiston qora sedana",
       "productPrice": 50,
-      "poductQuantity": 45,
+      "poductQuantity": 22,
       "umumiyNarhi": 2500000,
       "olinganSana": "15 avgust 2022",
       "olinganSoat": "15:00",
@@ -194,7 +194,7 @@
       "productName": "Tuz",
       "productDes": "O'zbekiston qora sedana",
       "productPrice": 50,
-      "poductQuantity": 45,
+      "poductQuantity": 1,
       "umumiyNarhi": 2500000,
       "olinganSana": "15 avgust 2022",
       "olinganSoat": "15:00",
@@ -208,7 +208,7 @@
       "productName": "Pista",
       "productDes": "O'zbekiston qora sedana",
       "productPrice": 50,
-      "poductQuantity": 45,
+      "poductQuantity": 0,
       "umumiyNarhi": 2500000,
       "olinganSana": "15 avgust 2022",
       "olinganSoat": "15:00",
@@ -236,7 +236,7 @@
       "productName": "Keshu",
       "productDes": "O'zbekiston qora sedana",
       "productPrice": 50,
-      "poductQuantity": 45,
+      "poductQuantity": 6,
       "umumiyNarhi": 2500000,
       "olinganSana": "15 avgust 2022",
       "olinganSoat": "15:00",
@@ -250,7 +250,7 @@
       "productName": "Yong'oq",
       "productDes": "O'zbekiston qora sedana",
       "productPrice": 50,
-      "poductQuantity": 45,
+      "poductQuantity": 0,
       "umumiyNarhi": 2500000,
       "olinganSana": "15 avgust 2022",
       "olinganSoat": "15:00",
@@ -264,7 +264,7 @@
       "productName": "Shakar",
       "productDes": "O'zbekiston qora sedana",
       "productPrice": 50,
-      "poductQuantity": 45,
+      "poductQuantity": 1,
       "umumiyNarhi": 2500000,
       "olinganSana": "15 avgust 2022",
       "olinganSoat": "15:00",
@@ -1026,7 +1026,99 @@
       "bonusNonSoni": 5, 
       "jastaNonSoni": 5, 
       "bonusTulov": 50000, 
-      "jamiQoplargaTulanganTUlov": 0,       
+      "jamiQoplargaTulanganTUlov": 0, 
+      "requiredItems": [
+        {
+          "itemName": "Yog",
+          "itemQuantity": 1
+        },
+        {
+          "itemName": "Suzma",
+          "itemQuantity": 3
+        },
+        {
+          "itemName": "Suhoy",
+          "itemQuantity": 7
+        },
+        {
+          "itemName": "Droj",
+          "itemQuantity": 2
+        },
+        {
+          "itemName": "Kunjut",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Sedana",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Tuz",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Pista",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Bodom",
+          "itemQuantity": 0.4
+        },
+        {
+          "itemName": "Keshu",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Yong'oq",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Shakar",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Ko'mir",
+          "itemQuantity": 12
+        },
+        {
+          "itemName": "Paket",
+          "itemQuantity": 100
+        }        
+      ],  
+      "others":[
+        {
+          "itemName": "ishHaqi",
+          "itemQuantity": 100000
+        },
+        {
+          "itemName": "Ovqat",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Gaz",
+          "itemQuantity": 5000
+        },
+        {
+          "itemName": "Elektr",
+          "itemQuantity": 3000
+        },
+        {
+          "itemName": "Yo'lkira",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Nonho'ja",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Sotuvchi",
+          "itemQuantity": 15000
+        },
+        {
+          "itemName": "Boshqalar",
+          "itemQuantity": 6000
+        }
+      ],    
       "breadImage": "images/products/un.png"
     },
     {
@@ -1039,7 +1131,99 @@
       "bonusNonSoni": 5, 
       "jastaNonSoni": 5, 
       "bonusTulov": 50000, 
-      "jamiQoplargaTulanganTUlov": 0, 
+      "jamiQoplargaTulanganTUlov": 0,
+      "requiredItems": [
+        {
+          "itemName": "Yog",
+          "itemQuantity": 1
+        },
+        {
+          "itemName": "Suzma",
+          "itemQuantity": 3
+        },
+        {
+          "itemName": "Suhoy",
+          "itemQuantity": 7
+        },
+        {
+          "itemName": "Droj",
+          "itemQuantity": 2
+        },
+        {
+          "itemName": "Kunjut",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Sedana",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Tuz",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Pista",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Bodom",
+          "itemQuantity": 0.4
+        },
+        {
+          "itemName": "Keshu",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Yong'oq",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Shakar",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Ko'mir",
+          "itemQuantity": 12
+        },
+        {
+          "itemName": "Paket",
+          "itemQuantity": 100
+        }        
+      ],  
+      "others":[
+        {
+          "itemName": "ishHaqi",
+          "itemQuantity": 100000
+        },
+        {
+          "itemName": "Ovqat",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Gaz",
+          "itemQuantity": 5000
+        },
+        {
+          "itemName": "Elektr",
+          "itemQuantity": 3000
+        },
+        {
+          "itemName": "Yo'lkira",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Nonho'ja",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Sotuvchi",
+          "itemQuantity": 15000
+        },
+        {
+          "itemName": "Boshqalar",
+          "itemQuantity": 6000
+        }
+      ],  
       "breadImage": "images/products/un.png"
     },
     {
@@ -1053,6 +1237,98 @@
       "jastaNonSoni": 5, 
       "bonusTulov": 50000, 
       "jamiQoplargaTulanganTUlov": 0, 
+      "requiredItems": [
+        {
+          "itemName": "Yog",
+          "itemQuantity": 1
+        },
+        {
+          "itemName": "Suzma",
+          "itemQuantity": 3
+        },
+        {
+          "itemName": "Suhoy",
+          "itemQuantity": 7
+        },
+        {
+          "itemName": "Droj",
+          "itemQuantity": 2
+        },
+        {
+          "itemName": "Kunjut",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Sedana",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Tuz",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Pista",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Bodom",
+          "itemQuantity": 0.4
+        },
+        {
+          "itemName": "Keshu",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Yong'oq",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Shakar",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Ko'mir",
+          "itemQuantity": 12
+        },
+        {
+          "itemName": "Paket",
+          "itemQuantity": 100
+        }        
+      ],  
+      "others":[
+        {
+          "itemName": "ishHaqi",
+          "itemQuantity": 100000
+        },
+        {
+          "itemName": "Ovqat",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Gaz",
+          "itemQuantity": 5000
+        },
+        {
+          "itemName": "Elektr",
+          "itemQuantity": 3000
+        },
+        {
+          "itemName": "Yo'lkira",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Nonho'ja",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Sotuvchi",
+          "itemQuantity": 15000
+        },
+        {
+          "itemName": "Boshqalar",
+          "itemQuantity": 6000
+        }
+      ], 
       "breadImage": "images/products/un.png"
     },
     {
@@ -1066,6 +1342,98 @@
       "jastaNonSoni": 5, 
       "bonusTulov": 50000, 
       "jamiQoplargaTulanganTUlov": 0, 
+      "requiredItems": [
+        {
+          "itemName": "Yog",
+          "itemQuantity": 1
+        },
+        {
+          "itemName": "Suzma",
+          "itemQuantity": 3
+        },
+        {
+          "itemName": "Suhoy",
+          "itemQuantity": 7
+        },
+        {
+          "itemName": "Droj",
+          "itemQuantity": 2
+        },
+        {
+          "itemName": "Kunjut",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Sedana",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Tuz",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Pista",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Bodom",
+          "itemQuantity": 0.4
+        },
+        {
+          "itemName": "Keshu",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Yong'oq",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Shakar",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Ko'mir",
+          "itemQuantity": 12
+        },
+        {
+          "itemName": "Paket",
+          "itemQuantity": 100
+        }        
+      ],  
+      "others":[
+        {
+          "itemName": "ishHaqi",
+          "itemQuantity": 100000
+        },
+        {
+          "itemName": "Ovqat",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Gaz",
+          "itemQuantity": 5000
+        },
+        {
+          "itemName": "Elektr",
+          "itemQuantity": 3000
+        },
+        {
+          "itemName": "Yo'lkira",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Nonho'ja",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Sotuvchi",
+          "itemQuantity": 15000
+        },
+        {
+          "itemName": "Boshqalar",
+          "itemQuantity": 6000
+        }
+      ], 
       "breadImage": "images/products/un.png"
     },
     {
@@ -1079,6 +1447,98 @@
       "jastaNonSoni": 5, 
       "bonusTulov": 50000, 
       "jamiQoplargaTulanganTUlov": 0, 
+      "requiredItems": [
+        {
+          "itemName": "Yog",
+          "itemQuantity": 1
+        },
+        {
+          "itemName": "Suzma",
+          "itemQuantity": 3
+        },
+        {
+          "itemName": "Suhoy",
+          "itemQuantity": 7
+        },
+        {
+          "itemName": "Droj",
+          "itemQuantity": 2
+        },
+        {
+          "itemName": "Kunjut",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Sedana",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Tuz",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Pista",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Bodom",
+          "itemQuantity": 0.4
+        },
+        {
+          "itemName": "Keshu",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Yong'oq",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Shakar",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Ko'mir",
+          "itemQuantity": 12
+        },
+        {
+          "itemName": "Paket",
+          "itemQuantity": 100
+        }        
+      ],  
+      "others":[
+        {
+          "itemName": "ishHaqi",
+          "itemQuantity": 100000
+        },
+        {
+          "itemName": "Ovqat",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Gaz",
+          "itemQuantity": 5000
+        },
+        {
+          "itemName": "Elektr",
+          "itemQuantity": 3000
+        },
+        {
+          "itemName": "Yo'lkira",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Nonho'ja",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Sotuvchi",
+          "itemQuantity": 15000
+        },
+        {
+          "itemName": "Boshqalar",
+          "itemQuantity": 6000
+        }
+      ], 
       "breadImage": "images/products/un.png"
     },
     {
@@ -1092,6 +1552,98 @@
       "jastaNonSoni": 5, 
       "bonusTulov": 50000, 
       "jamiQoplargaTulanganTUlov": 0, 
+      "requiredItems": [
+        {
+          "itemName": "Yog",
+          "itemQuantity": 1
+        },
+        {
+          "itemName": "Suzma",
+          "itemQuantity": 3
+        },
+        {
+          "itemName": "Suhoy",
+          "itemQuantity": 7
+        },
+        {
+          "itemName": "Droj",
+          "itemQuantity": 2
+        },
+        {
+          "itemName": "Kunjut",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Sedana",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Tuz",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Pista",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Bodom",
+          "itemQuantity": 0.4
+        },
+        {
+          "itemName": "Keshu",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Yong'oq",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Shakar",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Ko'mir",
+          "itemQuantity": 12
+        },
+        {
+          "itemName": "Paket",
+          "itemQuantity": 100
+        }        
+      ],  
+      "others":[
+        {
+          "itemName": "ishHaqi",
+          "itemQuantity": 100000
+        },
+        {
+          "itemName": "Ovqat",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Gaz",
+          "itemQuantity": 5000
+        },
+        {
+          "itemName": "Elektr",
+          "itemQuantity": 3000
+        },
+        {
+          "itemName": "Yo'lkira",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Nonho'ja",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Sotuvchi",
+          "itemQuantity": 15000
+        },
+        {
+          "itemName": "Boshqalar",
+          "itemQuantity": 6000
+        }
+      ], 
       "breadImage": "images/products/un.png"
     },
     {
@@ -1105,6 +1657,98 @@
       "jastaNonSoni": 5, 
       "bonusTulov": 50000, 
       "jamiQoplargaTulanganTUlov": 0, 
+      "requiredItems": [
+        {
+          "itemName": "Yog",
+          "itemQuantity": 1
+        },
+        {
+          "itemName": "Suzma",
+          "itemQuantity": 3
+        },
+        {
+          "itemName": "Suhoy",
+          "itemQuantity": 7
+        },
+        {
+          "itemName": "Droj",
+          "itemQuantity": 2
+        },
+        {
+          "itemName": "Kunjut",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Sedana",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Tuz",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Pista",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Bodom",
+          "itemQuantity": 0.4
+        },
+        {
+          "itemName": "Keshu",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Yong'oq",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Shakar",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Ko'mir",
+          "itemQuantity": 12
+        },
+        {
+          "itemName": "Paket",
+          "itemQuantity": 100
+        }        
+      ],  
+      "others":[
+        {
+          "itemName": "ishHaqi",
+          "itemQuantity": 100000
+        },
+        {
+          "itemName": "Ovqat",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Gaz",
+          "itemQuantity": 5000
+        },
+        {
+          "itemName": "Elektr",
+          "itemQuantity": 3000
+        },
+        {
+          "itemName": "Yo'lkira",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Nonho'ja",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Sotuvchi",
+          "itemQuantity": 15000
+        },
+        {
+          "itemName": "Boshqalar",
+          "itemQuantity": 6000
+        }
+      ], 
       "breadImage": "images/products/un.png"
     },
     {
@@ -1117,7 +1761,99 @@
       "bonusNonSoni": 5, 
       "jastaNonSoni": 5, 
       "bonusTulov": 50000, 
-      "jamiQoplargaTulanganTUlov": 0, 
+      "jamiQoplargaTulanganTUlov": 0,
+      "requiredItems": [
+        {
+          "itemName": "Yog",
+          "itemQuantity": 1
+        },
+        {
+          "itemName": "Suzma",
+          "itemQuantity": 3
+        },
+        {
+          "itemName": "Suhoy",
+          "itemQuantity": 7
+        },
+        {
+          "itemName": "Droj",
+          "itemQuantity": 2
+        },
+        {
+          "itemName": "Kunjut",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Sedana",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Tuz",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Pista",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Bodom",
+          "itemQuantity": 0.4
+        },
+        {
+          "itemName": "Keshu",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Yong'oq",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Shakar",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Ko'mir",
+          "itemQuantity": 12
+        },
+        {
+          "itemName": "Paket",
+          "itemQuantity": 100
+        }        
+      ],  
+      "others":[
+        {
+          "itemName": "ishHaqi",
+          "itemQuantity": 100000
+        },
+        {
+          "itemName": "Ovqat",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Gaz",
+          "itemQuantity": 5000
+        },
+        {
+          "itemName": "Elektr",
+          "itemQuantity": 3000
+        },
+        {
+          "itemName": "Yo'lkira",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Nonho'ja",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Sotuvchi",
+          "itemQuantity": 15000
+        },
+        {
+          "itemName": "Boshqalar",
+          "itemQuantity": 6000
+        }
+      ],  
       "breadImage": "images/products/un.png"
     },
     {
@@ -1131,6 +1867,98 @@
       "jastaNonSoni": 5, 
       "bonusTulov": 50000, 
       "jamiQoplargaTulanganTUlov": 0, 
+      "requiredItems": [
+        {
+          "itemName": "Yog",
+          "itemQuantity": 1
+        },
+        {
+          "itemName": "Suzma",
+          "itemQuantity": 3
+        },
+        {
+          "itemName": "Suhoy",
+          "itemQuantity": 7
+        },
+        {
+          "itemName": "Droj",
+          "itemQuantity": 2
+        },
+        {
+          "itemName": "Kunjut",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Sedana",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Tuz",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Pista",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Bodom",
+          "itemQuantity": 0.4
+        },
+        {
+          "itemName": "Keshu",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Yong'oq",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Shakar",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Ko'mir",
+          "itemQuantity": 12
+        },
+        {
+          "itemName": "Paket",
+          "itemQuantity": 100
+        }        
+      ],  
+      "others":[
+        {
+          "itemName": "ishHaqi",
+          "itemQuantity": 100000
+        },
+        {
+          "itemName": "Ovqat",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Gaz",
+          "itemQuantity": 5000
+        },
+        {
+          "itemName": "Elektr",
+          "itemQuantity": 3000
+        },
+        {
+          "itemName": "Yo'lkira",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Nonho'ja",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Sotuvchi",
+          "itemQuantity": 15000
+        },
+        {
+          "itemName": "Boshqalar",
+          "itemQuantity": 6000
+        }
+      ], 
       "breadImage": "images/products/un.png"
     },
     {
@@ -1144,6 +1972,98 @@
       "jastaNonSoni": 5, 
       "bonusTulov": 50000, 
       "jamiQoplargaTulanganTUlov": 0, 
+      "requiredItems": [
+        {
+          "itemName": "Yog",
+          "itemQuantity": 1
+        },
+        {
+          "itemName": "Suzma",
+          "itemQuantity": 3
+        },
+        {
+          "itemName": "Suhoy",
+          "itemQuantity": 7
+        },
+        {
+          "itemName": "Droj",
+          "itemQuantity": 2
+        },
+        {
+          "itemName": "Kunjut",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Sedana",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Tuz",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Pista",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Bodom",
+          "itemQuantity": 0.4
+        },
+        {
+          "itemName": "Keshu",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Yong'oq",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Shakar",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Ko'mir",
+          "itemQuantity": 12
+        },
+        {
+          "itemName": "Paket",
+          "itemQuantity": 100
+        }        
+      ],  
+      "others":[
+        {
+          "itemName": "ishHaqi",
+          "itemQuantity": 100000
+        },
+        {
+          "itemName": "Ovqat",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Gaz",
+          "itemQuantity": 5000
+        },
+        {
+          "itemName": "Elektr",
+          "itemQuantity": 3000
+        },
+        {
+          "itemName": "Yo'lkira",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Nonho'ja",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Sotuvchi",
+          "itemQuantity": 15000
+        },
+        {
+          "itemName": "Boshqalar",
+          "itemQuantity": 6000
+        }
+      ], 
       "breadImage": "images/products/un.png"
     },
     {
@@ -1157,6 +2077,98 @@
       "jastaNonSoni": 5, 
       "bonusTulov": 50000, 
       "jamiQoplargaTulanganTUlov": 0, 
+      "requiredItems": [
+        {
+          "itemName": "Yog",
+          "itemQuantity": 1
+        },
+        {
+          "itemName": "Suzma",
+          "itemQuantity": 3
+        },
+        {
+          "itemName": "Suhoy",
+          "itemQuantity": 7
+        },
+        {
+          "itemName": "Droj",
+          "itemQuantity": 2
+        },
+        {
+          "itemName": "Kunjut",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Sedana",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Tuz",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Pista",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Bodom",
+          "itemQuantity": 0.4
+        },
+        {
+          "itemName": "Keshu",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Yong'oq",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Shakar",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Ko'mir",
+          "itemQuantity": 12
+        },
+        {
+          "itemName": "Paket",
+          "itemQuantity": 100
+        }        
+      ],  
+      "others":[
+        {
+          "itemName": "ishHaqi",
+          "itemQuantity": 100000
+        },
+        {
+          "itemName": "Ovqat",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Gaz",
+          "itemQuantity": 5000
+        },
+        {
+          "itemName": "Elektr",
+          "itemQuantity": 3000
+        },
+        {
+          "itemName": "Yo'lkira",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Nonho'ja",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Sotuvchi",
+          "itemQuantity": 15000
+        },
+        {
+          "itemName": "Boshqalar",
+          "itemQuantity": 6000
+        }
+      ], 
       "breadImage": "images/products/un.png"
     },
     {
@@ -1170,6 +2182,98 @@
       "jastaNonSoni": 5, 
       "bonusTulov": 50000, 
       "jamiQoplargaTulanganTUlov": 0, 
+      "requiredItems": [
+        {
+          "itemName": "Yog",
+          "itemQuantity": 1
+        },
+        {
+          "itemName": "Suzma",
+          "itemQuantity": 3
+        },
+        {
+          "itemName": "Suhoy",
+          "itemQuantity": 7
+        },
+        {
+          "itemName": "Droj",
+          "itemQuantity": 2
+        },
+        {
+          "itemName": "Kunjut",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Sedana",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Tuz",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Pista",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Bodom",
+          "itemQuantity": 0.4
+        },
+        {
+          "itemName": "Keshu",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Yong'oq",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Shakar",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Ko'mir",
+          "itemQuantity": 12
+        },
+        {
+          "itemName": "Paket",
+          "itemQuantity": 100
+        }        
+      ],  
+      "others":[
+        {
+          "itemName": "ishHaqi",
+          "itemQuantity": 100000
+        },
+        {
+          "itemName": "Ovqat",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Gaz",
+          "itemQuantity": 5000
+        },
+        {
+          "itemName": "Elektr",
+          "itemQuantity": 3000
+        },
+        {
+          "itemName": "Yo'lkira",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Nonho'ja",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Sotuvchi",
+          "itemQuantity": 15000
+        },
+        {
+          "itemName": "Boshqalar",
+          "itemQuantity": 6000
+        }
+      ], 
       "breadImage": "images/products/un.png"
     },
     {
@@ -1183,6 +2287,98 @@
       "jastaNonSoni": 5, 
       "bonusTulov": 50000, 
       "jamiQoplargaTulanganTUlov": 0, 
+      "requiredItems": [
+        {
+          "itemName": "Yog",
+          "itemQuantity": 1
+        },
+        {
+          "itemName": "Suzma",
+          "itemQuantity": 3
+        },
+        {
+          "itemName": "Suhoy",
+          "itemQuantity": 7
+        },
+        {
+          "itemName": "Droj",
+          "itemQuantity": 2
+        },
+        {
+          "itemName": "Kunjut",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Sedana",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Tuz",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Pista",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Bodom",
+          "itemQuantity": 0.4
+        },
+        {
+          "itemName": "Keshu",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Yong'oq",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Shakar",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Ko'mir",
+          "itemQuantity": 12
+        },
+        {
+          "itemName": "Paket",
+          "itemQuantity": 100
+        }        
+      ],  
+      "others":[
+        {
+          "itemName": "ishHaqi",
+          "itemQuantity": 100000
+        },
+        {
+          "itemName": "Ovqat",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Gaz",
+          "itemQuantity": 5000
+        },
+        {
+          "itemName": "Elektr",
+          "itemQuantity": 3000
+        },
+        {
+          "itemName": "Yo'lkira",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Nonho'ja",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Sotuvchi",
+          "itemQuantity": 15000
+        },
+        {
+          "itemName": "Boshqalar",
+          "itemQuantity": 6000
+        }
+      ], 
       "breadImage": "images/products/un.png"
     },
     {
@@ -1196,6 +2392,98 @@
       "jastaNonSoni": 5, 
       "bonusTulov": 50000, 
       "jamiQoplargaTulanganTUlov": 0, 
+      "requiredItems": [
+        {
+          "itemName": "Yog",
+          "itemQuantity": 1
+        },
+        {
+          "itemName": "Suzma",
+          "itemQuantity": 3
+        },
+        {
+          "itemName": "Suhoy",
+          "itemQuantity": 7
+        },
+        {
+          "itemName": "Droj",
+          "itemQuantity": 2
+        },
+        {
+          "itemName": "Kunjut",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Sedana",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Tuz",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Pista",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Bodom",
+          "itemQuantity": 0.4
+        },
+        {
+          "itemName": "Keshu",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Yong'oq",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Shakar",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Ko'mir",
+          "itemQuantity": 12
+        },
+        {
+          "itemName": "Paket",
+          "itemQuantity": 100
+        }        
+      ],  
+      "others":[
+        {
+          "itemName": "ishHaqi",
+          "itemQuantity": 100000
+        },
+        {
+          "itemName": "Ovqat",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Gaz",
+          "itemQuantity": 5000
+        },
+        {
+          "itemName": "Elektr",
+          "itemQuantity": 3000
+        },
+        {
+          "itemName": "Yo'lkira",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Nonho'ja",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Sotuvchi",
+          "itemQuantity": 15000
+        },
+        {
+          "itemName": "Boshqalar",
+          "itemQuantity": 6000
+        }
+      ], 
       "breadImage": "images/products/un.png"
     },
     {
@@ -1209,6 +2497,98 @@
       "jastaNonSoni": 5, 
       "bonusTulov": 50000, 
       "jamiQoplargaTulanganTUlov": 0, 
+      "requiredItems": [
+        {
+          "itemName": "Yog",
+          "itemQuantity": 1
+        },
+        {
+          "itemName": "Suzma",
+          "itemQuantity": 3
+        },
+        {
+          "itemName": "Suhoy",
+          "itemQuantity": 7
+        },
+        {
+          "itemName": "Droj",
+          "itemQuantity": 2
+        },
+        {
+          "itemName": "Kunjut",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Sedana",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Tuz",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Pista",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Bodom",
+          "itemQuantity": 0.4
+        },
+        {
+          "itemName": "Keshu",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Yong'oq",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Shakar",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Ko'mir",
+          "itemQuantity": 12
+        },
+        {
+          "itemName": "Paket",
+          "itemQuantity": 100
+        }        
+      ],  
+      "others":[
+        {
+          "itemName": "ishHaqi",
+          "itemQuantity": 100000
+        },
+        {
+          "itemName": "Ovqat",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Gaz",
+          "itemQuantity": 5000
+        },
+        {
+          "itemName": "Elektr",
+          "itemQuantity": 3000
+        },
+        {
+          "itemName": "Yo'lkira",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Nonho'ja",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Sotuvchi",
+          "itemQuantity": 15000
+        },
+        {
+          "itemName": "Boshqalar",
+          "itemQuantity": 6000
+        }
+      ], 
       "breadImage": "images/products/un.png"
     },
     {
@@ -1222,6 +2602,98 @@
       "jastaNonSoni": 5, 
       "bonusTulov": 50000, 
       "jamiQoplargaTulanganTUlov": 0, 
+      "requiredItems": [
+        {
+          "itemName": "Yog",
+          "itemQuantity": 1
+        },
+        {
+          "itemName": "Suzma",
+          "itemQuantity": 3
+        },
+        {
+          "itemName": "Suhoy",
+          "itemQuantity": 7
+        },
+        {
+          "itemName": "Droj",
+          "itemQuantity": 2
+        },
+        {
+          "itemName": "Kunjut",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Sedana",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Tuz",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Pista",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Bodom",
+          "itemQuantity": 0.4
+        },
+        {
+          "itemName": "Keshu",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Yong'oq",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Shakar",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Ko'mir",
+          "itemQuantity": 12
+        },
+        {
+          "itemName": "Paket",
+          "itemQuantity": 100
+        }        
+      ],  
+      "others":[
+        {
+          "itemName": "ishHaqi",
+          "itemQuantity": 100000
+        },
+        {
+          "itemName": "Ovqat",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Gaz",
+          "itemQuantity": 5000
+        },
+        {
+          "itemName": "Elektr",
+          "itemQuantity": 3000
+        },
+        {
+          "itemName": "Yo'lkira",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Nonho'ja",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Sotuvchi",
+          "itemQuantity": 15000
+        },
+        {
+          "itemName": "Boshqalar",
+          "itemQuantity": 6000
+        }
+      ], 
       "breadImage": "images/products/un.png"
     },
     {
@@ -1235,6 +2707,98 @@
       "jastaNonSoni": 5, 
       "bonusTulov": 50000, 
       "jamiQoplargaTulanganTUlov": 0, 
+      "requiredItems": [
+        {
+          "itemName": "Yog",
+          "itemQuantity": 1
+        },
+        {
+          "itemName": "Suzma",
+          "itemQuantity": 3
+        },
+        {
+          "itemName": "Suhoy",
+          "itemQuantity": 7
+        },
+        {
+          "itemName": "Droj",
+          "itemQuantity": 2
+        },
+        {
+          "itemName": "Kunjut",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Sedana",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Tuz",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Pista",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Bodom",
+          "itemQuantity": 0.4
+        },
+        {
+          "itemName": "Keshu",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Yong'oq",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Shakar",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Ko'mir",
+          "itemQuantity": 12
+        },
+        {
+          "itemName": "Paket",
+          "itemQuantity": 100
+        }        
+      ],  
+      "others":[
+        {
+          "itemName": "ishHaqi",
+          "itemQuantity": 100000
+        },
+        {
+          "itemName": "Ovqat",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Gaz",
+          "itemQuantity": 5000
+        },
+        {
+          "itemName": "Elektr",
+          "itemQuantity": 3000
+        },
+        {
+          "itemName": "Yo'lkira",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Nonho'ja",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Sotuvchi",
+          "itemQuantity": 15000
+        },
+        {
+          "itemName": "Boshqalar",
+          "itemQuantity": 6000
+        }
+      ], 
       "breadImage": "images/products/un.png"
     },
     {
@@ -1248,6 +2812,98 @@
       "jastaNonSoni": 5, 
       "bonusTulov": 50000, 
       "jamiQoplargaTulanganTUlov": 0, 
+      "requiredItems": [
+        {
+          "itemName": "Yog",
+          "itemQuantity": 1
+        },
+        {
+          "itemName": "Suzma",
+          "itemQuantity": 3
+        },
+        {
+          "itemName": "Suhoy",
+          "itemQuantity": 7
+        },
+        {
+          "itemName": "Droj",
+          "itemQuantity": 2
+        },
+        {
+          "itemName": "Kunjut",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Sedana",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Tuz",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Pista",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Bodom",
+          "itemQuantity": 0.4
+        },
+        {
+          "itemName": "Keshu",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Yong'oq",
+          "itemQuantity": 0
+        },
+        {
+          "itemName": "Shakar",
+          "itemQuantity": 0.5
+        },
+        {
+          "itemName": "Ko'mir",
+          "itemQuantity": 12
+        },
+        {
+          "itemName": "Paket",
+          "itemQuantity": 100
+        }        
+      ],  
+      "others":[
+        {
+          "itemName": "ishHaqi",
+          "itemQuantity": 100000
+        },
+        {
+          "itemName": "Ovqat",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Gaz",
+          "itemQuantity": 5000
+        },
+        {
+          "itemName": "Elektr",
+          "itemQuantity": 3000
+        },
+        {
+          "itemName": "Yo'lkira",
+          "itemQuantity": 2000
+        },
+        {
+          "itemName": "Nonho'ja",
+          "itemQuantity": 4
+        },
+        {
+          "itemName": "Sotuvchi",
+          "itemQuantity": 15000
+        },
+        {
+          "itemName": "Boshqalar",
+          "itemQuantity": 6000
+        }
+      ], 
       "breadImage": "images/products/un.png"
     }
 
