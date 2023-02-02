@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from 'react'
-import { Container, Row, Col, Form, Button, OverlayTrigger, Tooltip } from 'react-bootstrap'
-import Card from '../../../components/Card'
-import { Link } from 'react-router-dom'
-import axios from 'axios';
-import { PRODUCTS_URL } from '../../../API';
+import  React, {useState, useEffect} from 'react'
 import { useHistory } from "react-router";
-import "./Product.css"
+import {Container,Row,Col,Form,Button,OverlayTrigger,Tooltip} from 'react-bootstrap'
+import  Card from '../../../components/Card'
+import {Link} from 'react-router-dom'
+import axios from 'axios';
+import { CALCULATE_URL } from '../../../API';
 
 
 
-const Product = () => {
-    const [postProducts, setPostProducts] = useState([]);
+const Calculate =()=>{
+
+    const [postBread, setPostBread] = useState([]);
 
     const history = useHistory()
 
     useEffect(() => {
-        axios.get(PRODUCTS_URL)
+        axios.get(CALCULATE_URL)
             .then(res => {
-                setPostProducts(res.data)
+                setPostBread(res.data)
                 // console.log(res.data);
             })
             .catch(err => console.log(err))
@@ -29,10 +29,10 @@ const Product = () => {
 
                 <div className="d-flex flex-wrap align-items-center justify-content-between my-schedule mb-4 prodSt ">
                     <div className="d-flex align-items-center justify-content-between">
-                        <h4 className="font-weight-bold ">Maxsulotlar</h4>
+                        <h4 className="font-weight-bold">Maxsulotlar</h4>
                     </div>
-                    <div className="create-workform ">
-                        <div className="d-flex flex-wrap align-items-center justify-content-between ">
+                    <div className="create-workform">
+                        <div className="d-flex flex-wrap align-items-center justify-content-between">
                             <div className="modal-product-search d-flex ">
                                 <Form className="mr-3 position-relative">
                                     <div className="form-group mb-0">
@@ -44,7 +44,7 @@ const Product = () => {
                                         </Link>
                                     </div>
                                 </Form>
-                                <Link to="/product-add" className="btn myButtonCustomer qushishCustomer position-relative d-flex align-items-center justify-content-between">
+                                <Link to="/calculate-add" className="btn myButtonCustomer qushishCustomer position-relative d-flex align-items-center justify-content-between">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                     </svg>Qo'shish
@@ -61,37 +61,27 @@ const Product = () => {
                             <div className="container">
                                 <div className="row align-items-center myHeaderProductStyle">
                                     <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">№</div>
-                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1"></div>
-                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Mahsulot nomi</div>
-                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Kategoriyasi</div>
-                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">Narhi</div>
-                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">Miqdori</div>
-                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Skladda</div>
-                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">Amal</div>
+                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Rasmi</div>
+                                    <div className="col-sm-12 col-md-2 col-lg-3 col-xl-3">Non nomi</div>
+                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Narxi</div>
+                                    <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4 text-right">Amal</div>
                                 </div>
                             </div>
                         </div>
 
                         {
-                            postProducts.map((product) => (
-                                <div key={product.id} className="p-2 border myStyleProduct ownStylePro">
+                            postBread.map((bread) => (
+                                <div key={bread.id} className="p-2 border myStyleProduct ownStylePro">
                                     <div className="container">
                                         <div className="row align-items-center">
-                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{product.id}</div>
-                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1"><img src={product.productImage} alt="Rasm" style={{ width: "35px" }} /></div>
-                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ fontWeight: "500" }}>{product.productName}</div>
-                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{product.productDes}</div>
-                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">${product.productPrice}</div>
-                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{product.poductQuantity}</div>
-                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ color: product.poductQuantity > 10 ? '#149100' : product.poductQuantity <= 0 ? "#EC0000" : '#EFAC00', fontWeight: '500' }}>
-                                                <small><svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
-                                                    <circle cx="12" cy="12" r="8" style={{ fill: product.poductQuantity > 10 ? '#149100' : product.poductQuantity <= 0 ? "#EC0000" : '#EFAC00' }}></circle></svg>
-                                                </small>{product.poductQuantity > 10 ? "Mavjud" : product.poductQuantity <= 0 ? "Tugadi" : 'Oz qoldi'}
-                                            </div>
-                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 productSvgStyle">
+                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{bread.id}</div>
+                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2"><img src={bread.breadImage} alt="Rasm" style={{ width: "35px" }} /></div>
+                                            <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3" style={{ fontWeight: "500" }}>{bread.breadName}</div>
+                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{bread.price}</div>
+                                            <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4 text-right productSvgStyle">
                                                 <OverlayTrigger placement="top" overlay={<Tooltip>View</Tooltip>} >
                                                     {/* <Link className=""> */}
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className="text-secondary" width="20" fill="none" viewBox="0 0 24 24" stroke="#0A7AFF" onClick={() => history.push(`/product/${product.id}`)}>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="text-secondary" width="20" fill="none" viewBox="0 0 24 24" stroke="#0A7AFF" onClick={() => history.push(`/calculate/${bread.id}`)}>
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                     </svg>
@@ -134,4 +124,4 @@ const Product = () => {
     )
 }
 
-export default Product;
+export default Calculate;

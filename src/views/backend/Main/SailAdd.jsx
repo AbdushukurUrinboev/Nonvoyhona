@@ -3,33 +3,37 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios';
-import { PRODUCTS_URL } from '../../../API';
-import DatePicker from "react-datepicker";
+import { SAIL_URL } from '../../../API';
 import "react-datepicker/dist/react-datepicker.css";
 import './ProductAdd.css'
 
-const Productadd = () => {
+const SailAdd = () => {
     const [name, setName] = useState('');
-    const [category, setCategory] = useState('');
-    const [price, setPrice] = useState('');
-    const [quantity, setQuantity] = useState('');
+    const [quantity, setQuantity] = useState(0);
+    const [customer, setCustomer] = useState('');
+    const [givenProductQuantity, setgivenProductQuantity] = useState(0);
+    const [avans, setAvans] = useState(0);
+    const [all, setAll] = useState(0);
     const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
+    const [mijozlar, setMijozlar] = useState(false)
     const history = useHistory()
+
 
 
     function handleChange(e) {
         e.preventDefault();
-        axios.post(PRODUCTS_URL, {
+        axios.post(SAIL_URL, {
             name,
-            category,
-            price,
             quantity,
+            customer,
+            givenProductQuantity,
+            avans,
+            all,
             uploadImage
-
         })
             .then(res => {
                 console.log("Data is saved", res)
-                history.push('/products')
+                history.push('/sail')
             })
             .catch(err => console.log(err))
 
@@ -46,17 +50,17 @@ const Productadd = () => {
                         <div className="d-flex align-items-center justify-content-between">
                             <nav aria-label="breadcrumb">
                                 <ol className="breadcrumb p-0 mb-0">
-                                    <li className="breadcrumb-item"><Link to="/products">Mahsulotlar</Link></li>
-                                    <li className="breadcrumb-item active" aria-current="page">Mahsulot qo'shish</li>
+                                    <li className="breadcrumb-item"><Link to="/sail">Sotuv</Link></li>
+                                    <li className="breadcrumb-item active" aria-current="page">Mijozlarga tarqatish</li>
                                 </ol>
                             </nav>
                         </div>
                     </Col>
                     <Col lg="12" className="mt-3 mb-3 d-flex justify-content-between">
-                        <h4 className="font-weight-bold0 d-flex align-items-center productHeader">Yangi mahsulot qo'shish</h4>
+                        <h4 className="font-weight-bold0 d-flex align-items-center styleHeader">Mijozlarga Taqsimlash</h4>
                     </Col>
                     <Col lg="12" className="mt-3 mb-3 d-flex justify-content-between">
-                        <Link to="/products" className="btn btn-primary btn-sm d-flex align-items-left justify-content-between">
+                        <Link to="/sail" className="btn btn-primary btn-sm d-flex align-items-left justify-content-between">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
                             </svg>
@@ -69,10 +73,10 @@ const Productadd = () => {
                             <Card.Body>
                                 <Row>
                                     <Col md="3" className="mb-3">
-                                        <Card.Body className="productAddStyleCardBody mt-3 mx-auto">
-                                            <input type="file" className='productAddStyleInput ' accept='image/png, image/jpg, image/jpeg' onChange={e => setUploadImage(e.target.files[0])} />
+                                        <Card.Body className="sailAddStyleCardBody mt-3 mx-auto">
+                                            <input type="file" className='sailAddStyleInput ' accept='image/png, image/jpg, image/jpeg' onChange={e => setUploadImage(e.target.files[0])} />
                                             <div className="d-flex justify-content-center mt-4">
-                                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="80px" x="0px" y="0px" viewBox="0 0 419.2 419.2" style={{ enableBackground: "new 0 0 419.2 419.2" }} stroke="currentColor">
+                                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="50px" x="0px" y="0px" viewBox="0 0 419.2 419.2" style={{ enableBackground: "new 0 0 419.2 419.2" }} stroke="currentColor">
                                                     <g>
                                                         <g>
                                                             <g>
@@ -85,7 +89,6 @@ const Productadd = () => {
                                                 </svg>
                                             </div>
                                             <div className="d-flex justify-content-center mt-2 mb-5">
-
                                                 <p className="mb-0 text-muted font-weight-bold">Rasm yuklash</p>
                                             </div>
                                         </Card.Body>
@@ -93,27 +96,56 @@ const Productadd = () => {
                                     <Col md="9">
                                         <Form className="row g-3 date-icon-set-modal">
                                             <div className="col-md-6 mb-3">
-                                                <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Nomi</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Mahsulot nomini kiriting..." onChange={e => setName(e.target.value)} required='required' />
+                                                <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Non nomi</Form.Label>
+                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => { setName(e.target.value) }}>
+                                                    <option value="no">Turi</option>
+                                                    <option value="Doimiy">Chimyon Patir</option>
+                                                    <option value="Vaqtincha">Kulcha</option>
+                                                    <option value="Vaqtincha">...</option>
+                                                </select>
+                                            </div>
+                                            <div className="col-md-6 mb-3">
+                                                <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Mijozni tanlang</Form.Label>
+                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => { setCustomer(e.target.value);if (e.target.value === "Doimiy") setMijozlar(true); else setMijozlar(false) }}>
+                                                    <option value="no">Turi</option>
+                                                    <option value="Doimiy">Doimiy</option>
+                                                    <option value="Vaqtincha">Vaqtincha</option>
+                                                </select>
+                                            </div>
+                                            <div className="col-md-6 mb-3">
+                                                <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Berayotgan Non soni</Form.Label>
+                                                <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." onChange={e => setQuantity(e.target.value)} />
+                                            </div>
+                                            {
+                                                mijozlar ? (<div className="col-md-6 mb-3">
+                                                    <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Mijozlar ro'yhati</Form.Label>
+                                                    <select id="inputState" className="form-select form-control choicesjs" onChange={e => setCustomer(e.target.value)}>
+                                                        <option value="no">Mijozlar</option>
+                                                        <option value="O'rinboyev Abdushukur">O'rinboyev Abdushukur</option>
+                                                        <option value="Mavlonov Elbek">Mavlonov Elbek</option>
+                                                        <option value="Ziyayev Anvar">Ziyayev Anvar</option>
+                                                        <option value="Xomidov Abdusattor">Xomidov Abdusattor</option>
+                                                        <option value="Kamolov Alijon">Kamolov Alijon</option>
+                                                    </select>
+                                                </div>) : (<div className="col-md-6 mb-3">
+                                                    <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Kimga</Form.Label>
+                                                    <Form.Control type="text" id="Text5" placeholder="Kim uchunligini kiriting..." onChange={e => setCustomer(e.target.value)} />
+                                                </div>)
+                                            }
+                                            <div className="col-md-6 mb-3">
+                                                <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Avans</Form.Label>
+                                                <Form.Control type="text" id="Text1" placeholder="Mijoz bergan avansini kiriting..." onChange={e => setAvans(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
-                                                <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Narxi</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Narxini kiriting..." onChange={e => setPrice(e.target.value)} required='required' />
-                                            </div>
-                                            <div className="col-md-6 mb-3">
-                                                <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Kategoriya</Form.Label>
-                                                <Form.Control type="text" id="Text3" placeholder="Kategoriyani kiriting..." required='required' onChange={e => setCategory(e.target.value)} />
+                                                <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Jami</Form.Label>
+                                                <Form.Control type="text" id="Text1" placeholder="Jami pul..." onChange={e => setAll(e.target.value)} required='required' />
                                             </div>
 
-                                            <div className="col-md-6 mb-3">
-                                                <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Miqdori</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Miqdorini kiriting..." required='required' onChange={e => setQuantity(e.target.value)} />
-                                            </div>
 
 
                                         </Form>
                                         <div className="text-right mt-4">
-                                            <Link to="/products" className='btn myButtonProducts qushishProduct' type="button" onClick={handleChange}>
+                                            <Link to="/sail" className='btn myButtonSails qushishSail' type="button" onClick={handleChange}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                                 </svg>
@@ -132,4 +164,4 @@ const Productadd = () => {
         </>
     )
 }
-export default Productadd;
+export default SailAdd;

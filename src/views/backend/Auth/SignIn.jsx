@@ -47,11 +47,11 @@ const SignIn = (props) => {
                      <Card className="p-3">
                         <div className='myStSignin'>
                            <Card.Body>
-                              <h3 className="mb-3 font-weight-bold text-center myJaydarStLogin">Jaydar</h3>
-                              <p className="text-left text-secondary mb-4">Novvoyxona dasturiga kirish uchun iltimos telefon raqamingiz va parolingizni kiriting!</p>
+                              <h3 className="font-weight-bold text-center myJaydarStLogin">Jaydar</h3>
+                              {/* <p className="text-left text-secondary mb-4">Novvoyxona dasturiga kirish uchun iltimos telefon raqamingiz va parolingizni kiriting!</p> */}
 
                               <div className="mb-5">
-                                 <p className="line-around text-secondary mb-0"><span className="line-around-1">login with phone number</span></p>
+                                 <p className="line-around text-secondary mb-0"><span className="line-around-1 line-st">Dasturga telefon raqamingiz orqali kiring</span></p>
                               </div>
                               <Form>
                                  <Row>
@@ -65,7 +65,7 @@ const SignIn = (props) => {
                                        <Form.Group>
                                           <div className="d-flex justify-content-between align-items-center">
                                              <Form.Label className="text-secondary">Parol</Form.Label>
-                                             <Form.Label><Link to="/auth/recoverpw">Forgot Password?</Link></Form.Label>
+                                             <Form.Label><Link to="/auth/recoverpw">Parolni unutdingizmi?</Link></Form.Label>
                                           </div>
                                           <Form.Control type="password" placeholder="Enter Password" />
                                        </Form.Group>

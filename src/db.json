@@ -98,6 +98,11 @@
       "productDes": "Qozog'iston uni",
       "productPrice": 50,
       "poductQuantity": 45,
+      "olinganSana": "15 avgust 2022",
+      "olinganSoat": "15:00",
+      "xamkor": "O'rinboyev Abdushukur",
+      "lavozimi": "Menejer",
+      "xamkorTel": "90 633 55 99",
       "productImage": "images/products/un.png"
     },
     {
@@ -106,6 +111,11 @@
       "productDes": "yog'li Sut",
       "productPrice": 6,
       "poductQuantity": 6,
+      "olinganSana": "15 avgust 2022",
+      "olinganSoat": "15:00",
+      "xamkor": "O'rinboyev Abdushukur",
+      "lavozimi": "Menejer",
+      "xamkorTel": "90 633 55 99",
       "productImage": "images/products/sut.png"
     },
     {
@@ -114,6 +124,11 @@
       "productDes": "osh Tuzi",
       "productPrice": 2,
       "poductQuantity": 20,
+      "olinganSana": "15 avgust 2022",
+      "olinganSoat": "15:00",
+      "xamkor": "O'rinboyev Abdushukur",
+      "lavozimi": "Menejer",
+      "xamkorTel": "90 633 55 99",
       "productImage": "images/products/tuz.png"
     },
     {
@@ -122,6 +137,11 @@
       "productDes": "Turkiya droji",
       "productPrice": 12,
       "poductQuantity": 3,
+      "olinganSana": "15 avgust 2022",
+      "olinganSoat": "15:00",
+      "xamkor": "O'rinboyev Abdushukur",
+      "lavozimi": "Menejer",
+      "xamkorTel": "90 633 55 99",
       "productImage": "images/products/droj.png"
     },
     {
@@ -130,6 +150,11 @@
       "productDes": "Farg'ona yog'i",
       "productPrice": 12,
       "poductQuantity": 0,
+      "olinganSana": "15 avgust 2022",
+      "olinganSoat": "15:00",
+      "xamkor": "O'rinboyev Abdushukur",
+      "lavozimi": "Menejer",
+      "xamkorTel": "90 633 55 99",
       "productImage": "images/products/yog.png"
     },
     {
@@ -139,6 +164,11 @@
       "productPrice": 1,
       "poductQuantity": 8,
       "inventory": 7,
+      "olinganSana": "15 avgust 2022",
+      "olinganSoat": "15:00",
+      "xamkor": "O'rinboyev Abdushukur",
+      "lavozimi": "Menejer",
+      "xamkorTel": "90 633 55 99",
       "productImage": "images/products/sedana.png"
     }
   ],
@@ -699,6 +729,204 @@
       "jamiTulov": "",
       "sana": "26-Yanvar,2023",
       "id": 10
+    }
+  ],
+  "sail": [
+    {
+      "id": 1,
+      "name": "Katta Patir",
+      "quantity": 150,
+      "customer": "Mavlonov Elbek",
+      "givenProductQuantity": 45,
+      "avans": "150.000",
+      "all": "500.000",
+      "productImage": "images/products/un.png"
+    },
+    {
+      "id": 2,
+      "name": "Katta Patir",
+      "quantity": 150,
+      "customer": "Mavlonov Elbek",
+      "givenProductQuantity": 45,
+      "avans": "150.000",
+      "all": "500.000",
+      "productImage": "images/products/un.png"
+    },
+    {
+      "id": 3,
+      "name": "Katta Patir",
+      "quantity": 150,
+      "customer": "Mavlonov Elbek",
+      "givenProductQuantity": 45,
+      "avans": "150.000",
+      "all": "500.000",
+      "productImage": "images/products/un.png"
+    },
+    {
+      "id": 4,
+      "name": "Katta Patir",
+      "quantity": 150,
+      "customer": "Mavlonov Elbek",
+      "givenProductQuantity": 45,
+      "avans": "150.000",
+      "all": "500.000",
+      "productImage": "images/products/un.png"
+    },
+    {
+      "id": 5,
+      "name": "Katta Patir",
+      "quantity": 150,
+      "customer": "Mavlonov Elbek",
+      "givenProductQuantity": 45,
+      "avans": "150.000",
+      "all": "500.000",
+      "productImage": "images/products/un.png"
+    },
+    {
+      "id": 6,
+      "name": "Katta Patir",
+      "quantity": 150,
+      "customer": "Mavlonov Elbek",
+      "givenProductQuantity": 45,
+      "avans": "150.000",
+      "all": "500.000",
+      "productImage": "images/products/un.png"
+    }
+  ],
+  "xamkorlar": [
+    {
+      "id": 1,
+      "firstName": "Abdushukur",
+      "surName": "Urinboev",
+      "status": "manager",
+      "phone": "+998906335599",
+      "phone2": "+998906335599",
+      "turi": "Doimiy",
+      "adress": "Farg'ona shahar A.Navoiy 55/21"
+    },
+    {
+      "id": 2,
+      "firstName": "Abdullajon",
+      "surName": "Abdurahimov",
+      "status": "director",
+      "phone": "+9989999885599",
+      "phone2": "+9989999885599",
+      "turi": "Vaqtincha",
+      "adress": "Farg'ona shahar A.Navoiy 55/21"
+    },
+    {
+      "id": 3,
+      "firstName": "Abdurahmon",
+      "surName": "Abdurahimov",
+      "status": "Waiter",
+      "phone": "+998906335599",
+      "phone2": "+998906335599",
+      "turi": "Doimiy",
+      "adress": "Farg'ona shahar A.Navoiy 55/21"
+    },
+    {
+      "id": 4,
+      "firstName": "Abdurauf",
+      "surName": "Abdurahimov",
+      "status": "Engineer",
+      "phone": "+998906335599",
+      "phone2": "+998906335599",
+      "turi": "Doimiy",
+      "adress": "Farg'ona shahar A.Navoiy 55/21"
+    },
+    {
+      "id": 5,
+      "firstName": "Abduazim",
+      "surName": "Valijonov",
+      "status": "Accountant",
+      "phone": "+998906335599",
+      "phone2": "+998906335599",
+      "turi": "Vaqtincha",
+      "adress": "Farg'ona shahar A.Navoiy 55/21"
+    },
+    {
+      "id": 6,
+      "firstName": "Maryamhon",
+      "surName": "Valijonova",
+      "status": "Administrator",
+      "phone": "+998906335599",
+      "phone2": "+998906335599",
+      "turi": "Vaqtincha",
+      "adress": "Farg'ona shahar A.Navoiy 55/21"
+    },
+    {
+      "id": 7,
+      "firstName": "Abdushukur",
+      "surName": "Urinboev",
+      "status": "Director",
+      "phone": "99889988888",
+      "phone2": "99889988888",
+      "turi": "Doimiy",
+      "adress": "Farg'ona shahar A.Navoiy 55/21"
+    },
+    {
+      "firstName": "Eminov",
+      "surName": "Sardor",
+      "status": "driver",
+      "phone": "6589656562",
+      "phone2": "6589656562",
+      "turi": "Vaqtincha",
+      "id": 8,
+      "adress": "Farg'ona shahar A.Navoiy 55/21"
+    },
+    {
+      "firstName": "Dadaquzi",
+      "surName": "Urinboev",
+      "status": "Sotuvchi",
+      "phone": "99 988 55 99",
+      "phone2": "99 988 55 99",
+      "turi": "Doimiy",
+      "id": 9,
+      "adress": "Farg'ona shahar A.Navoiy 55/21"
+    }
+  ],
+  "calculate": [
+    {
+      "id": 1,
+      "breadName": "Kulcha",
+      "price": 10000,
+      "breadImage": "images/products/un.png"
+    },
+    {
+      "id": 2,
+      "breadName": "Chimyon patir",
+      "price": 15000,
+      "breadImage": "images/products/un.png"
+    },
+    {
+      "id": 3,
+      "breadName": "Sedana non",
+      "price": 12000,
+      "breadImage": "images/products/un.png"
+    },
+    {
+      "id": 4,
+      "breadName": "Gijda",
+      "price": 15000,
+      "breadImage": "images/products/un.png"
+    },
+    {
+      "id": 5,
+      "breadName": "Xonqiz patir",
+      "price": 25000,
+      "breadImage": "images/products/un.png"
+    },
+    {
+      "id": 6,
+      "breadName": "Yog'li patir",
+      "price": 9000,
+      "breadImage": "images/products/un.png"
+    },
+    {
+      "id": 7,
+      "breadName": "Katta patir",
+      "price": 100000,
+      "breadImage": "images/products/un.png"
     }
   ]
 }

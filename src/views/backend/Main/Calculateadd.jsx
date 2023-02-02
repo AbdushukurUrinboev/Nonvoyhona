@@ -3,33 +3,30 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios';
-import { PRODUCTS_URL } from '../../../API';
+import { CALCULATE_URL } from '../../../API';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './ProductAdd.css'
 
-const Productadd = () => {
-    const [name, setName] = useState('');
-    const [category, setCategory] = useState('');
-    const [price, setPrice] = useState('');
-    const [quantity, setQuantity] = useState('');
-    const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
+const Calculateadd = () => {
+    const [breadName, setbreadName] = useState('');    
+    const [price, setPrice] = useState('');    
+    const [breadImage, setBreadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
     const history = useHistory()
 
 
     function handleChange(e) {
         e.preventDefault();
-        axios.post(PRODUCTS_URL, {
-            name,
-            category,
+        axios.post(CALCULATE_URL, {
+            breadName,
             price,
-            quantity,
-            uploadImage
+            price,            
+            breadImage
 
         })
             .then(res => {
                 console.log("Data is saved", res)
-                history.push('/products')
+                history.push('/calculate')
             })
             .catch(err => console.log(err))
 
@@ -46,17 +43,17 @@ const Productadd = () => {
                         <div className="d-flex align-items-center justify-content-between">
                             <nav aria-label="breadcrumb">
                                 <ol className="breadcrumb p-0 mb-0">
-                                    <li className="breadcrumb-item"><Link to="/products">Mahsulotlar</Link></li>
+                                    <li className="breadcrumb-item"><Link to="/calculate">Mahsulotlar</Link></li>
                                     <li className="breadcrumb-item active" aria-current="page">Mahsulot qo'shish</li>
                                 </ol>
                             </nav>
                         </div>
                     </Col>
                     <Col lg="12" className="mt-3 mb-3 d-flex justify-content-between">
-                        <h4 className="font-weight-bold0 d-flex align-items-center productHeader">Yangi mahsulot qo'shish</h4>
+                        <h4 className="font-weight-bold0 d-flex align-items-center productHeader">Yangi non va shu nonga bir qop uchun ketadigan mahsulot qo'shish</h4>
                     </Col>
                     <Col lg="12" className="mt-3 mb-3 d-flex justify-content-between">
-                        <Link to="/products" className="btn btn-primary btn-sm d-flex align-items-left justify-content-between">
+                        <Link to="/calculate" className="btn btn-primary btn-sm d-flex align-items-left justify-content-between">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
                             </svg>
@@ -70,7 +67,7 @@ const Productadd = () => {
                                 <Row>
                                     <Col md="3" className="mb-3">
                                         <Card.Body className="productAddStyleCardBody mt-3 mx-auto">
-                                            <input type="file" className='productAddStyleInput ' accept='image/png, image/jpg, image/jpeg' onChange={e => setUploadImage(e.target.files[0])} />
+                                            <input type="file" className='productAddStyleInput ' accept='image/png, image/jpg, image/jpeg' onChange={e => setBreadImage(e.target.files[0])} />
                                             <div className="d-flex justify-content-center mt-4">
                                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="80px" x="0px" y="0px" viewBox="0 0 419.2 419.2" style={{ enableBackground: "new 0 0 419.2 419.2" }} stroke="currentColor">
                                                     <g>
@@ -93,21 +90,21 @@ const Productadd = () => {
                                     <Col md="9">
                                         <Form className="row g-3 date-icon-set-modal">
                                             <div className="col-md-6 mb-3">
-                                                <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Nomi</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Mahsulot nomini kiriting..." onChange={e => setName(e.target.value)} required='required' />
+                                                <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Non nomi</Form.Label>
+                                                <Form.Control type="text" id="Text1" placeholder="Non nomini kiriting..." onChange={e => setbreadName(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Narxi</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Narxini kiriting..." onChange={e => setPrice(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" placeholder="Bir dona non uchun narxni kiriting..." onChange={e => setPrice(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3">
-                                                <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Kategoriya</Form.Label>
-                                                <Form.Control type="text" id="Text3" placeholder="Kategoriyani kiriting..." required='required' onChange={e => setCategory(e.target.value)} />
+                                                <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Barcha mahsulotlarni kiritaman</Form.Label>
+                                                <Form.Control type="text" id="Text3" placeholder="Kategoriyani kiriting..." required='required' onChange={e => setbreadName(e.target.value)} />
                                             </div>
 
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Miqdori</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Miqdorini kiriting..." required='required' onChange={e => setQuantity(e.target.value)} />
+                                                <Form.Control type="number" id="Text3" placeholder="Miqdorini kiriting..." required='required' onChange={e => setbreadName(e.target.value)} />
                                             </div>
 
 
@@ -132,4 +129,4 @@ const Productadd = () => {
         </>
     )
 }
-export default Productadd;
+export default Calculateadd;

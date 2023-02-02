@@ -1,13 +1,13 @@
 /* Table custom css */
 
 
-.prodSt {
+.sailSt {
     width: 95% !important;
     margin-left: auto;
     margin-right: auto;
 }
 
-.myContainerStyleProduct {
+.myContainerStyleSail {
     width: 95% !important;
     border: 1px solid rgba(0, 0, 0, 0.1) !important;
     border-radius: 10px;
@@ -17,22 +17,22 @@
     margin-bottom: 15px !important;
 }
 
-.gapStyleProduct {
+.gapStyleSail {
     display: grid;
     gap: 15px !important;
 }
 
-.myStyleProduct {
+.myStyleSail {
     border-radius: 10px;
     border: 1px solid rgba(0, 0, 0, 0.1) !important;
 }
 
-.myStyleProduct:hover {
+.myStyleSail:hover {
     background: #FBF7EA;
     border: 1px solid #C47500 !important;
 }
 
-.myHeaderProductStyle {
+.myHeaderSailStyle {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 600;
@@ -43,7 +43,7 @@
     border: 0px !important;
 }
 
-.ownStylePro {
+.ownStyleSail {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
@@ -53,22 +53,62 @@
     color: #222222;
 }
 
-.myButtonProducts {
+.myButtonSails {
     margin-left: 15px !important; 
     border-radius: 10px !important;
 }
 
-.qushishProduct {
+.qushishSail {
     background-color: #C47500 !important;
     border: 1px solid #C47500 !important;
     color: white !important;
 
 }
 
-.qushishProduct:hover {
+.qushishSail:hover {
     background-color: #d98302 !important;
 }
 
-.productSvgStyle {
-    cursor: pointer;
+
+
+/* Sail Add */
+
+
+
+.sailAddStyleCardBody {
+    position: relative;
+    width: 61%;
+    height: 50%;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50% !important;
+    background-color: #E4CAA3 !important;
+    
+}
+
+@media screen and (max-width:767px) {
+    .sailAddStyleCardBody{
+    height: 100%
+}
+}
+
+.sailAddStyleInput {
+    opacity: 0.0;
+    filter: alpha(opacity=0);
+    position: absolute;
+    top: 0;
+    left: 14px;
+    bottom: 0;
+    right: 0;
+    width: 92%;
+    height: 100%;
+}
+
+.sailHeader {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 38px;
+    color: #000000;
 }

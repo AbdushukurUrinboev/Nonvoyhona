@@ -21,6 +21,7 @@ import StaffEdit from '../views/backend/Main/Staffedit';
 
 // Product - MAXSULOTLAR
 import Product from '../views/backend/Main/Product';
+import ProductView from '../views/backend/Main/ProductView';
 import ProductAdd from '../views/backend/Main/ProductAdd';
 
 // order - ZAKAZLAR
@@ -65,6 +66,15 @@ import Invoice   from '../views/backend/pages/Invoice'
 import BlankPage from '../views/backend/pages/BlankPage'
 import TermsOfUse from '../views/backend/pages/Extrapages/TermsOfUse'
 import PrivacyPolicy from  '../views/backend/pages/Extrapages/PrivacyPolicy'
+
+//Sail pages - Sotuv iynalari
+import Sail from '../views/backend/Main/Sail';
+import SailAdd from '../views/backend/Main/SailAdd';
+
+//Xamkor pages - Hamkor oynalasi
+import Xamkorlar from '../views/backend/Main/Xamkorlar';
+import XamkorlarAdd from '../views/backend/Main/XamkorAdd';
+
 
 
 
@@ -112,7 +122,8 @@ const Layout1Route = () => {
 
 
                     {/* Product */}
-                    <Route path="/product"            component={Product}/>
+                    <Route path="/products"            component={Product}/>
+                    <Route path="/product/:id"        component={ProductView}/>
                     <Route path="/product-add"        component={ProductAdd}/>
 
                      {/* Output */}
@@ -137,13 +148,18 @@ const Layout1Route = () => {
                      <Route path="/plan"            component={Plans}/>
                     <Route path="/plan-add"        component={Plansadd}/>
 
+                    {/* Sail */}
+                    <Route path="/sail"            component={Sail}/>
+                    <Route path="/sail-add"        component={SailAdd}/>
+
                     {/* Order */}
                     <Route path="/order"              component={Order}/>
                     <Route path="/order-new"          component={Ordernew}/>
                     <Route path="/order-details"      component={Orderdetails}/>
 
-                    {/* Caldenar */}
-                    <Route path="/calendar"           component={Calendar}/>
+                    {/* Xamkorlar */}
+                    <Route path="/xamkorlar"           component={Xamkorlar}/>
+                    <Route path="/xamkorlar-add"       component={XamkorlarAdd}/>
                     
                 </Switch>
             </CSSTransition>

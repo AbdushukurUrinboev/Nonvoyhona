@@ -90,8 +90,8 @@ const SidebarStyle = (props) => {
                                     <span className="ml-2">Mijozlar</span>
                                 </Link>
                             </li>
-                            <li className={`${location.pathname === '/product' ? 'active' : ''}  sidebar-layout`} >
-                                <Link to="/product" className="svg-icon">
+                            <li className={`${location.pathname === '/products' ? 'active' : ''}  sidebar-layout`} >
+                                <Link to="/products" className="svg-icon">
                                     <i className="">
                                         <svg className="svg-icon" width="28" id="iq-ui-1-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" strokeDasharray="97, 117" strokeDashoffset="0"></path>
@@ -142,11 +142,11 @@ const SidebarStyle = (props) => {
                             </li>
                             <li className={`${location.pathname === '/kunlik-ish' ? 'active' : ''}  sidebar-layout`} >
                                 <Link to="/kunlik-ish" className="svg-icon">
-                                <i className="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                </i>
+                                    <i className="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="28" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </i>
                                     <span className="ml-2">Kunlik ish</span>
                                 </Link>
                             </li>
@@ -170,8 +170,8 @@ const SidebarStyle = (props) => {
                                     <span className="ml-2">Xodimlar</span>
                                 </Link>
                             </li>
-                            <li className={`${location.pathname === '/pages-invoice' ? 'active' : ''}  sidebar-layout`}>
-                                <Link to="/pages-invoice" className="svg-icon">
+                            <li className={`${location.pathname === '/sail' ? 'active' : ''}  sidebar-layout`}>
+                                <Link to="/sail" className="svg-icon">
                                     <i className="">
                                         <svg className="icon line" width="28" id="receipt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor">
                                             <path d="M17,16V3L13,5,10,3,7,5,3,3V17.83A3.13,3.13,0,0,0,5.84,21,3,3,0,0,0,9,18V17a1,1,0,0,1,1-1H20a1,1,0,0,1,1,1v1a3,3,0,0,1-3,3H6" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"></path>
@@ -179,6 +179,19 @@ const SidebarStyle = (props) => {
                                         </svg>
                                     </i>
                                     <span className="ml-2">Sotuv</span>
+                                </Link>
+                            </li>
+
+                            <li className={`${location.pathname === '/xamkorlar' ? 'active' : ''}  sidebar-layout`}>
+                                <Link to="/xamkorlar" className="svg-icon">
+                                    <i className="">
+                                        <svg className="svg-icon" id="iq-user-1-1" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </i>
+                                    <span className="ml-2">Xamkorlar</span>
                                 </Link>
                             </li>
 

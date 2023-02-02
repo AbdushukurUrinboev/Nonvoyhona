@@ -47,6 +47,7 @@
     line-height: 70px;
     color: #000000;
     padding-top: 3rem;
+    margin-bottom: 86px;
 }
 
 
@@ -85,4 +86,13 @@
 .LogPadSt {
     padding-left: 0px !important;
     padding-right: 0px !important;
+}
+
+.line-st {
+    color: #7A3700 !important;
+    font-family: 'Roboto' !important;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    text-align: center;
 }

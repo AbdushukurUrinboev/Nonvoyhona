@@ -6,3 +6,6 @@ export const DEBT_URL = 'http://localhost:4000/debt';
 export const PLANS_URL = 'http://localhost:4000/plans';
 export const ORDERS_URL = 'http://localhost:4000/orders';
 export const KUNLIK_ISH_URL = 'http://localhost:4000/kunlikIsh';
+export const SAIL_URL = 'http://localhost:4000/sail';
+export const XAMKOR_URL = 'http://localhost:4000/xamkorlar';
+export const CALCULATE_URL = 'http://localhost:4000/calculate';
