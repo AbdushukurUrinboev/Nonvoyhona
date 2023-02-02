@@ -77,7 +77,7 @@ const Calculate =()=>{
                                             <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{bread.id}</div>
                                             <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2"><img src={bread.breadImage} alt="Rasm" style={{ width: "35px" }} /></div>
                                             <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3" style={{ fontWeight: "500" }}>{bread.breadName}</div>
-                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{bread.price}</div>
+                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{bread.price}  -  so'm</div>
                                             <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4 text-right productSvgStyle">
                                                 <OverlayTrigger placement="top" overlay={<Tooltip>View</Tooltip>} >
                                                     {/* <Link className=""> */}

@@ -94,7 +94,7 @@
   "products": [
     {
       "id": 1,
-      "productName": "un",
+      "productName": "Un",
       "productDes": "Qozog'iston uni",
       "productPrice": 50,
       "poductQuantity": 45,
@@ -107,7 +107,7 @@
     },
     {
       "id": 2,
-      "productName": "Sut",
+      "productName": "Yog'",
       "productDes": "yog'li Sut",
       "productPrice": 6,
       "poductQuantity": 6,
@@ -120,7 +120,7 @@
     },
     {
       "id": 3,
-      "productName": "tuz",
+      "productName": "Suzma",
       "productDes": "osh Tuzi",
       "productPrice": 2,
       "poductQuantity": 20,
@@ -133,7 +133,7 @@
     },
     {
       "id": 4,
-      "productName": "Droj",
+      "productName": "Suhoy",
       "productDes": "Turkiya droji",
       "productPrice": 12,
       "poductQuantity": 3,
@@ -146,7 +146,7 @@
     },
     {
       "id": 5,
-      "productName": "Yog'",
+      "productName": "Droj'",
       "productDes": "Farg'ona yog'i",
       "productPrice": 12,
       "poductQuantity": 0,
@@ -159,10 +159,136 @@
     },
     {
       "id": 6,
+      "productName": "Kunjut",
+      "productDes": "O'zbekiston qora sedana",
+      "productPrice": 1,
+      "poductQuantity": 8,
+      "inventory": 7,
+      "olinganSana": "15 avgust 2022",
+      "olinganSoat": "15:00",
+      "xamkor": "O'rinboyev Abdushukur",
+      "lavozimi": "Menejer",
+      "xamkorTel": "90 633 55 99",
+      "productImage": "images/products/sedana.png"
+    },
+    {
+      "id": 7,
       "productName": "Sedana",
       "productDes": "O'zbekiston qora sedana",
       "productPrice": 1,
       "poductQuantity": 8,
+      "inventory": 7,
+      "olinganSana": "15 avgust 2022",
+      "olinganSoat": "15:00",
+      "xamkor": "O'rinboyev Abdushukur",
+      "lavozimi": "Menejer",
+      "xamkorTel": "90 633 55 99",
+      "productImage": "images/products/sedana.png"
+    },
+    {
+      "id": 8,
+      "productName": "Tuz",
+      "productDes": "O'zbekiston qora sedana",
+      "productPrice": 1,
+      "poductQuantity": 28,
+      "inventory": 7,
+      "olinganSana": "15 avgust 2022",
+      "olinganSoat": "15:00",
+      "xamkor": "O'rinboyev Abdushukur",
+      "lavozimi": "Menejer",
+      "xamkorTel": "90 633 55 99",
+      "productImage": "images/products/sedana.png"
+    },
+    {
+      "id": 9,
+      "productName": "Pista",
+      "productDes": "O'zbekiston qora sedana",
+      "productPrice": 1,
+      "poductQuantity": 0,
+      "inventory": 7,
+      "olinganSana": "15 avgust 2022",
+      "olinganSoat": "15:00",
+      "xamkor": "O'rinboyev Abdushukur",
+      "lavozimi": "Menejer",
+      "xamkorTel": "90 633 55 99",
+      "productImage": "images/products/sedana.png"
+    },
+    {
+      "id": 10,
+      "productName": "Bodom",
+      "productDes": "O'zbekiston qora sedana",
+      "productPrice": 1,
+      "poductQuantity": 18,
+      "inventory": 7,
+      "olinganSana": "15 avgust 2022",
+      "olinganSoat": "15:00",
+      "xamkor": "O'rinboyev Abdushukur",
+      "lavozimi": "Menejer",
+      "xamkorTel": "90 633 55 99",
+      "productImage": "images/products/sedana.png"
+    },
+    {
+      "id": 11,
+      "productName": "Keshu",
+      "productDes": "O'zbekiston qora sedana",
+      "productPrice": 1,
+      "poductQuantity": 2,
+      "inventory": 7,
+      "olinganSana": "15 avgust 2022",
+      "olinganSoat": "15:00",
+      "xamkor": "O'rinboyev Abdushukur",
+      "lavozimi": "Menejer",
+      "xamkorTel": "90 633 55 99",
+      "productImage": "images/products/sedana.png"
+    },
+    {
+      "id": 12,
+      "productName": "Yong'oq",
+      "productDes": "O'zbekiston qora sedana",
+      "productPrice": 1,
+      "poductQuantity": 0,
+      "inventory": 7,
+      "olinganSana": "15 avgust 2022",
+      "olinganSoat": "15:00",
+      "xamkor": "O'rinboyev Abdushukur",
+      "lavozimi": "Menejer",
+      "xamkorTel": "90 633 55 99",
+      "productImage": "images/products/sedana.png"
+    },
+    {
+      "id": 13,
+      "productName": "Shakar",
+      "productDes": "O'zbekiston qora sedana",
+      "productPrice": 1,
+      "poductQuantity": 18,
+      "inventory": 7,
+      "olinganSana": "15 avgust 2022",
+      "olinganSoat": "15:00",
+      "xamkor": "O'rinboyev Abdushukur",
+      "lavozimi": "Menejer",
+      "xamkorTel": "90 633 55 99",
+      "productImage": "images/products/sedana.png"
+    },
+    {
+      "id": 14,
+      "productName": "Ko'mir",
+      "productDes": "O'zbekiston qora sedana",
+      "productPrice": 1,
+      "poductQuantity": 0,
+      "inventory": 7,
+      "olinganSana": "15 avgust 2022",
+      "olinganSoat": "15:00",
+      "xamkor": "O'rinboyev Abdushukur",
+      "lavozimi": "Menejer",
+      "xamkorTel": "90 633 55 99",
+      "productImage": "images/products/sedana.png"
+    },
+    {
+      "id": 15,
+      "productName": "Paket",
+      "productDes": "O'zbekiston qora sedana",
+      "productPrice": 1200000,
+      "poductQuantity": 12,
       "inventory": 7,
       "olinganSana": "15 avgust 2022",
       "olinganSoat": "15:00",
@@ -889,44 +1015,111 @@
     {
       "id": 1,
       "breadName": "Kulcha",
-      "price": 10000,
+      "price": 0,
       "breadImage": "images/products/un.png"
     },
     {
       "id": 2,
-      "breadName": "Chimyon patir",
-      "price": 15000,
+      "breadName": "Gijda",
+      "price": 0,
       "breadImage": "images/products/un.png"
     },
     {
       "id": 3,
-      "breadName": "Sedana non",
-      "price": 12000,
+      "breadName": "5 minglik lik patir",
+      "price": 5000,
       "breadImage": "images/products/un.png"
     },
     {
       "id": 4,
-      "breadName": "Gijda",
-      "price": 15000,
+      "breadName": "Qatlama",
+      "price": 0,
       "breadImage": "images/products/un.png"
     },
     {
       "id": 5,
-      "breadName": "Xonqiz patir",
-      "price": 25000,
+      "breadName": "Do'mboq patir",
+      "price": 0,
       "breadImage": "images/products/un.png"
     },
     {
       "id": 6,
-      "breadName": "Yog'li patir",
-      "price": 9000,
+      "breadName": "Chimyon patir",
+      "price": 0,
       "breadImage": "images/products/un.png"
     },
     {
       "id": 7,
-      "breadName": "Katta patir",
+      "breadName": "10 minglik chimyon patir",
+      "price": 10000,
+      "breadImage": "images/products/un.png"
+    },
+    {
+      "id": 8,
+      "breadName": "10 minglik patir",
+      "price": 10000,
+      "breadImage": "images/products/un.png"
+    },
+    {
+      "id": 9,
+      "breadName": "15 minglik patir",
+      "price": 15000,
+      "breadImage": "images/products/un.png"
+    },
+    {
+      "id": 10,
+      "breadName": "20 minglik patir",
+      "price": 20000,
+      "breadImage": "images/products/un.png"
+    },
+    {
+      "id": 11,
+      "breadName": "25 minglik patir",
+      "price": 25000,
+      "breadImage": "images/products/un.png"
+    },
+    {
+      "id": 12,
+      "breadName": "25 minglik tovus patir",
+      "price": 25000,
+      "breadImage": "images/products/un.png"
+    },
+    {
+      "id": 13,
+      "breadName": "35 minglik patir",
+      "price": 35000,
+      "breadImage": "images/products/un.png"
+    },
+    {
+      "id": 14,
+      "breadName": "50 minglik patir",
+      "price": 50000,
+      "breadImage": "images/products/un.png"
+    },
+    {
+      "id": 15,
+      "breadName": "60 minglik yozuvli patir",
+      "price": 60000,
+      "breadImage": "images/products/un.png"
+    },
+    {
+      "id": 16,
+      "breadName": "80 minglik pista patir",
+      "price": 80000,
+      "breadImage": "images/products/un.png"
+    },
+    {
+      "id": 17,
+      "breadName": "100 minglik pista patir",
       "price": 100000,
       "breadImage": "images/products/un.png"
+    },
+    {
+      "id": 18,
+      "breadName": "150 minglik pista patir",
+      "price": 150000,
+      "breadImage": "images/products/un.png"
     }
+
   ]
 }
