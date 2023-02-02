@@ -47,7 +47,7 @@ const SignIn = (props) => {
                      <Card className="p-3">
                         <div className='myStSignin'>
                            <Card.Body>
-                              <h3 className="font-weight-bold text-center myJaydarStLogin">Jaydar</h3>
+                              <h3 className="font-weight-bold text-center myJaydarStLogin">Javdar</h3>
                               {/* <p className="text-left text-secondary mb-4">Novvoyxona dasturiga kirish uchun iltimos telefon raqamingiz va parolingizni kiriting!</p> */}
 
                               <div className="mb-5">

@@ -13,9 +13,17 @@ const Productadd = () => {
     const [category, setCategory] = useState('');
     const [price, setPrice] = useState('');
     const [quantity, setQuantity] = useState('');
+    const [umumiyNarhi, setUmumiyNarhi] = useState(0);
+    const [xamkorName, setXamkorName] = useState("");
+    const [berilganAvans, setBerilganAvans] = useState(0);
+    const [qolganPul, setQolganPul] = useState(0);
+    const [olinganSana, setOlinganSana] = useState(new Date());
+    const [olinganSoat, setOlinganSoat] = useState(new Date().getHours() + ":" + new Date().getMinutes());
     const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
     const history = useHistory()
 
+
+    const month = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
 
     function handleChange(e) {
         e.preventDefault();
@@ -24,6 +32,12 @@ const Productadd = () => {
             category,
             price,
             quantity,
+            umumiyNarhi,
+            xamkorName,
+            berilganAvans,
+            qolganPul,
+            olinganSana: olinganSana.getDate() + "-" + month[olinganSana.getMonth()] + "," + olinganSana.getFullYear(),
+            olinganSoat,
             uploadImage
 
         })
@@ -98,7 +112,7 @@ const Productadd = () => {
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Narxi</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Narxini kiriting..." onChange={e => setPrice(e.target.value)} required='required' />
+                                                <Form.Control type="number" id="Text1" placeholder="Narxini kiriting..." onChange={e => setPrice(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Kategoriya</Form.Label>
@@ -108,6 +122,39 @@ const Productadd = () => {
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Miqdori</Form.Label>
                                                 <Form.Control type="number" id="Text3" placeholder="Miqdorini kiriting..." required='required' onChange={e => setQuantity(e.target.value)} />
+                                            </div>
+                                            <div className="col-md-6 mb-3 position-relative">
+                                                <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Umumiy narxi</Form.Label>
+                                                <Form.Control type="number" id="Text1" placeholder="Umumiy narhi..." onChange={e => setUmumiyNarhi(e.target.value)} required='required' />
+                                            </div>
+                                            <div className="col-md-6 mb-3">
+                                                <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Xamkorni tanlang</Form.Label>
+                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => setXamkorName(e.target.value)}>
+                                                    <option value="Bajarildi">Xamkorlar</option>
+                                                    <option value="Bajarilmoqda">Sherov Abdurashid</option>
+                                                    <option value="Bajarilmadi">Karimov Komil</option>
+                                                </select>
+                                            </div>
+                                            <div className="col-md-6 mb-3 position-relative">
+                                                <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Berilgan avans</Form.Label>
+                                                <Form.Control type="number" id="Text1" placeholder="Berilgan pulni kiriting..." onChange={e => setBerilganAvans(e.target.value)} required='required' />
+                                            </div>
+                                            <div className="col-md-6 mb-3 position-relative">
+                                                <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Qolgan pul</Form.Label>
+                                                <Form.Control type="number" id="Text1" placeholder="Qolgan pul..." onChange={e => setQolganPul(e.target.value)} required='required' />
+                                            </div>
+                                            <div className="col-md-6 mb-3 position-relative">
+                                                <Form.Label htmlFor="Text2" className="font-weight-bold text-muted text-uppercase">Mahsulot olingan sana</Form.Label>
+                                                <DatePicker className="form-control" id="Text2" name="event_date" placeholderText="Sanani kiriting" autoComplete="off" selected={olinganSana} onChange={date => setOlinganSana(date)} />
+                                                <span className="search-link">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                            <div className="col-md-6 mb-3 position-relative">
+                                                <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Maxsulot olingan soat</Form.Label>
+                                                <Form.Control type="number" id="Text1" placeholder={olinganSoat} onChange={e => setOlinganSoat(e.target.value)} required='required' value={olinganSoat} />
                                             </div>
 
 
