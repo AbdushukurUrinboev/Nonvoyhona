@@ -158,6 +158,9 @@ const Plans = () => {
                     </div>
 
                 </div>
+                <div className='container text-center mt-5'>
+                    {filteredPlanstlist && filteredPlanstlist.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
+                </div>
             </Container>
         </>
     )

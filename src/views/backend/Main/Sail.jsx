@@ -119,6 +119,9 @@ const Sail = () => {
 
                     </Col>
                 </Row>
+                <div className='container text-center mt-5'>
+                    {postsSail && postsSail.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
+                </div>
             </Container>
 
         </>

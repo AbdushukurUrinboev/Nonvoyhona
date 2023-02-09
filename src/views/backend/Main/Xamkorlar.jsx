@@ -154,6 +154,9 @@ const Xamkorlar = () => {
 
                     </Col>
                 </Row>
+                <div className='container text-center mt-5'>
+                    {filteredXamkorlist && filteredXamkorlist.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
+                </div>
             </Container>
 
         </>

@@ -291,6 +291,9 @@ const Staff = () => {
 
                     </Col>
                 </Row>
+                <div className='container text-center mt-5'>
+                    {doneFilter && doneFilter.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
+                </div>
             </Container>
 
         </>

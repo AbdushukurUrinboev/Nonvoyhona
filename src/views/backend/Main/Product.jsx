@@ -73,7 +73,7 @@ const Product = () => {
                         </div>
 
                         {
-                            postProducts.map((product, index) => (
+                            postProducts && postProducts.map((product, index) => (
                                 <div key={index} className="p-2 border myStyleProduct ownStylePro">
                                     <div className="container">
                                         <div className="row align-items-center">
@@ -119,6 +119,7 @@ const Product = () => {
                         }
 
                     </div>
+
                     {/* <div className="text-right mt-4">
                         <Link to="/product-add" className='btn myButtonProducts qushishProduct' type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -128,6 +129,9 @@ const Product = () => {
                         </Link>
                     </div> */}
 
+                </div>
+                <div className='container text-center mt-5'>
+                    {postProducts && postProducts.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
                 </div>
             </Container>
         </>

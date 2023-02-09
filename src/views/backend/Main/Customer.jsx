@@ -47,6 +47,12 @@ const Customer = () => {
 
     }
 
+    function deleteCustomer(id) {
+        console.log("kirish = " + id);
+        const newTask = postsCustomer.filter(index => index === id);
+        setpostsCustomer(newTask)
+    }
+
     return (
         <>
             <Container fluid>
@@ -129,7 +135,7 @@ const Customer = () => {
                                                         </OverlayTrigger>
                                                         <OverlayTrigger placement="top" overlay={<Tooltip>Delete</Tooltip>} >
                                                             <Link className="badge" to="#">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="none" viewBox="0 0 24 24" stroke="#EE1D00" >
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="none" viewBox="0 0 24 24" stroke="#EE1D00" onClick={() => deleteCustomer(index)} >
                                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                                 </svg>
                                                             </Link>
@@ -154,6 +160,9 @@ const Customer = () => {
 
                     </Col>
                 </Row>
+                <div className='container text-center mt-5'>
+                    {filteredCustomerlist && filteredCustomerlist.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
+                </div>
             </Container>
 
         </>

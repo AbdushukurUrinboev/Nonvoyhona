@@ -1,14 +1,14 @@
-import  React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from "react-router";
-import {Container,Row,Col,Form,Button,OverlayTrigger,Tooltip} from 'react-bootstrap'
-import  Card from '../../../components/Card'
-import {Link} from 'react-router-dom'
+import { Container, Row, Col, Form, Button, OverlayTrigger, Tooltip } from 'react-bootstrap'
+import Card from '../../../components/Card'
+import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { CALCULATE_URL } from '../../../API';
 
 
 
-const Calculate =()=>{
+const Calculate = () => {
 
     const [postBread, setPostBread] = useState([]);
 
@@ -118,6 +118,9 @@ const Calculate =()=>{
                         </Link>
                     </div> */}
 
+                </div>
+                <div className='container text-center mt-5'>
+                    {postBread && postBread.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
                 </div>
             </Container>
         </>

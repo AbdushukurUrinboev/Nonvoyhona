@@ -123,6 +123,9 @@ const Output = () => {
                     </div>
 
                 </div>
+                <div className='container text-center mt-5'>
+                    {outputs && outputs.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
+                </div>
             </Container>
         </>
     )

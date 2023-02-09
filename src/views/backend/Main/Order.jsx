@@ -173,6 +173,9 @@ const Order = ()=>{
                     </div>
 
                 </div>
+                <div className='container text-center mt-5'>
+                    {filteredOrderslist && filteredOrderslist.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
+                </div>
             </Container>
         </>
     )

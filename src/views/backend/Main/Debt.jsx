@@ -159,6 +159,9 @@ const Debt = () => {
                     </div>
 
                 </div>
+                <div className='container text-center mt-5'>
+                    {filteredDebtlist && filteredDebtlist.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
+                </div>
             </Container>
         </>
     )
