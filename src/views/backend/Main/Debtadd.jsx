@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios';
-import { DEBT_URL } from '../../../API';
+import { NASIYA_URL } from '../../../API';
 import DatePicker from "react-datepicker";
 
 
@@ -26,7 +26,7 @@ const Debtadd = () => {
 
     function handleChange(e) {
         e.preventDefault();
-        axios.post(DEBT_URL, {
+        axios.post(NASIYA_URL, {
             name,
             forPerson,
             quantity,

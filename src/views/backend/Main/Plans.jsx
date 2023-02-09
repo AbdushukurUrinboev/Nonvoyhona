@@ -119,11 +119,11 @@ const Plans = () => {
                         </div>
 
                         {
-                            filteredPlanstlist.map((plan) => (
-                                <div key={plan.id} className="p-2 border myStylePlan ownStylePlan">
+                            filteredPlanstlist.map((plan, index) => (
+                                <div key={index} className="p-2 border myStylePlan ownStylePlan">
                                     <div className="container">
                                         <div className="row align-items-center">
-                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-left">{plan.id}</div>
+                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-left">{index + 1}</div>
                                             <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3" style={{ fontWeight: "500" }}>{plan.name}</div>
                                             <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{plan.forPerson}</div>
                                             <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{plan.sana}</div>

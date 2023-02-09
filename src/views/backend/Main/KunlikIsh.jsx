@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button, OverlayTrigger, Tooltip } from 'reac
 import Card from '../../../components/Card'
 import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios';
-import { KUNLIK_ISH_URL } from '../../../API';
+import { DAILY_TASKS_URL } from '../../../API';
 // DatePicker
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -38,7 +38,7 @@ const Calculate = () => {
 
     function handleChange(e) {
         e.preventDefault();
-        axios.post(KUNLIK_ISH_URL, {
+        axios.post(DAILY_TASKS_URL, {
             group,
             smena,
             xodim,

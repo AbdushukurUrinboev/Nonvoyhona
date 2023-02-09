@@ -149,8 +149,8 @@ const Layout1Route = () => {
                     <Route path="/plan-add"        component={Plansadd}/>
 
                     {/* Sail */}
-                    <Route path="/sail"            component={Sail}/>
-                    <Route path="/sail-add"        component={SailAdd}/>
+                    <Route path="/sale"            component={Sail}/>
+                    <Route path="/sale-add"        component={SailAdd}/>
 
                     {/* Order */}
                     <Route path="/order"              component={Order}/>

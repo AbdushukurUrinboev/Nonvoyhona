@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button, OverlayTrigger, Tooltip } from 'reac
 import Card from '../../../components/Card'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
-import { OUTPUTS_URL } from '../../../API';
+import { EXPENSES_URL } from '../../../API';
 //datepicker
 import Datepickers from '../../../components/Datepicker';
 import './Output.css'
@@ -15,7 +15,7 @@ const Output = () => {
 
 
     useEffect(() => {
-        axios.get(OUTPUTS_URL)
+        axios.get(EXPENSES_URL)
             .then(res => {
                 setOutputs(res.data)
                 // console.log(res.data);
@@ -90,11 +90,11 @@ const Output = () => {
                         </div>
 
                         {
-                            outputs.map((output) => (
-                                <div key={output.id} className="p-2 border myStyleOutput ownStyleOutput">
+                            outputs.map((output, index) => (
+                                <div key={index} className="p-2 border myStyleOutput ownStyleOutput">
                                     <div className="container">
                                         <div className="row align-items-center">
-                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-left">{output.id}</div>
+                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-left">{index + 1}</div>
                                             <div className="col-sm-12 col-md-5 col-lg-5 col-xl-5" style={{ fontWeight: "500" }}>{output.name}</div>
                                             <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{output.sana}</div>
                                             <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{output.price}</div>

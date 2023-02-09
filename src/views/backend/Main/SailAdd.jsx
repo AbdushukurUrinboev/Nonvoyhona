@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios';
-import { SAIL_URL } from '../../../API';
+import { SALE_URL } from '../../../API';
 import "react-datepicker/dist/react-datepicker.css";
 import './ProductAdd.css'
 
@@ -22,7 +22,7 @@ const SailAdd = () => {
 
     function handleChange(e) {
         e.preventDefault();
-        axios.post(SAIL_URL, {
+        axios.post(SALE_URL, {
             name,
             quantity,
             customer,
@@ -33,7 +33,7 @@ const SailAdd = () => {
         })
             .then(res => {
                 console.log("Data is saved", res)
-                history.push('/sail')
+                history.push('/sale')
             })
             .catch(err => console.log(err))
 

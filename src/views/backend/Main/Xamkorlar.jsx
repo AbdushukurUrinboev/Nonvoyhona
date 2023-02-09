@@ -97,11 +97,11 @@ const Xamkorlar = () => {
                                 </div>
 
                                 {
-                                    filteredXamkorlist.map((xamkor) => (
-                                        <div key={xamkor.id} className="p-2 border myStyleCustomer ownStyleCustomer">
+                                    filteredXamkorlist.map((xamkor, index) => (
+                                        <div key={index} className="p-2 border myStyleCustomer ownStyleCustomer">
                                             <div className="container">
                                                 <div className="row align-items-center">
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{xamkor.id}</div>
+                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{index + 1}</div>
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ fontWeight: "500" }}>{xamkor.firstName} {xamkor.surName}</div>
                                                     <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{xamkor.status}</div>
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{xamkor.phone}</div>

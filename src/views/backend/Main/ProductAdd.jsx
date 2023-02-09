@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios';
-import { PRODUCTS_URL } from '../../../API';
+import { STORAGE_URL } from '../../../API';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './ProductAdd.css'
@@ -27,7 +27,7 @@ const Productadd = () => {
 
     function handleChange(e) {
         e.preventDefault();
-        axios.post(PRODUCTS_URL, {
+        axios.post(STORAGE_URL, {
             name,
             category,
             price,

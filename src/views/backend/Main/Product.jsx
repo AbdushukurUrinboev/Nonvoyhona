@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button, OverlayTrigger, Tooltip } from 'reac
 import Card from '../../../components/Card'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
-import { PRODUCTS_URL } from '../../../API';
+import { STORAGE_URL } from '../../../API';
 import { useHistory } from "react-router";
 import "./Product.css"
 
@@ -15,7 +15,7 @@ const Product = () => {
     const history = useHistory()
 
     useEffect(() => {
-        axios.get(PRODUCTS_URL)
+        axios.get(STORAGE_URL)
             .then(res => {
                 setPostProducts(res.data)
                 // console.log(res.data);
@@ -73,11 +73,11 @@ const Product = () => {
                         </div>
 
                         {
-                            postProducts.map((product) => (
-                                <div key={product.id} className="p-2 border myStyleProduct ownStylePro">
+                            postProducts.map((product, index) => (
+                                <div key={index} className="p-2 border myStyleProduct ownStylePro">
                                     <div className="container">
                                         <div className="row align-items-center">
-                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{product.id}</div>
+                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{index + 1}</div>
                                             <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1"><img src={product.productImage} alt="Rasm" style={{ width: "35px" }} /></div>
                                             <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ fontWeight: "500" }}>{product.productName}</div>
                                             <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{product.productDes}</div>

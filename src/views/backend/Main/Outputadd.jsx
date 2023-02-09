@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios';
-import { OUTPUTS_URL } from '../../../API';
+import { EXPENSES_URL } from '../../../API';
 import DatePicker from "react-datepicker";
 import './Output.css'
 
@@ -19,7 +19,7 @@ const Outputadd = () => {
 
     function handleAdd(e) {
         e.preventDefault();
-        axios.post(OUTPUTS_URL, {
+        axios.post(EXPENSES_URL, {
             name,
             sana: sana.getDate() + "-" + month[sana.getMonth()] + "," + sana.getFullYear(),
             price

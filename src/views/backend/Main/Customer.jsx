@@ -97,11 +97,11 @@ const Customer = () => {
                                 </div>
 
                                 {
-                                    filteredCustomerlist.map((customer) => (
-                                        <div key={customer.id} className="p-2 border myStyleCustomer ownStyleCustomer">
+                                    filteredCustomerlist.map((customer, index) => (
+                                        <div key={index} className="p-2 border myStyleCustomer ownStyleCustomer">
                                             <div className="container">
                                                 <div className="row align-items-center">
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{customer.id}</div>
+                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{index + 1}</div>
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ fontWeight: "500" }}>{customer.firstName} {customer.surName}</div>
                                                     <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{customer.status}</div>
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{customer.phone}</div>

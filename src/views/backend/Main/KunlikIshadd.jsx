@@ -3,7 +3,7 @@ import {Container,Row,Col,Form,Button} from 'react-bootstrap'
 import  Card from '../../../components/Card'
 import {Link, useHistory} from 'react-router-dom'
 import axios from 'axios';
-import { PRODUCTS_URL } from '../../../API';
+import { DAILY_TASKS_URL } from '../../../API';
 
 
 const Calculateadd =()=>{
@@ -25,7 +25,7 @@ const Calculateadd =()=>{
 
     function handleAdd (e) {
         e.preventDefault();
-        axios.post(PRODUCTS_URL, {
+        axios.post(DAILY_TASKS_URL, {
             productName,
             productDes,
             productCategory,

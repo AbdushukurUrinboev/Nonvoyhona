@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button, OverlayTrigger, Tooltip } from 'reac
 import Card from '../../../components/Card'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
-import { SAIL_URL } from '../../../API';
+import { SALE_URL } from '../../../API';
 import { useHistory } from "react-router";
 import './Sail.css'
 
@@ -18,7 +18,7 @@ const Sail = () => {
 
 
     useEffect(() => {
-        axios.get(SAIL_URL)
+        axios.get(SALE_URL)
             .then(res => {
                 setpostsSail(res.data);
                 // console.log(res.data);
@@ -50,7 +50,7 @@ const Sail = () => {
                                                 </Link>
                                             </Form.Group>
                                         </Form>
-                                        <Link to="/sail-add" className="btn myButtonSail qushishSail position-relative d-flex align-items-center justify-content-between">
+                                        <Link to="/sale-add" className="btn myButtonSail qushishSail position-relative d-flex align-items-center justify-content-between">
                                             <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                             </svg>Qo'shish
@@ -76,11 +76,11 @@ const Sail = () => {
                                 </div>
 
                                 {
-                                    postsSail.map((sail) => (
-                                        <div key={sail.id} className="p-2 border myStyleSail ownStyleSail">
+                                    postsSail.map((sail, index) => (
+                                        <div key={index} className="p-2 border myStyleSail ownStyleSail">
                                             <div className="container">
                                                 <div className="row align-items-center">
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left">{sail.id}</div>
+                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left">{index + 1}</div>
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ fontWeight: "500" }}> <img src={sail.productImage} alt="" />  </div>
                                                     <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-center">{sail.name}</div>
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{sail.quantity}</div>

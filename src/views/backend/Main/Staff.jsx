@@ -126,11 +126,11 @@ const Staff = () => {
                                 </div>
 
                                 {
-                                    doneFilter.map((staff) => (
-                                        <div key={staff.id} className="p-2 border myStyleStaff ownStyleStaff">
+                                    doneFilter.map((staff, index) => (
+                                        <div key={index} className="p-2 border myStyleStaff ownStyleStaff">
                                             <div className="container">
                                                 <div className="row align-items-center">
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{staff.id}</div>
+                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{index + 1}</div>
                                                     <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-left">
                                                         <div className="h-avatar is-small">
                                                             <img className="avatar myStaffAvatar" alt="user-icon" src={staff.image} />

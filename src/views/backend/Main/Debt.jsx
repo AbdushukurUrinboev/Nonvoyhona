@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button, OverlayTrigger, Tooltip } from 'reac
 import Card from '../../../components/Card'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
-import { DEBT_URL } from '../../../API';
+import { NASIYA_URL } from '../../../API';
 import { FilterCustomer } from './FilterCustomer/FilterCustomer';
 //datepicker
 import Datepickers from '../../../components/Datepicker';
@@ -34,7 +34,7 @@ const Debt = () => {
 
 
     useEffect(() => {
-        axios.get(DEBT_URL)
+        axios.get(NASIYA_URL)
             .then(res => {
                 setDebts(res.data)
                 // console.log(res.data);
@@ -118,11 +118,11 @@ const Debt = () => {
                         </div>
 
                         {
-                            filteredDebtlist.map((debt) => (
-                                <div key={debt.id} className="p-2 border myStyleDebt ownStyleDebt">
+                            filteredDebtlist.map((debt, index) => (
+                                <div key={index} className="p-2 border myStyleDebt ownStyleDebt">
                                     <div className="container">
                                         <div className="row align-items-center">
-                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-left">{debt.id}</div>
+                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-left">{index + 1}</div>
                                             <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ fontWeight: "500" }}>{debt.name}</div>
                                             <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{debt.forPerson}</div>
                                             <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{debt.quantity}</div>

@@ -129,11 +129,11 @@ const Order = ()=>{
                         </div>
 
                         {
-                            filteredOrderslist.map((order) => (
-                                <div key={order.id} className="p-2 border myStyleOrder ownStyleOrder">
+                            filteredOrderslist.map((order, index) => (
+                                <div key={index} className="p-2 border myStyleOrder ownStyleOrder">
                                     <div className="container">
                                         <div className="row align-items-center">
-                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ fontWeight: "500" }}>{order.id} &nbsp; &nbsp; {order.name}</div>
+                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ fontWeight: "500" }}>{index + 1} &nbsp; &nbsp; {order.name}</div>
                                             <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{order.customer}</div>
                                             <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{order.phone}</div>
                                             <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">
