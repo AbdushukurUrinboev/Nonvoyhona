@@ -20,7 +20,9 @@ const Staffadd = () => {
     const [surName, setSurName] = useState('');
     const [gender, setGender] = useState('');
     const [birthday, setBirthday] = useState();
+    const [phoneCode, setPhoneCode] = useState('(90) ');
     const [phone, setPhone] = useState('');
+    const [phoneCode2, setPhoneCode2] = useState('(90) ');
     const [phone2, setPhone2] = useState('');
     const [status, setStatus] = useState('');
     const [location, setLocation] = useState('');
@@ -42,8 +44,8 @@ const Staffadd = () => {
             surName,
             gender,
             birthday: birthday.getDate() + "-" + month[birthday.getMonth()] + "," + birthday.getFullYear(),
-            phone,
-            phone2,
+            phone: phoneCode + ' - ' + phone,
+            phone2: phoneCode2 + ' - ' + phone2,
             status,
             location,
             group,
@@ -152,7 +154,15 @@ const Staffadd = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Telefon raqami (shahsiy)</Form.Label>
-                                                <Form.Control type="number" id="Text5" placeholder="Shahsiy telefon raqamini kiriting..." onChange={e => setPhone(e.target.value)} />
+                                                <div className='input-group'>
+                                                    <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode(e.target.value)}>
+                                                        <option value="(90) ">(90)</option>
+                                                        <option value="(91) ">(91)</option>
+                                                        <option value="(93) ">(93)</option>
+                                                        <option value="(94) ">(94)</option>
+                                                    </select>
+                                                    <Form.Control type="number" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} />
+                                                </div>
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text6" className="font-weight-bold text-muted text-uppercase">Yashash Manzili</Form.Label>
@@ -160,7 +170,15 @@ const Staffadd = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text7" className="font-weight-bold text-muted text-uppercase">Telefon raqami (uy)</Form.Label>
-                                                <Form.Control type="number" id="Text7" placeholder="Uy telefon raqamini kiriting..." onChange={e => setPhone2(e.target.value)} />
+                                                <div className='input-group'>
+                                                    <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode2(e.target.value)}>
+                                                        <option value="(90) ">(90)</option>
+                                                        <option value="(91) ">(91)</option>
+                                                        <option value="(93) ">(93)</option>
+                                                        <option value="(94) ">(94)</option>
+                                                    </select>
+                                                    <Form.Control type="number" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone2(e.target.value)} />
+                                                </div>                                         
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputcountry" className="font-weight-bold text-muted text-uppercase">Guruhi</Form.Label>

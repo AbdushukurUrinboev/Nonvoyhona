@@ -171,7 +171,7 @@ const SidebarStyle = (props) => {
                                 </Link>
                             </li>
                             <li className={`${location.pathname === '/sail' ? 'active' : ''}  sidebar-layout`}>
-                                <Link to="/sail" className="svg-icon">
+                                <Link to="/sale" className="svg-icon">
                                     <i className="">
                                         <svg className="icon line" width="28" id="receipt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor">
                                             <path d="M17,16V3L13,5,10,3,7,5,3,3V17.83A3.13,3.13,0,0,0,5.84,21,3,3,0,0,0,9,18V17a1,1,0,0,1,1-1H20a1,1,0,0,1,1,1v1a3,3,0,0,1-3,3H6" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"></path>
