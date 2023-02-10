@@ -112,6 +112,8 @@ const Xamkorlar = () => {
                                                         </small> {xamkor.turi}
                                                     </div>
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 customerSvgStyle">
+
+
                                                         {/* <OverlayTrigger placement="top" overlay={<Tooltip>View</Tooltip>} >
                                                            
                                                             <svg xmlns="http://www.w3.org/2000/svg" className="text-secondary" width="20" fill="none" viewBox="0 0 24 24" stroke="#0A7AFF" onClick={() => history.push(`/xamkorlar/${customer.id}`)}>
@@ -120,6 +122,9 @@ const Xamkorlar = () => {
                                                             </svg>
                                                             
                                                         </OverlayTrigger> */}
+
+
+                                                        
                                                         <OverlayTrigger placement="top" overlay={<Tooltip>Edit</Tooltip>} >
                                                             <Link className="" to="#">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" className="text-secondary mx-4" width="20" fill="none" viewBox="0 0 24 24" stroke="#E87129">
@@ -141,17 +146,8 @@ const Xamkorlar = () => {
                                     ))
                                 }
 
-                            </div>
-                            {/* <div className="text-right mt-4">
-                                <Link to="/customer-add" className='btn myButtonCustomer qushishCustomer' type="button">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                    </svg>
-                                    Qo'shish
-                                </Link>
-                            </div> */}
+                            </div>                            
                         </div>
-
                     </Col>
                 </Row>
                 <div className='container text-center mt-5'>

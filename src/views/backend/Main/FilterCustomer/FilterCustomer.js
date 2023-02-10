@@ -12,8 +12,8 @@ export function FilterCustomer(props) {
 
     <select name="group" defaultValue="" id="customer-filter" className="form-select form-control font-weight-bold choicesjs" style={{padding: "5px"}} onChange={onFilterValueChanged}>
         <option value="No"> Turi </option>
-        <option value="Doimiy"> Doimiy </option>
-        <option value="Vaqtincha"> Vaqtincha </option>
+        <option value="temporary"> Doimiy </option>
+        <option value="daily"> Vaqtincha </option>
     </select>
       
     )

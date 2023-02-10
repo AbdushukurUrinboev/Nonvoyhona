@@ -17,13 +17,13 @@ import './CustomerAdd.css'
 const Customeradd = () => {
 
     const [firstName, setFirstName] = useState('');
-    const [surName, setSurName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [status, setStatus] = useState('');
     const [phoneCode, setPhoneCode] = useState('(90) ');
     const [phone, setPhone] = useState('');
     const [phoneCode2, setPhoneCode2] = useState('(90) ');
     const [phone2, setPhone2] = useState('');
-    const [turi, setTuri] = useState('');
+    const [customerType, setCustomerType] = useState('');
     const [adress, setAdress] = useState('');
 
 
@@ -36,11 +36,11 @@ const Customeradd = () => {
         e.preventDefault();
         axios.post(CUSTOMERS_URL, {
             firstName,
-            surName,
+            lastName,
             status,
             phone: phoneCode + ' - ' + phone,
-            phone2: phone2 + ' - ' + phone2,
-            turi,
+            phone2: phoneCode2 + ' - ' + phone2,
+            customerType,
             adress
 
         })
@@ -52,7 +52,7 @@ const Customeradd = () => {
 
 
     }
-    console.log(phoneCode);
+    console.log(customerType);
 
     return (
         <>
@@ -92,7 +92,7 @@ const Customeradd = () => {
                                         <Form className="row g-3 date-icon-set-modal myStyleCustomerAdd">
                                             <div className="col-md-6 mb-3 mt-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Familiyasi</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Familiya kiriting..." onChange={e => setSurName(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" placeholder="Familiya kiriting..." onChange={e => setLastName(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative mt-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Ismi</Form.Label>
@@ -113,7 +113,7 @@ const Customeradd = () => {
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Telefon raqami 2</Form.Label>
                                                 <div className='input-group'>
-                                                    <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode2(e.target.value)}>
+                                                    <select value={phoneCode2} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode2(e.target.value)}>
                                                         <option value="(90) ">(90)</option>
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>
@@ -124,10 +124,10 @@ const Customeradd = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Tur</Form.Label>
-                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => setTuri(e.target.value)}>
+                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => setCustomerType(e.target.value)}>
                                                     <option value="no">Turi</option>
-                                                    <option value="Doimiy">Doimiy</option>
-                                                    <option value="Vaqtincha">Vaqtincha</option>
+                                                    <option value="temporary">Doimiy</option>
+                                                    <option value="daily">Vaqtincha</option>
                                                 </select>
                                             </div>
                                             <div className="col-md-6 mb-3">
