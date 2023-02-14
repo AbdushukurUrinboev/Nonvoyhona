@@ -8,7 +8,7 @@ import { DAILY_TASKS_URL } from '../../../API';
 
 const Calculateadd =()=>{
 
-    const [productName, setproductName] = useState('');
+    const [productName, setproductName] = useState(''); 
     const [productDes, setProductDes] = useState('');
     const [productCategory, setProductCategory] = useState('');
     const [productPrice, setProductPrice] = useState(0);

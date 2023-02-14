@@ -7,10 +7,16 @@ import { STORAGE_URL } from '../../../API';
 import { useHistory } from "react-router";
 import "./Product.css"
 
+//img
+import LogoBread from '../../../assets/images/logoBread.png'
+
+
 
 
 const Product = () => {
     const [postProducts, setPostProducts] = useState([]);
+    const [searchData, setSearchData] = useState([]);
+    const [filterVal, setFilterVal] = useState('');
 
     const history = useHistory()
 
@@ -18,10 +24,31 @@ const Product = () => {
         axios.get(STORAGE_URL)
             .then(res => {
                 setPostProducts(res.data)
-                // console.log(res.data);
+                setSearchData(res.data)
             })
             .catch(err => console.log(err))
     }, [])
+
+    function deleteProduct(index, id) {
+        axios.delete(STORAGE_URL, {data: {id}})
+        .then(res => {
+            console.log("Data is deleted!!!", res)
+            setPostProducts(postProducts.filter(p => p.id !== id))
+        })
+        .catch(err => console.log(err))
+        // console.log("kirish = " + id);
+    }
+
+
+    function handleFilter(e) {
+        if(e.target.value == '') {
+            setPostProducts(searchData)
+        } else {
+            const filterResult = searchData.filter(item => item.productName.toLowerCase().includes(e.target.value.toLowerCase()) || item.description.toLowerCase().includes(e.target.value.toLowerCase()) )
+            setPostProducts(filterResult)
+        }
+        setFilterVal(e.target.value)
+    }
 
     return (
         <>
@@ -36,7 +63,13 @@ const Product = () => {
                             <div className="modal-product-search d-flex ">
                                 <Form className="mr-3 position-relative">
                                     <div className="form-group mb-0">
-                                        <Form.Control type="text" className="form-control" id="exampleInputText" placeholder="Qidirish..." style={{ borderRadius: "10px" }} />
+                                        <Form.Control type="text" className="form-control" 
+                                        id="exampleInputText" 
+                                        placeholder="Qidirish..." 
+                                        style={{ borderRadius: "10px" }} 
+                                        value={filterVal}
+                                        onInput={e => handleFilter(e)}
+                                        />
                                         <Link className="search-link" to="#">
                                             <svg xmlns="http://www.w3.org/2000/svg" className="" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -78,9 +111,9 @@ const Product = () => {
                                     <div className="container">
                                         <div className="row align-items-center">
                                             <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{index + 1}</div>
-                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1"><img src={product.productImage} alt="Rasm" style={{ width: "35px" }} /></div>
+                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1"><img className="avatar myProductAvatar" src={product.storageImage === 'none' ? LogoBread : `http://localhost:4000/${product.storageImage}`} alt="Rasm" style={{ width: "35px" }} /></div>
                                             <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ fontWeight: "500" }}>{product.productName}</div>
-                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{product.productDes}</div>
+                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{product.description}</div>
                                             <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{product.productPrice} - so'm</div>
                                             <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{product.poductQuantity}</div>
                                             <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ color: product.poductQuantity > 10 ? '#149100' : product.poductQuantity <= 0 ? "#EC0000" : '#EFAC00', fontWeight: '500' }}>
@@ -106,7 +139,7 @@ const Product = () => {
                                                 </OverlayTrigger>
                                                 <OverlayTrigger placement="top" overlay={<Tooltip>Delete</Tooltip>} >
                                                     <Link className="badge" to="#">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="none" viewBox="0 0 24 24" stroke="#EE1D00">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="none" viewBox="0 0 24 24" stroke="#EE1D00" onClick={() =>  deleteProduct(index, product._id)}>
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                         </svg>
                                                     </Link>

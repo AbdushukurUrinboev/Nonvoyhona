@@ -72,3 +72,8 @@
 .productSvgStyle {
     cursor: pointer;
 }
+
+.myProductAvatar {
+    width: 60px;
+    border-radius: 50% !important;
+}

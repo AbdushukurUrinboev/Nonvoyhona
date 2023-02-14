@@ -4,50 +4,58 @@ import Card from '../../../components/Card'
 import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios';
 import { STORAGE_URL } from '../../../API';
+import Avatar from '../../../assets/images/avatar.png'
+import DefaultBread from '../../../assets/images/logoBread.png'
+
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './ProductAdd.css'
 
 const Productadd = () => {
-    const [name, setName] = useState('');
-    const [category, setCategory] = useState('');
-    const [price, setPrice] = useState('');
-    const [quantity, setQuantity] = useState('');
-    const [umumiyNarhi, setUmumiyNarhi] = useState(0);
-    const [xamkorName, setXamkorName] = useState("");
+    const [productName, setProductName] = useState(''); //
+    const [description, setDescription] = useState(''); //
+    const [productPrice, setProductPrice] = useState(0); //
+    const [poductQuantity, setPoductQuantity] = useState(0); // 
+    const [umumiyNarhi, setUmumiyNarhi] = useState(productPrice * poductQuantity);
+    const [xamkor, setXamkor] = useState(""); //
     const [berilganAvans, setBerilganAvans] = useState(0);
     const [qolganPul, setQolganPul] = useState(0);
-    const [olinganSana, setOlinganSana] = useState(new Date());
-    const [olinganSoat, setOlinganSoat] = useState(new Date().getHours() + ":" + new Date().getMinutes());
-    const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
+    const [olinganSana, setOlinganSana] = useState(new Date()); // 
+    const [olinganSoat, setOlinganSoat] = useState(new Date().getHours() + ":" + new Date().getMinutes()); //
+    const [storageImage, setStorageImage] = useState(''); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
     const history = useHistory()
 
 
     const month = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
 
+
+  console.log(storageImage, 12);
+
     function handleChange(e) {
-        e.preventDefault();
-        axios.post(STORAGE_URL, {
-            name,
-            category,
-            price,
-            quantity,
-            umumiyNarhi,
-            xamkorName,
-            berilganAvans,
-            qolganPul,
-            olinganSana: olinganSana.getDate() + "-" + month[olinganSana.getMonth()] + "," + olinganSana.getFullYear(),
-            olinganSoat,
-            uploadImage
+        e.preventDefault();   
+        
+        const fd = new FormData()
+        fd.append('productName', productName)
+        fd.append('description', description)
+        fd.append('productPrice', productPrice)
+        fd.append('poductQuantity', poductQuantity)
+        fd.append('umumiyNarhi', umumiyNarhi)
+        fd.append('xamkor', xamkor)
+        fd.append('berilganAvans', berilganAvans)
+        fd.append('qolganPul', qolganPul)
+        fd.append('olinganSana', olinganSana.getDate() + "-" + month[olinganSana.getMonth()] + "," + olinganSana.getFullYear())
+        fd.append('olinganSoat', olinganSoat)
+        fd.append('storageImage', storageImage)
 
+        axios.post(STORAGE_URL, fd)
+        .then(res => {
+            console.log("Data is saved", res)
+            history.push('/products')
         })
-            .then(res => {
-                console.log("Data is saved", res)
-                history.push('/products')
-            })
-            .catch(err => console.log(err))
-
-
+        .catch(err => console.log(err))
+        
+        
+       
     }
 
 
@@ -84,7 +92,7 @@ const Productadd = () => {
                                 <Row>
                                     <Col md="3" className="mb-3">
                                         <Card.Body className="productAddStyleCardBody mt-3 mx-auto">
-                                            <input type="file" className='productAddStyleInput ' accept='image/png, image/jpg, image/jpeg' onChange={e => setUploadImage(e.target.files[0])} />
+                                            <input type="file" className='productAddStyleInput ' accept='image/png, image/jpg, image/jpeg' name='storageImage' onChange={(e) => setStorageImage(e.target.files[0])} />
                                             <div className="d-flex justify-content-center mt-4">
                                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="80px" x="0px" y="0px" viewBox="0 0 419.2 419.2" style={{ enableBackground: "new 0 0 419.2 419.2" }} stroke="currentColor">
                                                     <g>
@@ -108,28 +116,28 @@ const Productadd = () => {
                                         <Form className="row g-3 date-icon-set-modal">
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Nomi</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Mahsulot nomini kiriting..." onChange={e => setName(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" placeholder="Mahsulot nomini kiriting..." onChange={e => setProductName(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Narxi</Form.Label>
-                                                <Form.Control type="number" id="Text1" placeholder="Narxini kiriting..." onChange={e => setPrice(e.target.value)} required='required' />
+                                                <Form.Control type="number" id="Text1" placeholder="Narxini kiriting..." onChange={e => setProductPrice(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Kategoriya</Form.Label>
-                                                <Form.Control type="text" id="Text3" placeholder="Kategoriyani kiriting..." required='required' onChange={e => setCategory(e.target.value)} />
+                                                <Form.Control type="text" id="Text3" placeholder="Kategoriyani kiriting..." required='required' onChange={e => setDescription(e.target.value)} />
                                             </div>
 
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Miqdori</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Miqdorini kiriting..." required='required' onChange={e => setQuantity(e.target.value)} />
+                                                <Form.Control type="number" id="Text3" placeholder="Miqdorini kiriting..." required='required' onChange={e => setPoductQuantity(e.target.value)} />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Umumiy narxi</Form.Label>
-                                                <Form.Control type="number" id="Text1" placeholder="Umumiy narhi..." onChange={e => setUmumiyNarhi(e.target.value)} required='required' />
+                                                <Form.Control type="number" id="Text1" placeholder={umumiyNarhi} onChange={e => setUmumiyNarhi(e.target.value)} required='required' value={umumiyNarhi} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Xamkorni tanlang</Form.Label>
-                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => setXamkorName(e.target.value)}>
+                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => setXamkor(e.target.value)}>
                                                     <option value="Bajarildi">Xamkorlar</option>
                                                     <option value="Bajarilmoqda">Sherov Abdurashid</option>
                                                     <option value="Bajarilmadi">Karimov Komil</option>
