@@ -16,7 +16,7 @@ const Productadd = () => {
     const [description, setDescription] = useState(''); //
     const [productPrice, setProductPrice] = useState(0); //
     const [poductQuantity, setPoductQuantity] = useState(0); // 
-    const [umumiyNarhi, setUmumiyNarhi] = useState(productPrice * poductQuantity);
+    const [umumiyNarhi, setUmumiyNarhi] = useState(0);
     const [xamkor, setXamkor] = useState(""); //
     const [berilganAvans, setBerilganAvans] = useState(0);
     const [qolganPul, setQolganPul] = useState(0);
@@ -39,7 +39,7 @@ const Productadd = () => {
         fd.append('description', description)
         fd.append('productPrice', productPrice)
         fd.append('poductQuantity', poductQuantity)
-        fd.append('umumiyNarhi', umumiyNarhi)
+        fd.append('umumiyNarhi', umumiyNarhi.length ? umumiyNarhi : productPrice * poductQuantity)
         fd.append('xamkor', xamkor)
         fd.append('berilganAvans', berilganAvans)
         fd.append('qolganPul', qolganPul)
@@ -133,7 +133,7 @@ const Productadd = () => {
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Umumiy narxi</Form.Label>
-                                                <Form.Control type="number" id="Text1" placeholder={umumiyNarhi} onChange={e => setUmumiyNarhi(e.target.value)} required='required' value={umumiyNarhi} />
+                                                <Form.Control type="number" id="Text1" placeholder={productPrice * poductQuantity} onChange={e => setUmumiyNarhi(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Xamkorni tanlang</Form.Label>
