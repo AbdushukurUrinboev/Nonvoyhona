@@ -9,13 +9,13 @@ import DatePicker from "react-datepicker";
 
 const Debtadd = () => {
 
-    const [name, setName] = useState('');
-    const [forPerson, setforPerson] = useState('');
-    const [quantity, setQuantity] = useState('');
-    const [price, setPrice] = useState('');
-    const [avans, setAvans] = useState('');
-    const [turi, setTuri] = useState('');
-    const [sana, setSana] = useState('');
+    const [product, setProduct] = useState(''); //
+    const [customer, setCustomer] = useState(''); //
+    const [productQuantity, setProductQuantity] = useState(''); //
+    const [overall, setOverall] = useState(0); //
+    const [avans, setAvans] = useState(''); //
+    const [customerType, setCustomerType] = useState(''); //
+    const [sana, setSana] = useState(new Date());
     const [mijozlar, setMijozlar] = useState(false)
 
 
@@ -27,13 +27,13 @@ const Debtadd = () => {
     function handleChange(e) {
         e.preventDefault();
         axios.post(NASIYA_URL, {
-            name,
-            forPerson,
-            quantity,
-            price,
+            product,
+            customer,
+            productQuantity,
+            overall,
             avans,
             sana: sana.getDate() + "-" + month[sana.getMonth()] + "," + sana.getFullYear(),
-            turi
+            customerType
             
            
 
@@ -86,7 +86,7 @@ const Debtadd = () => {
                                         <Form className="row g-3 date-icon-set-modal myStyleCustomerAdd">
                                             <div className="col-md-6 mb-3 mt-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Nomi</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Nomini kiriting..." onChange={e => setName(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" placeholder="Nomini kiriting..." onChange={e => setProduct(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3 mt-3 position-relative">
                                                 <Form.Label htmlFor="Text2" className="font-weight-bold text-muted text-uppercase">Sana</Form.Label>
@@ -99,20 +99,20 @@ const Debtadd = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Tur</Form.Label>
-                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => {setTuri(e.target.value); if(e.target.value === "Doimiy") setMijozlar(true); else setMijozlar(false)}}>
+                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => {setCustomerType(e.target.value); if(e.target.value === "temporary") setMijozlar(true); else setMijozlar(false)}}>
                                                     <option value="no">Turi</option>
-                                                    <option value="Doimiy">Doimiy</option>
-                                                    <option value="Vaqtincha">Vaqtincha</option>
+                                                    <option value="temporary">Doimiy</option>
+                                                    <option value="daily">Vaqtincha</option>
                                                 </select>
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Miqdori</Form.Label>
-                                                <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." onChange={e => setQuantity(e.target.value)} />
+                                                <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." onChange={e => setProductQuantity(e.target.value)} />
                                             </div>
                                             {
                                                 mijozlar ? (<div className="col-md-6 mb-3">
                                                         <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Mijozlar ro'yhati</Form.Label>
-                                                        <select id="inputState" className="form-select form-control choicesjs" onChange={e => setforPerson(e.target.value)}>
+                                                        <select id="inputState" className="form-select form-control choicesjs" onChange={e => setCustomer(e.target.value)}>
                                                             <option value="no">Mijozlar</option>
                                                             <option value="O'rinboyev Abdushukur">O'rinboyev Abdushukur</option>
                                                             <option value="Mavlonov Elbek">Mavlonov Elbek</option>
@@ -122,14 +122,14 @@ const Debtadd = () => {
                                                         </select>
                                                     </div>) : (<div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Kimga</Form.Label>
-                                                <Form.Control type="text" id="Text5" placeholder="Kim uchunligini kiriting..." onChange={e => setforPerson(e.target.value)} />
+                                                <Form.Control type="text" id="Text5" placeholder="Kim uchunligini kiriting..." onChange={e => setCustomer(e.target.value)} />
                                             </div>)
                                             }
 
                                             
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Narx</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." required='required' onChange={e => setPrice(e.target.value)} />
+                                                <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." required='required' onChange={e => setOverall(e.target.value)} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Avans</Form.Label>

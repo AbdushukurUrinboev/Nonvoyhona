@@ -29,7 +29,6 @@ const Productadd = () => {
     const month = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
 
 
-  console.log(storageImage, 12);
 
     function handleChange(e) {
         e.preventDefault();   
@@ -53,8 +52,6 @@ const Productadd = () => {
             history.push('/products')
         })
         .catch(err => console.log(err))
-        
-        
        
     }
 

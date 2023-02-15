@@ -11,8 +11,8 @@ import './Output.css'
 const Outputadd = () => {
 
     const [name, setName] = useState('');
-    const [sana, setSana] = useState('');
-    const [price, setPrice] = useState('');
+    const [sana, setSana] = useState(new Date());
+    const [overallPrice, setOverallPrice] = useState(0);
 
     const history = useHistory()
     const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -22,7 +22,7 @@ const Outputadd = () => {
         axios.post(EXPENSES_URL, {
             name,
             sana: sana.getDate() + "-" + month[sana.getMonth()] + "," + sana.getFullYear(),
-            price
+            overallPrice
         })
             .then(res => {
                 console.log("Data is saved", res);
@@ -73,7 +73,7 @@ const Outputadd = () => {
                                     </div>
                                     <div className="col-md-12 mb-3">
                                         <Form.Label htmlFor="Text2" className="form-label font-weight-bold text-muted text-uppercase">Narxi</Form.Label>
-                                        <Form.Control type="number" className="form-control" id="Text2" placeholder="Narxini kiriting..." onChange={e => setPrice(parseInt(e.target.value))} />
+                                        <Form.Control type="number" className="form-control" id="Text2" placeholder="Narxini kiriting..." onChange={e => setOverallPrice(parseInt(e.target.value))} />
                                     </div>
                                 </Form>
                                 <div className="text-right mt-4">

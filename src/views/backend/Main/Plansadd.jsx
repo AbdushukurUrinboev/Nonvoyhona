@@ -9,10 +9,10 @@ import './Plans.css'
 
 const Plansadd = () => {
 
-    const [name, setName] = useState('');
-    const [forPerson, setForPerson] = useState('');
-    const [sana, setSana] = useState('');
-    const [turi, setTuri] = useState('');
+    const [plan, setPlan] = useState('');
+    const [person, setPerson] = useState('');
+    const [deadline, setDeadline] = useState();
+    const [status, setStatus] = useState('');
 
     const history = useHistory()
     const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -20,10 +20,10 @@ const Plansadd = () => {
     function handleAdd(e) {
         e.preventDefault();
         axios.post(PLANS_URL, {
-            name,
-            sana: sana.getDate() + "-" + month[sana.getMonth()] + "," + sana.getFullYear(),
-            forPerson,
-            turi
+            plan,
+            deadline: deadline.getDate() + "-" + month[deadline.getMonth()] + "," + deadline.getFullYear(),
+            person,
+            status
         })
             .then(res => {
                 console.log("Data is saved", res);
@@ -66,19 +66,23 @@ const Plansadd = () => {
                                 <Form className="row g-3">
                                     <div className="col-md-12 mb-3">
                                         <Form.Label htmlFor="Text1" className="form-label font-weight-bold text-muted text-uppercase">Nomi</Form.Label>
-                                        <Form.Control type="text" className="form-control" id="Text1" placeholder="Nomini kiriting..." onChange={e => setName(e.target.value)} />
+                                        <Form.Control type="text" className="form-control" id="Text1" placeholder="Nomini kiriting..." onChange={e => setPlan(e.target.value)} />
                                     </div>
                                     <div className="col-md-12 mb-3 position-relative">
                                         <Form.Label htmlFor="Text2" className="font-weight-bold text-muted text-uppercase">Muddat</Form.Label>
-                                        <DatePicker className="form-control" id="Text2" name="event_date" placeholderText="Sanani kiriting" autoComplete="off" selected={sana} onChange={date => setSana(date)} />
+                                        <DatePicker className="form-control" id="Text2" name="event_date" placeholderText="Sanani kiriting" autoComplete="off" selected={deadline} onChange={date => setDeadline(date)} />
                                     </div>
                                     <div className="col-md-12 mb-3">
                                         <Form.Label htmlFor="Text2" className="form-label font-weight-bold text-muted text-uppercase">Mas'ul shahs</Form.Label>
-                                        <Form.Control type="text" className="form-control" id="Text2" placeholder="Mas'ul shaxsni kiriting..." onChange={e => setForPerson(e.target.value)} />
+                                        <select id="Text2" className="form-select form-control choicesjs" onChange={e => setPerson(e.target.value)}>
+                                            <option value="Bajarildi">Xodimlar</option>
+                                            <option value="Sherov Abdurashid">Sherov Abdurashid</option>
+                                            <option value="Karimov Komil">Karimov Komil</option>
+                                        </select>
                                     </div>
                                     <div className="col-md-12 mb-3">
                                         <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Tur</Form.Label>
-                                        <select id="inputState" className="form-select form-control choicesjs" onChange={e => setTuri(e.target.value)}>
+                                        <select id="inputState" className="form-select form-control choicesjs" onChange={e => setStatus(e.target.value)}>
                                             <option value="Bajarildi">Bajarildi</option>
                                             <option value="Bajarilmoqda">Bajarilmoqda</option>
                                             <option value="Bajarilmadi">Bajarilmadi</option>

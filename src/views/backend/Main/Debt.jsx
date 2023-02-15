@@ -18,11 +18,11 @@ const Debt = () => {
 
     const filterDebtList = (data) => {
         return data.filter((debt) => {
-            if (filterTextValue === "Doimiy") {
-                console.log(debt.group === "Doimiy");
-                return debt.turi === "Doimiy"
-            } else if (filterTextValue === "Vaqtincha") {
-                return debt.turi === "Vaqtincha"
+            if (filterTextValue === "temporary") {
+                console.log(debt.group === "temporary");
+                return debt.customerType === "temporary"
+            } else if (filterTextValue === "daily") {
+                return debt.customerType === "daily"
             } else {
                 return debt
             }
@@ -47,6 +47,18 @@ const Debt = () => {
         updateFilterTextValue(filterValue)
 
     }
+
+
+    function deleteDebt(index, id) {
+        axios.delete(NASIYA_URL, {data: {id}})
+        .then(res => {
+            console.log("Data is deleted!!!", res)
+            setDebts(debts.filter(p => p.id !== id))
+        })
+        .catch(err => console.log(err))
+        // console.log("kirish = " + id);
+    }
+
 
     return (
         <>
@@ -105,8 +117,8 @@ const Debt = () => {
                             <div className="container">
                                 <div className="row align-items-center myHeaderDebtStyle">
                                     <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-left">№</div>
-                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">Nasiya nomi</div>
-                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Kimga</div>
+                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Nasiya nomi</div>
+                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">Kimga</div>
                                     <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">Miqdor</div>
                                     <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">Narxi</div>
                                     <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">Avans</div>
@@ -123,16 +135,16 @@ const Debt = () => {
                                     <div className="container">
                                         <div className="row align-items-center">
                                             <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-left">{index + 1}</div>
-                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ fontWeight: "500" }}>{debt.name}</div>
-                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{debt.forPerson}</div>
-                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{debt.quantity}</div>
-                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{debt.price}</div>
+                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ fontWeight: "500" }}>{debt.product}</div>
+                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-left">{debt.customer}</div>
+                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{debt.productQuantity}</div>
+                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{debt.overall}</div>
                                             <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{debt.avans}</div>
-                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{debt.sana}</div>
-                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-left" style={{ color: debt.turi === "Doimiy" ? '#149100' : "#EC0000", fontWeight: '500', padding: "0px" }}>
+                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left">{debt.date}</div>
+                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-left" style={{ color: debt.customerType === "temporary" ? '#149100' : "#EC0000", fontWeight: '500', padding: "0px" }}>
                                                 <small><svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
-                                                    <circle cx="12" cy="12" r="8" style={{ fill: debt.turi === "Doimiy" ? '#149100' : '#EC0000' }}></circle></svg>
-                                                </small>{debt.turi}
+                                                    <circle cx="12" cy="12" r="8" style={{ fill: debt.customerType === "temporary" ? '#149100' : '#EC0000' }}></circle></svg>
+                                                </small>{debt.customerType}
                                             </div>
                                             <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-right">
                                                 <OverlayTrigger placement="top" overlay={<Tooltip>Edit</Tooltip>} >
@@ -144,7 +156,7 @@ const Debt = () => {
                                                 </OverlayTrigger>
                                                 <OverlayTrigger placement="top" overlay={<Tooltip>Delete</Tooltip>} >
                                                     <Link className="badge" to="#">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="none" viewBox="0 0 24 24" stroke="#EE1D00">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="none" viewBox="0 0 24 24" stroke="#EE1D00" onClick={() => deleteDebt(index, debt._id)}>
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                         </svg>
                                                     </Link>

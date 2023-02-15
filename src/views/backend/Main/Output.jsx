@@ -23,6 +23,18 @@ const Output = () => {
             .catch(err => console.log(err))
     }, [])
 
+    function deleteOutput(index, id) {
+        axios.delete(EXPENSES_URL, {data: {id}})
+        .then(res => {
+            console.log("Data is deleted!!!", res)
+            setOutputs(outputs.filter(p => p.id !== id))
+        })
+        .catch(err => console.log(err))
+        // console.log("kirish = " + id);
+    }
+
+
+
     return (
         <>
             <Container fluid>
@@ -96,8 +108,8 @@ const Output = () => {
                                         <div className="row align-items-center">
                                             <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-left">{index + 1}</div>
                                             <div className="col-sm-12 col-md-5 col-lg-5 col-xl-5" style={{ fontWeight: "500" }}>{output.name}</div>
-                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{output.sana}</div>
-                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{output.price}</div>
+                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{output.day}/{output.month}/{output.year}</div>
+                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{output.overallPrice}</div>
                                             <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">
                                                 <OverlayTrigger placement="top" overlay={<Tooltip>Edit</Tooltip>} >
                                                     <Link className="" to="#">
@@ -108,7 +120,7 @@ const Output = () => {
                                                 </OverlayTrigger>
                                                 <OverlayTrigger placement="top" overlay={<Tooltip>Delete</Tooltip>} >
                                                     <Link className="badge" to="#">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="none" viewBox="0 0 24 24" stroke="#EE1D00">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="none" viewBox="0 0 24 24" stroke="#EE1D00" onClick={() =>  deleteOutput(index, output._id)}>
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                         </svg>
                                                     </Link>

@@ -21,11 +21,11 @@ const Plans = () => {
         return data.filter((plan) => {
             if (filterTextValue === "Bajarildi") {
                 console.log(plan.group === "Bajarildi");
-                return plan.turi === "Bajarildi"
+                return plan.status === "Bajarildi"
             } else if (filterTextValue === "Bajarilmoqda") {
-                return plan.turi === "Bajarilmoqda"
+                return plan.status === "Bajarilmoqda"
             } else if (filterTextValue === "Bajarilmadi") {
-                return plan.turi === "Bajarilmadi"
+                return plan.status === "Bajarilmadi"
             } else {
                 return plan
             }
@@ -50,6 +50,16 @@ const Plans = () => {
         console.log(filterValue);
         updateFilterTextValue(filterValue)
 
+    }
+
+    function deletePlan(index, id) {
+        axios.delete(PLANS_URL, {data: {id}})
+        .then(res => {
+            console.log("Data is deleted!!!", res)
+            setPlans(plans.filter(p => p.id !== id))
+        })
+        .catch(err => console.log(err))
+        // console.log("kirish = " + id);
     }
 
     return (
@@ -124,14 +134,14 @@ const Plans = () => {
                                     <div className="container">
                                         <div className="row align-items-center">
                                             <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-left">{index + 1}</div>
-                                            <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3" style={{ fontWeight: "500" }}>{plan.name}</div>
-                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{plan.forPerson}</div>
-                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{plan.sana}</div>
-                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left" style={{ color: plan.turi === "Bajarildi" ? '#149100' : plan.turi === "Bajarilmadi" ? "#EC0000" : '#EFAC00', fontWeight: '500' }}>
+                                            <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3" style={{ fontWeight: "500" }}>{plan.plan}</div>
+                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{plan.person}</div>
+                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{plan.deadline}</div>
+                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left" style={{ color: plan.status === "Bajarildi" ? '#149100' : plan.status === "Bajarilmadi" ? "#EC0000" : '#EFAC00', fontWeight: '500' }}>
                                                 <small><svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
-                                                    <circle cx="12" cy="12" r="8" style={{ fill: plan.turi === "Bajarildi" ? '#149100' : plan.turi === "Bajarilmadi" ? "#EC0000" : '#EFAC00' }}></circle></svg>
+                                                    <circle cx="12" cy="12" r="8" style={{ fill: plan.status === "Bajarildi" ? '#149100' : plan.status === "Bajarilmadi" ? "#EC0000" : '#EFAC00' }}></circle></svg>
                                                 </small>
-                                                {plan.turi}
+                                                {plan.status}
                                             </div>
                                             <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-right">
                                                 <OverlayTrigger placement="top" overlay={<Tooltip>Edit</Tooltip>} >
@@ -143,7 +153,7 @@ const Plans = () => {
                                                 </OverlayTrigger>
                                                 <OverlayTrigger placement="top" overlay={<Tooltip>Delete</Tooltip>} >
                                                     <Link className="badge" to="#">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="none" viewBox="0 0 24 24" stroke="#EE1D00">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="none" viewBox="0 0 24 24" stroke="#EE1D00" onClick={() => deletePlan(index, plan._id)}>
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                         </svg>
                                                     </Link>
