@@ -28,11 +28,13 @@ const Productadd = () => {
 
     const month = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
 
-
+    const calculateOverallPrice = (productPriceInput, poductQuantityInput) => {
+        setUmumiyNarhi(poductQuantityInput * productPriceInput);
+    }
 
     function handleChange(e) {
-        e.preventDefault();   
-        
+        e.preventDefault();
+
         const fd = new FormData()
         fd.append('productName', productName)
         fd.append('description', description)
@@ -47,12 +49,12 @@ const Productadd = () => {
         fd.append('storageImage', storageImage)
 
         axios.post(STORAGE_URL, fd)
-        .then(res => {
-            console.log("Data is saved", res)
-            history.push('/products')
-        })
-        .catch(err => console.log(err))
-       
+            .then(res => {
+                console.log("Data is saved", res)
+                history.push('/products')
+            })
+            .catch(err => console.log(err))
+
     }
 
 
@@ -117,7 +119,10 @@ const Productadd = () => {
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Narxi</Form.Label>
-                                                <Form.Control type="number" id="Text1" placeholder="Narxini kiriting..." onChange={e => setProductPrice(e.target.value)} required='required' />
+                                                <Form.Control type="number" id="Text1" placeholder="Narxini kiriting..." onChange={e => {
+                                                    setProductPrice(e.target.value);
+                                                    calculateOverallPrice(e.target.value, poductQuantity);
+                                                }} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Kategoriya</Form.Label>
@@ -126,11 +131,14 @@ const Productadd = () => {
 
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Miqdori</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Miqdorini kiriting..." required='required' onChange={e => setPoductQuantity(e.target.value)} />
+                                                <Form.Control type="number" id="Text3" placeholder="Miqdorini kiriting..." required='required' onChange={e => {
+                                                    setPoductQuantity(e.target.value);
+                                                    calculateOverallPrice(productPrice, e.target.value);
+                                                    }} />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Umumiy narxi</Form.Label>
-                                                <Form.Control type="number" id="Text1" placeholder={productPrice * poductQuantity} onChange={e => setUmumiyNarhi(e.target.value)} required='required' />
+                                                <Form.Control type="number" id="Text1" value={umumiyNarhi} onChange={e => setUmumiyNarhi(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Xamkorni tanlang</Form.Label>

@@ -56,7 +56,7 @@ const Plans = () => {
         axios.delete(PLANS_URL, {data: {id}})
         .then(res => {
             console.log("Data is deleted!!!", res)
-            setPlans(plans.filter(p => p.id !== id))
+            setPlans(plans.filter(p => p._id !== id))
         })
         .catch(err => console.log(err))
         // console.log("kirish = " + id);

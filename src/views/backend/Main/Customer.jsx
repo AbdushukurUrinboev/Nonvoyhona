@@ -51,11 +51,10 @@ const Customer = () => {
     }
 
     function deleteCustomer(index, id) {
-        console.log(index, id);
         axios.delete(`http://localhost:4000/customers/`, {data: {id}})
         .then(res => {
             console.log("Data is deleted!!!", res)
-            setpostsCustomer(postsCustomer.filter(p => p.id !== id))
+            setpostsCustomer(postsCustomer.filter(p => p._id !== id))
         })
         .catch(err => console.log(err))
         // console.log("kirish = " + id);

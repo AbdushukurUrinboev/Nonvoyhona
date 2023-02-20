@@ -83,12 +83,6 @@ const Layout1Route = () => {
     let location = useLocation();
 
     return (
-        <TransitionGroup>
-            <CSSTransition
-            key={location.key}
-            classNames="fade"
-            timeout={300}
-            >
                 <Switch  location={location}>
                     <Route path="/" exact component={Dashbord} />
 
@@ -162,8 +156,6 @@ const Layout1Route = () => {
                     <Route path="/xamkorlar-add"       component={XamkorlarAdd}/>
                     
                 </Switch>
-            </CSSTransition>
-        </TransitionGroup>
     )
 }
 

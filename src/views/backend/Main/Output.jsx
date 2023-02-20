@@ -27,7 +27,7 @@ const Output = () => {
         axios.delete(EXPENSES_URL, {data: {id}})
         .then(res => {
             console.log("Data is deleted!!!", res)
-            setOutputs(outputs.filter(p => p.id !== id))
+            setOutputs(outputs.filter(p => p._id !== id))
         })
         .catch(err => console.log(err))
         // console.log("kirish = " + id);

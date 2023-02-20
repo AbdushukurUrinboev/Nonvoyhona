@@ -33,7 +33,7 @@ const Product = () => {
         axios.delete(STORAGE_URL, {data: {id}})
         .then(res => {
             console.log("Data is deleted!!!", res)
-            setPostProducts(postProducts.filter(p => p.id !== id))
+            setPostProducts(postProducts.filter(p => p._id !== id))
         })
         .catch(err => console.log(err))
         // console.log("kirish = " + id);

@@ -17,51 +17,50 @@ import './StaffAdd.css'
 const Staffadd = () => {
 
     const [firstName, setFirstName] = useState('');
-    const [surName, setSurName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [gender, setGender] = useState('');
-    const [birthday, setBirthday] = useState();
     const [phoneCode, setPhoneCode] = useState('(90) ');
     const [phone, setPhone] = useState('');
     const [phoneCode2, setPhoneCode2] = useState('(90) ');
     const [phone2, setPhone2] = useState('');
-    const [status, setStatus] = useState('');
-    const [location, setLocation] = useState('');
+    const [typeOfWorker, setTypeOfWorker] = useState('');
+    const [adress, setAdress] = useState('');
     const [group, setGroup] = useState('');
     const [smena, setSmena] = useState('');
     const [salary, setSalary] = useState('');
-    const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
+    const [birthday, setBirthday] = useState();
+    const [image, setImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
     const history = useHistory()
 
     const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 
 
-
     function handleChange(e) {
         e.preventDefault();
-        axios.post(STAFF_URL, {
-            firstName,
-            surName,
-            gender,
-            birthday: birthday.getDate() + "-" + month[birthday.getMonth()] + "," + birthday.getFullYear(),
-            phone: phoneCode + ' - ' + phone,
-            phone2: phoneCode2 + ' - ' + phone2,
-            status,
-            location,
-            group,
-            smena,
-            salary,
-            uploadImage
+        const fd = new FormData()
+        fd.append('firstName', firstName)
+        fd.append('lastName', lastName)
+        fd.append('gender', gender)
+        fd.append('phone', phoneCode + ' - ' + phone)
+        fd.append('phone2', phoneCode2 + ' - ' + phone2)
+        fd.append('typeOfWorker', typeOfWorker) //
+        fd.append('adress', adress)
+        fd.append('group', group)
+        fd.append('smena', smena)
+        fd.append('salary', salary)
+        fd.append('birthday', birthday.getDate() + "-" + month[birthday.getMonth()] + "," + birthday.getFullYear())
+        fd.append('image', image)
 
+        axios.post(STAFF_URL, fd)
+        .then(res => {
+            console.log("Data is saved", res)
+            history.push('/staff')
         })
-            .then(res => {
-                console.log("Data is saved", res)
-                history.push('/staff')
-            })
-            .catch(err => console.log(err))
-
-
+        .catch(err => console.log(err))
+       
     }
+
 
 
     return (
@@ -95,7 +94,7 @@ const Staffadd = () => {
                                 <Row>
                                     <Col md="3" className="mb-3 mt-5">
                                         <Card.Body className="staffAddStyleCardBody mx-auto">
-                                            <input type="file" className='staffAddStyleInput' accept='image/png, image/jpg, image/jpeg' onChange={e => setUploadImage(e.target.files[0])} />
+                                            <input type="file" className='staffAddStyleInput' accept='image/png, image/jpg, image/jpeg' name='staffImage' onChange={e => setImage(e.target.files[0])} />
                                             <div className="d-flex justify-content-center align-items-center mt-5">
                                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="90px" x="0px" y="0px" viewBox="0 0 419.2 419.2" style={{ enableBackground: "new 0 0 419.2 419.2" }} stroke="currentColor">
                                                     <g>
@@ -137,11 +136,11 @@ const Staffadd = () => {
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Familiya</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Familiyani kiriting..." onChange={e => setSurName(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" placeholder="Familiyani kiriting..." onChange={e => setLastName(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Lavozimi</Form.Label>
-                                                <Form.Control type="text" id="Text3" placeholder="Lavozimini kiriting..." required='required' onChange={e => setStatus(e.target.value)} />
+                                                <Form.Control type="text" id="Text3" placeholder="Lavozimini kiriting..." required='required' onChange={e => setTypeOfWorker(e.target.value)} />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text2" className="font-weight-bold text-muted text-uppercase">Tug'ilgan sanasi</Form.Label>
@@ -166,7 +165,7 @@ const Staffadd = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text6" className="font-weight-bold text-muted text-uppercase">Yashash Manzili</Form.Label>
-                                                <Form.Control type="text" id="Text6" placeholder="Yashash manzilini kiriting..." onChange={e => setLocation(e.target.value)} />
+                                                <Form.Control type="text" id="Text6" placeholder="Yashash manzilini kiriting..." onChange={e => setAdress(e.target.value)} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text7" className="font-weight-bold text-muted text-uppercase">Telefon raqami (uy)</Form.Label>

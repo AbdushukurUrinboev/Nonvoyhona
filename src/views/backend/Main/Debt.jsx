@@ -53,7 +53,7 @@ const Debt = () => {
         axios.delete(NASIYA_URL, {data: {id}})
         .then(res => {
             console.log("Data is deleted!!!", res)
-            setDebts(debts.filter(p => p.id !== id))
+            setDebts(debts.filter(p => p._id !== id))
         })
         .catch(err => console.log(err))
         // console.log("kirish = " + id);
