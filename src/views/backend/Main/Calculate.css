@@ -86,7 +86,7 @@
 .calculateAddStyleCardBody {
     position: relative;
     width: 60%;
-    height: 17%;
+    /* height: 17% !important; */
     line-height: 30px;
     text-align: center;
     border-radius: 50% !important;
@@ -96,7 +96,8 @@
 
 @media screen and (max-width:767px) {
     .calculateAddStyleCardBody{
-    height: 100%
+        width: 35%;
+        height: 200px;
 }
 }
 

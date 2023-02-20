@@ -75,14 +75,15 @@ import SailAdd from '../views/backend/Main/SailAdd';
 import Xamkorlar from '../views/backend/Main/Xamkorlar';
 import XamkorlarAdd from '../views/backend/Main/XamkorAdd';
 
-
-
+// DataProvider - stateManagement
+import DataProvider from '../views/backend/Main/ContextProvider/DataProvider';
 
 const Layout1Route = () => {
 
     let location = useLocation();
 
     return (
+        <DataProvider>
                 <Switch  location={location}>
                     <Route path="/" exact component={Dashbord} />
 
@@ -155,7 +156,8 @@ const Layout1Route = () => {
                     <Route path="/xamkorlar"           component={Xamkorlar}/>
                     <Route path="/xamkorlar-add"       component={XamkorlarAdd}/>
                     
-                </Switch>
+            </Switch>
+        </DataProvider>
     )
 }
 

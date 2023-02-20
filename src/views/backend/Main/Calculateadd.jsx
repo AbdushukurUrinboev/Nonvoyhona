@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { Link, useHistory } from 'react-router-dom'
@@ -7,40 +7,47 @@ import { CALCULATE_URL } from '../../../API';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './Calculate.css'
+// DataProvider
+import { dataContext } from './ContextProvider/DataProvider';
 
 const Calculateadd = () => {
-    const [breadName, setbreadName] = useState('');    
-    const [breadPrice, setBreadPrice] = useState(0);    
+    const [addInput, setAddInput] = useState([])
+    const [productInput, setProductInput] = useState('')
+    const [breadName, setbreadName] = useState('');
+    const [breadPrice, setBreadPrice] = useState(0);
     // const [breadQuantity, setBreadQuantity] = useState(0);    
-    const [pista, setPista] = useState(0);    
-    const [bodom, setBodom] = useState(0);    
-    const [yongoq, setYongoq] = useState(0);    
-    const [un, setUn] = useState(1);    
-    const [shakar, setShakar] = useState(0);    
-    const [yog, setYog] = useState(0);    
-    const [suzma, setSuzma] = useState(0);    
-    const [suhoy, setSuhoy] = useState(0);    
-    const [droj, setDroj] = useState(0);    
-    const [kunjut, setKunjut] = useState(0);    
-    const [sedana, setSedana] = useState(0);    
-    const [tuz, setTuz] = useState(0);    
-    const [keshu, setKeshu] = useState(0);    
-    const [nonhuja, setNonhuja] = useState(0);    
-    const [kumir, setKumir] = useState(0);    
-    const [gaz, setGaz] = useState(0);    
-    const [elektr, setElektr] = useState(0);    
-    const [paket, setPaket] = useState(1);    
-    const [ovqat, setOvqat] = useState(0);    
-    const [sotuvchi, setSotuvchi] = useState(0);    
-    const [ishHaqi, setIshHaqi] = useState(0);    
-    const [boshqalar, setBoshqalar] = useState(0);    
+    const [pista, setPista] = useState(0);
+    const [bodom, setBodom] = useState(0);
+    const [yongoq, setYongoq] = useState(0);
+    const [un, setUn] = useState(1);
+    const [shakar, setShakar] = useState(0);
+    const [yog, setYog] = useState(0);
+    const [suzma, setSuzma] = useState(0);
+    const [suhoy, setSuhoy] = useState(0);
+    const [droj, setDroj] = useState(0);
+    const [kunjut, setKunjut] = useState(0);
+    const [sedana, setSedana] = useState(0);
+    const [tuz, setTuz] = useState(0);
+    const [keshu, setKeshu] = useState(0);
+    const [nonhuja, setNonhuja] = useState(0);
+    const [kumir, setKumir] = useState(0);
+    const [gaz, setGaz] = useState(0);
+    const [elektr, setElektr] = useState(0);
+    const [paket, setPaket] = useState(1);
+    const [ovqat, setOvqat] = useState(0);
+    const [sotuvchi, setSotuvchi] = useState(0);
+    const [ishHaqi, setIshHaqi] = useState(0);
+    const [boshqalar, setBoshqalar] = useState(0);
     const [productImage, setProductImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
     const history = useHistory()
 
+    const valueProducts = useContext(dataContext)
+
+
 
     function handleChange(e) {
-        e.preventDefault();   
-        
+        e.preventDefault();
+
         const fd = new FormData()
         fd.append('breadName', breadName);
         fd.append('breadPrice', breadPrice);
@@ -68,14 +75,14 @@ const Calculateadd = () => {
         fd.append('boshqalar', boshqalar)
         fd.append('productImage', productImage)
 
-       
+
         axios.post(CALCULATE_URL, fd)
-        .then(res => {
-            console.log("Data is saved", res)
-            history.push('/calculate')
-        })
-        .catch(err => console.log(err))
-       
+            .then(res => {
+                console.log("Data is saved", res)
+                history.push('/calculate')
+            })
+            .catch(err => console.log(err))
+
     }
 
     return (
@@ -109,6 +116,37 @@ const Calculateadd = () => {
                             <Card.Body>
                                 <Row>
                                     <Col md="3" className="mb-3">
+
+                                        <Card.Body className=" mt-3 mx-auto">
+                                            <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Maxsulotni tanlang</Form.Label>
+                                            <select id="inputState" className="form-select form-control choicesjs" value={productInput} onChange={e => setProductInput(e.target.value)} >
+                                                <option value="no">Maxsulotlar</option>
+                                                {
+                                                    valueProducts.filter((product) => {                                                       
+                                                        return !addInput.includes(product)
+                                                    }).map((product, ind) => {
+                                                        return <option key={ind} value={product}>{product}</option>
+                                                    })
+                                                }
+                                                <option value="boshqalar">Boshqalar</option>
+                                                {/* <option value="no">Maxsulotlar</option>
+                                                <option value="Sedana">Sedana</option>
+                                                <option value="Sedana">Yongoq</option>
+                                                <option value="...">...</option> */}
+                                            </select>
+                                            
+                                            <button className='btn btn-primary mt-2 w-100' onClick={() => { 
+                                                
+                                                setAddInput([...addInput, productInput]) 
+                                                setProductInput('Maxsulotlar')
+                                                }}>
+                                                
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                                </svg>
+                                                Qo'shish
+                                            </button>
+                                        </Card.Body>
                                         <Card.Body className="calculateAddStyleCardBody mt-3 mx-auto">
                                             <input type="file" className='calculateAddStyleInput ' accept='image/png, image/jpg, image/jpeg' name='productImage' onChange={(e) => setProductImage(e.target.files[0])} />
                                             <div className="d-flex justify-content-center mt-1">
@@ -138,28 +176,48 @@ const Calculateadd = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Un miqdori</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Bir qop un uchun hisoblanadi..." required='required' onChange={e => setUn(e.target.value)} value={un}/>
+                                                <Form.Control type="number" id="Text3" placeholder="Bir qop un uchun hisoblanadi..." required='required' onChange={e => setUn(e.target.value)} value={un} />
+                                            </div>
+                                            {
+                                                addInput.map((item, index) => {
+                                                    return <div className="col-md-6 mb-3" key={index}>
+                                                        <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">{item} miqdorini kiriting</Form.Label>
+                                                        <Form.Control type="text" id="Text1" placeholder="Non nomini kiriting..." onChange={e => setbreadName(e.target.value)} required='required' />
+                                                    </div>
+                                                })
+                                            }
+
+
+
+
+                                            {/* <div className="col-md-6 mb-3">
+                                                <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Non nomi</Form.Label>
+                                                <Form.Control type="text" id="Text1" placeholder="Non nomini kiriting..." onChange={e => setbreadName(e.target.value)} required='required' />
+                                            </div>
+                                            <div className="col-md-6 mb-3">
+                                                <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Un miqdori</Form.Label>
+                                                <Form.Control type="number" id="Text3" placeholder="Bir qop un uchun hisoblanadi..." required='required' onChange={e => setUn(e.target.value)} value={un} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Pista miqdori</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Qancha pista ketadi..." required='required' onChange={e => setPista(e.target.value)} value={pista}/>
+                                                <Form.Control type="number" id="Text3" placeholder="Qancha pista ketadi..." required='required' onChange={e => setPista(e.target.value)} value={pista} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Bodom miqdori</Form.Label>
-                                                <Form.Control type="number" id="Text1" placeholder="Qancha bodom ketadi..." onChange={e => setBodom(e.target.value)} required='required' value={bodom}/>
+                                                <Form.Control type="number" id="Text1" placeholder="Qancha bodom ketadi..." onChange={e => setBodom(e.target.value)} required='required' value={bodom} />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Yong'oq miqdori</Form.Label>
                                                 <Form.Control type="number" id="Text1" placeholder="Qancha yong'oq ketadi..." onChange={e => setYongoq(e.target.value)} required='required' value={yongoq} />
                                             </div>
-                                            
+
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Shakar miqdori</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Shakar miqdorini kiriting..." required='required' onChange={e => setShakar(e.target.value)} value={shakar}/>
+                                                <Form.Control type="number" id="Text3" placeholder="Shakar miqdorini kiriting..." required='required' onChange={e => setShakar(e.target.value)} value={shakar} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Yog' miqdori</Form.Label>
-                                                <Form.Control type="number" id="Text1" placeholder="Yog' miqdorini kiriting..." onChange={e => setYog(e.target.value)} required='required' value={yog}/>
+                                                <Form.Control type="number" id="Text1" placeholder="Yog' miqdorini kiriting..." onChange={e => setYog(e.target.value)} required='required' value={yog} />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Suzma miqdori</Form.Label>
@@ -167,31 +225,31 @@ const Calculateadd = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Suhoy miqdori</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Suhoy miqdorini kiriting..." required='required' onChange={e => setSuhoy(e.target.value)} value={suhoy}/>
+                                                <Form.Control type="number" id="Text3" placeholder="Suhoy miqdorini kiriting..." required='required' onChange={e => setSuhoy(e.target.value)} value={suhoy} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Droj miqdori</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Droj miqdorini kiriting..." required='required' onChange={e => setDroj(e.target.value)} value={droj}/>
+                                                <Form.Control type="number" id="Text3" placeholder="Droj miqdorini kiriting..." required='required' onChange={e => setDroj(e.target.value)} value={droj} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Kunjut miqdori</Form.Label>
-                                                <Form.Control type="number" id="Text1" placeholder="Kunjut miqdorini kiriting..." onChange={e => setKunjut(e.target.value)} required='required' value={kunjut}/>
+                                                <Form.Control type="number" id="Text1" placeholder="Kunjut miqdorini kiriting..." onChange={e => setKunjut(e.target.value)} required='required' value={kunjut} />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Sedana miqdori</Form.Label>
-                                                <Form.Control type="number" id="Text1" placeholder="Sedana miqdorini kiriting..." onChange={e => setSedana(e.target.value)} required='required' value={sedana}/>
+                                                <Form.Control type="number" id="Text1" placeholder="Sedana miqdorini kiriting..." onChange={e => setSedana(e.target.value)} required='required' value={sedana} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Tuz miqdori</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Tuz miqdorini kiriting..." required='required' onChange={e => setTuz(e.target.value)} value={tuz}/>
+                                                <Form.Control type="number" id="Text3" placeholder="Tuz miqdorini kiriting..." required='required' onChange={e => setTuz(e.target.value)} value={tuz} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Keshu miqdori</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Keshu miqdorini kiriting..." required='required' onChange={e => setKeshu(e.target.value)} value={keshu}/>
+                                                <Form.Control type="number" id="Text3" placeholder="Keshu miqdorini kiriting..." required='required' onChange={e => setKeshu(e.target.value)} value={keshu} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Nonho'ja soni</Form.Label>
-                                                <Form.Control type="number" id="Text1" placeholder="Nonho'ja sonini kiriting..." onChange={e => setNonhuja(e.target.value)} required='required' value={nonhuja}/>
+                                                <Form.Control type="number" id="Text1" placeholder="Nonho'ja sonini kiriting..." onChange={e => setNonhuja(e.target.value)} required='required' value={nonhuja} />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Ishlatiladigan ko'mir (so'mda)</Form.Label>
@@ -207,7 +265,7 @@ const Calculateadd = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Ishlatiladigan paket (dona)</Form.Label>
-                                                <Form.Control type="number" id="Text1" placeholder="Ishlatiladigan paket donasini kiriting..." onChange={e => setPaket(e.target.value)} required='required' value={paket}/>
+                                                <Form.Control type="number" id="Text1" placeholder="Ishlatiladigan paket donasini kiriting..." onChange={e => setPaket(e.target.value)} required='required' value={paket} />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Ovqat (so'mda)</Form.Label>
@@ -228,7 +286,7 @@ const Calculateadd = () => {
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Non narxi</Form.Label>
                                                 <Form.Control type="number" id="Text3" placeholder="Non narxini kiriting..." required='required' onChange={e => setBreadPrice(e.target.value)} />
-                                            </div>
+                                            </div> */}
                                             {/* <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Non miqdori</Form.Label>
                                                 <Form.Control type="number" id="Text3" placeholder="Non miqdorini kiriting..." required='required' onChange={e => setBreadQuantity(e.target.value)} />
@@ -236,17 +294,19 @@ const Calculateadd = () => {
 
 
                                         </Form>
-                                        <div className="text-right mt-4">
-                                            <Link to="/calculate" className='btn myButtonCalculates qushishCalculate' type="button" onClick={handleChange}>
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                                </svg>
-                                                Qo'shish
-                                            </Link>
-                                        </div>
+
 
                                     </Col>
+
                                 </Row>
+                                <div className="text-right mt-4">
+                                    <Link to="/calculate" className='btn myButtonCalculates qushishCalculate' type="button" onClick={handleChange}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                        </svg>
+                                        Qo'shish
+                                    </Link>
+                                </div>
                             </Card.Body>
                         </Card>
                     </Col>
