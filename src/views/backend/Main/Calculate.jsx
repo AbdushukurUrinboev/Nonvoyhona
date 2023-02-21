@@ -23,7 +23,6 @@ const Calculate = () => {
             .then(res => {
                 setPostBread(res.data)
                 setSearchData(res.data)
-                // console.log(res.data);
             })
             .catch(err => console.log(err))
     }, [])
@@ -40,11 +39,13 @@ const Calculate = () => {
     }
 
 
+    
+
     function handleFilter(e) {
         if(e.target.value == '') {
             setPostBread(searchData)
         } else {
-            const filterResult = searchData.filter(item => item.breadName.toLowerCase().includes(e.target.value.toLowerCase()) || item.description.toLowerCase().includes(e.target.value.toLowerCase()) )
+            const filterResult = searchData.filter((item) => item.productName.toLowerCase().includes(e.target.value.toLowerCase()))
             setPostBread(filterResult)
         }
         setFilterVal(e.target.value)
@@ -112,8 +113,8 @@ const Calculate = () => {
                                         <div className="row align-items-center">
                                             <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{index + 1}</div>                                           
                                             <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2"><img className="avatar myCalculateAvatar" src={bread.productImage === 'none' ? LogoBread : `http://localhost:4000/${bread.productImage}`} alt="Rasm" style={{ width: "35px" }} /></div>                                            
-                                            <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3" style={{ fontWeight: "500" }}>{bread.breadName}</div>
-                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{bread.breadPrice}  -  so'm</div>
+                                            <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3" style={{ fontWeight: "500" }}>{bread.productName}</div>
+                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{bread.productPrice}  -  so'm</div>
                                             <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4 text-right productSvgStyle">
                                                 <OverlayTrigger placement="top" overlay={<Tooltip>View</Tooltip>} >
                                                     {/* <Link className=""> */}

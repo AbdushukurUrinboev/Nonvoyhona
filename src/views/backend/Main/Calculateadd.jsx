@@ -13,8 +13,8 @@ import { dataContext } from './ContextProvider/DataProvider';
 const Calculateadd = () => {
     const [addInput, setAddInput] = useState([])
     const [productInput, setProductInput] = useState('')
-    const [breadName, setbreadName] = useState('');
-    const [breadPrice, setBreadPrice] = useState(0);
+    const [productName, setProductName] = useState('');
+    const [productPrice, setProductPrice] = useState(0);
     // const [breadQuantity, setBreadQuantity] = useState(0);    
     const [pista, setPista] = useState(0);
     const [bodom, setBodom] = useState(0);
@@ -49,8 +49,8 @@ const Calculateadd = () => {
         e.preventDefault();
 
         const fd = new FormData()
-        fd.append('breadName', breadName);
-        fd.append('breadPrice', breadPrice);
+        fd.append('productName', productName);
+        fd.append('productPrice', productPrice);
         fd.append('pista', pista);
         fd.append('bodom', bodom);
         fd.append('yongoq', yongoq)
@@ -172,7 +172,7 @@ const Calculateadd = () => {
                                         <Form className="row g-3 date-icon-set-modal">
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Non nomi</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Non nomini kiriting..." onChange={e => setbreadName(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" placeholder="Non nomini kiriting..." onChange={e => setProductName(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Un miqdori</Form.Label>
@@ -182,7 +182,7 @@ const Calculateadd = () => {
                                                 addInput.map((item, index) => {
                                                     return <div className="col-md-6 mb-3" key={index}>
                                                         <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">{item} miqdorini kiriting</Form.Label>
-                                                        <Form.Control type="text" id="Text1" placeholder="Non nomini kiriting..." onChange={e => setbreadName(e.target.value)} required='required' />
+                                                        <Form.Control type="text" id="Text1" placeholder="Non nomini kiriting..."  required='required' />
                                                     </div>
                                                 })
                                             }
@@ -285,7 +285,7 @@ const Calculateadd = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Non narxi</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Non narxini kiriting..." required='required' onChange={e => setBreadPrice(e.target.value)} />
+                                                <Form.Control type="number" id="Text3" placeholder="Non narxini kiriting..." required='required' onChange={e => setProductPrice(e.target.value)} />
                                             </div> */}
                                             {/* <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Non miqdori</Form.Label>
