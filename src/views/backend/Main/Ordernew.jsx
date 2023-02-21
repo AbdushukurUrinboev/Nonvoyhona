@@ -11,7 +11,6 @@ import { breadDataContext, customersDataContext } from './ContextProvider/DataPr
 
 
 const Ordernew = () => {
-
     const [order, setOrder] = useState('');
     const [customer, setCustomer] = useState('');
     const [turi, setTuri] = useState('');
@@ -20,14 +19,15 @@ const Ordernew = () => {
     const [date, setDate] = useState(new Date());
     const [deadline, setDeadline] = useState()
     const [time, setTime] = useState(new Date().getHours() + ":" + new Date().getMinutes()); //
-    const [avans, setAvans] = useState('');
-    const [price, setPrice] = useState('');
-
-
-
-
+    const [avans, setAvans] = useState(0);
+    const [price, setPrice] = useState(0);
+    const [umumiyPrice, setUmumiyPrice] = useState(0);
+    const [qolganPul, setQolganPul] = useState(0);
     const [phoneCode, setPhoneCode] = useState('(90) ');
     const [phone, setPhone] = useState('');
+    const [status, setStatus] = useState('Bajarilmoqda');
+
+
 
     const breadList = useContext(breadDataContext);
     const customerList = useContext(customersDataContext);
@@ -40,20 +40,25 @@ const Ordernew = () => {
         e.preventDefault();
         axios.post(ORDERS_URL, {
             order,
-            productQuantity,
             customer,
-            phone: phoneCode + ' - ' + phone,
+            turi,
+            productQuantity,
             date: date.getDate() + "-" + month[date.getMonth()] + "," + date.getFullYear(),
+            deadline,
             time,
             avans,
             price,
-            turi
+            umumiyPrice,
+            qolganPul,
+            phone: phoneCode + ' - ' + phone,
+            status
         })
             .then(res => {
                 console.log("Data is saved", res)
                 history.push('/order')
             })
             .catch(err => console.log(err))
+            console.log(phone);
     }
 
 
@@ -115,7 +120,7 @@ const Ordernew = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Jami non narxi</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." required='required' onChange={e => setPrice(e.target.value)} />
+                                                <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." required='required' onChange={e => setUmumiyPrice(e.target.value)} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Avans</Form.Label>
@@ -123,7 +128,7 @@ const Ordernew = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Qolgan Pul</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." required='required' onChange={e => setPrice(e.target.value)} />
+                                                <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." required='required' onChange={e => setQolganPul(e.target.value)} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Tur</Form.Label>
@@ -182,7 +187,7 @@ const Ordernew = () => {
                                                 
                                             </div>
                                             <div className="col-md-6 mb-3">
-                                                <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Zakaz olinga soat</Form.Label>
+                                                <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Zakaz tayyor bo'ladigan soat</Form.Label>
                                                 <Form.Control type="number" id="Text4" placeholder={time} onChange={e => setTime(e.target.value)} value={time} />
                                             </div>
                                         </Form>
