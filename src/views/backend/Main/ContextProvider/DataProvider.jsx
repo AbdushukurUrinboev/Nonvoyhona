@@ -1,7 +1,7 @@
 import React, {useState, createContext, useEffect} from "react";
 import axios from "axios";
 // import STORAGE_URL
-import { STORAGE_URL, CALCULATE_URL, CUSTOMERS_URL } from '../../../../API';
+import { STORAGE_URL, CALCULATE_URL, CUSTOMERS_URL, STAFF_URL } from '../../../../API';
 
 // Mahsulotlar datasi (masalan un, yog va hokazo)
 export const dataContext = createContext();
@@ -67,5 +67,27 @@ export function CustomerListData(props) {
         <customersDataContext.Provider value={customerList}>
             {props.children}
         </customersDataContext.Provider>
+    )
+}
+
+
+// Staff ro'yhati 
+export const staffDataContext = createContext()
+
+export function StaffListData(props) {
+    const [staffList, setStaffList] = useState([]);
+
+    useEffect(() => {
+        axios.get(STAFF_URL)
+        .then(res => {     
+            let staffNames = res.data.map(elem => elem.lastName + " " + elem.firstName)      
+            setStaffList(staffNames)
+        })
+    }, [])
+
+    return (
+        <staffDataContext.Provider value={staffList}>
+            {props.children}
+        </staffDataContext.Provider>
     )
 }

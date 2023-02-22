@@ -13,16 +13,18 @@ const Xamkorlar = () => {
 
     const [postsXamkor, setpostsXamkor] = useState([])
     const [filterTextValue, updateFilterTextValue] = useState('no');
+    const [searchData, setSearchData] = useState([]);
+    const [filterVal, setFilterVal] = useState('');
 
     const history = useHistory()
 
     const filterXamkorList = (data) => {
         return data.filter((customer) => {
-            if (filterTextValue === "Doimiy") {
-                console.log(customer.group === "Doimiy");
-                return customer.turi === "Doimiy"
-            } else if (filterTextValue === "Vaqtincha") {
-                return customer.turi === "Vaqtincha"
+            if (filterTextValue === "temporary") {
+                console.log(customer.category === "temporary");
+                return customer.category === "temporary"
+            } else if (filterTextValue === "daily") {
+                return customer.category === "daily"
             } else {
                 return customer
             }
@@ -36,6 +38,7 @@ const Xamkorlar = () => {
         axios.get(XAMKOR_URL)
             .then(res => {
                 setpostsXamkor(res.data);
+                setSearchData(res.data)
                 // console.log(res.data);
             })
             .catch(err => console.log(err))
@@ -46,6 +49,30 @@ const Xamkorlar = () => {
         updateFilterTextValue(filterValue)
 
     }
+
+
+    function deleteXamkor(index, id) {
+        axios.delete(XAMKOR_URL, { data: { id } })
+            .then(res => {
+                console.log("Data is deleted!!!", res)
+                setpostsXamkor(postsXamkor.filter(p => p._id !== id))
+            })
+            .catch(err => console.log(err))
+        // console.log("kirish = " + id);
+    }
+
+
+    function handleFilter(e) {
+        if (e.target.value == '') {
+            setpostsXamkor(searchData)
+        } else {
+            const filterResult = searchData.filter(item => item.firstName.toLowerCase().includes(e.target.value.toLowerCase()) || item.lastName.toLowerCase().includes(e.target.value.toLowerCase()))
+            setpostsXamkor(filterResult)
+        }
+        setFilterVal(e.target.value)
+    }
+
+
 
     return (
         <>
@@ -61,7 +88,13 @@ const Xamkorlar = () => {
                                     <div className="modal-product-search d-flex">
                                         <Form className="mr-3 position-relative">
                                             <Form.Group className="mb-0">
-                                                <Form.Control type="text" className="form-control" id="exampleInputText" placeholder="Qidiruv..." />
+                                                <Form.Control type="text"
+                                                    className="form-control"
+                                                    id="exampleInputText"
+                                                    placeholder="Qidiruv..."
+                                                    value={filterVal}
+                                                    onInput={e => handleFilter(e)}
+                                                />
                                                 <Link to="#" className="search-link">
                                                     <svg xmlns="http://www.w3.org/2000/svg" className="" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -102,14 +135,14 @@ const Xamkorlar = () => {
                                             <div className="container">
                                                 <div className="row align-items-center">
                                                     <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{index + 1}</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ fontWeight: "500" }}>{xamkor.firstName} {xamkor.surName}</div>
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{xamkor.status}</div>
+                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ fontWeight: "500" }}>{xamkor.firstName} {xamkor.lastName}</div>
+                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{xamkor.category}</div>
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{xamkor.phone}</div>
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{xamkor.phone2}</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ color: xamkor.turi === "Doimiy" ? '#149100' : "#EC0000", fontWeight: '500' }}>
+                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ color: xamkor.category === "temporary" ? '#149100' : "#EC0000", fontWeight: '500' }}>
                                                         <small><svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
-                                                            <circle cx="12" cy="12" r="8" style={{ fill: xamkor.turi === "Doimiy" ? '#149100' : '#EC0000' }}></circle></svg>
-                                                        </small> {xamkor.turi}
+                                                            <circle cx="12" cy="12" r="8" style={{ fill: xamkor.category === "temporary" ? '#149100' : '#EC0000' }}></circle></svg>
+                                                        </small> {xamkor.category === 'temporary' ? 'Doimiy' : "Vaqtincha"}
                                                     </div>
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 customerSvgStyle">
 
@@ -124,7 +157,7 @@ const Xamkorlar = () => {
                                                         </OverlayTrigger> */}
 
 
-                                                        
+
                                                         <OverlayTrigger placement="top" overlay={<Tooltip>Edit</Tooltip>} >
                                                             <Link className="" to="#">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" className="text-secondary mx-4" width="20" fill="none" viewBox="0 0 24 24" stroke="#E87129">
@@ -134,7 +167,7 @@ const Xamkorlar = () => {
                                                         </OverlayTrigger>
                                                         <OverlayTrigger placement="top" overlay={<Tooltip>Delete</Tooltip>} >
                                                             <Link className="badge" to="#">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="none" viewBox="0 0 24 24" stroke="#EE1D00" >
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="none" viewBox="0 0 24 24" stroke="#EE1D00" onClick={() => deleteXamkor(index, xamkor._id)}>
                                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                                 </svg>
                                                             </Link>
@@ -146,7 +179,7 @@ const Xamkorlar = () => {
                                     ))
                                 }
 
-                            </div>                            
+                            </div>
                         </div>
                     </Col>
                 </Row>

@@ -8,12 +8,15 @@ import { FilterStaff, FilterStaffSmena } from './FilterProduct/FilterStaff';
 import { useHistory } from "react-router";
 import './Staff.css'
 
-
+//img
+import Avatar from '../../../assets/images/avatar.png'
 
 const Staff = () => {
     const [staffList, setStaffList] = useState([]);
     const [filterTextValue, updateFilterTextValue] = useState('no');
     const [filterTextValueSmena, updateFilterTextValueSmena] = useState('no');
+    const [searchData, setSearchData] = useState([]);
+    const [filterVal, setFilterVal] = useState('');
 
     const history = useHistory()
 
@@ -57,6 +60,7 @@ const Staff = () => {
         axios.get(STAFF_URL)
             .then(res => {
                 setStaffList(res.data)
+                setSearchData(res.data)
                 // console.log(res.data)
             })
             .catch(err => console.log(err))
@@ -71,6 +75,28 @@ const Staff = () => {
     function onFilterValueSelectedSmena(filterValue) {
         console.log(filterValue);
         updateFilterTextValueSmena(filterValue)
+    }
+
+    // Delete
+    function deleteStaff(index, id) {
+        axios.delete(STAFF_URL, {data: {id}})
+        .then(res => {
+            console.log("Data is deleted!!!", res)
+            setStaffList(staffList.filter(p => p._id !== id))
+        })
+        .catch(err => console.log(err))
+        // console.log("kirish = " + id);
+    }
+
+    // Search
+    function handleFilter(e) {
+        if(e.target.value == '') {
+            setStaffList(searchData)
+        } else {
+            const filterResult = searchData.filter(item => item.firstName.toLowerCase().includes(e.target.value.toLowerCase()) || item.lastName.toLowerCase().includes(e.target.value.toLowerCase()) )
+            setStaffList(filterResult)
+        }
+        setFilterVal(e.target.value)
     }
 
 
@@ -88,7 +114,14 @@ const Staff = () => {
                                     <div className="modal-product-search d-flex">
                                         <Form className="mr-3 position-relative">
                                             <Form.Group className="mb-0">
-                                                <Form.Control type="text" className="form-control" id="exampleInputText" placeholder="Qidirish..." />
+                                                <Form.Control type="text" 
+                                                className="form-control" 
+                                                id="exampleInputText" 
+                                                placeholder="Qidirish..." 
+                                                value={filterVal}
+                                                onInput={e => handleFilter(e)}
+                                                />
+
                                                 <Link to="#" className="search-link">
                                                     <svg xmlns="http://www.w3.org/2000/svg" className="" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -133,7 +166,7 @@ const Staff = () => {
                                                     <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{index + 1}</div>
                                                     <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-left">
                                                         <div className="h-avatar is-small">
-                                                            <img className="avatar myStaffAvatar" alt="user-icon" src={staff.image} />
+                                                            <img className="avatar myStaffAvatar" alt="user-icon" src={staff.image === 'none' ? Avatar : `http://localhost:4000/${staff.image}`} style={{ width: "35px" }} />
                                                         </div>
                                                     </div>
                                                     <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-center" style={{ fontWeight: "500" }}>{staff.firstName} {staff.surName}</div>
@@ -159,7 +192,7 @@ const Staff = () => {
                                                         </OverlayTrigger>
                                                         <OverlayTrigger placement="top" overlay={<Tooltip>Delete</Tooltip>} >
                                                             <Link className="badge" to="#">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="none" viewBox="0 0 24 24" stroke="#EE1D00" >
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="none" viewBox="0 0 24 24" stroke="#EE1D00" onClick={() =>  deleteStaff(index, staff._id)}>
                                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                                 </svg>
                                                             </Link>

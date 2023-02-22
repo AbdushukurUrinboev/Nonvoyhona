@@ -76,7 +76,7 @@ import Xamkorlar from '../views/backend/Main/Xamkorlar';
 import XamkorlarAdd from '../views/backend/Main/XamkorAdd';
 
 // DataProvider - stateManagement
-import { DataProvider, BreadListData, CustomerListData } from '../views/backend/Main/ContextProvider/DataProvider';
+import { DataProvider, BreadListData, CustomerListData, StaffListData } from '../views/backend/Main/ContextProvider/DataProvider';
 
 const Layout1Route = () => {
 
@@ -86,79 +86,81 @@ const Layout1Route = () => {
         <DataProvider>
             <BreadListData>
                 <CustomerListData>
-                    <Switch location={location}>
-                        <Route path="/" exact component={Dashbord} />
+                    <StaffListData>
+                        <Switch location={location}>
+                            <Route path="/" exact component={Dashbord} />
 
-                        {/* App */}
-                        <Route path="/user-profile" component={UserProfile} />
-                        <Route path="/user-add" component={UserAdd} />
-                        <Route path="/user-list" component={UserList} />
-                        <Route path="/user-account-setting" component={UserAccountSettingList} />
-                        <Route path="/user-profile-edit" component={UserProfileEdit} />
-
-
-                        {/* Extrapages */}
-
-                        <Route path="/pricing-1" component={Pricing1} />
-                        <Route path="/pages-invoice" component={Invoice} />
-                        <Route path="/pages-blank-page" component={BlankPage} />
-                        <Route path="/terms-of-service" component={TermsOfUse} />
-                        <Route path="/privacy-policy" component={PrivacyPolicy} />
-
-                        {/*Customer*/}
-                        <Route path="/customers" component={Customer} />
-                        <Route path="/customers-add" component={Customeradd} />
-                        <Route path='/customer/:id' component={Customerview} />
-                        <Route path="/customers-edit" component={Customeredit} />
-
-                        {/*STAFF*/}
-                        <Route path="/staff" component={Staff} />
-                        <Route path="/staff-add" component={Staffadd} />
-                        <Route path="/staf/:id" component={Staffview} />
-                        <Route path="/staff-edit" component={StaffEdit} />
+                            {/* App */}
+                            <Route path="/user-profile" component={UserProfile} />
+                            <Route path="/user-add" component={UserAdd} />
+                            <Route path="/user-list" component={UserList} />
+                            <Route path="/user-account-setting" component={UserAccountSettingList} />
+                            <Route path="/user-profile-edit" component={UserProfileEdit} />
 
 
-                        {/* Product */}
-                        <Route path="/products" component={Product} />
-                        <Route path="/product/:id" component={ProductView} />
-                        <Route path="/product-add" component={ProductAdd} />
+                            {/* Extrapages */}
 
-                        {/* Output */}
-                        <Route path="/output" component={Output} />
-                        <Route path="/output-add" component={Outputadd} />
+                            <Route path="/pricing-1" component={Pricing1} />
+                            <Route path="/pages-invoice" component={Invoice} />
+                            <Route path="/pages-blank-page" component={BlankPage} />
+                            <Route path="/terms-of-service" component={TermsOfUse} />
+                            <Route path="/privacy-policy" component={PrivacyPolicy} />
 
-                        {/* Debt */}
-                        <Route path="/debt" component={Debt} />
-                        <Route path="/debt-add" component={Debtadd} />
+                            {/*Customer*/}
+                            <Route path="/customers" component={Customer} />
+                            <Route path="/customers-add" component={Customeradd} />
+                            <Route path='/customer/:id' component={Customerview} />
+                            <Route path="/customers-edit" component={Customeredit} />
 
-                        {/* Calculate */}
-                        <Route path="/calculate" component={Calculate} />
-                        <Route path="/calculate-add" component={Calculateadd} />
-
-                        {/* Kunlik ish */}
-                        <Route path="/kunlik-ish" component={KunlikIsh} />
-                        <Route path="/kunlik-ish-add" component={KunlikIshadd} />
-
+                            {/*STAFF*/}
+                            <Route path="/staff" component={Staff} />
+                            <Route path="/staff-add" component={Staffadd} />
+                            <Route path="/staf/:id" component={Staffview} />
+                            <Route path="/staff-edit" component={StaffEdit} />
 
 
-                        {/* Plans */}
-                        <Route path="/plan" component={Plans} />
-                        <Route path="/plan-add" component={Plansadd} />
+                            {/* Product */}
+                            <Route path="/products" component={Product} />
+                            <Route path="/product/:id" component={ProductView} />
+                            <Route path="/product-add" component={ProductAdd} />
 
-                        {/* Sail */}
-                        <Route path="/sale" component={Sail} />
-                        <Route path="/sale-add" component={SailAdd} />
+                            {/* Output */}
+                            <Route path="/output" component={Output} />
+                            <Route path="/output-add" component={Outputadd} />
 
-                        {/* Order */}
-                        <Route path="/order" component={Order} />
-                        <Route path="/order-new" component={Ordernew} />
-                        <Route path="/order-details" component={Orderdetails} />
+                            {/* Debt */}
+                            <Route path="/debt" component={Debt} />
+                            <Route path="/debt-add" component={Debtadd} />
 
-                        {/* Xamkorlar */}
-                        <Route path="/xamkorlar" component={Xamkorlar} />
-                        <Route path="/xamkorlar-add" component={XamkorlarAdd} />
+                            {/* Calculate */}
+                            <Route path="/calculate" component={Calculate} />
+                            <Route path="/calculate-add" component={Calculateadd} />
 
-                    </Switch>
+                            {/* Kunlik ish */}
+                            <Route path="/kunlik-ish" component={KunlikIsh} />
+                            <Route path="/kunlik-ish-add" component={KunlikIshadd} />
+
+
+
+                            {/* Plans */}
+                            <Route path="/plan" component={Plans} />
+                            <Route path="/plan-add" component={Plansadd} />
+
+                            {/* Sail */}
+                            <Route path="/sale" component={Sail} />
+                            <Route path="/sale-add" component={SailAdd} />
+
+                            {/* Order */}
+                            <Route path="/order" component={Order} />
+                            <Route path="/order-new" component={Ordernew} />
+                            <Route path="/order-details" component={Orderdetails} />
+
+                            {/* Xamkorlar */}
+                            <Route path="/xamkorlar" component={Xamkorlar} />
+                            <Route path="/xamkorlar-add" component={XamkorlarAdd} />
+
+                        </Switch>
+                    </StaffListData>
                 </CustomerListData>
             </BreadListData>
         </DataProvider>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { Link, useHistory } from 'react-router-dom'
@@ -7,6 +7,8 @@ import { PLANS_URL } from '../../../API';
 import DatePicker from "react-datepicker";
 import './Plans.css'
 
+import { staffDataContext } from './ContextProvider/DataProvider';
+
 const Plansadd = () => {
 
     const [plan, setPlan] = useState('');
@@ -14,6 +16,8 @@ const Plansadd = () => {
     const [deadline, setDeadline] = useState();
     const [status, setStatus] = useState('');
 
+    const staffList = useContext(staffDataContext);
+    console.log(staffList);
     const history = useHistory()
     const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -76,8 +80,11 @@ const Plansadd = () => {
                                         <Form.Label htmlFor="Text2" className="form-label font-weight-bold text-muted text-uppercase">Mas'ul shahs</Form.Label>
                                         <select id="Text2" className="form-select form-control choicesjs" onChange={e => setPerson(e.target.value)}>
                                             <option value="Bajarildi">Xodimlar</option>
-                                            <option value="Sherov Abdurashid">Sherov Abdurashid</option>
-                                            <option value="Karimov Komil">Karimov Komil</option>
+                                            {
+                                                staffList.map((staff, ind) => {
+                                                    return <option key={ind} value={staff}>{staff}</option>
+                                                })
+                                            }                                           
                                         </select>
                                     </div>
                                     <div className="col-md-12 mb-3">

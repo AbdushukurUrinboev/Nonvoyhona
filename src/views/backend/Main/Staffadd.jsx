@@ -29,7 +29,7 @@ const Staffadd = () => {
     const [smena, setSmena] = useState('');
     const [salary, setSalary] = useState('');
     const [birthday, setBirthday] = useState();
-    const [image, setImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
+    const [image, setImage] = useState(); 
     const history = useHistory()
 
     const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -58,7 +58,6 @@ const Staffadd = () => {
             history.push('/staff')
         })
         .catch(err => console.log(err))
-       
     }
 
 

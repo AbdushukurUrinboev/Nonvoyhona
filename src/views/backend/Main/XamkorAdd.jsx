@@ -17,14 +17,17 @@ import './CustomerAdd.css'
 const XamkorAdd = () => {
 
     const [firstName, setFirstName] = useState('');
-    const [surName, setSurName] = useState('');
-    const [status, setStatus] = useState('');
+    const [lastName, setLastName] = useState('');
     const [phoneCode, setPhoneCode] = useState('(90) ');
     const [phone, setPhone] = useState('');
     const [phoneCode2, setPhoneCode2] = useState('(90) ');
     const [phone2, setPhone2] = useState('');
-    const [turi, setTuri] = useState('');
-    const [adress, setAdress] = useState('');
+    const [address, setAddress] = useState('');
+    const [workPlace, setWorkPlace] = useState('');
+    const [position, setPosition] = useState('');
+    const [category, setCategory] = useState('');
+
+
 
 
     // const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
@@ -36,12 +39,14 @@ const XamkorAdd = () => {
         e.preventDefault();
         axios.post(XAMKOR_URL, {
             firstName,
-            surName,
-            status,
+            lastName,
             phone: phoneCode + ' - ' + phone,
-            phone2: phone2 + ' - ' + phone2,
-            turi,
-            adress
+            phone2: phoneCode2 + ' - ' + phone2,
+            address,
+            workPlace,
+            position,
+            category,
+
 
         })
             .then(res => {
@@ -91,7 +96,7 @@ const XamkorAdd = () => {
                                         <Form className="row g-3 date-icon-set-modal myStyleCustomerAdd">
                                             <div className="col-md-6 mb-3 mt-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Familiyasi</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Familiya kiriting..." onChange={e => setSurName(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" placeholder="Familiya kiriting..." onChange={e => setLastName(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative mt-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Ismi</Form.Label>
@@ -123,25 +128,25 @@ const XamkorAdd = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Tur</Form.Label>
-                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => setTuri(e.target.value)}>
+                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => setCategory(e.target.value)}>
                                                     <option value="no">Turi</option>
-                                                    <option value="Doimiy">Doimiy</option>
-                                                    <option value="Vaqtincha">Vaqtincha</option>
+                                                    <option value="temporary">Doimiy</option>
+                                                    <option value="daily">Vaqtincha</option>
                                                 </select>
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Ish joyi</Form.Label>
-                                                <Form.Control type="text" id="Text3" placeholder="Ish joyini kiriting..." required='required' onChange={e => setAdress(e.target.value)} />
+                                                <Form.Control type="text" id="Text3" placeholder="Ish joyini kiriting..." required='required' onChange={e => setWorkPlace(e.target.value)} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Manzil</Form.Label>
-                                                <Form.Control type="text" id="Text4" placeholder="Manzil kiriting..." onChange={e => setAdress(e.target.value)} />
+                                                <Form.Control type="text" id="Text4" placeholder="Manzil kiriting..." onChange={e => setAddress(e.target.value)} />
                                             </div>
 
 
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Lavozimi</Form.Label>
-                                                <Form.Control type="text" id="Text3" placeholder="Lavozimini kiriting..." required='required' onChange={e => setStatus(e.target.value)} />
+                                                <Form.Control type="text" id="Text3" placeholder="Lavozimini kiriting..." required='required' onChange={e => setPosition(e.target.value)} />
                                             </div>
                                         </Form>
                                         <div className="d-flex justify-content-end mt-1 ">

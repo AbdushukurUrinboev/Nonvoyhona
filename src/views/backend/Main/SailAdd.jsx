@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { Link, useHistory } from 'react-router-dom'
@@ -7,23 +7,27 @@ import { SALE_URL } from '../../../API';
 import "react-datepicker/dist/react-datepicker.css";
 import './ProductAdd.css'
 
+import { breadDataContext, customersDataContext } from './ContextProvider/DataProvider';
+
 const SailAdd = () => {
-    const [name, setName] = useState('');
+    const [breadName, setBreadName] = useState('');
     const [quantity, setQuantity] = useState(0);
     const [customer, setCustomer] = useState('');
     const [givenProductQuantity, setgivenProductQuantity] = useState(0);
     const [avans, setAvans] = useState(0);
     const [all, setAll] = useState(0);
     const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
-    const [mijozlar, setMijozlar] = useState(false)
+    const [mijozlar, setMijozlar] = useState(false) // BackEndga ketmaydi
+    const [zakazlar, setZakazlar] = useState(false) // zakazlardagi customerlarni olish uchun ishlatdim, backEndga ketmaydi
     const history = useHistory()
 
-
+    const breadList = useContext(breadDataContext);
+    const customerList = useContext(customersDataContext);
 
     function handleChange(e) {
         e.preventDefault();
         axios.post(SALE_URL, {
-            name,
+            breadName,
             quantity,
             customer,
             givenProductQuantity,
@@ -95,21 +99,25 @@ const SailAdd = () => {
                                     </Col>
                                     <Col md="9">
                                         <Form className="row g-3 date-icon-set-modal">
-                                            <div className="col-md-6 mb-3">
-                                                <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Non nomi</Form.Label>
-                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => { setName(e.target.value) }}>
-                                                    <option value="no">Turi</option>
-                                                    <option value="Doimiy">Chimyon Patir</option>
-                                                    <option value="Vaqtincha">Kulcha</option>
-                                                    <option value="Vaqtincha">...</option>
+
+                                        <div className="col-md-6 mb-3">
+                                                <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Nonni tanlang</Form.Label>
+                                                <select id="inputState" className="form-select form-control choicesjs" value={breadName} onChange={e => setBreadName(e.target.value)} >
+                                                    <option value="no">Nonlar ro'yxati</option>
+                                                    {
+                                                        breadList.map((bread, ind) => {
+                                                            return <option key={ind} value={bread}>{bread}</option>
+                                                        })
+                                                    }
                                                 </select>
-                                            </div>
+                                            </div>                                            
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Mijozni tanlang</Form.Label>
-                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => { setCustomer(e.target.value);if (e.target.value === "Doimiy") setMijozlar(true); else setMijozlar(false) }}>
+                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => { setCustomer(e.target.value);if (e.target.value === "Doimiy") setMijozlar(true); else setMijozlar(false); if(e.target.value === 'zakazlar') setZakazlar(true); else setZakazlar(false) }}>
                                                     <option value="no">Turi</option>
                                                     <option value="Doimiy">Doimiy</option>
                                                     <option value="Vaqtincha">Vaqtincha</option>
+                                                    <option value="zakazlar">Zakazlar</option>
                                                 </select>
                                             </div>
                                             <div className="col-md-6 mb-3">
@@ -118,19 +126,32 @@ const SailAdd = () => {
                                             </div>
                                             {
                                                 mijozlar ? (<div className="col-md-6 mb-3">
-                                                    <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Mijozlar ro'yhati</Form.Label>
-                                                    <select id="inputState" className="form-select form-control choicesjs" onChange={e => setCustomer(e.target.value)}>
-                                                        <option value="no">Mijozlar</option>
-                                                        <option value="O'rinboyev Abdushukur">O'rinboyev Abdushukur</option>
-                                                        <option value="Mavlonov Elbek">Mavlonov Elbek</option>
-                                                        <option value="Ziyayev Anvar">Ziyayev Anvar</option>
-                                                        <option value="Xomidov Abdusattor">Xomidov Abdusattor</option>
-                                                        <option value="Kamolov Alijon">Kamolov Alijon</option>
-                                                    </select>
-                                                </div>) : (<div className="col-md-6 mb-3">
+                                                <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Mijozlar ro'yhati</Form.Label>
+                                                <select id="inputState" className="form-select form-control choicesjs" value={customer} onChange={e => setCustomer(e.target.value)} >
+                                                    <option value="">Mijozlar ro'yxati</option>
+                                                    {
+                                                        customerList.map((cust, ind) => {
+                                                            return <option key={ind} value={cust.lastName + " " + cust.firstName}>{cust.lastName + " " + cust.firstName}</option>
+                                                        })
+                                                    }
+                                                </select>
+                                            </div>) : (<div className="col-md-6 mb-3">
                                                     <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Kimga</Form.Label>
                                                     <Form.Control type="text" id="Text5" placeholder="Kim uchunligini kiriting..." onChange={e => setCustomer(e.target.value)} />
                                                 </div>)
+                                            }
+                                            {
+                                                zakazlar ? (<div className="col-md-6 mb-3">
+                                                <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Zakazlar ro'yhati</Form.Label>
+                                                <select id="inputState" className="form-select form-control choicesjs" value={customer} onChange={e => setCustomer(e.target.value)} >
+                                                    <option value="">Zakazlar ro'yxati</option>
+                                                    {
+                                                        customerList.map((cust, ind) => {
+                                                            return <option key={ind} value={cust.lastName + " " + cust.firstName}>{cust.lastName + " " + cust.firstName}</option>
+                                                        })
+                                                    }
+                                                </select>
+                                            </div>) : null
                                             }
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Avans</Form.Label>

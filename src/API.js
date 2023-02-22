@@ -8,5 +8,5 @@ export const SALE_URL = 'http://localhost:4000/sale'; // tugri - tugirladim sail
 export const NASIYA_URL = 'http://localhost:4000/nasiya'; // tugri - tugirladim  debt edi
 export const EXPENSES_URL = 'http://localhost:4000/expenses'; // tugri - tugirladim outputs edi
 export const DAROMAT_URL = 'http://localhost:4000/daromat'; // tugri - tugirladim
+export const XAMKOR_URL = 'http://localhost:4000/xamkor';  // tugirladim
 export const PLANS_URL = 'http://localhost:4000/plans';
-export const XAMKOR_URL = 'http://localhost:4000/xamkorlar';
