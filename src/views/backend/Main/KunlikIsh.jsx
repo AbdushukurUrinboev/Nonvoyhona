@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Container, Row, Col, Form, Button, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { Link, useHistory } from 'react-router-dom'
@@ -8,6 +8,8 @@ import { DAILY_TASKS_URL } from '../../../API';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './KunlikIsh.css'
+
+import { breadDataContext, customersDataContext } from './ContextProvider/DataProvider';
 
 
 
@@ -29,7 +31,8 @@ const Calculate = () => {
     const [jamiTulov, setJamiTulov] = useState('');
     const [sana, setSana] = useState(new Date());
 
-
+    const breadList = useContext(breadDataContext);
+    const customerList = useContext(customersDataContext);
 
     // const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
     const history = useHistory()
@@ -118,18 +121,23 @@ const Calculate = () => {
                                                 <Form.Control type="number" id="Text5" placeholder="Qoplar sonini kiriting..." onChange={e => setQoplarSoni(e.target.value)} />
                                             </div>
                                             <div className="col-md-6 mb-3">
-                                                <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Non Turi</Form.Label>
-                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => setNonTuri(e.target.value)}>
-                                                    <option value="no">Non turi</option>
-                                                    <option value="Patir">Patir</option>
-                                                    <option value="Kulcha">Kulcha</option>
-                                                    <option value="Kulcha">...</option>
+                                                <Form.Label htmlFor="inputState" className="font-weight-bold text-muted text-uppercase">Nonni tanlang</Form.Label>
+                                                <select id="inputState" className="form-select form-control choicesjs" value={nonTuri} onChange={e => setNonTuri(e.target.value)}>
+                                                <option value="no">Nonlar ro'yxati</option>
+                                                    {
+                                                        breadList.map((bread, ind) => {
+                                                            return <option key={ind} value={bread}>{bread}</option>
+                                                        })
+                                                    }
                                                 </select>
-                                            </div>
+                                            </div>                                              
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Non Soni</Form.Label>
                                                 <Form.Control type="number" id="Text3" placeholder="Yopilgan nonlar sonini kiriting..." required='required' onChange={e => setNonSoni(e.target.value)} />
                                             </div>
+                                            
+                                            
+                                            {/* Bonus non turi */}
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Bonus non Turi</Form.Label>
                                                 <select id="inputState" className="form-select form-control choicesjs" onChange={e => setBonusNon(e.target.value)}>

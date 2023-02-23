@@ -54,7 +54,7 @@ const SailAdd = () => {
                         <div className="d-flex align-items-center justify-content-between">
                             <nav aria-label="breadcrumb">
                                 <ol className="breadcrumb p-0 mb-0">
-                                    <li className="breadcrumb-item"><Link to="/sail">Sotuv</Link></li>
+                                    <li className="breadcrumb-item"><Link to="/sale">Sotuv</Link></li>
                                     <li className="breadcrumb-item active" aria-current="page">Mijozlarga tarqatish</li>
                                 </ol>
                             </nav>
@@ -64,7 +64,7 @@ const SailAdd = () => {
                         <h4 className="font-weight-bold0 d-flex align-items-center styleHeader">Mijozlarga Taqsimlash</h4>
                     </Col>
                     <Col lg="12" className="mt-3 mb-3 d-flex justify-content-between">
-                        <Link to="/sail" className="btn btn-primary btn-sm d-flex align-items-left justify-content-between">
+                        <Link to="/sale" className="btn btn-primary btn-sm d-flex align-items-left justify-content-between">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
                             </svg>

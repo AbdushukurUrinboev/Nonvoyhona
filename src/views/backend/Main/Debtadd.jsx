@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { Link, useHistory } from 'react-router-dom'
@@ -6,17 +6,21 @@ import axios from 'axios';
 import { NASIYA_URL } from '../../../API';
 import DatePicker from "react-datepicker";
 
+import { customersDataContext } from './ContextProvider/DataProvider';
+
 
 const Debtadd = () => {
 
     const [product, setProduct] = useState(''); //
     const [customer, setCustomer] = useState(''); //
-    const [productQuantity, setProductQuantity] = useState(''); //
+    const [productQuantity, setProductQuantity] = useState(0); //
     const [overall, setOverall] = useState(0); //
     const [avans, setAvans] = useState(''); //
     const [customerType, setCustomerType] = useState(''); //
     const [sana, setSana] = useState(new Date());
     const [mijozlar, setMijozlar] = useState(false)
+
+    const customerList = useContext(customersDataContext);
 
 
     // const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
@@ -111,16 +115,16 @@ const Debtadd = () => {
                                             </div>
                                             {
                                                 mijozlar ? (<div className="col-md-6 mb-3">
-                                                        <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Mijozlar ro'yhati</Form.Label>
-                                                        <select id="inputState" className="form-select form-control choicesjs" onChange={e => setCustomer(e.target.value)}>
-                                                            <option value="no">Mijozlar</option>
-                                                            <option value="O'rinboyev Abdushukur">O'rinboyev Abdushukur</option>
-                                                            <option value="Mavlonov Elbek">Mavlonov Elbek</option>
-                                                            <option value="Ziyayev Anvar">Ziyayev Anvar</option>
-                                                            <option value="Xomidov Abdusattor">Xomidov Abdusattor</option>
-                                                            <option value="Kamolov Alijon">Kamolov Alijon</option>
-                                                        </select>
-                                                    </div>) : (<div className="col-md-6 mb-3">
+                                                <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Mijozlar ro'yhati</Form.Label>
+                                                <select id="inputState" className="form-select form-control choicesjs" value={customer} onChange={e => setCustomer(e.target.value)} >
+                                                    <option value="">Mijozlar ro'yxati</option>
+                                                    {
+                                                        customerList.map((cust, ind) => {
+                                                            return <option key={ind} value={cust.lastName + " " + cust.firstName}>{cust.lastName + " " + cust.firstName}</option>
+                                                        })
+                                                    }
+                                                </select>
+                                            </div>) : (<div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Kimga</Form.Label>
                                                 <Form.Control type="text" id="Text5" placeholder="Kim uchunligini kiriting..." onChange={e => setCustomer(e.target.value)} />
                                             </div>)
