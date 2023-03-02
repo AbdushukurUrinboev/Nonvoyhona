@@ -111,7 +111,7 @@ const XamkorAdd = () => {
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
                                                     </select>
-                                                    <Form.Control type="number" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} />
+                                                    <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} />
                                                 </div>
                                             </div>
                                             <div className="col-md-6 mb-3">
@@ -123,7 +123,7 @@ const XamkorAdd = () => {
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
                                                     </select>
-                                                    <Form.Control type="number" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone2(e.target.value)} />
+                                                    <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone2(e.target.value)} />
                                                 </div>
                                             </div>
                                             <div className="col-md-6 mb-3">

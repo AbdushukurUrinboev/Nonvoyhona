@@ -24,7 +24,9 @@ const Customeradd = () => {
     const [phoneCode2, setPhoneCode2] = useState('(90) ');
     const [phone2, setPhone2] = useState('');
     const [customerType, setCustomerType] = useState('');
-    const [adress, setAdress] = useState('');
+    const [address, setAddress] = useState('');
+    const [workPlace, setWorkPlace] = useState('');
+
 
 
     // const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
@@ -41,7 +43,8 @@ const Customeradd = () => {
             phone: phoneCode + ' - ' + phone,
             phone2: phoneCode2 + ' - ' + phone2,
             customerType,
-            adress
+            address,
+            workPlace
 
         })
             .then(res => {
@@ -107,7 +110,7 @@ const Customeradd = () => {
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
                                                     </select>
-                                                    <Form.Control type="number" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} />
+                                                    <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} />
                                                 </div>
                                             </div>
                                             <div className="col-md-6 mb-3">
@@ -119,7 +122,7 @@ const Customeradd = () => {
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
                                                     </select>
-                                                    <Form.Control type="number" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone2(e.target.value)} />
+                                                    <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone2(e.target.value)} />
                                                 </div>
                                             </div>
                                             <div className="col-md-6 mb-3">
@@ -132,11 +135,11 @@ const Customeradd = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Ish joyi</Form.Label>
-                                                <Form.Control type="text" id="Text3" placeholder="Ish joyini kiriting..." required='required' onChange={e => setAdress(e.target.value)} />
+                                                <Form.Control type="text" id="Text3" placeholder="Ish joyini kiriting..." required='required' onChange={e => setWorkPlace(e.target.value)} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Manzil</Form.Label>
-                                                <Form.Control type="text" id="Text4" placeholder="Manzil kiriting..." onChange={e => setAdress(e.target.value)} />
+                                                <Form.Control type="text" id="Text4" placeholder="Manzil kiriting..." onChange={e => setAddress(e.target.value)} />
                                             </div>
 
 

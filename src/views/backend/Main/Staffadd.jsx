@@ -29,10 +29,10 @@ const Staffadd = () => {
     const [smena, setSmena] = useState('');
     const [salary, setSalary] = useState('');
     const [birthday, setBirthday] = useState();
-    const [image, setImage] = useState(); 
+    const [image, setImage] = useState();
     const history = useHistory()
 
-    const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const month = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
 
 
 
@@ -49,17 +49,16 @@ const Staffadd = () => {
         fd.append('group', group)
         fd.append('smena', smena)
         fd.append('salary', salary)
-        fd.append('birthday', birthday.getDate() + "-" + month[birthday.getMonth()] + "," + birthday.getFullYear())
+        fd.append('birthday', birthday.getDate() + "-" + month[birthday.getMonth()] + ", " + birthday.getFullYear())
         fd.append('image', image)
 
         axios.post(STAFF_URL, fd)
-        .then(res => {
-            console.log("Data is saved", res)
-            history.push('/staff')
-        })
-        .catch(err => console.log(err))
+            .then(res => {
+                console.log("Data is saved", res)
+                history.push('/staff')
+            })
+            .catch(err => console.log(err))
     }
-
 
 
     return (
@@ -159,7 +158,7 @@ const Staffadd = () => {
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
                                                     </select>
-                                                    <Form.Control type="number" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} />
+                                                    <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} />
                                                 </div>
                                             </div>
                                             <div className="col-md-6 mb-3">
@@ -175,8 +174,8 @@ const Staffadd = () => {
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
                                                     </select>
-                                                    <Form.Control type="number" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone2(e.target.value)} />
-                                                </div>                                         
+                                                    <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone2(e.target.value)} />
+                                                </div>
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputcountry" className="font-weight-bold text-muted text-uppercase">Guruhi</Form.Label>

@@ -51,7 +51,7 @@ const Productadd = () => {
         axios.post(STORAGE_URL, fd)
             .then(res => {
                 console.log("Data is saved", res)
-                history.push('/products')
+                history.push('/storage')
             })
             .catch(err => console.log(err))
 
@@ -67,7 +67,7 @@ const Productadd = () => {
                         <div className="d-flex align-items-center justify-content-between">
                             <nav aria-label="breadcrumb">
                                 <ol className="breadcrumb p-0 mb-0">
-                                    <li className="breadcrumb-item"><Link to="/products">Mahsulotlar</Link></li>
+                                    <li className="breadcrumb-item"><Link to="/storage">Mahsulotlar</Link></li>
                                     <li className="breadcrumb-item active" aria-current="page">Mahsulot qo'shish</li>
                                 </ol>
                             </nav>
@@ -77,7 +77,7 @@ const Productadd = () => {
                         <h4 className="font-weight-bold0 d-flex align-items-center productHeader">Yangi mahsulot qo'shish</h4>
                     </Col>
                     <Col lg="12" className="mt-3 mb-3 d-flex justify-content-between">
-                        <Link to="/products" className="btn btn-primary btn-sm d-flex align-items-left justify-content-between">
+                        <Link to="/storage" className="btn btn-primary btn-sm d-flex align-items-left justify-content-between">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
                             </svg>
@@ -173,7 +173,7 @@ const Productadd = () => {
 
                                         </Form>
                                         <div className="text-right mt-4">
-                                            <Link to="/products" className='btn myButtonProducts qushishProduct' type="button" onClick={handleChange}>
+                                            <Link to="/storage" className='btn myButtonProducts qushishProduct' type="button" onClick={handleChange}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                                 </svg>

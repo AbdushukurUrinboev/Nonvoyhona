@@ -5,8 +5,9 @@ import { Link, useParams } from 'react-router-dom'
 import Chart from "react-apexcharts";
 import axios from 'axios';
 import './Staff.css'
-// img
-import user1 from '../../../assets/images/user/1.jpg'
+
+//img
+import Avatar from '../../../assets/images/avatar.png'
 
 
 const Staffview = () => {
@@ -98,7 +99,7 @@ const Staffview = () => {
 
     return (
         <>
-        
+
             <Container fluid>
                 <Row>
                     <Col lg="12" className='mt-1'>
@@ -136,11 +137,12 @@ const Staffview = () => {
                                         <ListGroup as="ul" className="list-style-1 mb-0">
                                             <ListGroup.Item as="li" className="d-flex justify-content-start align-items-center">
                                                 <div className="h-avatar is-medium">
-                                                    <img className="avatar myStaffAvatar" alt="staff-icon" src={user1} />
+                                                    {/* <img className="avatar myStaffAvatar" alt="staff-icon" src={user1} /> */}
+                                                    <img className="avatar myStaffAvatar" alt="user-icon" src={currentStaff.image === 'none' ? Avatar : `http://localhost:4000/${currentStaff.image}`} style={{ width: "75px" }} />
                                                 </div>
                                                 <div className="list-style-detail ml-4 mr-2">
-                                                    <h5 className="font-weight-bold">{currentStaff.firstName}  {currentStaff.surName}</h5>
-                                                    <p className="mb-0 mt-1 text-muted">{currentStaff.status}</p>
+                                                    <h5 className="font-weight-bold">{currentStaff.firstName}   {currentStaff.lastName}</h5>
+                                                    <p className="mb-0 mt-1 text-muted">{currentStaff.typeOfWorker}</p>
                                                 </div>
                                             </ListGroup.Item>
                                         </ListGroup>
@@ -162,7 +164,7 @@ const Staffview = () => {
                                                     <p className="mb-0 text-muted">Manzil: </p>
                                                 </td>
                                                 <td>
-                                                    <p className="mb-0 ">{currentStaff.location}</p>
+                                                    <p className="mb-0 ">{currentStaff.adress}</p>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -186,7 +188,7 @@ const Staffview = () => {
                                                     <p className="mb-0 text-muted">Guruhi:</p>
                                                 </td>
                                                 <td>
-                                                    <p className="mb-0 ">{currentStaff.group}</p>
+                                                    <p className="mb-0 ">{currentStaff.group == "No" ? "Yo'q" : currentStaff.group}</p>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -194,7 +196,7 @@ const Staffview = () => {
                                                     <p className="mb-0 text-muted">Smenasi:</p>
                                                 </td>
                                                 <td>
-                                                    <p className="mb-0 ">{currentStaff.smena}</p>
+                                                    <p className="mb-0 ">{currentStaff.smena == "No" ? "Yo'q" : currentStaff.smena}</p>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -219,7 +221,7 @@ const Staffview = () => {
                         <Card>
                             <Card.Body className="p-0">
                                 <div className="d-flex justify-content-between align-items-center p-3">
-                                    <h5>Mijoz haqida qo'shimcha ma'lumot</h5>
+                                    <h5>Xodim haqida qo'shimcha ma'lumot</h5>
                                 </div>
                                 {/* New version */}
 
@@ -501,7 +503,7 @@ const Staffview = () => {
                                         </div>
 
 
-                                        
+
 
                                     </div>
                                 </div>

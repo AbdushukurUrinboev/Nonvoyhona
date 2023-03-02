@@ -91,73 +91,73 @@ const Layout1Route = () => {
                             <Route path="/" exact component={Dashbord} />
 
                             {/* App */}
-                            <Route path="/user-profile" component={UserProfile} />
-                            <Route path="/user-add" component={UserAdd} />
-                            <Route path="/user-list" component={UserList} />
-                            <Route path="/user-account-setting" component={UserAccountSettingList} />
-                            <Route path="/user-profile-edit" component={UserProfileEdit} />
+                            <Route path="/user-profile" exact component={UserProfile} />
+                            <Route path="/user-add" exact component={UserAdd} />
+                            <Route path="/user-list" exact component={UserList} />
+                            <Route path="/user-account-setting" exact component={UserAccountSettingList} />
+                            <Route path="/user-profile-edit" exact component={UserProfileEdit} />
 
 
                             {/* Extrapages */}
 
-                            <Route path="/pricing-1" component={Pricing1} />
-                            <Route path="/pages-invoice" component={Invoice} />
-                            <Route path="/pages-blank-page" component={BlankPage} />
-                            <Route path="/terms-of-service" component={TermsOfUse} />
-                            <Route path="/privacy-policy" component={PrivacyPolicy} />
+                            <Route path="/pricing-1" exact component={Pricing1} />
+                            <Route path="/pages-invoice" exact component={Invoice} />
+                            <Route path="/pages-blank-page" exact component={BlankPage} />
+                            <Route path="/terms-of-service" exact component={TermsOfUse} />
+                            <Route path="/privacy-policy" exact component={PrivacyPolicy} />
 
                             {/*Customer*/}
-                            <Route path="/customers" component={Customer} />
-                            <Route path="/customers-add" component={Customeradd} />
-                            <Route path='/customer/:id' component={Customerview} />
-                            <Route path="/customers-edit" component={Customeredit} />
+                            <Route path="/customers" exact component={Customer} />
+                            <Route path="/customers-add" exact component={Customeradd} />
+                            <Route path='/customer/:id' exact component={Customerview} />
+                            <Route path="/customers-edit" exact component={Customeredit} />
 
                             {/*STAFF*/}
-                            <Route path="/staff" component={Staff} />
-                            <Route path="/staff-add" component={Staffadd} />
-                            <Route path="/staf/:id" component={Staffview} />
-                            <Route path="/staff-edit" component={StaffEdit} />
+                            <Route path="/staff" exact component={Staff} />
+                            <Route path="/staff-add" exact component={Staffadd} />
+                            <Route path="/staff/:id" exact component={Staffview} />
+                            <Route path="/staff-edit" exact component={StaffEdit} />
 
 
                             {/* Product */}
-                            <Route path="/products" component={Product} />
-                            <Route path="/product/:id" component={ProductView} />
-                            <Route path="/product-add" component={ProductAdd} />
+                            <Route path="/storage" exact component={Product} />
+                            <Route path="/storage/:id" exact component={ProductView} />
+                            <Route path="/storage-add" exact component={ProductAdd} />
 
                             {/* Output */}
-                            <Route path="/output" component={Output} />
-                            <Route path="/output-add" component={Outputadd} />
+                            <Route path="/output" exact component={Output} />
+                            <Route path="/output-add" exact component={Outputadd} />
 
                             {/* Debt */}
-                            <Route path="/debt" component={Debt} />
-                            <Route path="/debt-add" component={Debtadd} />
+                            <Route path="/debt" exact component={Debt} />
+                            <Route path="/debt-add" exact component={Debtadd} />
 
                             {/* Calculate */}
-                            <Route path="/calculate" component={Calculate} />
-                            <Route path="/calculate-add" component={Calculateadd} />
+                            <Route path="/calculate" exact component={Calculate} />
+                            <Route path="/calculate-add" exact component={Calculateadd} />
 
                             {/* Kunlik ish */}
-                            <Route path="/kunlik-ish" component={KunlikIsh} />
-                            <Route path="/kunlik-ish-add" component={KunlikIshadd} />
+                            <Route path="/kunlik-ish" exact component={KunlikIsh} />
+                            <Route path="/kunlik-ish-add" exact component={KunlikIshadd} />
 
 
 
                             {/* Plans */}
-                            <Route path="/plan" component={Plans} />
-                            <Route path="/plan-add" component={Plansadd} />
+                            <Route path="/plan" exact component={Plans} />
+                            <Route path="/plan-add" exact component={Plansadd} />
 
                             {/* Sail */}
-                            <Route path="/sale" component={Sail} />
-                            <Route path="/sale-add" component={SailAdd} />
+                            <Route path="/sale" exact component={Sail} />
+                            <Route path="/sale-add" exact component={SailAdd} />
 
                             {/* Order */}
-                            <Route path="/order" component={Order} />
-                            <Route path="/order-new" component={Ordernew} />
-                            <Route path="/order-details" component={Orderdetails} />
+                            <Route path="/order" exact component={Order} />
+                            <Route path="/order-new" exact component={Ordernew} />
+                            <Route path="/order-details" exact component={Orderdetails} />
 
                             {/* Xamkorlar */}
-                            <Route path="/xamkorlar" component={Xamkorlar} />
-                            <Route path="/xamkorlar-add" component={XamkorlarAdd} />
+                            <Route path="/xamkorlar" exact component={Xamkorlar} />
+                            <Route path="/xamkorlar-add" exact component={XamkorlarAdd} />
 
                         </Switch>
                     </StaffListData>

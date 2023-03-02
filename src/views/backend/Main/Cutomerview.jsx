@@ -14,10 +14,10 @@ const Customerview = () => {
     const [customer, setCustomer] = useState({});
 
     const { id } = useParams();
-    console.log(id);
+
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/customers/${id}`)
+        axios.get(`http://localhost:4000/customer/${id}`)
             .then(res => {
                 setCustomer(res.data)
                 // console.log(res.data);
@@ -26,7 +26,7 @@ const Customerview = () => {
     }, [id])
 
 
-
+console.log(customer);
 
     const chart1 = {
         series: [{
@@ -140,30 +140,12 @@ const Customerview = () => {
                                                     <img className="avatar avatar-img avatar-60 rounded-circle" src={user1} alt="01.jpg" />
                                                 </div> */}
                                                 <div className="list-style-detail ml-4 mr-2">
-                                                    <h5 className="font-weight-bold">{customer.firstName}  {customer.surName}</h5>
+                                                    <h5 className="font-weight-bold">{customer.firstName}  {customer.lastName}</h5>
                                                     <p className="mb-0 mt-1 text-muted">{customer.status}</p>
                                                 </div>
                                             </ListGroup.Item>
                                         </ListGroup>
                                     </div>
-                                    {/* <Row className="mt-3">
-                                        <Col xs="6" className="text-center mb-2">
-                                            <Button variant="btn btn-block btn-sm btn-primary">
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-                                                </svg>
-                                                <span className="">Message</span>
-                                            </Button>
-                                        </Col>
-                                        <Col xs="6" className="text-center">
-                                            <Button variant="btn btn-block btn-sm btn-secondary">
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                                </svg>
-                                                <span className="">Edit Profile</span>
-                                            </Button>
-                                        </Col>
-                                    </Row> */}
                                 </ListGroup.Item>
                                 <ListGroup.Item as="li">
                                     <table className="table table-borderless mb-0 customerViewStP">
@@ -173,7 +155,7 @@ const Customerview = () => {
                                                     <p className="mb-0 text-muted">Tur: </p>
                                                 </td>
                                                 <td>
-                                                    <p className="mb-0 " style={{ color: customer.turi === "Doimiy" ? '#149100' : "#EC0000" }}>{customer.turi}</p>
+                                                    <p className="mb-0 " style={{ color: customer.turi === "Doimiy" ? '#149100' : "#EC0000" }}>{customer.status}</p>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -181,7 +163,7 @@ const Customerview = () => {
                                                     <p className="mb-0 text-muted">Manzil: </p>
                                                 </td>
                                                 <td>
-                                                    <p className="mb-0 ">{customer.adress}</p>
+                                                    <p className="mb-0 ">{customer.address}</p>
                                                 </td>
                                             </tr>
                                             <tr>

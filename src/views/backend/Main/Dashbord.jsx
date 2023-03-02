@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
 // import { Link } from 'react-router-dom'
 import Chart from "react-apexcharts";
 
@@ -26,8 +27,36 @@ import logoBread from '../../../assets/images/bread/logoBread.png'
 import { color } from 'highcharts';
 
 
-const Dashbord = () => {
 
+const Dashbord = () => {
+    const[nasiya, setNasiya] = useState('');
+    const[foyda, setFoyda] = useState('');
+    const[xarajat, setXarajat] = useState('');
+
+
+    useEffect(() => {
+        axios.get('http://localhost:4000/report/nasiya')
+        .then(res => {
+            setNasiya(res.data.reduce((a,b) => a = a + b.overall, 0));
+            // res.data.reduce((a,b) => a = a + b.overall, 0)
+        })
+        .catch(err => console.log(err));
+
+        axios.get('http://localhost:4000/report/daromat')
+        .then(res => {
+            setFoyda(res.data.reduce((a,b) => a = a + b.overallPrice, 0));
+            // res.data.reduce((a,b) => a = a + b.overall, 0)
+        })
+        .catch(err => console.log(err))
+
+        axios.get('http://localhost:4000/report/expenses')
+        .then(res => {
+            setXarajat(res.data.reduce((a,b) => a = a + b.overallPrice, 0));
+            // res.data.reduce((a,b) => a = a + b.overall, 0)
+        })
+        .catch(err => console.log(err))
+
+    },[])
 
 
     const chart1 = {
@@ -284,7 +313,7 @@ const Dashbord = () => {
                                         <div className="align-items-center" >
                                             <p className="mb-2 text-secondary" style={{ fontSize: '18px', fontWeight: '600', lineHeight: '21px', color: '#52BA00', textAlign: 'center' }}>Umumiy Foyda</p>
                                             <div className="flex-wrap justify-content-start align-items-center">
-                                                <h5 className="mb-0 font-weight-bold" style={{ fontSize: '22px', fontWeight: '700', textAlign: 'center' }}>120. 000.000 so'm</h5>
+                                                <h5 className="mb-0 font-weight-bold" style={{ fontSize: '22px', fontWeight: '700', textAlign: 'center' }}>{foyda} so'm</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -298,7 +327,7 @@ const Dashbord = () => {
                                         <div className="align-items-center justify-content-center">
                                             <p className="mb-2 text-secondary" style={{ color: '#C37500', fontSize: '18px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>Nasiya</p>
                                             <div className="justify-content-center align-items-center">
-                                                <h5 className="mb-0 font-weight-bold" style={{ color: '#000000', fontSize: '22px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>50.000.000 so'm</h5>
+                                                <h5 className="mb-0 font-weight-bold" style={{ color: '#000000', fontSize: '22px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>{nasiya} so'm</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -312,7 +341,7 @@ const Dashbord = () => {
                                         <div className="">
                                             <p className="mb-2 text-secondary" style={{ color: '#EC0000', fontSize: '18px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>Xarajatlar</p>
                                             <div className="justify-content-center align-items-center">
-                                                <h5 className="mb-0 font-weight-bold" style={{ color: '#000000', fontSize: '22px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>60.000.000 so'm</h5>
+                                                <h5 className="mb-0 font-weight-bold" style={{ color: '#000000', fontSize: '22px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>{xarajat} so'm</h5>
                                             </div>
                                         </div>
                                     </div>
