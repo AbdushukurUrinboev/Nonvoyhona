@@ -9,7 +9,7 @@ import DatePicker from "react-datepicker";
 import { customersDataContext } from './ContextProvider/DataProvider';
 
 
-const Debtadd = () => {
+const DebtEdit = () => {
 
     const [product, setProduct] = useState(''); //
     const [customer, setCustomer] = useState(''); //
@@ -161,4 +161,4 @@ const Debtadd = () => {
         </>
     )
 }
-export default Debtadd;
+export default DebtEdit;

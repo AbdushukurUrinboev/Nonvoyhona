@@ -11,7 +11,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './ProductAdd.css'
 
-const Productadd = () => {
+const ProductEdit = () => {
     const [productName, setProductName] = useState(''); //
     const [description, setDescription] = useState(''); //
     const [productPrice, setProductPrice] = useState(0); //
@@ -200,4 +200,4 @@ const Productadd = () => {
         </>
     )
 }
-export default Productadd;
+export default ProductEdit;

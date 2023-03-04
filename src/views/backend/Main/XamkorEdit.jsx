@@ -14,7 +14,7 @@ import './CustomerAdd.css'
 
 
 
-const XamkorAdd = () => {
+const XamkorEdit = () => {
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -174,4 +174,4 @@ const XamkorAdd = () => {
     )
 }
 
-export default XamkorAdd;
+export default XamkorEdit;

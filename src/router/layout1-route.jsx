@@ -23,6 +23,7 @@ import StaffEdit from '../views/backend/Main/Staffedit';
 import Product from '../views/backend/Main/Product';
 import ProductView from '../views/backend/Main/ProductView';
 import ProductAdd from '../views/backend/Main/ProductAdd';
+import ProductEdit from '../views/backend/Main/ProductEdit';
 
 // order - ZAKAZLAR
 import Order from '../views/backend/Main/Order';
@@ -32,10 +33,12 @@ import Orderdetails from '../views/backend/Main/Orderdetails';
 // Output - CHIQIMLAR
 import Output from '../views/backend/Main/Output';
 import Outputadd from '../views/backend/Main/Outputadd';
+import OutputEdit from '../views/backend/Main/OutputEdit';
 
 //Debt - NASIYA
 import Debt from '../views/backend/Main/Debt';
 import Debtadd from '../views/backend/Main/Debtadd';
+import DebtEdit from '../views/backend/Main/DebtEdit';
 
 //Plans - REJALAR
 import Plans from '../views/backend/Main/Plans';
@@ -74,9 +77,14 @@ import SailAdd from '../views/backend/Main/SailAdd';
 //Xamkor pages - Hamkor oynalasi
 import Xamkorlar from '../views/backend/Main/Xamkorlar';
 import XamkorlarAdd from '../views/backend/Main/XamkorAdd';
+import XamkorEdit from '../views/backend/Main/XamkorEdit';
 
 // DataProvider - stateManagement
 import { DataProvider, BreadListData, CustomerListData, StaffListData } from '../views/backend/Main/ContextProvider/DataProvider';
+
+
+
+
 
 const Layout1Route = () => {
 
@@ -116,21 +124,24 @@ const Layout1Route = () => {
                             <Route path="/staff" exact component={Staff} />
                             <Route path="/staff-add" exact component={Staffadd} />
                             <Route path="/staff/:id" exact component={Staffview} />
-                            <Route path="/staff-edit" exact component={StaffEdit} />
+                            <Route path="/staff-edit/:id" exact component={StaffEdit} />
 
 
                             {/* Product */}
                             <Route path="/storage" exact component={Product} />
                             <Route path="/storage/:id" exact component={ProductView} />
                             <Route path="/storage-add" exact component={ProductAdd} />
+                            <Route path="/storage-edit/:id" exact component={ProductEdit} />
 
                             {/* Output */}
                             <Route path="/output" exact component={Output} />
                             <Route path="/output-add" exact component={Outputadd} />
+                            <Route path="/output-edit/:id" exact component={OutputEdit} />
 
                             {/* Debt */}
                             <Route path="/debt" exact component={Debt} />
                             <Route path="/debt-add" exact component={Debtadd} />
+                            <Route path="/debt-edit/:id" exact component={DebtEdit} />
 
                             {/* Calculate */}
                             <Route path="/calculate" exact component={Calculate} />
@@ -139,8 +150,6 @@ const Layout1Route = () => {
                             {/* Kunlik ish */}
                             <Route path="/kunlik-ish" exact component={KunlikIsh} />
                             <Route path="/kunlik-ish-add" exact component={KunlikIshadd} />
-
-
 
                             {/* Plans */}
                             <Route path="/plan" exact component={Plans} />
@@ -153,11 +162,12 @@ const Layout1Route = () => {
                             {/* Order */}
                             <Route path="/order" exact component={Order} />
                             <Route path="/order-new" exact component={Ordernew} />
-                            <Route path="/order-details" exact component={Orderdetails} />
+                            <Route path="/order-details/:id" exact component={Orderdetails} />
 
                             {/* Xamkorlar */}
                             <Route path="/xamkorlar" exact component={Xamkorlar} />
                             <Route path="/xamkorlar-add" exact component={XamkorlarAdd} />
+                            <Route path="/xamkor-edit/:id" exact component={XamkorEdit} />
 
                         </Switch>
                     </StaffListData>

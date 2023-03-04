@@ -10,7 +10,7 @@ import { breadDataContext, customersDataContext } from './ContextProvider/DataPr
 
 
 
-const Ordernew = () => {
+const Orderdetails = () => {
     const [order, setOrder] = useState('');
     const [customer, setCustomer] = useState('');
     const [turi, setTuri] = useState('');
@@ -217,4 +217,4 @@ const Ordernew = () => {
     )
 }
 
-export default Ordernew;
+export default Orderdetails;

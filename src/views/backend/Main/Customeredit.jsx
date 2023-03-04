@@ -14,9 +14,7 @@ import './CustomerAdd.css'
 
 
 
-const Customeredit = (props) => {
-    const [data, setData] = useState({})
-
+const Customeredit = () => {    
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [status, setStatus] = useState('');
@@ -36,8 +34,7 @@ const Customeredit = (props) => {
 
     useEffect(() => {
         axios.get(`http://localhost:4000/customer/${id}`)
-            .then(res => {
-                setData(res.data);
+            .then(res => {                
                 setFirstName(res.data.firstName);
                 setLastName(res.data.lastName);
                 setStatus(res.data.status);

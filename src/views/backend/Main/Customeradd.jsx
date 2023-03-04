@@ -38,7 +38,7 @@ const Customeradd = () => {
 
     function handleChange(e) {
         e.preventDefault();
-        if(firstName.length === 0 || lastName.length|| status.length || phone.length || phone2.length || customerType.length || address.length || workPlace.length) {
+        if(firstName.length === 0 || lastName.length === 0 || status.length === 0 || phone.length === 0 || phone2.length === 0 || customerType.length === 0 || address.length === 0 || workPlace.length === 0) {
             setError(true)
         }
         if(firstName && lastName && status && phone && phone2 && customerType && address && workPlace) {

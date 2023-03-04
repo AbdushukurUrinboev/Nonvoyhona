@@ -30,6 +30,8 @@ const Staffadd = () => {
     const [salary, setSalary] = useState('');
     const [birthday, setBirthday] = useState();
     const [image, setImage] = useState();
+    const [error, setError] = useState(false);
+
     const history = useHistory()
 
     const month = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
@@ -38,26 +40,31 @@ const Staffadd = () => {
 
     function handleChange(e) {
         e.preventDefault();
-        const fd = new FormData()
-        fd.append('firstName', firstName)
-        fd.append('lastName', lastName)
-        fd.append('gender', gender)
-        fd.append('phone', phoneCode + ' - ' + phone)
-        fd.append('phone2', phoneCode2 + ' - ' + phone2)
-        fd.append('typeOfWorker', typeOfWorker) //
-        fd.append('adress', adress)
-        fd.append('group', group)
-        fd.append('smena', smena)
-        fd.append('salary', salary)
-        fd.append('birthday', birthday.getDate() + "-" + month[birthday.getMonth()] + ", " + birthday.getFullYear())
-        fd.append('image', image)
+        if (firstName.length === 0 || lastName.length === 0 || gender.length === 0 || phone.length === 0 || phone2.length === 0 || typeOfWorker.length === 0 || adress.length === 0 || group.length === 0 || smena.length === 0 || salary.length === 0 || birthday.length === 0) {
+            setError(true)
+        }
+        if (firstName && lastName && gender && phone && phone2 && typeOfWorker && adress && group && smena && salary && birthday) {
+            const fd = new FormData()
+            fd.append('firstName', firstName)
+            fd.append('lastName', lastName)
+            fd.append('gender', gender)
+            fd.append('phone', phoneCode + ' - ' + phone)
+            fd.append('phone2', phoneCode2 + ' - ' + phone2)
+            fd.append('typeOfWorker', typeOfWorker) //
+            fd.append('adress', adress)
+            fd.append('group', group)
+            fd.append('smena', smena)
+            fd.append('salary', salary)
+            fd.append('birthday', birthday.getDate() + "-" + month[birthday.getMonth()] + ", " + birthday.getFullYear())
+            fd.append('image', image)
 
-        axios.post(STAFF_URL, fd)
-            .then(res => {
-                console.log("Data is saved", res)
-                history.push('/staff')
-            })
-            .catch(err => console.log(err))
+            axios.post(STAFF_URL, fd)
+                .then(res => {
+                    console.log("Data is saved", res)
+                    history.push('/staff')
+                })
+                .catch(err => console.log(err))
+        }
     }
 
 
@@ -89,6 +96,7 @@ const Staffadd = () => {
                     <Col lg="12">
                         <Card>
                             <Card.Body>
+                                {error ? <p className='text-danger text-center font-weight-bold'>Ushbu qatorlarning barchasini to'ldirishingiz shart</p> : ''}
                                 <Row>
                                     <Col md="3" className="mb-3 mt-5">
                                         <Card.Body className="staffAddStyleCardBody mx-auto">
@@ -199,7 +207,7 @@ const Staffadd = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text7" className="font-weight-bold text-muted text-uppercase">Oyligi</Form.Label>
-                                                <Form.Control type="text" id="Text7" placeholder="Xodimning qancha oylik olishini kiriting..." onChange={e => setSalary(e.target.value)} />
+                                                <Form.Control type="text" id="Text7" placeholder="Xodimning qancha oylik olishini kiriting..." onChange={e => {setSalary(e.target.value)}} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <div className="text-right mt-2">

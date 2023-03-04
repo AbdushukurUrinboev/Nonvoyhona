@@ -8,7 +8,7 @@ import DatePicker from "react-datepicker";
 import './Output.css'
 
 
-const Outputadd = () => {
+const OutputEdit = () => {
 
     const [name, setName] = useState('');
     const [sana, setSana] = useState(new Date());
@@ -99,4 +99,4 @@ const Outputadd = () => {
         </>
     )
 }
-export default Outputadd;
+export default OutputEdit;

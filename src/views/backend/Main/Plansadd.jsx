@@ -15,26 +15,31 @@ const Plansadd = () => {
     const [person, setPerson] = useState('');
     const [deadline, setDeadline] = useState();
     const [status, setStatus] = useState('');
+    const [error, setError] = useState(false);
 
     const staffList = useContext(staffDataContext);
-    console.log(staffList);
     const history = useHistory()
     const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     function handleAdd(e) {
         e.preventDefault();
-        axios.post(PLANS_URL, {
-            plan,
-            deadline: deadline.getDate() + "-" + month[deadline.getMonth()] + "," + deadline.getFullYear(),
-            person,
-            status
-        })
-            .then(res => {
-                console.log("Data is saved", res);
-                history.push('/plan')
-
+        if (plan.length === 0 || person.length || status.length) {
+            setError(true)
+        }
+        if (plan && person && status) {
+            axios.post(PLANS_URL, {
+                plan,
+                deadline: deadline.getDate() + "-" + month[deadline.getMonth()] + "," + deadline.getFullYear(),
+                person,
+                status
             })
-            .catch(err => console.log(err))
+                .then(res => {
+                    console.log("Data is saved", res);
+                    history.push('/plan')
+
+                })
+                .catch(err => console.log(err))
+        }
     }
 
 
@@ -67,6 +72,7 @@ const Plansadd = () => {
                     <Col lg="12" className='outputAddStyle'>
                         <Card>
                             <Card.Body>
+                                {error ? <p className='text-danger text-center font-weight-bold'>Ushbu qatorlarning barchasini to'ldirishingiz shart</p> : ''}
                                 <Form className="row g-3">
                                     <div className="col-md-12 mb-3">
                                         <Form.Label htmlFor="Text1" className="form-label font-weight-bold text-muted text-uppercase">Nomi</Form.Label>
@@ -84,7 +90,7 @@ const Plansadd = () => {
                                                 staffList.map((staff, ind) => {
                                                     return <option key={ind} value={staff}>{staff}</option>
                                                 })
-                                            }                                           
+                                            }
                                         </select>
                                     </div>
                                     <div className="col-md-12 mb-3">

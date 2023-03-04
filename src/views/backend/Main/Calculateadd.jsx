@@ -39,6 +39,7 @@ const Calculateadd = () => {
     const [ishHaqi, setIshHaqi] = useState(0);
     const [boshqalar, setBoshqalar] = useState(0);
     const [productImage, setProductImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
+   
     const history = useHistory()
 
     const valueProducts = useContext(dataContext)
