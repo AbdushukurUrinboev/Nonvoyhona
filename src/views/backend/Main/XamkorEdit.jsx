@@ -72,14 +72,14 @@ const XamkorEdit = () => {
                                 <nav aria-label="breadcrumb">
                                     <ol className="breadcrumb p-0 mb-0">
                                         <li className="breadcrumb-item"><Link to="/customer">Xamkorlar</Link></li>
-                                        <li className="breadcrumb-item active" aria-current="page">Yangi xamkor qo'shish</li>
+                                        <li className="breadcrumb-item active" aria-current="page">Xamkor ma'lumotlarini o'zgartirish</li>
                                     </ol>
                                 </nav>
                             </div>
                         </div>
                     </Col>
                     <Col lg="12" className="mb-3 d-flex justify-content-between">
-                        <h4 className="font-weight-bold0 d-flex align-items-center customerAddHead">Yangi xamkor qo'shish</h4>
+                        <h4 className="font-weight-bold0 d-flex align-items-center customerAddHead">Xamkor ma'lumotlarini o'zgartirish</h4>
                     </Col>
 
                     <Col lg="12" className=" mb-3 d-flex justify-content-between">
@@ -159,7 +159,7 @@ const XamkorEdit = () => {
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                                 </svg>
-                                                Qo'shish
+                                               Saqlash
                                             </Button>
                                         </div>
                                     </Col>

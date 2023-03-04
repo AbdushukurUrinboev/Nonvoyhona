@@ -108,7 +108,7 @@ console.log(customer);
                                 <nav aria-label="breadcrumb">
                                     <ol className="breadcrumb p-0 mb-0">
                                         <li className="breadcrumb-item"><Link to="/customers">Mijozlar</Link></li>
-                                        <li className="breadcrumb-item active" aria-current="page">Mijozlarni ko'rish</li>
+                                        <li className="breadcrumb-item active" aria-current="page">Mijozni ko'rish</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -116,7 +116,7 @@ console.log(customer);
                         </div>
                     </Col>
                     <Col lg="12" className="mb-3 d-flex justify-content-between">
-                        <h4 className="font-weight-bold d-flex align-items-center customerViewHeadStyle">Mijozlarni ko'rish</h4>
+                        <h4 className="font-weight-bold d-flex align-items-center customerViewHeadStyle">Mijozni ko'rish</h4>
                     </Col>
                     <Col lg="12" className="mb-3 d-flex justify-content-between">
                         <Link to="/customers" className="btn btn-primary btn-sm d-flex align-items-center justify-content-between ml-2">

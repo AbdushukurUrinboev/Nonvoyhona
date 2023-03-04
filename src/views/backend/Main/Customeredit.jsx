@@ -86,14 +86,14 @@ const Customeredit = () => {
                                 <nav aria-label="breadcrumb">
                                     <ol className="breadcrumb p-0 mb-0">
                                         <li className="breadcrumb-item"><Link to="/customer">Mijozlar</Link></li>
-                                        <li className="breadcrumb-item active" aria-current="page">Yangi mijoz qo'shish</li>
+                                        <li className="breadcrumb-item active" aria-current="page">Mijoz haqida ma'lumotlarni o'zgartirish</li>
                                     </ol>
                                 </nav>
                             </div>
                         </div>
                     </Col>
                     <Col lg="12" className="mb-3 d-flex justify-content-between">
-                        <h4 className="font-weight-bold0 d-flex align-items-center customerAddHead">Yangi mijoz qo'shish</h4>
+                        <h4 className="font-weight-bold0 d-flex align-items-center customerAddHead">Mijoz haqida ma'lumotlarni o'zgartirish</h4>
                     </Col>
 
                     <Col lg="12" className=" mb-3 d-flex justify-content-between">

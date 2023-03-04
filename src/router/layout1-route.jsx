@@ -43,6 +43,7 @@ import DebtEdit from '../views/backend/Main/DebtEdit';
 //Plans - REJALAR
 import Plans from '../views/backend/Main/Plans';
 import Plansadd from '../views/backend/Main/Plansadd';
+import PlansEdit from '../views/backend/Main/PlansEdit';
 
 //Calculate - Kalkulyatsiya
 import Calculate from '../views/backend/Main/Calculate';
@@ -81,6 +82,7 @@ import XamkorEdit from '../views/backend/Main/XamkorEdit';
 
 // DataProvider - stateManagement
 import { DataProvider, BreadListData, CustomerListData, StaffListData } from '../views/backend/Main/ContextProvider/DataProvider';
+
 
 
 
@@ -127,7 +129,7 @@ const Layout1Route = () => {
                             <Route path="/staff-edit/:id" exact component={StaffEdit} />
 
 
-                            {/* Product */}
+                            {/* Storage */}
                             <Route path="/storage" exact component={Product} />
                             <Route path="/storage/:id" exact component={ProductView} />
                             <Route path="/storage-add" exact component={ProductAdd} />
@@ -154,6 +156,7 @@ const Layout1Route = () => {
                             {/* Plans */}
                             <Route path="/plan" exact component={Plans} />
                             <Route path="/plan-add" exact component={Plansadd} />
+                            <Route path="/plan-edit/:id" exact component={PlansEdit} />
 
                             {/* Sail */}
                             <Route path="/sale" exact component={Sail} />
