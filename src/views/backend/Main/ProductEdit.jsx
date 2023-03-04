@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import Card from '../../../components/Card'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, useParams } from 'react-router-dom'
 import axios from 'axios';
 import { STORAGE_URL } from '../../../API';
 import Avatar from '../../../assets/images/avatar.png'
@@ -27,8 +27,31 @@ const ProductEdit = () => {
 
     const history = useHistory()
 
-
+    const { id } = useParams();
     const month = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
+
+
+    useEffect(() => {
+        axios.get(`http://localhost:4000/storage/${id}`)
+            .then(res => {                
+                setProductName(res.data.productName); //
+                setDescription(res.data.description); //
+                setProductPrice(res.data.productPrice); //
+                setPoductQuantity(res.data.poductQuantity); // 
+                // setUmumiyNarhi(res.data.umumiyNarhi);
+                setXamkor(res.data.xamkor); //
+                // setBerilganAvans(res.data.berilganAvans);
+                // setQolganPul(res.data.qolganPul);
+                // setOlinganSana(res.data.olinganSana); //
+                // setOlinganSoat(res.data.olinganSoat); //
+                setStorageImage(res.data.storageImage) //
+            } )
+            .catch(err => console.log(err))
+    }, [id])
+
+
+
+
 
     const calculateOverallPrice = (productPriceInput, poductQuantityInput) => {
         setUmumiyNarhi(poductQuantityInput * productPriceInput);
