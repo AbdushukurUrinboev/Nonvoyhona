@@ -110,7 +110,7 @@ const Layout1Route = () => {
                             <Route path="/customers" exact component={Customer} />
                             <Route path="/customers-add" exact component={Customeradd} />
                             <Route path='/customer/:id' exact component={Customerview} />
-                            <Route path="/customers-edit" exact component={Customeredit} />
+                            <Route path="/customers-edit/:id" exact component={Customeredit} />
 
                             {/*STAFF*/}
                             <Route path="/staff" exact component={Staff} />

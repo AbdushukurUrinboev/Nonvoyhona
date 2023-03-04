@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import Card from '../../../components/Card'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, useParams } from 'react-router-dom'
 
 import axios from "axios"
 import { CUSTOMERS_URL } from '../../../API';
@@ -14,7 +14,8 @@ import './CustomerAdd.css'
 
 
 
-const Customeradd = () => {
+const Customeredit = (props) => {
+    const [data, setData] = useState({})
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -27,43 +28,56 @@ const Customeradd = () => {
     const [address, setAddress] = useState('');
     const [workPlace, setWorkPlace] = useState('');
 
-    const[error, setError] = useState(false);
 
+    const { id } = useParams();
+    
 
+   const history = useHistory()
 
-    // const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
-    const history = useHistory()
+    useEffect(() => {
+        axios.get(`http://localhost:4000/customer/${id}`)
+            .then(res => {
+                setData(res.data);
+                setFirstName(res.data.firstName);
+                setLastName(res.data.lastName);
+                setStatus(res.data.status);
+                setPhoneCode(res.data.phoneCode);
+                setPhone(res.data.phone);
+                setPhoneCode2(res.data.phoneCode2);
+                setPhone2(res.data.phone2);
+                setCustomerType(res.data.customerType);
+                setAddress(res.data.address);
+                setWorkPlace(res.data.workPlace);
+            } )
+            .catch(err => console.log(err))
+    }, [id])
 
 
 
     function handleChange(e) {
-        e.preventDefault();
-        if(firstName.length === 0 || lastName.length|| status.length || phone.length || phone2.length || customerType.length || address.length || workPlace.length) {
-            setError(true)
-        }
-        if(firstName && lastName && status && phone && phone2 && customerType && address && workPlace) {
-            axios.post(CUSTOMERS_URL, {
+        // e.preventDefault();
+        axios.put('http://localhost:4000/customers', {
+            id: id,
+            new: {
                 firstName,
                 lastName,
                 status,
-                phone: phoneCode + ' - ' + phone,
-                phone2: phoneCode2 + ' - ' + phone2,
+                phone,
+                phone2,
                 customerType,
                 address,
                 workPlace
-    
+            }
+
+        })
+            .then(res => {
+                console.log("Data is saved", res)
+                history.push('/customers')
             })
-                .then(res => {
-                    console.log("Data is saved", res)
-                    history.push('/customers')
-                })
-                .catch(err => console.log(err))
-        }
-        
+            .catch(err => console.log(err))
 
 
     }
-
 
     return (
         <>
@@ -100,15 +114,14 @@ const Customeradd = () => {
                                 <Row>
 
                                     <Col md="12">
-                                        { error ? <p className='text-danger text-center font-weight-bold'>Ushbu qatorlarning barchasini to'ldirishingiz shart</p> : ''}
                                         <Form className="row g-3 date-icon-set-modal myStyleCustomerAdd">
                                             <div className="col-md-6 mb-3 mt-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Familiyasi</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Familiya kiriting..." onChange={e => setLastName(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" placeholder="Familiya kiriting..." value={lastName} onChange={e => setLastName(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative mt-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Ismi</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Ismni kiriting..." onChange={e => setFirstName(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" placeholder="Ismni kiriting..." value={firstName} onChange={e => setFirstName(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Telefon raqami</Form.Label>
@@ -119,7 +132,7 @@ const Customeradd = () => {
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
                                                     </select>
-                                                    <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} />
+                                                    <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} value={phone} onChange={e => setPhone(e.target.value)} />
                                                 </div>
                                             </div>
                                             <div className="col-md-6 mb-3">
@@ -131,12 +144,12 @@ const Customeradd = () => {
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
                                                     </select>
-                                                    <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone2(e.target.value)} />
+                                                    <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} value={phone2} onChange={e => setPhone2(e.target.value)} />
                                                 </div>
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Tur</Form.Label>
-                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => setCustomerType(e.target.value)}>
+                                                <select id="inputState" className="form-select form-control choicesjs" value={customerType} onChange={e => setCustomerType(e.target.value)}>
                                                     <option value="no">Turi</option>
                                                     <option value="temporary">Doimiy</option>
                                                     <option value="daily">Vaqtincha</option>
@@ -144,17 +157,17 @@ const Customeradd = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Ish joyi</Form.Label>
-                                                <Form.Control type="text" id="Text3" placeholder="Ish joyini kiriting..." required='required' onChange={e => setWorkPlace(e.target.value)} />
+                                                <Form.Control type="text" id="Text3" placeholder="Ish joyini kiriting..." required='required' value={workPlace} onChange={e => setWorkPlace(e.target.value)} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Manzil</Form.Label>
-                                                <Form.Control type="text" id="Text4" placeholder="Manzil kiriting..." onChange={e => setAddress(e.target.value)} />
+                                                <Form.Control type="text" id="Text4" placeholder="Manzil kiriting..." value={address} onChange={e => setAddress(e.target.value)} />
                                             </div>
 
 
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Lavozimi</Form.Label>
-                                                <Form.Control type="text" id="Text3" placeholder="Lavozimini kiriting..." required='required' onChange={e => setStatus(e.target.value)} />
+                                                <Form.Control type="text" id="Text3" placeholder="Lavozimini kiriting..." required='required' value={status} onChange={e => setStatus(e.target.value)} />
                                             </div>
                                         </Form>
                                         <div className="d-flex justify-content-end mt-1 ">
@@ -162,7 +175,7 @@ const Customeradd = () => {
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                                 </svg>
-                                                Qo'shish
+                                                Saqlash
                                             </Button>
                                         </div>
                                     </Col>
@@ -177,4 +190,4 @@ const Customeradd = () => {
     )
 }
 
-export default Customeradd;
+export default Customeredit;
