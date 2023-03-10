@@ -20,18 +20,23 @@ const Productadd = () => {
     const [xamkor, setXamkor] = useState(""); //
     const [berilganAvans, setBerilganAvans] = useState(0);
     const [qolganPul, setQolganPul] = useState(0);
-    const [olinganSana, setOlinganSana] = useState(new Date()); // 
-    const [olinganSoat, setOlinganSoat] = useState(new Date().getHours() + ":" + new Date().getMinutes()); //
+    // const [olinganSana, setOlinganSana] = useState(new Date()); // 
+    // const [olinganSoat, setOlinganSoat] = useState(new Date().getHours() + ":" + new Date().getMinutes()); //
     const [storageImage, setStorageImage] = useState(''); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
     const[error, setError] = useState(false);
 
     const history = useHistory()
 
 
-    const month = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
+    // const month = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
 
     const calculateOverallPrice = (productPriceInput, poductQuantityInput) => {
         setUmumiyNarhi(poductQuantityInput * productPriceInput);
+        setQolganPul(umumiyNarhi)
+    }
+
+    const calculateQolganPul = (umumiyNarhiInput, berilganAvansInput) => {
+        setQolganPul(umumiyNarhiInput - berilganAvansInput);
     }
 
     function handleChange(e) {
@@ -50,8 +55,8 @@ const Productadd = () => {
         fd.append('xamkor', xamkor)
         fd.append('berilganAvans', berilganAvans)
         fd.append('qolganPul', qolganPul)
-        fd.append('olinganSana', olinganSana.getDate() + "-" + month[olinganSana.getMonth()] + "," + olinganSana.getFullYear())
-        fd.append('olinganSoat', olinganSoat)
+        // fd.append('olinganSana', olinganSana.getDate() + "-" + month[olinganSana.getMonth()] + "," + olinganSana.getFullYear())
+        // fd.append('olinganSoat', olinganSoat)
         fd.append('storageImage', storageImage);
 
         axios.post(STORAGE_URL, fd)
@@ -127,7 +132,7 @@ const Productadd = () => {
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Narxi</Form.Label>
-                                                <Form.Control type="number" id="Text1" placeholder="Narxini kiriting..." onChange={e => {
+                                                <Form.Control type="number" id="Text1" placeholder="Narxini kiriting..." value={productPrice} onChange={e => {
                                                     setProductPrice(e.target.value);
                                                     calculateOverallPrice(e.target.value, poductQuantity);
                                                 }} required='required' />
@@ -139,14 +144,17 @@ const Productadd = () => {
 
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Miqdori</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Miqdorini kiriting..." required='required' onChange={e => {
+                                                <Form.Control type="number" id="Text3" placeholder="Miqdorini kiriting..." value={poductQuantity} required='required' onChange={e => {
                                                     setPoductQuantity(e.target.value);
                                                     calculateOverallPrice(productPrice, e.target.value);
                                                     }} />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Umumiy narxi</Form.Label>
-                                                <Form.Control type="number" id="Text1" value={umumiyNarhi} onChange={e => setUmumiyNarhi(e.target.value)} required='required' />
+                                                <Form.Control type="number" id="Text1" value={umumiyNarhi} onChange={e => {
+                                                    setUmumiyNarhi(e.target.value);
+                                                    calculateQolganPul(e.target.value, berilganAvans)
+                                                }} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-uppercase">Xamkorni tanlang</Form.Label>
@@ -158,13 +166,16 @@ const Productadd = () => {
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Berilgan avans</Form.Label>
-                                                <Form.Control type="number" id="Text1" placeholder="Berilgan pulni kiriting..." onChange={e => setBerilganAvans(e.target.value)} required='required' />
+                                                <Form.Control type="number" id="Text1" placeholder="Berilgan pulni kiriting..." value={berilganAvans} onChange={e => {
+                                                    setBerilganAvans(e.target.value);
+                                                    calculateQolganPul(umumiyNarhi, e.target.value)
+                                                }} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Qolgan pul</Form.Label>
-                                                <Form.Control type="number" id="Text1" placeholder="Qolgan pul..." onChange={e => setQolganPul(e.target.value)} required='required' />
+                                                <Form.Control type="number" id="Text1" placeholder="Qolgan pul..." value={qolganPul} onChange={e => setQolganPul(e.target.value)} required='required' />
                                             </div>
-                                            <div className="col-md-6 mb-3 position-relative">
+                                            {/* <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text2" className="font-weight-bold text-uppercase">Mahsulot olingan sana</Form.Label>
                                                 <DatePicker className="form-control" id="Text2" name="event_date" placeholderText="Sanani kiriting" autoComplete="off" selected={olinganSana} onChange={date => setOlinganSana(date)} />
                                                 <span className="search-link">
@@ -172,11 +183,11 @@ const Productadd = () => {
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                                     </svg>
                                                 </span>
-                                            </div>
-                                            <div className="col-md-6 mb-3 position-relative">
+                                            </div> */}
+                                            {/* <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Maxsulot olingan soat</Form.Label>
                                                 <Form.Control type="number" id="Text1" placeholder={olinganSoat} onChange={e => setOlinganSoat(e.target.value)} required='required' value={olinganSoat} />
-                                            </div>
+                                            </div> */}
 
 
                                         </Form>

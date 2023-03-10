@@ -114,13 +114,13 @@ const ProductEdit = () => {
                             <nav aria-label="breadcrumb">
                                 <ol className="breadcrumb p-0 mb-0">
                                     <li className="breadcrumb-item"><Link to="/storage">Mahsulotlar</Link></li>
-                                    <li className="breadcrumb-item active" aria-current="page">Mahsulot qo'shish</li>
+                                    <li className="breadcrumb-item active" aria-current="page">Mahsulotni o'zgartirish</li>
                                 </ol>
                             </nav>
                         </div>
                     </Col>
                     <Col lg="12" className="mt-3 mb-3 d-flex justify-content-between">
-                        <h4 className="font-weight-bold0 d-flex align-items-center productHeader">Yangi mahsulot qo'shish</h4>
+                        <h4 className="font-weight-bold0 d-flex align-items-center productHeader">Mahsulotni o'zgartirish</h4>
                     </Col>
                     <Col lg="12" className="mt-3 mb-3 d-flex justify-content-between">
                         <Link to="/storage" className="btn btn-primary btn-sm d-flex align-items-left justify-content-between">
@@ -224,7 +224,7 @@ const ProductEdit = () => {
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                                 </svg>
-                                                Qo'shish
+                                                Saqlash
                                             </Link>
                                         </div>
 

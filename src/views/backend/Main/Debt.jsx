@@ -125,7 +125,7 @@ const Debt = () => {
                                     <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">Miqdor</div>
                                     <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">Narxi</div>
                                     <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">Avans</div>
-                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">Sana</div>
+                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left">Sana</div>
                                     <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center"><FilterCustomer filterValueSelected={onFilterValueSelected}></FilterCustomer></div>
                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-right">Amal</div>
                                 </div>

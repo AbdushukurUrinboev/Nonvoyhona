@@ -48,6 +48,8 @@ import PlansEdit from '../views/backend/Main/PlansEdit';
 //Calculate - Kalkulyatsiya
 import Calculate from '../views/backend/Main/Calculate';
 import Calculateadd from '../views/backend/Main/Calculateadd';
+import CalculateView from '../views/backend/Main/CalculateView';
+import CalculateEdit from '../views/backend/Main/CalculateEdit';
 
 // Kunlik ish
 import KunlikIsh from '../views/backend/Main/KunlikIsh';
@@ -82,6 +84,7 @@ import XamkorEdit from '../views/backend/Main/XamkorEdit';
 
 // DataProvider - stateManagement
 import { DataProvider, BreadListData, CustomerListData, StaffListData } from '../views/backend/Main/ContextProvider/DataProvider';
+
 
 
 
@@ -148,6 +151,8 @@ const Layout1Route = () => {
                             {/* Calculate */}
                             <Route path="/calculate" exact component={Calculate} />
                             <Route path="/calculate-add" exact component={Calculateadd} />
+                            <Route path='/calculate/:id' exact component={CalculateView} />
+                            <Route path="/calculate-edit/:id" exact component={CalculateEdit} />
 
                             {/* Kunlik ish */}
                             <Route path="/kunlik-ish" exact component={KunlikIsh} />

@@ -13,7 +13,7 @@ const Plansadd = () => {
 
     const [plan, setPlan] = useState('');
     const [person, setPerson] = useState('');
-    const [deadline, setDeadline] = useState();
+    const [deadline, setDeadline] = useState(new Date());
     const [status, setStatus] = useState('');
     const [error, setError] = useState(false);
 
@@ -29,7 +29,7 @@ const Plansadd = () => {
         if (plan && person && status) {
             axios.post(PLANS_URL, {
                 plan,
-                deadline: deadline.getDate() + "-" + month[deadline.getMonth()] + "," + deadline.getFullYear(),
+                deadline: deadline.getDate() + "/" + (deadline.getMonth() + 1) + "/" + deadline.getFullYear(),
                 person,
                 status
             })

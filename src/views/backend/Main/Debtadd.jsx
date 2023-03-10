@@ -15,9 +15,9 @@ const Debtadd = () => {
     const [customer, setCustomer] = useState(''); //
     const [productQuantity, setProductQuantity] = useState(0); //
     const [overall, setOverall] = useState(0); //
-    const [avans, setAvans] = useState(''); //
+    const [avans, setAvans] = useState(0); //
     const [customerType, setCustomerType] = useState(''); //
-    const [sana, setSana] = useState(new Date());
+    // const [sana, setSana] = useState(new Date());
     const [mijozlar, setMijozlar] = useState(false)
     const [error, setError] = useState(false);
     const customerList = useContext(customersDataContext);
@@ -30,17 +30,17 @@ const Debtadd = () => {
 
     function handleChange(e) {
         e.preventDefault();
-        if (product.length === 0 || customer.length || productQuantity.length || overall.length || avans.length || customerType.length) {
+        if (product.length === 0 || customer.length === 0 || customerType.length === 0) {
             setError(true)
         }
-        if (product && customer && productQuantity && overall && avans && customerType) {
+        if (product && customer && customerType) {
             axios.post(NASIYA_URL, {
                 product,
                 customer,
                 productQuantity,
                 overall,
                 avans,
-                sana: sana.getDate() + "-" + month[sana.getMonth()] + "," + sana.getFullYear(),
+                // sana: sana.getDate() + "-" + month[sana.getMonth()] + "," + sana.getFullYear(),
                 customerType
             })
                 .then(res => {
@@ -94,7 +94,7 @@ const Debtadd = () => {
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Nomi</Form.Label>
                                                 <Form.Control type="text" id="Text1" placeholder="Nomini kiriting..." onChange={e => setProduct(e.target.value)} required='required' />
                                             </div>
-                                            <div className="col-md-6 mb-3 mt-3 position-relative">
+                                            {/* <div className="col-md-6 mb-3 mt-3 position-relative">
                                                 <Form.Label htmlFor="Text2" className="font-weight-bold text-muted text-uppercase">Sana</Form.Label>
                                                 <DatePicker className="form-control" id="Text2" name="event_date" placeholderText="Sanani kiriting" autoComplete="off" selected={sana} onChange={date => setSana(date)} />
                                                 <span className="search-link">
@@ -102,8 +102,8 @@ const Debtadd = () => {
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                                     </svg>
                                                 </span>
-                                            </div>
-                                            <div className="col-md-6 mb-3">
+                                            </div> */}
+                                            <div className="col-md-6 mb-3 mt-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Tur</Form.Label>
                                                 <select id="inputState" className="form-select form-control choicesjs" onChange={e => { setCustomerType(e.target.value); if (e.target.value === "temporary") setMijozlar(true); else setMijozlar(false) }}>
                                                     <option value="no">Turi</option>
@@ -113,7 +113,7 @@ const Debtadd = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Miqdori</Form.Label>
-                                                <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." onChange={e => setProductQuantity(e.target.value)} />
+                                                <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." value={productQuantity} onChange={e => setProductQuantity(e.target.value)} />
                                             </div>
                                             {
                                                 mijozlar ? (<div className="col-md-6 mb-3">
@@ -135,11 +135,11 @@ const Debtadd = () => {
 
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Narx</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." required='required' onChange={e => setOverall(e.target.value)} />
+                                                <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." value={overall} required='required' onChange={e => setOverall(e.target.value)} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Avans</Form.Label>
-                                                <Form.Control type="number" id="Text4" placeholder="Avans kiriting..." onChange={e => setAvans(e.target.value)} />
+                                                <Form.Control type="number" id="Text4" placeholder="Avans kiriting..." value={avans} onChange={e => setAvans(e.target.value)} />
                                             </div>
                                         </Form>
                                         <div className="d-flex justify-content-end mt-1 ">

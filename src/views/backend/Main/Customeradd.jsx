@@ -19,9 +19,9 @@ const Customeradd = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [status, setStatus] = useState('');
-    const [phoneCode, setPhoneCode] = useState('(90) ');
+    const [phoneCode, setPhoneCode] = useState('(90)');
     const [phone, setPhone] = useState('');
-    const [phoneCode2, setPhoneCode2] = useState('(90) ');
+    const [phoneCode2, setPhoneCode2] = useState('(90)');
     const [phone2, setPhone2] = useState('');
     const [customerType, setCustomerType] = useState('');
     const [address, setAddress] = useState('');

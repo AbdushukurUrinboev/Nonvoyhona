@@ -20,9 +20,6 @@ const Calculateadd = () => {
     const [productInput, setProductInput] = useState('')
     const [productName, setProductName] = useState('');
     const [productPrice, setProductPrice] = useState(0);
-    const [others, setOthers] = useState([]);
-    const [addOthersInput, setAddOthersInput] = useState([]);
-
     // const [breadQuantity, setBreadQuantity] = useState(0);    
     const [pista, setPista] = useState(0);
     const [bodom, setBodom] = useState(0);
@@ -47,7 +44,7 @@ const Calculateadd = () => {
     const [ishHaqi, setIshHaqi] = useState(0);
     const [boshqalar, setBoshqalar] = useState(0);
     const [productImage, setProductImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
-
+   
     const history = useHistory()
 
     const valueProducts = useContext(dataContext)
@@ -85,14 +82,14 @@ const Calculateadd = () => {
                         <div className="d-flex align-items-center justify-content-between">
                             <nav aria-label="breadcrumb">
                                 <ol className="breadcrumb p-0 mb-0">
-                                    <li className="breadcrumb-item"><Link to="/calculate">Mahsulotlar</Link></li>
-                                    <li className="breadcrumb-item active" aria-current="page">Mahsulot qo'shish</li>
+                                    <li className="breadcrumb-item"><Link to="/calculate">Kalkulyatsiya</Link></li>
+                                    <li className="breadcrumb-item active" aria-current="page">Non haqidagi ma'lumotlarni o'zgartirish</li>
                                 </ol>
                             </nav>
                         </div>
                     </Col>
                     <Col lg="12" className="mt-3 mb-3 d-flex justify-content-between">
-                        <h4 className="font-weight-bold0 d-flex align-items-center calculateHeader">Yangi non va shu nonga bir qop uchun ketadigan mahsulot qo'shish</h4>
+                        <h4 className="font-weight-bold0 d-flex align-items-center calculateHeader">Non haqidagi ma'lumotlarni o'zgartirish</h4>
                     </Col>
                     <Col lg="12" className="mt-3 mb-3 d-flex justify-content-between">
                         <Link to="/calculate" className="btn btn-primary btn-sm d-flex align-items-left justify-content-between">
@@ -114,7 +111,7 @@ const Calculateadd = () => {
                                             <select id="inputState" className="form-select form-control choicesjs" value={productInput} onChange={e => setProductInput(e.target.value)} >
                                                 <option value="no">Maxsulotlar</option>
                                                 {
-                                                    valueProducts.filter((product) => {
+                                                    valueProducts.filter((product) => {                                                       
                                                         return !addInput.includes(product)
                                                     }).map((product, ind) => {
                                                         return <option key={ind} value={product}>{product}</option>
@@ -126,54 +123,36 @@ const Calculateadd = () => {
                                                 <option value="Sedana">Yongoq</option>
                                                 <option value="...">...</option> */}
                                             </select>
-
-                                            <button className='btn btn-primary mt-2 w-100' onClick={() => {
-
-                                                setAddInput([...addInput, productInput])
+                                            
+                                            <button className='btn btn-primary mt-2 w-100' onClick={() => { 
+                                                
+                                                setAddInput([...addInput, productInput]) 
                                                 setProductInput('Maxsulotlar')
-                                            }}>
-
+                                                }}>
+                                                
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                                 </svg>
-                                                Maxsulot qo'shish
+                                                Qo'shish
                                             </button>
                                         </Card.Body>
-
-                                        {/* Others Chiqimlarni kiritish */}
 
                                         <Card.Body className=" mt-3 mx-auto">
-
+                                            <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Chiqimni kiriting</Form.Label>
                                             <div className="col-md-12 mb-3">
-
-
-
-                                                <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Chiqimni tanlang</Form.Label>
-                                                <select id="inputState" className="form-select form-control choicesjs" value={others} onChange={e => setOthers(e.target.value)}>
-                                                    <option value="No">Chiqimlar</option>
-                                                    <option value="Elektr">Elektr</option>
-                                                    <option value="Gaz">Gaz</option>
-                                                    <option value="Ko'mir">Ko'mir</option>
-                                                    <option value="Boshqalar">Boshqalar</option>
-                                                    <option value="Qo'shimcha kiritish">Qo'shimcha kiritish</option>
-                                                </select>
+                                                <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Chiqim nomi</Form.Label>
+                                                <Form.Control type="text" id="Text1" placeholder="Non nomini kiriting..." required='required' />
+                                            </div>                                           
+                                            
+                                            <button className='btn btn-primary mt-2 w-100'>
                                                 
-
-                                                {/* <Form.Control type="text" id="Text1" placeholder="Chiqim nomini kiriting..." required='required' /> */}
-                                            </div>
-
-                                            <button className='btn btn-primary mt-2 w-100' onClick={() => {
-
-                                                // setOthers([...addInput, others])
-                                                setOthers('Maxsulotlar')
-                                            }}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                                 </svg>
-                                                Chiqim qo'shish
+                                                Qo'shish
                                             </button>
                                         </Card.Body>
-                                        {/* <Card.Body className="calculateAddStyleCardBody mt-3 mx-auto">
+                                        <Card.Body className="calculateAddStyleCardBody mt-3 mx-auto">
                                             <input type="file" className='calculateAddStyleInput ' accept='image/png, image/jpg, image/jpeg' name='productImage' onChange={(e) => setProductImage(e.target.files[0])} />
                                             <div className="d-flex justify-content-center mt-1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="60px" x="0px" y="0px" viewBox="0 0 419.2 419.2" style={{ enableBackground: "new 0 0 419.2 419.2" }} stroke="currentColor">
@@ -192,7 +171,7 @@ const Calculateadd = () => {
 
                                                 <p className="mb-0 text-muted font-weight-bold">Rasm yuklash</p>
                                             </div>
-                                        </Card.Body> */}
+                                        </Card.Body>
                                     </Col>
                                     <Col md="9">
                                         <Form className="row g-3 date-icon-set-modal">
@@ -204,7 +183,6 @@ const Calculateadd = () => {
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Un miqdori</Form.Label>
                                                 <Form.Control type="number" id="Text3" placeholder="Bir qop un uchun hisoblanadi..." required='required' onChange={e => setUn(e.target.value)} value={un} />
                                             </div>
-                                            {/* Mahsulotlarni qo'shish */}
                                             {
                                                 addInput.map((item, index) => {
                                                     return <div className="col-md-6 mb-3" key={index}>
@@ -221,32 +199,11 @@ const Calculateadd = () => {
                                                             }
                                                             let result = addOrUpdateBread(requiredItems, { itemName: item, itemQuantity: Number(e.target.value) })
                                                             setRequiredItems([...result])
-                                                        }} required='required' />
+                                                        }}  required='required' />
                                                     </div>
                                                 })
                                             }
 
-                                            {/* Chiqimlarni qo'shish */}
-                                            {
-                                                addOthersInput.map((item, index) => {
-                                                    return <div className="col-md-6 mb-3" key={index}>
-                                                        <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase" style={{ color: 'red' }}>{item} pulini kiriting</Form.Label>
-                                                        <Form.Control type="text" id="Text1" placeholder="Non nomini kiriting..." onChange={(e) => {
-                                                            function addOrUpdateBread(arr, newBread) {
-                                                                const index = arr.findIndex(bread => bread.itemName === newBread.itemName);
-                                                                if (index !== -1) {
-                                                                    arr[index].itemQuantity = newBread.itemQuantity;
-                                                                } else {
-                                                                    arr.push(newBread);
-                                                                }
-                                                                return arr;
-                                                            }
-                                                            let result = addOrUpdateBread(requiredItems, { itemName: item, itemQuantity: Number(e.target.value) })
-                                                            setOthers([...result])
-                                                        }} required='required' />
-                                                    </div>
-                                                })
-                                            }
 
 
 
@@ -364,7 +321,7 @@ const Calculateadd = () => {
                                         <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                         </svg>
-                                        Qo'shish
+                                        Saqlash
                                     </Link>
                                 </div>
                             </Card.Body>

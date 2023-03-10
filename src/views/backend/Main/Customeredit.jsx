@@ -18,9 +18,9 @@ const Customeredit = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [status, setStatus] = useState('');
-    const [phoneCode, setPhoneCode] = useState('(90) ');
+    const [phoneCode, setPhoneCode] = useState('');
     const [phone, setPhone] = useState('');
-    const [phoneCode2, setPhoneCode2] = useState('(90) ');
+    const [phoneCode2, setPhoneCode2] = useState('');
     const [phone2, setPhone2] = useState('');
     const [customerType, setCustomerType] = useState('');
     const [address, setAddress] = useState('');
@@ -38,18 +38,17 @@ const Customeredit = () => {
                 setFirstName(res.data.firstName);
                 setLastName(res.data.lastName);
                 setStatus(res.data.status);
-                setPhoneCode(res.data.phoneCode);
-                setPhone(res.data.phone);
-                setPhoneCode2(res.data.phoneCode2);
-                setPhone2(res.data.phone2);
+                setPhoneCode(res.data.phone.slice(0,4));
+                setPhone(res.data.phone.slice(8,res.data.phone2.length));
+                setPhoneCode2(res.data.phone2.slice(0,4));
+                setPhone2(res.data.phone2.slice(8,res.data.phone2.length));
                 setCustomerType(res.data.customerType);
                 setAddress(res.data.address);
                 setWorkPlace(res.data.workPlace);
-            } )
+                // console.log(res.data.phone2.slice(8,res.data.phone2.length));
+            })
             .catch(err => console.log(err))
     }, [id])
-
-
 
     function handleChange(e) {
         // e.preventDefault();
@@ -59,8 +58,8 @@ const Customeredit = () => {
                 firstName,
                 lastName,
                 status,
-                phone,
-                phone2,
+                phone: phoneCode + ' - ' + phone,
+                phone2: phoneCode2 + ' - ' + phone2,
                 customerType,
                 address,
                 workPlace
@@ -124,10 +123,10 @@ const Customeredit = () => {
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Telefon raqami</Form.Label>
                                                 <div className='input-group'>
                                                     <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode(e.target.value)}>
-                                                        <option value="(90) ">(90)</option>
-                                                        <option value="(91) ">(91)</option>
-                                                        <option value="(93) ">(93)</option>
-                                                        <option value="(94) ">(94)</option>
+                                                        <option value="(90)">(90)</option>
+                                                        <option value="(91)">(91)</option>
+                                                        <option value="(93)">(93)</option>
+                                                        <option value="(94)">(94)</option>
                                                     </select>
                                                     <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} value={phone} onChange={e => setPhone(e.target.value)} />
                                                 </div>
@@ -136,10 +135,11 @@ const Customeredit = () => {
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Telefon raqami 2</Form.Label>
                                                 <div className='input-group'>
                                                     <select value={phoneCode2} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode2(e.target.value)}>
-                                                        <option value="(90) ">(90)</option>
-                                                        <option value="(91) ">(91)</option>
-                                                        <option value="(93) ">(93)</option>
-                                                        <option value="(94) ">(94)</option>
+                                                        <option value={phoneCode2}>{phoneCode2}</option>
+                                                        <option value="(90)">(90)</option>
+                                                        <option value="(91)">(91)</option>
+                                                        <option value="(93)">(93)</option>
+                                                        <option value="(94)">(94)</option>
                                                     </select>
                                                     <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} value={phone2} onChange={e => setPhone2(e.target.value)} />
                                                 </div>

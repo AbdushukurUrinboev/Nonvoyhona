@@ -13,11 +13,11 @@ const DebtEdit = () => {
 
     const [product, setProduct] = useState(''); //
     const [customer, setCustomer] = useState(''); //
-    const [productQuantity, setProductQuantity] = useState(); //
+    const [productQuantity, setProductQuantity] = useState(0); //
     const [overall, setOverall] = useState(0); //
-    const [avans, setAvans] = useState(''); //
+    const [avans, setAvans] = useState(0); //
     const [customerType, setCustomerType] = useState(''); //
-    const [sana, setSana] = useState();
+    const [sana, setSana] = useState(new Date());
     const [mijozlar, setMijozlar] = useState(false)
     const [error, setError] = useState(false);
     const customerList = useContext(customersDataContext);
@@ -31,15 +31,16 @@ const DebtEdit = () => {
 
     useEffect(() => {
         axios.get(`http://localhost:4000/nasiya/${id}`)
-            .then(res => {                
-                // setProduct(res.data.product);
-                // setCustomer(res.data.customer);
-                // setProductQuantity(res.data.productQuantity);
-                // setOverall(res.data.overall);
-                // setAvans(res.data.avans);
-                // setCustomerType(res.data.customerType);
-                // setSana(res.data.sana);
-                // setMijozlar(res.data.mijozlar);
+            .then(res => {               
+                setProduct(res.data.product);
+                setCustomer(res.data.customer);
+                setProductQuantity(res.data.productQuantity);
+                setOverall(res.data.overall);
+                setAvans(res.data.avans);
+                setCustomerType(res.data.customerType);
+                const [day, month, year] = res.data.date.split("/").map(Number);
+                setSana(new Date(year, month - 1, day)); //               
+                setMijozlar(res.data.mijozlar);
                 
             } )
             .catch(err => console.log(err))
@@ -54,18 +55,21 @@ const DebtEdit = () => {
             setError(true)
         }
         if (product && customer && productQuantity && overall && avans && customerType) {
-            axios.post(NASIYA_URL, {
+            axios.put(NASIYA_URL, {
+                id,
+                new: {
                 product,
                 customer,
                 productQuantity,
                 overall,
                 avans,
-                sana: sana.getDate() + "-" + month[sana.getMonth()] + "," + sana.getFullYear(),
+                date: sana.getDate() + "/" + (sana.getMonth() + 1) + "/" + sana.getFullYear(),
                 customerType
+            }
             })
                 .then(res => {
-                    console.log("Data is saved", res)
-                    history.push('/debt')
+                    console.log("Data is updated", res)
+                    history.push('/nasiya')
                 })
                 .catch(err => console.log(err))
         }
@@ -95,7 +99,7 @@ const DebtEdit = () => {
                     </Col>
 
                     <Col lg="12" className=" mb-3 d-flex justify-content-between">
-                        <Link to="/debt" className="btn btn-primary btn-sm d-flex align-items-left justify-content-between">
+                        <Link to="/nasiya" className="btn btn-primary btn-sm d-flex align-items-left justify-content-between">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
                             </svg>
@@ -112,7 +116,7 @@ const DebtEdit = () => {
                                         <Form className="row g-3 date-icon-set-modal myStyleCustomerAdd">
                                             <div className="col-md-6 mb-3 mt-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Nomi</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Nomini kiriting..."  onChange={e => setProduct(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" placeholder="Nomini kiriting..." value={product}  onChange={e => setProduct(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3 mt-3 position-relative">
                                                 <Form.Label htmlFor="Text2" className="font-weight-bold text-muted text-uppercase">Sana</Form.Label>
@@ -125,7 +129,7 @@ const DebtEdit = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Tur</Form.Label>
-                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => { setCustomerType(e.target.value); if (e.target.value === "temporary") setMijozlar(true); else setMijozlar(false) }}>
+                                                <select id="inputState" className="form-select form-control choicesjs" value={customerType} onChange={e => { setCustomerType(e.target.value); if (e.target.value === "temporary") setMijozlar(true); else setMijozlar(false) }}>
                                                     <option value="no">Turi</option>
                                                     <option value="temporary">Doimiy</option>
                                                     <option value="daily">Vaqtincha</option>
@@ -133,7 +137,7 @@ const DebtEdit = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Miqdori</Form.Label>
-                                                <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." onChange={e => setProductQuantity(e.target.value)} />
+                                                <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." value={productQuantity} onChange={e => setProductQuantity(e.target.value)} />
                                             </div>
                                             {
                                                 mijozlar ? (<div className="col-md-6 mb-3">
@@ -148,18 +152,18 @@ const DebtEdit = () => {
                                                     </select>
                                                 </div>) : (<div className="col-md-6 mb-3">
                                                     <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Kimga</Form.Label>
-                                                    <Form.Control type="text" id="Text5" placeholder="Kim uchunligini kiriting..." onChange={e => setCustomer(e.target.value)} />
+                                                    <Form.Control type="text" id="Text5" placeholder="Kim uchunligini kiriting..." value={customer} onChange={e => setCustomer(e.target.value)} />
                                                 </div>)
                                             }
 
 
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Narx</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." required='required' onChange={e => setOverall(e.target.value)} />
+                                                <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." required='required' value={overall} onChange={e => setOverall(e.target.value)} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Avans</Form.Label>
-                                                <Form.Control type="number" id="Text4" placeholder="Avans kiriting..." onChange={e => setAvans(e.target.value)} />
+                                                <Form.Control type="number" id="Text4" placeholder="Avans kiriting..." value={avans} onChange={e => setAvans(e.target.value)} />
                                             </div>
                                         </Form>
                                         <div className="d-flex justify-content-end mt-1 ">

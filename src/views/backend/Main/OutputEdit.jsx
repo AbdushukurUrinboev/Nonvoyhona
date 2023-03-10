@@ -11,7 +11,7 @@ import './Output.css'
 const OutputEdit = () => {
 
     const [name, setName] = useState('');
-    const [sana, setSana] = useState(new Date());
+    const [sana, setSana] = useState();
     const [overallPrice, setOverallPrice] = useState(0);
     const [error, setError] = useState(false);
 
@@ -26,7 +26,9 @@ const OutputEdit = () => {
             .then(res => {  
                 console.log(res.data.name);              
                 setName(res.data.name);
-                setSana(res.data.day + res.data.month + res.data.year);
+                const [day, month, year] = [res.data.day, res.data.month, res.data.year];                
+                setSana(new Date(year, month - 1, day));
+                console.log(res.data.year);
                 setOverallPrice(res.data.overallPrice);               
             } )
             .catch(err => console.log(err))
@@ -41,9 +43,11 @@ const OutputEdit = () => {
         }
         if (name && overallPrice) {
             axios.put(EXPENSES_URL, { // id, new
-                name,
-                // sana: sana.getDate() + "-" + month[sana.getMonth()] + "," + sana.getFullYear(), // kerak emas! samandar
-                overallPrice
+                id,
+                new: {
+                    name,
+                    overallPrice
+                }
             })
                 .then(res => {
                     console.log("Data is saved", res);
@@ -90,10 +94,10 @@ const OutputEdit = () => {
                                         <Form.Label htmlFor="Text1" className="form-label font-weight-bold text-muted text-uppercase">Nomi</Form.Label>
                                         <Form.Control type="text" className="form-control" id="Text1" placeholder="Nomini kiriting..." value={name} onChange={e => setName(e.target.value)} />
                                     </div>
-                                    <div className="col-md-12 mb-3 position-relative">
+                                    {/* <div className="col-md-12 mb-3 position-relative">
                                         <Form.Label htmlFor="Text2" className="font-weight-bold text-muted text-uppercase">Sana</Form.Label>
                                         <DatePicker className="form-control" id="Text2" name="event_date" placeholderText="Sanani kiriting" autoComplete="off" value={sana} selected={sana} onChange={date => setSana(date)} />
-                                    </div>
+                                    </div> */}
                                     <div className="col-md-12 mb-3">
                                         <Form.Label htmlFor="Text2" className="form-label font-weight-bold text-muted text-uppercase">Narxi</Form.Label>
                                         <Form.Control type="number" className="form-control" id="Text2" placeholder="Narxini kiriting..." value={overallPrice} onChange={e => setOverallPrice(parseInt(e.target.value))} />

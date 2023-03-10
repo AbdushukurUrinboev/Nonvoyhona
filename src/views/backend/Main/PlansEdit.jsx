@@ -1,7 +1,7 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import Card from '../../../components/Card'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, useParams } from 'react-router-dom'
 import axios from 'axios';
 import { PLANS_URL } from '../../../API';
 import DatePicker from "react-datepicker";
@@ -10,7 +10,6 @@ import './Plans.css'
 import { staffDataContext } from './ContextProvider/DataProvider';
 
 const PlansEdit = () => {
-
     const [plan, setPlan] = useState('');
     const [person, setPerson] = useState('');
     const [deadline, setDeadline] = useState();
@@ -18,8 +17,28 @@ const PlansEdit = () => {
     const [error, setError] = useState(false);
 
     const staffList = useContext(staffDataContext);
+    const { id } = useParams();
     const history = useHistory()
-    const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    
+
+
+
+    useEffect(() => {
+        axios.get(`http://localhost:4000/plan/${id}`)
+            .then(res => {              
+                setPlan(res.data.plan);
+                setPerson(res.data.person);
+                const [day, month, year] = res.data.deadline.split("/").map(Number);                
+                setDeadline(new Date(year, month - 1, day));
+                setStatus(res.data.status);                
+                
+            } )
+            .catch(err => console.log(err))
+    }, [id])
+
+
+
+
 
     function handleAdd(e) {
         e.preventDefault();
@@ -27,14 +46,17 @@ const PlansEdit = () => {
             setError(true)
         }
         if (plan && person && status) {
-            axios.post(PLANS_URL, {
+            axios.put(PLANS_URL, {
+                id, 
+                new: {
                 plan,
-                deadline: deadline.getDate() + "-" + month[deadline.getMonth()] + "," + deadline.getFullYear(),
+                deadline: deadline.getDate() + "/" + (deadline.getMonth() + 1) + "/" + deadline.getFullYear(),
                 person,
                 status
+            }
             })
                 .then(res => {
-                    console.log("Data is saved", res);
+                    console.log("Data is updated", res);
                     history.push('/plan')
 
                 })
@@ -76,7 +98,7 @@ const PlansEdit = () => {
                                 <Form className="row g-3">
                                     <div className="col-md-12 mb-3">
                                         <Form.Label htmlFor="Text1" className="form-label font-weight-bold text-muted text-uppercase">Nomi</Form.Label>
-                                        <Form.Control type="text" className="form-control" id="Text1" placeholder="Nomini kiriting..." onChange={e => setPlan(e.target.value)} />
+                                        <Form.Control type="text" className="form-control" id="Text1" placeholder="Nomini kiriting..." value={plan} onChange={e => setPlan(e.target.value)} />
                                     </div>
                                     <div className="col-md-12 mb-3 position-relative">
                                         <Form.Label htmlFor="Text2" className="font-weight-bold text-muted text-uppercase">Muddat</Form.Label>
@@ -84,7 +106,7 @@ const PlansEdit = () => {
                                     </div>
                                     <div className="col-md-12 mb-3">
                                         <Form.Label htmlFor="Text2" className="form-label font-weight-bold text-muted text-uppercase">Mas'ul shahs</Form.Label>
-                                        <select id="Text2" className="form-select form-control choicesjs" onChange={e => setPerson(e.target.value)}>
+                                        <select id="Text2" className="form-select form-control choicesjs" value={person} onChange={e => setPerson(e.target.value)}>
                                             <option value="Bajarildi">Xodimlar</option>
                                             {
                                                 staffList.map((staff, ind) => {
@@ -95,7 +117,7 @@ const PlansEdit = () => {
                                     </div>
                                     <div className="col-md-12 mb-3">
                                         <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Tur</Form.Label>
-                                        <select id="inputState" className="form-select form-control choicesjs" onChange={e => setStatus(e.target.value)}>
+                                        <select id="inputState" className="form-select form-control choicesjs" value={status} onChange={e => setStatus(e.target.value)}>
                                             <option value="Bajarildi">Bajarildi</option>
                                             <option value="Bajarilmoqda">Bajarilmoqda</option>
                                             <option value="Bajarilmadi">Bajarilmadi</option>
