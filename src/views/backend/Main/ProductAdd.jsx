@@ -52,7 +52,7 @@ const Productadd = () => {
         fd.append('qolganPul', qolganPul)
         fd.append('olinganSana', olinganSana.getDate() + "-" + month[olinganSana.getMonth()] + "," + olinganSana.getFullYear())
         fd.append('olinganSoat', olinganSoat)
-        fd.append('storageImage', storageImage)
+        fd.append('storageImage', storageImage);
 
         axios.post(STORAGE_URL, fd)
             .then(res => {

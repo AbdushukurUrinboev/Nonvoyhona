@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import Card from '../../../components/Card'
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { STAFF_URL } from '../../../API';
 //datepicker
@@ -32,9 +32,28 @@ const StaffEdit = () => {
     const [image, setImage] = useState();
     const [error, setError] = useState(false);
 
+    const { id } = useParams();
     const history = useHistory()
 
     const month = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
+
+    useEffect(() => {
+        axios.get(`http://localhost:4000/staff/${id}`)
+            .then(res => {                
+                setFirstName(res.data.firstName);
+                setLastName(res.data.lastName);
+                setGender(res.data.gender);
+                setPhone(res.data.phone);                
+                setPhone2(res.data.phone2);
+                setTypeOfWorker(res.data.typeOfWorker);
+                setAdress(res.data.adress);
+                setGroup(res.data.group);
+                setSmena(res.data.smena);
+                setSalary(res.data.salary);
+                // setBirthday(res.data.birthday);
+            } )
+            .catch(err => console.log(err))
+    }, [id])
 
 
 
@@ -58,7 +77,12 @@ const StaffEdit = () => {
             fd.append('birthday', birthday.getDate() + "-" + month[birthday.getMonth()] + ", " + birthday.getFullYear())
             fd.append('image', image)
 
-            axios.post(STAFF_URL, fd)
+            axios.put('http://localhost:4000/staff', {
+                id: id,
+                new: {
+                    fd
+                }
+            })
                 .then(res => {
                     console.log("Data is saved", res)
                     history.push('/staff')
@@ -123,7 +147,7 @@ const StaffEdit = () => {
                                         <Form className="row g-3 date-icon-set-modal">
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Ismi</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Ismini kiriting..." onChange={e => setFirstName(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" placeholder="Ismini kiriting..." value={firstName} onChange={e => setFirstName(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label className="font-weight-bold text-muted text-uppercase">Jinsi</Form.Label><br />
@@ -142,15 +166,15 @@ const StaffEdit = () => {
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Familiya</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Familiyani kiriting..." onChange={e => setLastName(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" placeholder="Familiyani kiriting..." value={lastName} onChange={e => setLastName(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Lavozimi</Form.Label>
-                                                <Form.Control type="text" id="Text3" placeholder="Lavozimini kiriting..." required='required' onChange={e => setTypeOfWorker(e.target.value)} />
+                                                <Form.Control type="text" id="Text3" placeholder="Lavozimini kiriting..." required='required' value={typeOfWorker} onChange={e => setTypeOfWorker(e.target.value)} />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text2" className="font-weight-bold text-muted text-uppercase">Tug'ilgan sanasi</Form.Label>
-                                                <DatePicker className="form-control" id="Text2" name="event_date" placeholderText="Tug'ilgan sanani kiriting" autoComplete="off" selected={birthday} onChange={date => setBirthday(date)} />
+                                                <DatePicker className="form-control" id="Text2" name="event_date" placeholderText="Tug'ilgan sanani kiriting" autoComplete="off" value={birthday} selected={birthday} onChange={date => setBirthday(date)} />
                                                 <span className="search-link">
                                                     <svg xmlns="http://www.w3.org/2000/svg" className="" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -166,12 +190,12 @@ const StaffEdit = () => {
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
                                                     </select>
-                                                    <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} />
+                                                    <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} value={phone} onChange={e => setPhone(e.target.value)} />
                                                 </div>
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text6" className="font-weight-bold text-muted text-uppercase">Yashash Manzili</Form.Label>
-                                                <Form.Control type="text" id="Text6" placeholder="Yashash manzilini kiriting..." onChange={e => setAdress(e.target.value)} />
+                                                <Form.Control type="text" id="Text6" placeholder="Yashash manzilini kiriting..." value={adress} onChange={e => setAdress(e.target.value)} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text7" className="font-weight-bold text-muted text-uppercase">Telefon raqami (uy)</Form.Label>
@@ -182,7 +206,7 @@ const StaffEdit = () => {
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
                                                     </select>
-                                                    <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone2(e.target.value)} />
+                                                    <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} value={phone2} onChange={e => setPhone2(e.target.value)} />
                                                 </div>
                                             </div>
                                             <div className="col-md-6 mb-3">
@@ -207,7 +231,7 @@ const StaffEdit = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text7" className="font-weight-bold text-muted text-uppercase">Oyligi</Form.Label>
-                                                <Form.Control type="text" id="Text7" placeholder="Xodimning qancha oylik olishini kiriting..." onChange={e => {setSalary(e.target.value)}} />
+                                                <Form.Control type="text" id="Text7" placeholder="Xodimning qancha oylik olishini kiriting..."  onChange={e => {setSalary(e.target.value)}} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <div className="text-right mt-2">

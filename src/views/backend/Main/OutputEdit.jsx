@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import Card from '../../../components/Card'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, useParams } from 'react-router-dom'
 import axios from 'axios';
 import { EXPENSES_URL } from '../../../API';
 import DatePicker from "react-datepicker";
@@ -15,8 +15,24 @@ const OutputEdit = () => {
     const [overallPrice, setOverallPrice] = useState(0);
     const [error, setError] = useState(false);
 
+    const { id } = useParams();
+
     const history = useHistory()
     const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+
+    useEffect(() => {
+        axios.get(`http://localhost:4000/expenses/${id}`)
+            .then(res => {  
+                console.log(res.data.name);              
+                setName(res.data.name);
+                setSana(res.data.day + res.data.month + res.data.year);
+                setOverallPrice(res.data.overallPrice);               
+            } )
+            .catch(err => console.log(err))
+    }, [id])
+
+
 
     function handleAdd(e) {
         e.preventDefault();
@@ -24,9 +40,9 @@ const OutputEdit = () => {
             setError(true)
         }
         if (name && overallPrice) {
-            axios.post(EXPENSES_URL, {
+            axios.put(EXPENSES_URL, { // id, new
                 name,
-                sana: sana.getDate() + "-" + month[sana.getMonth()] + "," + sana.getFullYear(),
+                // sana: sana.getDate() + "-" + month[sana.getMonth()] + "," + sana.getFullYear(), // kerak emas! samandar
                 overallPrice
             })
                 .then(res => {
@@ -72,15 +88,15 @@ const OutputEdit = () => {
                                 <Form className="row g-3">
                                     <div className="col-md-12 mb-3">
                                         <Form.Label htmlFor="Text1" className="form-label font-weight-bold text-muted text-uppercase">Nomi</Form.Label>
-                                        <Form.Control type="text" className="form-control" id="Text1" placeholder="Nomini kiriting..." onChange={e => setName(e.target.value)} />
+                                        <Form.Control type="text" className="form-control" id="Text1" placeholder="Nomini kiriting..." value={name} onChange={e => setName(e.target.value)} />
                                     </div>
                                     <div className="col-md-12 mb-3 position-relative">
                                         <Form.Label htmlFor="Text2" className="font-weight-bold text-muted text-uppercase">Sana</Form.Label>
-                                        <DatePicker className="form-control" id="Text2" name="event_date" placeholderText="Sanani kiriting" autoComplete="off" selected={sana} onChange={date => setSana(date)} />
+                                        <DatePicker className="form-control" id="Text2" name="event_date" placeholderText="Sanani kiriting" autoComplete="off" value={sana} selected={sana} onChange={date => setSana(date)} />
                                     </div>
                                     <div className="col-md-12 mb-3">
                                         <Form.Label htmlFor="Text2" className="form-label font-weight-bold text-muted text-uppercase">Narxi</Form.Label>
-                                        <Form.Control type="number" className="form-control" id="Text2" placeholder="Narxini kiriting..." onChange={e => setOverallPrice(parseInt(e.target.value))} />
+                                        <Form.Control type="number" className="form-control" id="Text2" placeholder="Narxini kiriting..." value={overallPrice} onChange={e => setOverallPrice(parseInt(e.target.value))} />
                                     </div>
                                 </Form>
                                 <div className="text-right mt-4">

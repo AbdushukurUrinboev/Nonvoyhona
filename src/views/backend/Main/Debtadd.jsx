@@ -45,7 +45,7 @@ const Debtadd = () => {
             })
                 .then(res => {
                     console.log("Data is saved", res)
-                    history.push('/debt')
+                    history.push('/nasiya')
                 })
                 .catch(err => console.log(err))
         }
@@ -63,7 +63,7 @@ const Debtadd = () => {
                             <div className="d-flex align-items-center justify-content-between">
                                 <nav aria-label="breadcrumb">
                                     <ol className="breadcrumb p-0 mb-0">
-                                        <li className="breadcrumb-item"><Link to="/debt">Nasiya</Link></li>
+                                        <li className="breadcrumb-item"><Link to="/nasiya">Nasiya</Link></li>
                                         <li className="breadcrumb-item active" aria-current="page">Yangi nasiya qo'shish</li>
                                     </ol>
                                 </nav>
@@ -75,7 +75,7 @@ const Debtadd = () => {
                     </Col>
 
                     <Col lg="12" className=" mb-3 d-flex justify-content-between">
-                        <Link to="/debt" className="btn btn-primary btn-sm d-flex align-items-left justify-content-between">
+                        <Link to="/nasiya" className="btn btn-primary btn-sm d-flex align-items-left justify-content-between">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
                             </svg>

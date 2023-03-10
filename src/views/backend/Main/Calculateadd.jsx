@@ -9,8 +9,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import './Calculate.css'
 // DataProvider
 import { dataContext } from './ContextProvider/DataProvider';
+import { useEffect } from 'react';
 
 const Calculateadd = () => {
+
+    const [requiredItems, setRequiredItems] = useState([])
+
+
     const [addInput, setAddInput] = useState([])
     const [productInput, setProductInput] = useState('')
     const [productName, setProductName] = useState('');
@@ -52,29 +57,8 @@ const Calculateadd = () => {
         const fd = new FormData()
         fd.append('productName', productName);
         fd.append('productPrice', productPrice);
-        fd.append('pista', pista);
-        fd.append('bodom', bodom);
-        fd.append('yongoq', yongoq)
-        fd.append('un', un)
-        fd.append('shakar', shakar)
-        fd.append('yog', yog)
-        fd.append('suzma', suzma)
-        fd.append('suhoy', suhoy)
-        fd.append('droj', droj)
-        fd.append('kunjut', kunjut)
-        fd.append('sedana', sedana)
-        fd.append('tuz', tuz)
-        fd.append('keshu', keshu)
-        fd.append('nonhuja', nonhuja)
-        fd.append('kumir', kumir)
-        fd.append('gaz', gaz)
-        fd.append('elektr', elektr)
-        fd.append('paket', paket)
-        fd.append('ovqat', ovqat)
-        fd.append('sotuvchi', sotuvchi)
-        fd.append('ishHaqi', ishHaqi)
-        fd.append('boshqalar', boshqalar)
-        fd.append('productImage', productImage)
+        fd.append('productImage', productImage);
+        fd.append('requiredItems', requiredItems);
 
 
         axios.post(CALCULATE_URL, fd)
@@ -85,6 +69,10 @@ const Calculateadd = () => {
             .catch(err => console.log(err))
 
     }
+
+    useEffect(() => {
+        console.log(requiredItems)
+    }, [requiredItems])
 
     return (
         <>
@@ -148,6 +136,22 @@ const Calculateadd = () => {
                                                 Qo'shish
                                             </button>
                                         </Card.Body>
+
+                                        <Card.Body className=" mt-3 mx-auto">
+                                            <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Chiqimni kiriting</Form.Label>
+                                            <div className="col-md-12 mb-3">
+                                                <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Chiqim nomi</Form.Label>
+                                                <Form.Control type="text" id="Text1" placeholder="Non nomini kiriting..." required='required' />
+                                            </div>                                           
+                                            
+                                            <button className='btn btn-primary mt-2 w-100'>
+                                                
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                                </svg>
+                                                Qo'shish
+                                            </button>
+                                        </Card.Body>
                                         <Card.Body className="calculateAddStyleCardBody mt-3 mx-auto">
                                             <input type="file" className='calculateAddStyleInput ' accept='image/png, image/jpg, image/jpeg' name='productImage' onChange={(e) => setProductImage(e.target.files[0])} />
                                             <div className="d-flex justify-content-center mt-1">
@@ -183,7 +187,19 @@ const Calculateadd = () => {
                                                 addInput.map((item, index) => {
                                                     return <div className="col-md-6 mb-3" key={index}>
                                                         <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">{item} miqdorini kiriting</Form.Label>
-                                                        <Form.Control type="text" id="Text1" placeholder="Non nomini kiriting..."  required='required' />
+                                                        <Form.Control type="text" id="Text1" placeholder="Non nomini kiriting..." onChange={(e) => {
+                                                            function addOrUpdateBread(arr, newBread) {
+                                                                const index = arr.findIndex(bread => bread.itemName === newBread.itemName);
+                                                                if (index !== -1) {
+                                                                    arr[index].itemQuantity = newBread.itemQuantity;
+                                                                } else {
+                                                                    arr.push(newBread);
+                                                                }
+                                                                return arr;
+                                                            }
+                                                            let result = addOrUpdateBread(requiredItems, { itemName: item, itemQuantity: Number(e.target.value) })
+                                                            setRequiredItems([...result])
+                                                        }}  required='required' />
                                                     </div>
                                                 })
                                             }

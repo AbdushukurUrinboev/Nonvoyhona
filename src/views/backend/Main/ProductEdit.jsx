@@ -9,9 +9,21 @@ import DefaultBread from '../../../assets/images/logoBread.png'
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import './ProductAdd.css'
+import './ProductAdd.css';
+
 
 const ProductEdit = () => {
+    // const productSchema = {
+    //     productName: "",
+    //     description: "",
+    //     productPrice: '',
+    //     poductQuantity: "",
+    //     olinganSana: "",
+    //     olinganSoat: "",
+    //     xamkor: "",
+    //     storageImage: "",
+    //   }
+    // const [receivedData, setReceivedData] = useState(productSchema)
     const [productName, setProductName] = useState(''); //
     const [description, setDescription] = useState(''); //
     const [productPrice, setProductPrice] = useState(0); //
@@ -33,17 +45,19 @@ const ProductEdit = () => {
 
     useEffect(() => {
         axios.get(`http://localhost:4000/storage/${id}`)
-            .then(res => {                
+            .then(res => {              
+                // setReceivedData(res.data)  
                 setProductName(res.data.productName); //
                 setDescription(res.data.description); //
                 setProductPrice(res.data.productPrice); //
                 setPoductQuantity(res.data.poductQuantity); // 
-                // setUmumiyNarhi(res.data.umumiyNarhi);
+                setUmumiyNarhi(res.data.umumiyNarhi);
                 setXamkor(res.data.xamkor); //
-                // setBerilganAvans(res.data.berilganAvans);
-                // setQolganPul(res.data.qolganPul);
-                // setOlinganSana(res.data.olinganSana); //
-                // setOlinganSoat(res.data.olinganSoat); //
+                setBerilganAvans(res.data.berilganAvans);
+                setQolganPul(res.data.umumiyNarhi - res.data.berilganAvans);
+                const [day, month, year] = res.data.olinganSana.split("/").map(Number);
+                setOlinganSana(new Date(year, month - 1, day)); //
+                setOlinganSoat(res.data.olinganSoat); //
                 setStorageImage(res.data.storageImage) //
             } )
             .catch(err => console.log(err))
@@ -66,6 +80,7 @@ const ProductEdit = () => {
         
         const fd = new FormData()
         fd.append('productName', productName)
+        fd.append('changingID', id)
         fd.append('description', description)
         fd.append('productPrice', productPrice)
         fd.append('poductQuantity', poductQuantity)
@@ -73,11 +88,12 @@ const ProductEdit = () => {
         fd.append('xamkor', xamkor)
         fd.append('berilganAvans', berilganAvans)
         fd.append('qolganPul', qolganPul)
-        fd.append('olinganSana', olinganSana.getDate() + "-" + month[olinganSana.getMonth()] + "," + olinganSana.getFullYear())
+        fd.append('olinganSana', olinganSana.getDate() + "/" + (olinganSana.getMonth() + 1) + "/" + olinganSana.getFullYear())
         fd.append('olinganSoat', olinganSoat)
         fd.append('storageImage', storageImage)
 
-        axios.post(STORAGE_URL, fd)
+
+        axios.put(STORAGE_URL, fd)
             .then(res => {
                 console.log("Data is saved", res)
                 history.push('/storage')
@@ -146,23 +162,23 @@ const ProductEdit = () => {
                                         <Form className="row g-3 date-icon-set-modal">
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Nomi</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Mahsulot nomini kiriting..." onChange={e => setProductName(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" placeholder="Mahsulot nomini kiriting..." value={productName} onChange={e => setProductName(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Narxi</Form.Label>
-                                                <Form.Control type="number" id="Text1" placeholder="Narxini kiriting..." onChange={e => {
+                                                <Form.Control type="number" id="Text1" placeholder="Narxini kiriting..." value={productPrice} onChange={e => {
                                                     setProductPrice(e.target.value);
                                                     calculateOverallPrice(e.target.value, poductQuantity);
                                                 }} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Kategoriya</Form.Label>
-                                                <Form.Control type="text" id="Text3" placeholder="Kategoriyani kiriting..." required='required' onChange={e => setDescription(e.target.value)} />
+                                                <Form.Control type="text" id="Text3" placeholder="Kategoriyani kiriting..." required='required' value={description} onChange={e => setDescription(e.target.value)} />
                                             </div>
 
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Miqdori</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Miqdorini kiriting..." required='required' onChange={e => {
+                                                <Form.Control type="number" id="Text3" placeholder="Miqdorini kiriting..." value={poductQuantity} required='required' onChange={e => {
                                                     setPoductQuantity(e.target.value);
                                                     calculateOverallPrice(productPrice, e.target.value);
                                                     }} />
@@ -173,7 +189,7 @@ const ProductEdit = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-uppercase">Xamkorni tanlang</Form.Label>
-                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => setXamkor(e.target.value)}>
+                                                <select id="inputState" className="form-select form-control choicesjs" value={xamkor} onChange={e => setXamkor(e.target.value)}>
                                                     <option value="Bajarildi">Xamkorlar</option>
                                                     <option value="Bajarilmoqda">Sherov Abdurashid</option>
                                                     <option value="Bajarilmadi">Karimov Komil</option>
@@ -181,11 +197,11 @@ const ProductEdit = () => {
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Berilgan avans</Form.Label>
-                                                <Form.Control type="number" id="Text1" placeholder="Berilgan pulni kiriting..." onChange={e => setBerilganAvans(e.target.value)} required='required' />
+                                                <Form.Control type="number" id="Text1" placeholder="Berilgan pulni kiriting..." value={berilganAvans} onChange={e => setBerilganAvans(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Qolgan pul</Form.Label>
-                                                <Form.Control type="number" id="Text1" placeholder="Qolgan pul..." onChange={e => setQolganPul(e.target.value)} required='required' />
+                                                <Form.Control type="number" id="Text1" placeholder="Qolgan pul..." value={qolganPul} onChange={e => setQolganPul(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text2" className="font-weight-bold text-uppercase">Mahsulot olingan sana</Form.Label>
@@ -198,7 +214,7 @@ const ProductEdit = () => {
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Maxsulot olingan soat</Form.Label>
-                                                <Form.Control type="number" id="Text1" placeholder={olinganSoat} onChange={e => setOlinganSoat(e.target.value)} required='required' value={olinganSoat} />
+                                                <Form.Control type="text" id="Text1" placeholder={olinganSoat} onChange={e => setOlinganSoat(e.target.value)} required='required' value={olinganSoat} />
                                             </div>
 
 

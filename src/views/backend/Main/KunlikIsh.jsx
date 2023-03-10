@@ -16,16 +16,18 @@ import { breadDataContext, customersDataContext } from './ContextProvider/DataPr
 
 const Calculate = () => {
 
+
+
+    const [allBonus, setAllBonus] = useState([]);
     const [group, setGroup] = useState('');
     const [smena, setSmena] = useState('');
     const [xodim, setXodim] = useState('');
     const [qoplarSoni, setQoplarSoni] = useState('');
     const [nonTuri, setNonTuri] = useState('');
     const [nonSoni, setNonSoni] = useState('');
-    const [bonusNon, setBonusNon] = useState('');
-    const [bonusNonSoni, setBonusNonSoni] = useState('');
-    const [jastaNonTuri, setJastaNonTuri] = useState('');
     const [jastaNonSoni, setJastaNonSoni] = useState('');
+    const [bonusNon, setBonusNon] = useState('');
+    const [jastaNonTuri, setJastaNonTuri] = useState('');
     const [tulov, setTulov] = useState('');
     const [bonusTulov, setBonusTulov] = useState('');
     const [jamiTulov, setJamiTulov] = useState('');
@@ -40,8 +42,32 @@ const Calculate = () => {
     const history = useHistory()
 
     const month = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
-
     function handleChange(e) {
+
+        const newAllBonus = allBonus.map((b) => {
+            if(!b.quantity){
+                b.quantity = 0;
+            }
+            if(!b.jastaQuantity){
+                b.jastaQuantity = 0;
+            }
+            return b;
+        })
+        console.log({
+            group,
+            smena,
+            xodim,
+            qoplarSoni,
+            nonTuri,
+            nonSoni,
+            bonus: newAllBonus,
+            jastaNonSoni,
+            tulov,
+            bonusTulov,
+            jamiTulov
+
+        });
+
         e.preventDefault();
         axios.post(DAILY_TASKS_URL, {
             group,
@@ -50,14 +76,11 @@ const Calculate = () => {
             qoplarSoni,
             nonTuri,
             nonSoni,
-            bonusNon,
-            bonusNonSoni,
-            jastaNonTuri,
+            bonus: newAllBonus,
             jastaNonSoni,
             tulov,
             bonusTulov,
-            jamiTulov,
-            sana: sana.getDate() + "-" + month[sana.getMonth()] + "," + sana.getFullYear(),
+            jamiTulov
 
         })
             .then(res => {
@@ -187,7 +210,7 @@ const Calculate = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Qoplar Soni</Form.Label>
-                                                <Form.Control type="number" id="Text5" placeholder="Qoplar sonini kiriting..." onChange={e => setQoplarSoni(e.target.value)} />
+                                                <Form.Control type="number" id="Text5" placeholder="Qoplar sonini kiriting..." onChange={e => setQoplarSoni(Number(e.target.value))} />
                                             </div>
                                             {/* <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="font-weight-bold text-muted text-uppercase">Nonni tanlang</Form.Label>
@@ -202,7 +225,7 @@ const Calculate = () => {
                                             </div> */}
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Non Soni</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Yopilgan nonlar sonini kiriting..." required='required' onChange={e => setNonSoni(e.target.value)} />
+                                                <Form.Control type="number" id="Text3" placeholder="Yopilgan nonlar sonini kiriting..." required='required' onChange={e => setNonSoni(Number(e.target.value))} />
                                             </div>
 
 
@@ -255,8 +278,12 @@ const Calculate = () => {
                                                 <Form.Control type="text" id="Text3" placeholder="Jasta non sonini kiriting..." required='required' onChange={e => setJastaNonSoni(e.target.value)} />
                                             </div> */}
                                             <div className="col-md-6 mb-3">
+                                                <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Jasta Non Soni</Form.Label>
+                                                <Form.Control type="number" id="Text3" placeholder="To;ovni kiriting..." required='required' onChange={e => setJastaNonSoni(Number(e.target.value))} />
+                                            </div>
+                                            <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">To'lov</Form.Label>
-                                                <Form.Control type="text" id="Text3" placeholder="To;ovni kiriting..." required='required' onChange={e => setTulov(e.target.value)} />
+                                                <Form.Control type="number" id="Text3" placeholder="To;ovni kiriting..." required='required' onChange={e => setTulov(Number(e.target.value))} />
                                             </div>
 
                                             {/* Bonus Non map */}
@@ -264,25 +291,50 @@ const Calculate = () => {
                                                 addInputBonusNon.map((item, index) => {
                                                     return <div className="col-md-6 mb-3" key={index}>
                                                         <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase text-primary">Bonus {item} sonini kiriting</Form.Label>
-                                                        <Form.Control type="text" id="Text1" placeholder="Bonus sonini kiriting..." required='required' />
+                                                        <Form.Control type="number" id="Text1" placeholder="Bonus sonini kiriting..." onChange={(e) => {
+                                                            function addOrUpdateBread(arr, newBread) {
+                                                                const index = arr.findIndex(bread => bread.breadName === newBread.breadName);
+                                                                if (index !== -1) {
+                                                                    arr[index].quantity = newBread.quantity;
+                                                                } else {
+                                                                    arr.push(newBread);
+                                                                }
+                                                                return arr;
+                                                            }
+                                                            let result = addOrUpdateBread(allBonus, { breadName: item, quantity: Number(e.target.value) })
+                                                            setAllBonus([...result])
+                                                        }
+                                                        } required='required' />
                                                     </div>
                                                 })
                                             }
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase text-primary">Bonus To'lov</Form.Label>
-                                                <Form.Control type="text" id="Text3" placeholder="Bonus to'lovni kiriting..." required='required' onChange={e => setBonusTulov(e.target.value)} />
+                                                <Form.Control type="number" id="Text3" placeholder="Bonus to'lovni kiriting..." required='required' onChange={e => setBonusTulov(Number(e.target.value))} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Jami To'lov</Form.Label>
-                                                <Form.Control type="text" id="Text3" placeholder="Jami to'lovni kiriting..." required='required' onChange={e => setJamiTulov(e.target.value)} />
+                                                <Form.Control type="number" id="Text3" placeholder="Jami to'lovni kiriting..." required='required' onChange={e => setJamiTulov(Number(e.target.value))} />
                                             </div>
 
                                             {/* Jasta Non map */}
                                             {
                                                 addInputJastaNon.map((item, index) => {
                                                     return <div className="col-md-6 mb-3" key={index}>
-                                                        <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase" style={{color: '#C47500'}}>Jasta {item} sonini kiriting</Form.Label>
-                                                        <Form.Control type="text" id="Text1" placeholder="Jasta non sonini kiriting..." required='required' />
+                                                        <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase" style={{ color: '#C47500' }}>Jasta {item} sonini kiriting</Form.Label>
+                                                        <Form.Control type="number" id="Text1" onChange={(e) => {
+                                                            function addOrUpdateBread(arr, newBread) {
+                                                                const index = arr.findIndex(bread => bread.breadName === newBread.breadName);
+                                                                if (index !== -1) {
+                                                                    arr[index].jastaQuantity = newBread.jastaQuantity;
+                                                                } else {
+                                                                    arr.push(newBread);
+                                                                }
+                                                                return arr;
+                                                            }
+                                                            let result = addOrUpdateBread(allBonus, { breadName: item, jastaQuantity: Number(e.target.value) })
+                                                            setAllBonus([...result])
+                                                        }} placeholder="Jasta non sonini kiriting..." required='required' />
                                                     </div>
                                                 })
                                             }

@@ -141,9 +141,9 @@ const Layout1Route = () => {
                             <Route path="/output-edit/:id" exact component={OutputEdit} />
 
                             {/* Debt */}
-                            <Route path="/debt" exact component={Debt} />
-                            <Route path="/debt-add" exact component={Debtadd} />
-                            <Route path="/debt-edit/:id" exact component={DebtEdit} />
+                            <Route path="/nasiya" exact component={Debt} />
+                            <Route path="/nasiya-add" exact component={Debtadd} />
+                            <Route path="/nasiya-edit/:id" exact component={DebtEdit} />
 
                             {/* Calculate */}
                             <Route path="/calculate" exact component={Calculate} />

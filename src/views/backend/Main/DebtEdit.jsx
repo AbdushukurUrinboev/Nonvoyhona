@@ -1,7 +1,7 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import Card from '../../../components/Card'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, useParams } from 'react-router-dom'
 import axios from 'axios';
 import { NASIYA_URL } from '../../../API';
 import DatePicker from "react-datepicker";
@@ -13,20 +13,40 @@ const DebtEdit = () => {
 
     const [product, setProduct] = useState(''); //
     const [customer, setCustomer] = useState(''); //
-    const [productQuantity, setProductQuantity] = useState(0); //
+    const [productQuantity, setProductQuantity] = useState(); //
     const [overall, setOverall] = useState(0); //
     const [avans, setAvans] = useState(''); //
     const [customerType, setCustomerType] = useState(''); //
-    const [sana, setSana] = useState(new Date());
+    const [sana, setSana] = useState();
     const [mijozlar, setMijozlar] = useState(false)
     const [error, setError] = useState(false);
     const customerList = useContext(customersDataContext);
 
 
-    // const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
+    const { id } = useParams();
     const history = useHistory()
 
     const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+
+    useEffect(() => {
+        axios.get(`http://localhost:4000/nasiya/${id}`)
+            .then(res => {                
+                // setProduct(res.data.product);
+                // setCustomer(res.data.customer);
+                // setProductQuantity(res.data.productQuantity);
+                // setOverall(res.data.overall);
+                // setAvans(res.data.avans);
+                // setCustomerType(res.data.customerType);
+                // setSana(res.data.sana);
+                // setMijozlar(res.data.mijozlar);
+                
+            } )
+            .catch(err => console.log(err))
+    }, [id])
+
+
+
 
     function handleChange(e) {
         e.preventDefault();
@@ -92,7 +112,7 @@ const DebtEdit = () => {
                                         <Form className="row g-3 date-icon-set-modal myStyleCustomerAdd">
                                             <div className="col-md-6 mb-3 mt-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Nomi</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Nomini kiriting..." onChange={e => setProduct(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" placeholder="Nomini kiriting..."  onChange={e => setProduct(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3 mt-3 position-relative">
                                                 <Form.Label htmlFor="Text2" className="font-weight-bold text-muted text-uppercase">Sana</Form.Label>
