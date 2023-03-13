@@ -126,7 +126,7 @@ const Calculate = () => {
                                                     <option value="no">Nonlar ro'yxati</option>
                                                     {
                                                         breadList.map((bread, ind) => {
-                                                            return <option key={ind} value={bread}>{bread}</option>
+                                                            return <option key={ind} value={bread.productName}>{bread.productName}</option>
                                                         })
                                                     }
                                                 </select>
@@ -138,9 +138,9 @@ const Calculate = () => {
                                                     <option value="no">Nonlar ro'yhati</option>
                                                     {
                                                         breadList.filter((product) => {
-                                                            return !addInputBonusNon.includes(product)
+                                                            return !addInputBonusNon.includes(product.productName)
                                                         }).map((product, ind) => {
-                                                            return <option key={ind} value={product}>{product}</option>
+                                                            return <option key={ind} value={product.productName}>{product.productName}</option>
                                                         })
                                                     }
                                                 </select>
@@ -163,9 +163,9 @@ const Calculate = () => {
                                                     <option value="no">Nonlar ro'yhati</option>
                                                     {
                                                         breadList.filter((product) => {
-                                                            return !addInputJastaNon.includes(product)
+                                                            return !addInputJastaNon.includes(product.productName)
                                                         }).map((product, ind) => {
-                                                            return <option key={ind} value={product}>{product}</option>
+                                                            return <option key={ind} value={product.productName}>{product.productName}</option>
                                                         })
                                                     }
                                                 </select>
@@ -279,11 +279,11 @@ const Calculate = () => {
                                             </div> */}
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Jasta Non Soni</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="To;ovni kiriting..." required='required' onChange={e => setJastaNonSoni(Number(e.target.value))} />
+                                                <Form.Control type="number" id="Text3" placeholder="Jasta non sonini kiriting..." required='required' onChange={e => setJastaNonSoni(Number(e.target.value))} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">To'lov</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="To;ovni kiriting..." required='required' onChange={e => setTulov(Number(e.target.value))} />
+                                                <Form.Control type="number" id="Text3" placeholder="Tolovni kiriting..." required='required' onChange={e => setTulov(Number(e.target.value))} />
                                             </div>
 
                                             {/* Bonus Non map */}

@@ -37,7 +37,7 @@ export function BreadListData(props) {
     useEffect(() => {
         axios.get(CALCULATE_URL)
         .then(res => {
-            let breadNames = res.data.map(elem => elem.productName)
+            let breadNames = res.data.map(elem => elem)
             setBreadList(breadNames)
         })
     }, [])

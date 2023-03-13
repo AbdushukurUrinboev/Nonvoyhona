@@ -23,6 +23,7 @@ const Calculate = () => {
             .then(res => {
                 setPostBread(res.data)
                 setSearchData(res.data)
+                console.log(res.data);
             })
             .catch(err => console.log(err))
     }, [])

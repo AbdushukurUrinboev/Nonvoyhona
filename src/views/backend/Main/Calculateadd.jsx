@@ -20,8 +20,8 @@ const Calculateadd = () => {
     const [productInput, setProductInput] = useState('')
     const [productName, setProductName] = useState('');
     const [productPrice, setProductPrice] = useState(0);
-    const [others, setOthers] = useState([]);
     const [addOthersInput, setAddOthersInput] = useState([]);
+    const [others, setOthers] = useState('');
 
     // const [breadQuantity, setBreadQuantity] = useState(0);    
     const [pista, setPista] = useState(0);
@@ -46,6 +46,8 @@ const Calculateadd = () => {
     const [sotuvchi, setSotuvchi] = useState(0);
     const [ishHaqi, setIshHaqi] = useState(0);
     const [boshqalar, setBoshqalar] = useState(0);
+
+    
     const [productImage, setProductImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
 
     const history = useHistory()
@@ -77,6 +79,7 @@ const Calculateadd = () => {
         console.log(requiredItems)
     }, [requiredItems])
 
+    console.log(others);
     return (
         <>
             <Container fluid>
@@ -145,27 +148,21 @@ const Calculateadd = () => {
                                         <Card.Body className=" mt-3 mx-auto">
 
                                             <div className="col-md-12 mb-3">
-
-
-
-                                                <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Chiqimni tanlang</Form.Label>
-                                                <select id="inputState" className="form-select form-control choicesjs" value={others} onChange={e => setOthers(e.target.value)}>
+                                                <Form.Label htmlFor="inputState1" className="form-label font-weight-bold text-muted text-uppercase">Chiqimni tanlang</Form.Label>
+                                                <select id="inputState1" className="form-select form-control choicesjs" value={others} onChange={e => setOthers(e.target.value)}>
                                                     <option value="No">Chiqimlar</option>
                                                     <option value="Elektr">Elektr</option>
                                                     <option value="Gaz">Gaz</option>
                                                     <option value="Ko'mir">Ko'mir</option>
-                                                    <option value="Boshqalar">Boshqalar</option>
+                                                    <option value="others">Boshqalar</option>
                                                     <option value="Qo'shimcha kiritish">Qo'shimcha kiritish</option>
                                                 </select>
-                                                
-
-                                                {/* <Form.Control type="text" id="Text1" placeholder="Chiqim nomini kiriting..." required='required' /> */}
                                             </div>
 
                                             <button className='btn btn-primary mt-2 w-100' onClick={() => {
 
-                                                // setOthers([...addInput, others])
-                                                setOthers('Maxsulotlar')
+                                                setAddOthersInput([... addOthersInput, others])
+                                                setOthers('Chiqimlar')
                                             }}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -201,15 +198,15 @@ const Calculateadd = () => {
                                                 <Form.Control type="text" id="Text1" placeholder="Non nomini kiriting..." onChange={e => setProductName(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3">
-                                                <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Un miqdori</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Bir qop un uchun hisoblanadi..." required='required' onChange={e => setUn(e.target.value)} value={un} />
+                                                <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Non narhi</Form.Label>
+                                                <Form.Control type="number" id="Text3" placeholder="Non narhini kiriting..." required='required' onChange={e => setProductPrice(e.target.value)} value={productPrice} />
                                             </div>
                                             {/* Mahsulotlarni qo'shish */}
                                             {
                                                 addInput.map((item, index) => {
                                                     return <div className="col-md-6 mb-3" key={index}>
                                                         <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">{item} miqdorini kiriting</Form.Label>
-                                                        <Form.Control type="text" id="Text1" placeholder="Non nomini kiriting..." onChange={(e) => {
+                                                        <Form.Control type="text" id="Text1" placeholder="Miqdorni kiriting..." onChange={(e) => {
                                                             function addOrUpdateBread(arr, newBread) {
                                                                 const index = arr.findIndex(bread => bread.itemName === newBread.itemName);
                                                                 if (index !== -1) {
@@ -231,7 +228,7 @@ const Calculateadd = () => {
                                                 addOthersInput.map((item, index) => {
                                                     return <div className="col-md-6 mb-3" key={index}>
                                                         <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase" style={{ color: 'red' }}>{item} pulini kiriting</Form.Label>
-                                                        <Form.Control type="text" id="Text1" placeholder="Non nomini kiriting..." onChange={(e) => {
+                                                        <Form.Control type="text" id="Text1" placeholder="Narhni kiriting..." onChange={(e) => {
                                                             function addOrUpdateBread(arr, newBread) {
                                                                 const index = arr.findIndex(bread => bread.itemName === newBread.itemName);
                                                                 if (index !== -1) {
@@ -244,6 +241,7 @@ const Calculateadd = () => {
                                                             let result = addOrUpdateBread(requiredItems, { itemName: item, itemQuantity: Number(e.target.value) })
                                                             setOthers([...result])
                                                         }} required='required' />
+
                                                     </div>
                                                 })
                                             }

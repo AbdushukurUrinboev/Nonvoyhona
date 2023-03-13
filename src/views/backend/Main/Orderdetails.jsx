@@ -111,7 +111,7 @@ const Orderdetails = () => {
                                                     <option value="no">Nonlar ro'yxati</option>
                                                     {
                                                         breadList.map((bread, ind) => {
-                                                            return <option key={ind} value={bread}>{bread}</option>
+                                                            return <option key={ind} value={bread.productName}>{bread.productName}</option>
                                                         })
                                                     }
                                                 </select>

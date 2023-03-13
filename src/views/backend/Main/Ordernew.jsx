@@ -13,47 +13,51 @@ import { breadDataContext, customersDataContext } from './ContextProvider/DataPr
 const Ordernew = () => {
     const [order, setOrder] = useState('');
     const [customer, setCustomer] = useState('');
+    const [productQuantity, setProductQuantity] = useState(0);
     const [turi, setTuri] = useState('');
     const [mijozlar, setMijozlar] = useState(false)
-    const [productQuantity, setProductQuantity] = useState(0);
-    const [date, setDate] = useState(new Date());
     const [deadline, setDeadline] = useState()
-    const [time, setTime] = useState(new Date().getHours() + ":" + new Date().getMinutes()); //
     const [avans, setAvans] = useState(0);
     const [price, setPrice] = useState(0);
-    const [umumiyPrice, setUmumiyPrice] = useState(0);
-    const [qolganPul, setQolganPul] = useState(0);
     const [phoneCode, setPhoneCode] = useState('(90) ');
     const [phone, setPhone] = useState('');
     const [status, setStatus] = useState('Bajarilmoqda');
+    const [umumiyPrice, setUmumiyPrice] = useState(0);   
+    
+    const [time, setTime] = useState(new Date().getHours() + ":" + new Date().getMinutes()); //
     const [error, setError] = useState(false);
 
 
     const breadList = useContext(breadDataContext);
+ 
     const customerList = useContext(customersDataContext);
     // const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
     const history = useHistory()
 
-    const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    // const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    // Getting price of Bread and sending to priceInput
+    const calculateOverallPrice = (productPriceInput, poductQuantityInput) => {
+        setUmumiyPrice(poductQuantityInput * productPriceInput);       
+    }
+
 
     function handleChange(e) {
         e.preventDefault();       
-        if (order.length === 0 || customer.length === 0 || turi.length === 0 || productQuantity.length === 0 || deadline.length === 0 || avans.length === 0 || price.length === 0 || umumiyPrice.length === 0 || qolganPul.length === 0 || phone.length === 0 || status.length === 0 ) {
+        if (order.length === 0 || customer.length === 0 || turi.length === 0 || productQuantity.length === 0 || deadline.length === 0 || avans.length === 0 || price.length === 0) {
             setError(true)
         }
-        if (order && customer && turi && productQuantity && deadline && avans && price && umumiyPrice && qolganPul && phone && status) {
+        if (order && customer && turi && productQuantity && deadline && avans && price && status) {
             axios.post(ORDERS_URL, {
                 order,
                 customer,
                 turi,
-                productQuantity,
-                date: date.getDate() + "-" + month[date.getMonth()] + "," + date.getFullYear(),
+                productQuantity,               
                 deadline,
                 time,
                 avans,
                 price,
                 umumiyPrice,
-                qolganPul,
                 phone: phoneCode + ' - ' + phone,
                 status
             })
@@ -107,34 +111,38 @@ const Ordernew = () => {
                                         <Form className="row g-3 date-icon-set-modal myStyleCustomerAdd">
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Nonni tanlang</Form.Label>
-                                                <select id="Text1" className="form-select form-control choicesjs" value={order} onChange={e => setOrder(e.target.value)} >
+                                                <select id="Text1" className="form-select form-control choicesjs" value={order} onChange={e => {
+                                                    setOrder(e.target.value)}}>
+                                                    console.log(e.target.value)
                                                     <option value="no">Nonlar ro'yxati</option>
                                                     {
                                                         breadList.map((bread, ind) => {
-                                                            return <option key={ind} value={bread}>{bread}</option>
+                                                            return <option key={ind} value={bread.productName}>{bread.productName}</option>
                                                         })
                                                     }
                                                 </select>
                                             </div>
                                             <div className="col-md-6 mb-3">
-                                                <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Zakaz berilgan mahsulot soni</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Sonini kiriting..." required='required' onChange={e => setProductQuantity(e.target.value)} />
+                                                <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Bitta non narxi</Form.Label>
+                                                <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." required='required' value={price} onChange={e => {
+                                                    setPrice(e.target.value)
+                                                    calculateOverallPrice(e.target.value, productQuantity)
+                                                } } />
                                             </div>
                                             <div className="col-md-6 mb-3">
-                                                <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Bitta non narxi</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." required='required' onChange={e => setPrice(e.target.value)} />
-                                            </div>
+                                                <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Zakaz berilgan mahsulot soni</Form.Label>
+                                                <Form.Control type="number" id="Text3" placeholder="Sonini kiriting..." required='required' onChange={e => {
+                                                    setProductQuantity(e.target.value)
+                                                    calculateOverallPrice(price, e.target.value)
+                                                } } />
+                                            </div>                                            
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Jami non narxi</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." required='required' onChange={e => setUmumiyPrice(e.target.value)} />
+                                                <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." required='required' value={umumiyPrice} onChange={e => setUmumiyPrice(e.target.value)} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Avans</Form.Label>
                                                 <Form.Control type="number" id="Text4" placeholder="Avans kiriting..." onChange={e => setAvans(e.target.value)} />
-                                            </div>
-                                            <div className="col-md-6 mb-3">
-                                                <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Qolgan Pul</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." required='required' onChange={e => setQolganPul(e.target.value)} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Tur</Form.Label>
@@ -160,7 +168,7 @@ const Ordernew = () => {
                                                     <Form.Control type="text" id="Text5" placeholder="Kim uchunligini kiriting..." onChange={e => setCustomer(e.target.value)} />
                                                 </div>)
                                             }
-                                            <div className="col-md-6 mb-3 position-relative">
+                                            {/* <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text2" className="font-weight-bold text-muted text-uppercase">Zakaz olingan Sana </Form.Label>
                                                 <DatePicker className="form-control" id="Text2" name="event_date" placeholderText="Sanani kiriting" autoComplete="off" selected={date} onChange={date => setDate(date)} />
                                                 <span className="search-link">
@@ -168,7 +176,7 @@ const Ordernew = () => {
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                                     </svg>
                                                 </span>
-                                            </div>
+                                            </div> */}
 
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text2" className="font-weight-bold text-muted text-uppercase">Zakaz Muddati </Form.Label>
