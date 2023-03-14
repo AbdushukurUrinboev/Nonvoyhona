@@ -8,6 +8,11 @@ import { useHistory } from "react-router";
 import './Sail.css'
 
 
+// Delete Icon
+import deleteIcon from '../../../assets/images/delete.png'
+
+
+
 const Sail = () => {
 
     const [postsSail, setpostsSail] = useState([]);    
@@ -26,10 +31,44 @@ const Sail = () => {
             .catch(err => console.log(err))
     }, [])
 
-    
+
+
+    // Delete
+    const [modal, setModal] = useState('modal')
+    const [id, setId] = useState(0);
+    function deleteFunction(id) {
+        setId(id)
+        setModal('')
+    }
+
+    function deleteSail() {
+        axios.delete(SALE_URL, { data: { id } })
+            .then(res => {
+                setModal('modal')
+                console.log("Data is deleted!!!", res)
+                setpostsSail(postsSail.filter(p => p._id !== id))
+            })
+            .catch(err => console.log(err))
+        // console.log("kirish = " + id);
+    }
+
 
     return (
-        <>
+        <>{/* delete button */}
+        {
+            modal.length < 1 ?
+                <div className="modalBg">
+                    <div className="myModal">
+                        <h4 className='mb-3'>O'chirasizmi?</h4>
+                        <img src={deleteIcon} alt="" />
+                        <button className='btn btn-danger' onClick={() => deleteSail()}>Ha</button>
+                        <button className='btn btn-primary' onClick={() => setModal('modal')}>Yoq</button>
+                    </div>
+                </div>
+                :
+                null
+        }
+
             <Container fluid>
                 <Row>
                     <Col lg="12" className='mt-5'>
@@ -102,7 +141,7 @@ const Sail = () => {
                                                         </OverlayTrigger>
                                                         <OverlayTrigger placement="top" overlay={<Tooltip>Delete</Tooltip>} >
                                                             <Link className="badge" to="#">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="none" viewBox="0 0 24 24" stroke="#EE1D00" >
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="none" viewBox="0 0 24 24" stroke="#EE1D00" onClick={() => deleteFunction(sail._id)}>
                                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                                 </svg>
                                                             </Link>
