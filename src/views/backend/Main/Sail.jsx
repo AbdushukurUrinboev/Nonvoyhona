@@ -21,7 +21,7 @@ const Sail = () => {
         axios.get(SALE_URL)
             .then(res => {
                 setpostsSail(res.data);
-                // console.log(res.data);
+                console.log(res.data);
             })
             .catch(err => console.log(err))
     }, [])
@@ -82,7 +82,7 @@ const Sail = () => {
                                                 <div className="row align-items-center">
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left">{index + 1}</div>
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ fontWeight: "500" }}> <img src={sail.productImage} alt="" />  </div>
-                                                    <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-center">{sail.name}</div>
+                                                    <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-center">{sail.breadName}</div>
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{sail.quantity}</div>
                                                     <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-right sailSvgStyle">
                                                         <OverlayTrigger placement="top" overlay={<Tooltip>View</Tooltip>} >

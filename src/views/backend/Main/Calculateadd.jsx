@@ -14,14 +14,16 @@ import { useEffect } from 'react';
 const Calculateadd = () => {
 
     const [requiredItems, setRequiredItems] = useState([])
+    const [productExpenses, setProductExpenses] = useState([])
 
 
     const [addInput, setAddInput] = useState([])
     const [productInput, setProductInput] = useState('')
     const [productName, setProductName] = useState('');
     const [productPrice, setProductPrice] = useState(0);
+    const [others, setOthers] = useState(["elektr", "gaz", "ko'mir", "boshqalar"]);
     const [addOthersInput, setAddOthersInput] = useState([]);
-    const [others, setOthers] = useState('');
+
 
     // const [breadQuantity, setBreadQuantity] = useState(0);    
     const [pista, setPista] = useState(0);
@@ -47,7 +49,10 @@ const Calculateadd = () => {
     const [ishHaqi, setIshHaqi] = useState(0);
     const [boshqalar, setBoshqalar] = useState(0);
 
-    
+    const [currOthers, setCurrOthers] = useState("No");
+    const [freeValue, setFreeValue] = useState(undefined);
+
+
     const [productImage, setProductImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
 
     const history = useHistory()
@@ -60,12 +65,23 @@ const Calculateadd = () => {
         e.preventDefault();
 
         const fd = new FormData()
+
+
+
+
+
         fd.append('productName', productName);
         fd.append('productPrice', productPrice);
         fd.append('productImage', productImage);
-        fd.append('requiredItems', requiredItems);
+        for (var i = 0; i < requiredItems.length; i++) {
+            fd.append('requiredItems[]', JSON.stringify(requiredItems[i]));
+        }
+        for (var i = 0; i < productExpenses.length; i++) {
+            fd.append('others[]', JSON.stringify(productExpenses[i]));
+        }
+        const overallexpenses = productExpenses.reduce((acc, objt) => acc + objt.spent, 0)
 
-
+        fd.append('allExpensesPerBag', overallexpenses);
         axios.post(CALCULATE_URL, fd)
             .then(res => {
                 console.log("Data is saved", res)
@@ -75,11 +91,7 @@ const Calculateadd = () => {
 
     }
 
-    useEffect(() => {
-        console.log(requiredItems)
-    }, [requiredItems])
 
-    console.log(others);
     return (
         <>
             <Container fluid>
@@ -130,7 +142,7 @@ const Calculateadd = () => {
                                                 <option value="...">...</option> */}
                                             </select>
 
-                                            <button className='btn btn-primary mt-2 w-100' onClick={() => {
+                                            <button disabled={productInput === "no" ? true : false} className='btn btn-primary mt-2 w-100' onClick={() => {
 
                                                 setAddInput([...addInput, productInput])
                                                 setProductInput('Maxsulotlar')
@@ -149,20 +161,36 @@ const Calculateadd = () => {
 
                                             <div className="col-md-12 mb-3">
                                                 <Form.Label htmlFor="inputState1" className="form-label font-weight-bold text-muted text-uppercase">Chiqimni tanlang</Form.Label>
-                                                <select id="inputState1" className="form-select form-control choicesjs" value={others} onChange={e => setOthers(e.target.value)}>
+                                                <select id="inputState1" className="form-select form-control choicesjs" value={currOthers} onChange={e => {
+                                                    setCurrOthers(e.target.value);
+                                                    if (e.target.value !== "Qo'shimcha kiritish") {
+                                                        setFreeValue(undefined);
+                                                    }
+                                                }}>
                                                     <option value="No">Chiqimlar</option>
-                                                    <option value="Elektr">Elektr</option>
-                                                    <option value="Gaz">Gaz</option>
-                                                    <option value="Ko'mir">Ko'mir</option>
-                                                    <option value="others">Boshqalar</option>
+                                                    {
+                                                        others.filter((product) => {
+                                                            return !addOthersInput.includes(product)
+                                                        }).map((product, ind) => {
+                                                            return <option key={ind} value={product}>{product}</option>
+                                                        })
+                                                    }
                                                     <option value="Qo'shimcha kiritish">Qo'shimcha kiritish</option>
+
                                                 </select>
+                                                {
+                                                    currOthers == "Qo'shimcha kiritish" ? <input value={freeValue} onChange={(e) => setFreeValue(e.target.value)} type="text" /> : null
+                                                }
                                             </div>
 
                                             <button className='btn btn-primary mt-2 w-100' onClick={() => {
 
-                                                setAddOthersInput([... addOthersInput, others])
-                                                setOthers('Chiqimlar')
+                                                if (freeValue) {
+                                                    setAddOthersInput([...addOthersInput, freeValue]);
+                                                } else {
+                                                    setAddOthersInput([...addOthersInput, currOthers]);
+                                                }
+                                                setCurrOthers('Chiqimlar')
                                             }}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -206,7 +234,7 @@ const Calculateadd = () => {
                                                 addInput.map((item, index) => {
                                                     return <div className="col-md-6 mb-3" key={index}>
                                                         <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">{item} miqdorini kiriting</Form.Label>
-                                                        <Form.Control type="text" id="Text1" placeholder="Miqdorni kiriting..." onChange={(e) => {
+                                                        <Form.Control type="text" id="Text1" placeholder={item + ' miqdorini kiriting'} onChange={(e) => {
                                                             function addOrUpdateBread(arr, newBread) {
                                                                 const index = arr.findIndex(bread => bread.itemName === newBread.itemName);
                                                                 if (index !== -1) {
@@ -230,16 +258,16 @@ const Calculateadd = () => {
                                                         <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase" style={{ color: 'red' }}>{item} pulini kiriting</Form.Label>
                                                         <Form.Control type="text" id="Text1" placeholder="Narhni kiriting..." onChange={(e) => {
                                                             function addOrUpdateBread(arr, newBread) {
-                                                                const index = arr.findIndex(bread => bread.itemName === newBread.itemName);
+                                                                const index = arr.findIndex(bread => bread.name === newBread.name);
                                                                 if (index !== -1) {
-                                                                    arr[index].itemQuantity = newBread.itemQuantity;
+                                                                    arr[index].spent = newBread.spent;
                                                                 } else {
                                                                     arr.push(newBread);
                                                                 }
                                                                 return arr;
                                                             }
-                                                            let result = addOrUpdateBread(requiredItems, { itemName: item, itemQuantity: Number(e.target.value) })
-                                                            setOthers([...result])
+                                                            let result = addOrUpdateBread(productExpenses, { name: item, spent: Number(e.target.value) })
+                                                            setProductExpenses([...result])
                                                         }} required='required' />
 
                                                     </div>
