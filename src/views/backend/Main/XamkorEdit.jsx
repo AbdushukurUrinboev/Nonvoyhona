@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import Card from '../../../components/Card'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, useParams } from 'react-router-dom'
 
 import axios from "axios"
 import { XAMKOR_URL } from '../../../API';
@@ -22,17 +22,31 @@ const XamkorEdit = () => {
     const [phone, setPhone] = useState('');
     const [phoneCode2, setPhoneCode2] = useState('(90) ');
     const [phone2, setPhone2] = useState('');
+    const [category, setCategory] = useState('');
     const [address, setAddress] = useState('');
     const [workPlace, setWorkPlace] = useState('');
     const [position, setPosition] = useState('');
-    const [category, setCategory] = useState('');
     const [error, setError] = useState(false);
-
-
-
-
-    // const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
+  
     const history = useHistory()
+    const { id } = useParams();
+
+    useEffect(() => {
+        axios.get(`http://localhost:4000/xamkor/${id}`)
+            .then(res => { 
+                setFirstName(res.data.firstName)
+                setLastName(res.data.lastName)
+                setPhoneCode(res.data.phone.slice(0,4));
+                setPhone(res.data.phone.slice(8,res.data.phone.length));
+                setPhoneCode2(res.data.phone2.slice(0,4));
+                setPhone2(res.data.phone2.slice(8,res.data.phone2.length));
+                setCategory(res.data.category)  
+                setAddress(res.data.address)   
+                setWorkPlace(res.data.workPlace)
+                setPosition(res.data.position) 
+            } )
+            .catch(err => console.log(err))
+    }, [id])
 
 
 
@@ -42,15 +56,18 @@ const XamkorEdit = () => {
             setError(true)
         }
         if (firstName && lastName && phone && phone2 && address && workPlace && position && category) {
-            axios.post(XAMKOR_URL, {
-                firstName,
-                lastName,
-                phone: phoneCode + ' - ' + phone,
-                phone2: phoneCode2 + ' - ' + phone2,
-                address,
-                workPlace,
-                position,
-                category
+            axios.put(XAMKOR_URL, {
+                id,
+                new: {
+                    firstName,
+                    lastName,
+                    phone: phoneCode + ' - ' + phone,
+                    phone2: phoneCode2 + ' - ' + phone2,
+                    address,
+                    workPlace,
+                    position,
+                    category
+                }
             })
                 .then(res => {
                     console.log("Data is saved", res)
@@ -101,39 +118,39 @@ const XamkorEdit = () => {
                                         <Form className="row g-3 date-icon-set-modal myStyleCustomerAdd">
                                             <div className="col-md-6 mb-3 mt-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Familiyasi</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Familiya kiriting..." onChange={e => setLastName(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" value={lastName}  onChange={e => setLastName(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative mt-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Ismi</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Ismni kiriting..." onChange={e => setFirstName(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" value={firstName} onChange={e => setFirstName(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Telefon raqami</Form.Label>
                                                 <div className='input-group'>
                                                     <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode(e.target.value)}>
-                                                        <option value="(90) ">(90)</option>
+                                                        <option value={phoneCode}>{phoneCode}</option>
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
                                                     </select>
-                                                    <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} />
+                                                    <Form.Control type="text" id="Text5" style={{ width: '70%', marginLeft: '8px' }} value={phone} onChange={e => setPhone(e.target.value)} />
                                                 </div>
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Telefon raqami 2</Form.Label>
                                                 <div className='input-group'>
-                                                    <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode2(e.target.value)}>
-                                                        <option value="(90) ">(90)</option>
+                                                    <select value={phoneCode2} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode2(e.target.value)}>
+                                                        <option value={phoneCode2}>{phoneCode2}</option>
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
                                                     </select>
-                                                    <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone2(e.target.value)} />
+                                                    <Form.Control type="text" id="Text5" style={{ width: '70%', marginLeft: '8px' }} value={phone2} onChange={e => setPhone2(e.target.value)} />
                                                 </div>
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Tur</Form.Label>
-                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => setCategory(e.target.value)}>
+                                                <select id="inputState" className="form-select form-control choicesjs" value={category} onChange={e => setCategory(e.target.value)}>
                                                     <option value="no">Turi</option>
                                                     <option value="temporary">Doimiy</option>
                                                     <option value="daily">Vaqtincha</option>
@@ -141,17 +158,17 @@ const XamkorEdit = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Ish joyi</Form.Label>
-                                                <Form.Control type="text" id="Text3" placeholder="Ish joyini kiriting..." required='required' onChange={e => setWorkPlace(e.target.value)} />
+                                                <Form.Control type="text" id="Text3" value={workPlace} onChange={e => setWorkPlace(e.target.value)} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Manzil</Form.Label>
-                                                <Form.Control type="text" id="Text4" placeholder="Manzil kiriting..." onChange={e => setAddress(e.target.value)} />
+                                                <Form.Control type="text" id="Text4" value={address} onChange={e => setAddress(e.target.value)} />
                                             </div>
 
 
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Lavozimi</Form.Label>
-                                                <Form.Control type="text" id="Text3" placeholder="Lavozimini kiriting..." required='required' onChange={e => setPosition(e.target.value)} />
+                                                <Form.Control type="text" id="Text3" value={position} onChange={e => setPosition(e.target.value)} />
                                             </div>
                                         </Form>
                                         <div className="d-flex justify-content-end mt-1 ">

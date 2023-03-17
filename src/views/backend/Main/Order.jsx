@@ -8,7 +8,6 @@ import Datepickers from '../../../components/Datepicker';
 import { FilterPlans } from './FilterCustomer/FilterCustomer';
 import { ORDERS_URL } from '../../../API';
 import axios from 'axios';
-import { MyModal } from './Modal';
 import "./Order.css"
 import { useHistory } from "react-router";
 
@@ -50,7 +49,7 @@ const Order = ()=>{
         axios.get(ORDERS_URL)
             .then(res => {
                 setOrders(res.data)
-                // console.log(res.data);
+                // console.log(res.data.phone);
             })
             .catch(err => console.log(err))
     }, [])
@@ -81,7 +80,7 @@ const Order = ()=>{
         // console.log("kirish = " + id);
     }
   
-    
+
     return (
         <>
         {/* delete button */}
@@ -99,7 +98,7 @@ const Order = ()=>{
                     null
             }
             <Container fluid>                
-                <MyModal/>
+
                 <div className="d-flex flex-wrap align-items-center justify-content-between my-schedule mb-4 orderSt ">
                     <div className="d-flex align-items-center justify-content-between">
                         <h4 className="font-weight-bold ">Zakazlar</h4>

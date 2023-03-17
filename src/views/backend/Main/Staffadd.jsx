@@ -34,8 +34,7 @@ const Staffadd = () => {
 
     const history = useHistory()
 
-    const month = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
-
+    
 
 
     function handleChange(e) {
@@ -55,7 +54,7 @@ const Staffadd = () => {
             fd.append('group', group)
             fd.append('smena', smena)
             fd.append('salary', salary)
-            fd.append('birthday', birthday.getDate() + "-" + month[birthday.getMonth()] + ", " + birthday.getFullYear())
+            fd.append('birthday', (birthday.getMonth() + 1) + " " + + birthday.getDate() + " " + birthday.getFullYear())
             fd.append('image', image)
 
             axios.post(STAFF_URL, fd)
@@ -176,7 +175,7 @@ const Staffadd = () => {
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text7" className="font-weight-bold text-muted text-uppercase">Telefon raqami (uy)</Form.Label>
                                                 <div className='input-group'>
-                                                    <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode2(e.target.value)}>
+                                                    <select value={phoneCode2} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode2(e.target.value)}>
                                                         <option value="(90) ">(90)</option>
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>

@@ -66,9 +66,9 @@ const Ordernew = () => {
                     history.push('/order')
                 })
                 .catch(err => console.log(err))
-            console.log(phone);
+            }
         }
-    }
+        // console.log(phone);
 
 
 
@@ -196,7 +196,7 @@ const Ordernew = () => {
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
                                                     </select>
-                                                    <Form.Control type="number" id="Text4" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} disabled={mijozlar === true} />
+                                                    <Form.Control type="text" id="Text4" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} disabled={mijozlar === true} />
                                                 </div>
 
                                             </div>

@@ -18,9 +18,9 @@ const XamkorAdd = () => {
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [phoneCode, setPhoneCode] = useState('(90) ');
+    const [phoneCode, setPhoneCode] = useState();
     const [phone, setPhone] = useState('');
-    const [phoneCode2, setPhoneCode2] = useState('(90) ');
+    const [phoneCode2, setPhoneCode2] = useState();
     const [phone2, setPhone2] = useState('');
     const [address, setAddress] = useState('');
     const [workPlace, setWorkPlace] = useState('');
@@ -122,7 +122,7 @@ const XamkorAdd = () => {
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Telefon raqami 2</Form.Label>
                                                 <div className='input-group'>
-                                                    <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode2(e.target.value)}>
+                                                    <select value={phoneCode2} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode2(e.target.value)}>
                                                         <option value="(90) ">(90)</option>
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>

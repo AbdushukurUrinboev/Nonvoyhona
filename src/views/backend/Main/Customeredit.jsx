@@ -39,7 +39,7 @@ const Customeredit = () => {
                 setLastName(res.data.lastName);
                 setStatus(res.data.status);
                 setPhoneCode(res.data.phone.slice(0,4));
-                setPhone(res.data.phone.slice(8,res.data.phone2.length));
+                setPhone(res.data.phone.slice(8,res.data.phone.length));
                 setPhoneCode2(res.data.phone2.slice(0,4));
                 setPhone2(res.data.phone2.slice(8,res.data.phone2.length));
                 setCustomerType(res.data.customerType);
@@ -123,7 +123,7 @@ const Customeredit = () => {
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Telefon raqami</Form.Label>
                                                 <div className='input-group'>
                                                     <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode(e.target.value)}>
-                                                        <option value="(90)">(90)</option>
+                                                        <option value={phoneCode}>{phoneCode}</option>
                                                         <option value="(91)">(91)</option>
                                                         <option value="(93)">(93)</option>
                                                         <option value="(94)">(94)</option>

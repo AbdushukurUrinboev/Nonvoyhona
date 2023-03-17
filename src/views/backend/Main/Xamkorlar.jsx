@@ -164,7 +164,7 @@ const Xamkorlar = () => {
                                                 <div className="row align-items-center">
                                                     <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{index + 1}</div>
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ fontWeight: "500" }}>{xamkor.firstName} {xamkor.lastName}</div>
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{xamkor.category}</div>
+                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{xamkor.position}</div>
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{xamkor.phone}</div>
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{xamkor.phone2}</div>
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ color: xamkor.category === "temporary" ? '#149100' : "#EC0000", fontWeight: '500' }}>

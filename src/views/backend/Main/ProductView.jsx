@@ -24,7 +24,7 @@ const ProductView = () => {
                 // console.log(res.data);
             })
             .catch(err => console.log(err))
-    }, [id])    
+    }, [id])
 
     return (
         <>
@@ -65,7 +65,7 @@ const ProductView = () => {
                                         <ListGroup as="ul" className="list-style-1 mb-0">
                                             <ListGroup.Item as="li" className="d-flex justify-content-start align-items-center">
                                                 <div className="avatar">
-                                                    <img className="avatar avatar-img avatar-60 rounded-circle" src={BreadImage} alt="rasm bor" />
+                                                    <img className="avatar myStaffAvatar" alt="user-icon" src={product.storageImage === 'none' ? BreadImage : `http://localhost:4000/${product.storageImage}`} style={{ width: "75px" }} />
                                                 </div>
                                                 <div className="list-style-detail ml-4 mr-2">
                                                     <h5 className="font-weight-bold">{product.productName}</h5>

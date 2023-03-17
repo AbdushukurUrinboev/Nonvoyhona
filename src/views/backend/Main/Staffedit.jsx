@@ -9,6 +9,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './StaffAdd.css'
 
+//img
+import Avatar from '../../../assets/images/avatar.png'
+
 
 
 
@@ -18,7 +21,7 @@ const StaffEdit = () => {
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [gender, setGender] = useState('');
+    const [gender, setGender] = useState();
     const [phoneCode, setPhoneCode] = useState('(90) ');
     const [phone, setPhone] = useState('');
     const [phoneCode2, setPhoneCode2] = useState('(90) ');
@@ -35,23 +38,25 @@ const StaffEdit = () => {
     const { id } = useParams();
     const history = useHistory()
 
-    const month = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
 
     useEffect(() => {
         axios.get(`http://localhost:4000/staff/${id}`)
-            .then(res => {                
+            .then(res => {
                 setFirstName(res.data.firstName);
                 setLastName(res.data.lastName);
-                setGender(res.data.gender);
-                setPhone(res.data.phone);                
-                setPhone2(res.data.phone2);
+                setGender(res.data.gender === "Male" ? true : false);
+                setPhoneCode(res.data.phone.slice(0, 4));
+                setPhone(res.data.phone.slice(8, res.data.phone.length));
+                setPhoneCode2(res.data.phone2.slice(0, 4));
+                setPhone2(res.data.phone2.slice(8, res.data.phone2.length));
                 setTypeOfWorker(res.data.typeOfWorker);
                 setAdress(res.data.adress);
                 setGroup(res.data.group);
                 setSmena(res.data.smena);
                 setSalary(res.data.salary);
-                // setBirthday(res.data.birthday);
-            } )
+                setBirthday(new Date(res.data.birthday));
+                setImage(res.data.image);
+            })
             .catch(err => console.log(err))
     }, [id])
 
@@ -59,36 +64,29 @@ const StaffEdit = () => {
 
     function handleChange(e) {
         e.preventDefault();
-        if (firstName.length === 0 || lastName.length === 0 || gender.length === 0 || phone.length === 0 || phone2.length === 0 || typeOfWorker.length === 0 || adress.length === 0 || group.length === 0 || smena.length === 0 || salary.length === 0 || birthday.length === 0) {
-            setError(true)
-        }
-        if (firstName && lastName && gender && phone && phone2 && typeOfWorker && adress && group && smena && salary && birthday) {
-            const fd = new FormData()
-            fd.append('firstName', firstName)
-            fd.append('lastName', lastName)
-            fd.append('gender', gender)
-            fd.append('phone', phoneCode + ' - ' + phone)
-            fd.append('phone2', phoneCode2 + ' - ' + phone2)
-            fd.append('typeOfWorker', typeOfWorker) //
-            fd.append('adress', adress)
-            fd.append('group', group)
-            fd.append('smena', smena)
-            fd.append('salary', salary)
-            fd.append('birthday', birthday.getDate() + "-" + month[birthday.getMonth()] + ", " + birthday.getFullYear())
-            fd.append('image', image)
 
-            axios.put('http://localhost:4000/staff', {
-                id: id,
-                new: {
-                    fd
-                }
+
+        const fd = new FormData()
+        fd.append('firstName', firstName)
+        fd.append('lastName', lastName)
+        fd.append('gender', gender)
+        fd.append('phone', phoneCode + ' - ' + phone)
+        fd.append('phone2', phoneCode2 + ' - ' + phone2)
+        fd.append('typeOfWorker', typeOfWorker) //
+        fd.append('adress', adress)
+        fd.append('group', group)
+        fd.append('smena', smena)
+        fd.append('salary', salary)
+        fd.append('birthday', birthday.getDate() + "/" + birthday.getMonth() + "/" + birthday.getFullYear())
+        fd.append('image', image)
+
+        axios.put(STAFF_URL, fd)
+            .then(res => {
+                console.log("Data is saved", res)
+                history.push('/staff')
             })
-                .then(res => {
-                    console.log("Data is saved", res)
-                    history.push('/staff')
-                })
-                .catch(err => console.log(err))
-        }
+            .catch(err => console.log(err))
+
     }
 
 
@@ -150,16 +148,16 @@ const StaffEdit = () => {
                                                 <Form.Control type="text" id="Text1" placeholder="Ismini kiriting..." value={firstName} onChange={e => setFirstName(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3">
-                                                <Form.Label className="font-weight-bold text-muted text-uppercase">Jinsi</Form.Label><br />
+                                                <Form.Label className="font-weight-bold text-muted text-uppercase" >Jinsi</Form.Label><br />
                                                 <div className="form-check form-check-inline">
-                                                    <div className="custom-control custom-radio custom-control-inline">
-                                                        <Form.Control type="radio" id="inlineRadio1" name="customRadio-1" className="custom-control-input" value="Male" onChange={e => setGender(e.target.value)} />
+                                                    <div className="custom-control custom-radio custom-control-inline" >
+                                                        <Form.Control type="radio" id="inlineRadio1" name="customRadio-1" className="custom-control-input" checked={gender} value={gender} onChange={e => setGender(e.target.value)} />
                                                         <Form.Label className="custom-control-label" htmlFor="inlineRadio1"> Erkak </Form.Label>
                                                     </div>
                                                 </div>
                                                 <div className="form-check form-check-inline">
                                                     <div className="custom-control custom-radio custom-control-inline">
-                                                        <Form.Control type="radio" id="inlineRadio2" name="customRadio-1" className="custom-control-input" value="Female" onChange={e => setGender(e.target.value)} />
+                                                        <Form.Control type="radio" id="inlineRadio2" name="customRadio-1" className="custom-control-input" checked={!gender} value={gender} onChange={e => setGender(e.target.value)} />
                                                         <Form.Label className="custom-control-label" htmlFor="inlineRadio2"> Ayol </Form.Label>
                                                     </div>
                                                 </div>
@@ -174,7 +172,7 @@ const StaffEdit = () => {
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text2" className="font-weight-bold text-muted text-uppercase">Tug'ilgan sanasi</Form.Label>
-                                                <DatePicker className="form-control" id="Text2" name="event_date" placeholderText="Tug'ilgan sanani kiriting" autoComplete="off" value={birthday} selected={birthday} onChange={date => setBirthday(date)} />
+                                                <DatePicker className="form-control" id="Text2" name="event_date" dateFormat="dd/MM/yyyy" autoComplete="off" value={birthday} selected={birthday} onChange={date => setBirthday(date)} />
                                                 <span className="search-link">
                                                     <svg xmlns="http://www.w3.org/2000/svg" className="" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -185,7 +183,7 @@ const StaffEdit = () => {
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Telefon raqami (shahsiy)</Form.Label>
                                                 <div className='input-group'>
                                                     <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode(e.target.value)}>
-                                                        <option value="(90) ">(90)</option>
+                                                        <option value={phoneCode}>{phoneCode}</option>
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
@@ -200,8 +198,8 @@ const StaffEdit = () => {
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text7" className="font-weight-bold text-muted text-uppercase">Telefon raqami (uy)</Form.Label>
                                                 <div className='input-group'>
-                                                    <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode2(e.target.value)}>
-                                                        <option value="(90) ">(90)</option>
+                                                    <select value={phoneCode2} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode2(e.target.value)}>
+                                                        <option value={phoneCode2}>{phoneCode2}</option>
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
@@ -231,7 +229,7 @@ const StaffEdit = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text7" className="font-weight-bold text-muted text-uppercase">Oyligi</Form.Label>
-                                                <Form.Control type="text" id="Text7" placeholder="Xodimning qancha oylik olishini kiriting..."  onChange={e => {setSalary(e.target.value)}} />
+                                                <Form.Control type="text" id="Text7" placeholder="Xodimning qancha oylik olishini kiriting..." onChange={e => { setSalary(e.target.value) }} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <div className="text-right mt-2">
