@@ -22,9 +22,9 @@ const StaffEdit = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [gender, setGender] = useState();
-    const [phoneCode, setPhoneCode] = useState('(90) ');
+    const [phoneCode, setPhoneCode] = useState();
     const [phone, setPhone] = useState('');
-    const [phoneCode2, setPhoneCode2] = useState('(90) ');
+    const [phoneCode2, setPhoneCode2] = useState('');
     const [phone2, setPhone2] = useState('');
     const [typeOfWorker, setTypeOfWorker] = useState('');
     const [adress, setAdress] = useState('');
@@ -64,8 +64,6 @@ const StaffEdit = () => {
 
     function handleChange(e) {
         e.preventDefault();
-
-
         const fd = new FormData()
         fd.append('firstName', firstName)
         fd.append('lastName', lastName)

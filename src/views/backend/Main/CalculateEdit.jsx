@@ -44,29 +44,22 @@ const Calculateadd = () => {
 
     function handleChange(e) {
         console.log("Handle change");
-        // e.preventDefault();
-        // if (product.length === 0 || customer.length || productQuantity.length || overall.length || avans.length || customerType.length) {
-        //     setError(true)
-        // }
-        // if (product && customer && productQuantity && overall && avans && customerType) {
-        //     axios.put(NASIYA_URL, {
-        //         id,
-        //         new: {
-        //         product,
-        //         customer,
-        //         productQuantity,
-        //         overall,
-        //         avans,
-        //         date: sana.getDate() + "/" + (sana.getMonth() + 1) + "/" + sana.getFullYear(),
-        //         customerType
-        //     }
-        //     })
-        //         .then(res => {
-        //             console.log("Data is updated", res)
-        //             history.push('/calculate')
-        //         })
-        //         .catch(err => console.log(err))
-        // }
+        e.preventDefault();
+        axios.put(CALCULATE_URL, {
+            id,
+            new: {
+                productName,
+                productPrice,
+                allExpensesPerBag: others.reduce((acc, objt) => acc + objt.spent, 0),
+                requiredItems,                
+                others
+            }
+        })
+            .then(res => {
+                console.log("Data is updated", res)
+                history.push('/calculate')
+            })
+            .catch(err => console.log(err))
 
 
     }
@@ -128,7 +121,20 @@ const Calculateadd = () => {
                                                         </div>
                                                         <div className="col-md-6 mb-3">
                                                             <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Miqdori</Form.Label>
-                                                            <Form.Control type="number" id="Text4" value={item.itemQuantity} />
+                                                            <Form.Control type="number" id="Text4" value={item.itemQuantity} onChange={(e) => {
+                                                                function addOrUpdateBread(arr, newBread) {
+                                                                    const index = arr.findIndex(bread => bread.itemName === newBread.itemName);
+                                                                    if (index !== -1) {
+                                                                        arr[index].itemQuantity = newBread.itemQuantity;
+                                                                    } else {
+                                                                        arr.push(newBread);
+                                                                    }
+                                                                    return arr;
+                                                                }
+                                                                let result = addOrUpdateBread(requiredItems, { itemName: item.itemName, itemQuantity: Number(e.target.value) })
+                                                                // console.log(result);
+                                                                setRequiredItems([...result])
+                                                            }} />
                                                         </div>
                                                     </Form>
                                                 )
@@ -145,7 +151,20 @@ const Calculateadd = () => {
                                                         </div>
                                                         <div className="col-md-6 mb-3">
                                                             <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Miqdori</Form.Label>
-                                                            <Form.Control type="number" id="Text4" value={item.spent} />
+                                                            <Form.Control onChange={(e) => {
+                                                                function addOrUpdateBread(arr, newBread) {
+                                                                    const index = arr.findIndex(bread => bread.name === newBread.name);
+                                                                    if (index !== -1) {
+                                                                        arr[index].spent = newBread.spent;
+                                                                    } else {
+                                                                        arr.push(newBread);
+                                                                    }
+                                                                    return arr;
+                                                                }
+                                                                let result = addOrUpdateBread(others, { name: item.name, spent: Number(e.target.value) })
+
+                                                                setOthers([...result])
+                                                            }} type="number" id="Text4" value={item.spent} />
                                                         </div>
                                                     </Form>
                                                 )

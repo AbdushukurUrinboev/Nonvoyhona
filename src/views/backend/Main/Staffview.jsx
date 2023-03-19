@@ -26,7 +26,7 @@ const Staffview = () => {
             .catch(err => console.log(err))
     }, [id])
 
-
+    // console.log(currentStaff);
 
     const chart1 = {
         series: [{

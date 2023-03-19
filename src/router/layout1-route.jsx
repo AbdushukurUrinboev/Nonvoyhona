@@ -127,8 +127,8 @@ const Layout1Route = () => {
 
                             {/*STAFF*/}
                             <Route path="/staff" exact component={Staff} />
-                            <Route path="/staff-add" exact component={Staffadd} />
                             <Route path="/staff/:id" exact component={Staffview} />
+                            <Route path="/staff-add" exact component={Staffadd} />
                             <Route path="/staff-edit/:id" exact component={StaffEdit} />
 
 
