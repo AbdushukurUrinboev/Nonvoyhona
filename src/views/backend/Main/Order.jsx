@@ -86,7 +86,7 @@ const Order = ()=>{
             setOrders(receivedDT);
         })
     }
-
+        
     return (
         <>
         {/* delete button */}

@@ -19,17 +19,19 @@ const Ordernew = () => {
     const [deadline, setDeadline] = useState()
     const [avans, setAvans] = useState(0);
     const [price, setPrice] = useState(0);
-    const [phoneCode, setPhoneCode] = useState('(90) ');
+    const [phoneCode, setPhoneCode] = useState('');
     const [phone, setPhone] = useState('');
     const [status, setStatus] = useState('Bajarilmoqda');
-    const [umumiyPrice, setUmumiyPrice] = useState(0);   
-    
-    const [time, setTime] = useState(new Date().getHours() + ":" + new Date().getMinutes()); //
+    const [umumiyPrice, setUmumiyPrice] = useState(0);
+
+    const [deadlineSoat, setDeadlineSoat] = useState(); // bu backendga ketmaydi deadlineTimega qushdim 
+    const [deadlineMinut, setDeadlineMinut] = useState(); // bu backendga ketmaydi deadlineTimega qushdim 
+    const [deadlineTime, setDeadlineTime] = useState(new Date().getHours() + ":" + new Date().getMinutes()); //
     const [error, setError] = useState(false);
 
 
     const breadList = useContext(breadDataContext);
- 
+
     const customerList = useContext(customersDataContext);
     // const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
     const history = useHistory()
@@ -38,12 +40,12 @@ const Ordernew = () => {
 
     // Getting price of Bread and sending to priceInput
     const calculateOverallPrice = (productPriceInput, poductQuantityInput) => {
-        setUmumiyPrice(poductQuantityInput * productPriceInput);       
+        setUmumiyPrice(poductQuantityInput * productPriceInput);
     }
 
 
     function handleChange(e) {
-        e.preventDefault();       
+        e.preventDefault();
         if (order.length === 0 || customer.length === 0 || turi.length === 0 || productQuantity.length === 0 || deadline.length === 0 || avans.length === 0 || price.length === 0) {
             setError(true)
         }
@@ -52,9 +54,9 @@ const Ordernew = () => {
                 order,
                 customer,
                 turi,
-                productQuantity,               
+                productQuantity,                
                 deadline,
-                time,
+                deadlineTime: deadlineSoat + ":" + deadlineMinut,
                 avans,
                 price,
                 umumiyPrice,
@@ -66,11 +68,10 @@ const Ordernew = () => {
                     history.push('/order')
                 })
                 .catch(err => console.log(err))
-            }
         }
-        // console.log(phone);
+    }
 
-
+    
 
     return (
         <>
@@ -112,7 +113,8 @@ const Ordernew = () => {
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Nonni tanlang</Form.Label>
                                                 <select id="Text1" className="form-select form-control choicesjs" value={order} onChange={e => {
-                                                    setOrder(e.target.value)}}>
+                                                    setOrder(e.target.value)
+                                                }}>
                                                     console.log(e.target.value)
                                                     <option value="no">Nonlar ro'yxati</option>
                                                     {
@@ -127,15 +129,15 @@ const Ordernew = () => {
                                                 <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." required='required' value={price} onChange={e => {
                                                     setPrice(e.target.value)
                                                     calculateOverallPrice(e.target.value, productQuantity)
-                                                } } />
+                                                }} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Zakaz berilgan mahsulot soni</Form.Label>
                                                 <Form.Control type="number" id="Text3" placeholder="Sonini kiriting..." required='required' onChange={e => {
                                                     setProductQuantity(e.target.value)
                                                     calculateOverallPrice(price, e.target.value)
-                                                } } />
-                                            </div>                                            
+                                                }} />
+                                            </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Jami non narxi</Form.Label>
                                                 <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." required='required' value={umumiyPrice} onChange={e => setUmumiyPrice(e.target.value)} />
@@ -202,7 +204,11 @@ const Ordernew = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Zakaz tayyor bo'ladigan soat</Form.Label>
-                                                <Form.Control type="number" id="Text4" placeholder={time} onChange={e => setTime(e.target.value)} value={time} />
+                                                <div className='input-group'>
+                                                    <Form.Control type="text" id="Text4" placeholder={'Soatni kiriting'} onChange={e => setDeadlineSoat(e.target.value)} style={{ width: 'auto', marginLeft: '8px' }}/>
+                                                    <Form.Control type="text" id="Text4" placeholder={'Minutni kiriting'} onChange={e => setDeadlineMinut(e.target.value)} style={{ width: '50%', marginLeft: '8px' }} />
+
+                                                </div>
                                             </div>
                                         </Form>
                                         <div className="d-flex justify-content-end mt-1 ">
