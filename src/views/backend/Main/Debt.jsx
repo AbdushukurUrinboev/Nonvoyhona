@@ -74,6 +74,13 @@ const Debt = () => {
         // console.log("kirish = " + id);
     }
 
+    const getData = (st, ed) => {
+        axios.get(`http://localhost:4000/report/nasiya?startDate=${st}&endDate=${ed}`)
+        .then(({data: receivedDT}) => {
+            setDebts(receivedDT);
+        })
+    }
+
 
     return (
         <>
@@ -101,7 +108,7 @@ const Debt = () => {
                             <div className="d-flex">
                                 <div className="form-group mb-0 vanila-daterangepicker d-flex flex-row">
                                     <div className="date-icon-set">
-                                        <Datepickers className="vanila-datepicker" names="start" placeholder="...dan" />
+                                        <Datepickers className="vanila-datepicker" givenID="dateStart" names="start" placeholder="...dan" />
                                         <span className="search-link">
                                             <svg xmlns="http://www.w3.org/2000/svg" className="" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -112,7 +119,7 @@ const Debt = () => {
                                         <span className="btn">to</span>
                                     </span>
                                     <div className="date-icon-set">
-                                        <Datepickers names="end" placeholder="...gacha" />
+                                        <Datepickers names="end" givenID="dateEnd" placeholder="...gacha" />
                                         <span className="search-link">
                                             <svg xmlns="http://www.w3.org/2000/svg" className="" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -122,6 +129,15 @@ const Debt = () => {
 
 
                                 </div>
+                                <button className='btn btn-success' onClick={() => {
+                                    const startDate = document.getElementById("dateStart").value
+                                    const endDate = document.getElementById("dateEnd").value
+                                    const [smonth, sday, syear] = startDate.split('/');
+                                    const [emonth, eday, eyear] = endDate.split('/');
+                                    const modifiedStart = `${syear}-${smonth}-${sday}`
+                                    const modifiedEnd = `${eyear}-${emonth}-${eday}`
+                                    getData(modifiedStart, modifiedEnd)
+                                }}>Saralash</button>
 
                                 <Link to="/nasiya-add" className="btn myButtonDebt qushishDebt position-relative d-flex align-items-center justify-content-between">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">

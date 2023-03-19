@@ -18,8 +18,7 @@ import { contains } from 'jquery';
 const Output = () => {
 
     const [outputs, setOutputs] = useState([])
-    const [startDateValue, setStartDateValue] = useState('')
-    const [endDateValue, setEndDateValue] = useState('')
+   
 
 
 
@@ -54,7 +53,8 @@ const Output = () => {
     }
 
     const getData = (st, ed) => {
-        axios.get(`http://localhost:4000/report/expenses?startDate=${st}&endDate=${ed}`).then(({data: receivedDT}) => {
+        axios.get(`http://localhost:4000/report/expenses?startDate=${st}&endDate=${ed}`)
+        .then(({data: receivedDT}) => {
             setOutputs(receivedDT);
         })
     }
@@ -87,7 +87,7 @@ const Output = () => {
                             <div className="d-flex">
                                 <div className="form-group mb-0 vanila-daterangepicker d-flex flex-row">
                                     <div className="date-icon-set">
-                                        <Datepickers onCustomChange={e => setStartDateValue(e.target.value)} className="vanila-datepicker" givenID="dateStart" names="start" placeholder="...dan" />
+                                        <Datepickers className="vanila-datepicker" givenID="dateStart" names="start" placeholder="...dan" />
                                         <span className="search-link">
                                             <svg xmlns="http://www.w3.org/2000/svg" className="" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" >
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -98,7 +98,7 @@ const Output = () => {
                                         <span className="btn">to</span>
                                     </span>
                                     <div className="date-icon-set">
-                                        <Datepickers names="end" onCustomChange={e => setEndDateValue(e.target.value)} placeholder="...gacha" givenID="dateEnd" />
+                                        <Datepickers names="end"  placeholder="...gacha" givenID="dateEnd" />
                                         <span className="search-link">
                                             <svg xmlns="http://www.w3.org/2000/svg" className="" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
