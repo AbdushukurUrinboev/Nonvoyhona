@@ -95,7 +95,7 @@ const ProductEdit = () => {
 
         axios.put(STORAGE_URL, fd)
             .then(res => {
-                console.log("Data is saved", res)
+                console.log("Data is updated", res)
                 history.push('/storage')
             })
             .catch(err => console.log(err))

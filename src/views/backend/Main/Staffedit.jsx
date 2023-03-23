@@ -21,7 +21,7 @@ const StaffEdit = () => {
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [gender, setGender] = useState();
+    const [gender, setGender] = useState(true);
     const [phoneCode, setPhoneCode] = useState();
     const [phone, setPhone] = useState('');
     const [phoneCode2, setPhoneCode2] = useState('');
@@ -31,9 +31,9 @@ const StaffEdit = () => {
     const [group, setGroup] = useState('');
     const [smena, setSmena] = useState('');
     const [salary, setSalary] = useState('');
-    const [birthday, setBirthday] = useState();
-    const [image, setImage] = useState();
-    const [error, setError] = useState(false);
+    const [birthday, setBirthday] = useState('');
+    const [image, setImage] = useState('');
+   
 
     const { id } = useParams();
     const history = useHistory()
@@ -44,7 +44,7 @@ const StaffEdit = () => {
             .then(res => {
                 setFirstName(res.data.firstName);
                 setLastName(res.data.lastName);
-                setGender(res.data.gender === "Male" ? true : false);
+                setGender(res.data.gender == "Male" ? true : false);
                 setPhoneCode(res.data.phone.slice(0, 4));
                 setPhone(res.data.phone.slice(8, res.data.phone.length));
                 setPhoneCode2(res.data.phone2.slice(0, 4));
@@ -63,9 +63,11 @@ const StaffEdit = () => {
 
 
     function handleChange(e) {
+       
         e.preventDefault();
         const fd = new FormData()
         fd.append('firstName', firstName)
+        fd.append('changingID', id)
         fd.append('lastName', lastName)
         fd.append('gender', gender)
         fd.append('phone', phoneCode + ' - ' + phone)
@@ -80,7 +82,7 @@ const StaffEdit = () => {
 
         axios.put(STAFF_URL, fd)
             .then(res => {
-                console.log("Data is saved", res)
+                console.log("Data is updated", res)
                 history.push('/staff')
             })
             .catch(err => console.log(err))
@@ -115,8 +117,7 @@ const StaffEdit = () => {
                     </Col>
                     <Col lg="12">
                         <Card>
-                            <Card.Body>
-                                {error ? <p className='text-danger text-center font-weight-bold'>Ushbu qatorlarning barchasini to'ldirishingiz shart</p> : ''}
+                            <Card.Body>                               
                                 <Row>
                                     <Col md="3" className="mb-3 mt-5">
                                         <Card.Body className="staffAddStyleCardBody mx-auto">
