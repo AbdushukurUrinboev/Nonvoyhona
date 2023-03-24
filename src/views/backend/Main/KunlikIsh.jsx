@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button, OverlayTrigger, Tooltip } from 'reac
 import Card from '../../../components/Card'
 import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios';
-import { DAILY_TASKS_URL } from '../../../API';
+import { DAILY_TASKS_URL, STAFF_URL } from '../../../API';
 // DatePicker
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -11,8 +11,11 @@ import './KunlikIsh.css'
 
 import { breadDataContext, customersDataContext } from './ContextProvider/DataProvider';
 
+// Multiple Select
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
 
-
+const animatedComponents = makeAnimated();
 
 const Calculate = () => {
 
@@ -45,10 +48,10 @@ const Calculate = () => {
     function handleChange(e) {
 
         const newAllBonus = allBonus.map((b) => {
-            if(!b.quantity){
+            if (!b.quantity) {
                 b.quantity = 0;
             }
-            if(!b.jastaQuantity){
+            if (!b.jastaQuantity) {
                 b.jastaQuantity = 0;
             }
             return b;
@@ -91,6 +94,27 @@ const Calculate = () => {
             .catch(err => console.log(err))
 
 
+    }
+
+
+    const [staff, setStaff] = useState([])
+    useEffect(() => {
+        axios.get(STAFF_URL)
+            .then(res => {
+                setStaff(res.data)
+            })
+            .catch(err => console.log(err))
+    }, [])
+
+
+    const myData = [];
+
+    if (group.length > 0 && smena.length > 0) {
+        const staffs = staff.filter(staff => staff.group.toLowerCase().includes(group.toLowerCase()) && staff.smena.toLowerCase().includes(smena.toLowerCase()))
+        
+        for (let i = 0; i < staffs.length; i++) {
+            myData.push({ label: staff[i].firstName + " " + staff[i].lastName, value: staff[i].firstName + " " + staff[i].lastName })
+        }
     }
 
 
@@ -190,10 +214,10 @@ const Calculate = () => {
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Gurux</Form.Label>
                                                 <select id="inputState" className="form-select form-control choicesjs" onChange={e => setGroup(e.target.value)}>
                                                     <option value="no">Gurux</option>
-                                                    <option value="A-Gurux">A-Gurux</option>
-                                                    <option value="B-Gurux">B-Gurux</option>
-                                                    <option value="C-Gurux">C-Gurux</option>
-                                                    <option value="D-Gurux">D-Gurux</option>
+                                                    <option value="A-Guruh">A-Gurux</option>
+                                                    <option value="B-Guruh">B-Gurux</option>
+                                                    <option value="C-Guruh">C-Gurux</option>
+                                                    <option value="D-Guruh">D-Gurux</option>
                                                 </select>
                                             </div>
                                             <div className="col-md-6 mb-3 mt-3">
@@ -206,7 +230,13 @@ const Calculate = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Xodim</Form.Label>
-                                                <Form.Control type="text" id="Text5" placeholder="Xodimni kiriting..." onChange={e => setXodim(e.target.value)} />
+                                                <Select
+                                                    closeMenuOnSelect={false}
+                                                    components={animatedComponents}
+                                                    isMulti
+                                                    options={myData}
+                                                />
+                                                {/* <Form.Control type="text" id="Text5" placeholder="Xodimni kiriting..." onChange={e => setXodim(e.target.value)} /> */}
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Qoplar Soni</Form.Label>

@@ -147,7 +147,7 @@ const CalculateView = () => {
                                                     <div className="p-2 border myStyleProduct ownStylePro" key={index}>
                                                         <div className="container">
                                                             <div className="row align-items-center">
-                                                                <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{index + 1}</div>
+                                                                <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{index + 1 + reqItems.length}</div>
                                                                 <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6">{item.name}</div>
                                                                 <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4">{item.spent} - so'm</div>
                                                             </div>
