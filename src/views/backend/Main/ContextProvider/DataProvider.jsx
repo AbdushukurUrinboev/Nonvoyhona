@@ -1,7 +1,7 @@
 import React, {useState, createContext, useEffect} from "react";
 import axios from "axios";
 // import STORAGE_URL
-import { STORAGE_URL, CALCULATE_URL, CUSTOMERS_URL, STAFF_URL } from '../../../../API';
+import { STORAGE_URL, CALCULATE_URL, CUSTOMERS_URL, STAFF_URL, XAMKOR_URL } from '../../../../API';
 
 // Mahsulotlar datasi (masalan un, yog va hokazo)
 export const dataContext = createContext();
@@ -89,5 +89,28 @@ export function StaffListData(props) {
         <staffDataContext.Provider value={staffList}>
             {props.children}
         </staffDataContext.Provider>
+    )
+}
+
+
+
+// Xamkor
+
+export const xamkorDataContext = createContext()
+
+export function XamkorListData(props) {
+    const [xamkorList, setXamkorList] = useState([]);
+
+    useEffect(() => {
+        axios.get(XAMKOR_URL)
+        .then(res => {
+            setXamkorList(res.data)
+        })
+    }, [])
+
+    return (
+        <xamkorDataContext.Provider value={xamkorList}>
+            {props.children}
+        </xamkorDataContext.Provider>
     )
 }

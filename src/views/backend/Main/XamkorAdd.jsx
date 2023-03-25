@@ -14,6 +14,8 @@ import './CustomerAdd.css'
 
 
 
+
+
 const XamkorAdd = () => {
 
     const [firstName, setFirstName] = useState('');
@@ -34,7 +36,7 @@ const XamkorAdd = () => {
     // const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
     const history = useHistory()
 
-
+    
 
     function handleChange(e) {
         e.preventDefault();

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { Container, Row, Col, Button, ListGroup, Tab, Nav } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom';
 import './CustomerView.css'
-
+import { xamkorDataContext } from './ContextProvider/DataProvider';
 import axios from 'axios';
 
 //img
@@ -15,7 +15,8 @@ const ProductView = () => {
     const [product, setProduct] = useState({});
 
     const { id } = useParams();
-    console.log(id);
+    const xamkorList = useContext(xamkorDataContext);
+
 
     useEffect(() => {
         axios.get(`http://localhost:4000/storage/${id}`)
@@ -65,7 +66,7 @@ const ProductView = () => {
                                         <ListGroup as="ul" className="list-style-1 mb-0">
                                             <ListGroup.Item as="li" className="d-flex justify-content-start align-items-center">
                                                 <div className="avatar">
-                                                    <img className="avatar myStaffAvatar" alt="user-icon" src={product.storageImage === 'none' ? BreadImage : `http://localhost:4000/${product.storageImage}`} style={{ width: "75px" }} />
+                                                    <img className="avatar myStaffAvatar" alt="user-icon" src={product.storageImage === 'none' ? BreadImage : product.storageImage ? `http://localhost:4000/${product.storageImage}` : ''} style={{ width: "75px" }} />
                                                 </div>
                                                 <div className="list-style-detail ml-4 mr-2">
                                                     <h5 className="font-weight-bold">{product.productName}</h5>
@@ -124,7 +125,15 @@ const ProductView = () => {
                                                     <p className="mb-0 text-muted">Xamkor tel raqami:</p>
                                                 </td>
                                                 <td>
-                                                    <p className="mb-0 ">{product.xamkorTel}</p>
+                                                    <p className="mb-0 ">
+                                                        
+                                                        {
+                                                            product.xamkor &&
+                                                            xamkorList[0] && 
+                                                                xamkorList.find(e => product.xamkor === (e.firstName + " " + e.lastName)).phone
+                                                            
+                                                        }
+                                                    </p>
                                                 </td>
                                             </tr>
                                         </tbody>

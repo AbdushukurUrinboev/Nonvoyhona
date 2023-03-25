@@ -15,6 +15,9 @@ import { breadDataContext, customersDataContext } from './ContextProvider/DataPr
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 
+// Loading
+import { FallingLines } from 'react-loader-spinner';
+
 const animatedComponents = makeAnimated();
 
 const Calculate = () => {
@@ -24,7 +27,6 @@ const Calculate = () => {
     const [allBonus, setAllBonus] = useState([]);
     const [group, setGroup] = useState('');
     const [smena, setSmena] = useState('');
-    const [xodim, setXodim] = useState('');
     const [qoplarSoni, setQoplarSoni] = useState('');
     const [nonTuri, setNonTuri] = useState('');
     const [nonSoni, setNonSoni] = useState('');
@@ -37,6 +39,7 @@ const Calculate = () => {
     const [sana, setSana] = useState(new Date());
     const [addInputBonusNon, setAddInputBonusNon] = useState([]) // bonus non uchun qildim
     const [addInputJastaNon, setAddInputJastaNon] = useState([]) // jasta non uchun qildim
+    const [choosenStaff, setChoosenStaff] = useState([])
 
     const breadList = useContext(breadDataContext);
     const customerList = useContext(customersDataContext);
@@ -46,7 +49,7 @@ const Calculate = () => {
 
     const month = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
     function handleChange(e) {
-
+    
         const newAllBonus = allBonus.map((b) => {
             if (!b.quantity) {
                 b.quantity = 0;
@@ -56,26 +59,12 @@ const Calculate = () => {
             }
             return b;
         })
-        console.log({
-            group,
-            smena,
-            xodim,
-            qoplarSoni,
-            nonTuri,
-            nonSoni,
-            bonus: newAllBonus,
-            jastaNonSoni,
-            tulov,
-            bonusTulov,
-            jamiTulov
-
-        });
 
         e.preventDefault();
         axios.post(DAILY_TASKS_URL, {
             group,
             smena,
-            xodim,
+            xodim: choosenStaff,
             qoplarSoni,
             nonTuri,
             nonSoni,
@@ -87,21 +76,27 @@ const Calculate = () => {
 
         })
             .then(res => {
-                console.log("Data is saved", res)
-                // alert("Ma'lumot saqlandi")
-                history.push('/kunlik-ish')
+                if(res.status === 400) {
+                    console.log(res.msg);
+                } else {
+                    console.log("Data is saved", res)
+                    // alert("Ma'lumot saqlandi")
+                    history.push('/kunlik-ish')
+                }
             })
             .catch(err => console.log(err))
 
 
     }
 
+    const[loading , setLoading] = useState(true)
 
     const [staff, setStaff] = useState([])
     useEffect(() => {
         axios.get(STAFF_URL)
             .then(res => {
                 setStaff(res.data)
+                setLoading(false)
             })
             .catch(err => console.log(err))
     }, [])
@@ -113,15 +108,31 @@ const Calculate = () => {
         const staffs = staff.filter(staff => staff.group.toLowerCase().includes(group.toLowerCase()) && staff.smena.toLowerCase().includes(smena.toLowerCase()))
         
         for (let i = 0; i < staffs.length; i++) {
-            myData.push({ label: staff[i].firstName + " " + staff[i].lastName, value: staff[i].firstName + " " + staff[i].lastName })
+            myData.push({ label: staffs[i].firstName + " " + staffs[i].lastName, value: staffs[i].firstName + " " + staffs[i].lastName })
         }
     }
 
 
 
+    
+
+
 
     return (
         <>
+        {
+                loading ?
+                    <div style={{textAlign:'center', paddingTop:'15%'}}>
+                        <div>
+                            <FallingLines
+                                color="#4fa94d"
+                                width="10%"
+                                visible={true}
+                                ariaLabel='falling-lines-loading'
+                            />
+                        </div>
+                    </div>
+                    :
             <Container fluid>
                 <Row>
                     <Col lg="12" className="mb-3 d-flex justify-content-between">
@@ -213,7 +224,7 @@ const Calculate = () => {
                                             <div className="col-md-6 mb-3 mt-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Gurux</Form.Label>
                                                 <select id="inputState" className="form-select form-control choicesjs" onChange={e => setGroup(e.target.value)}>
-                                                    <option value="no">Gurux</option>
+                                                    <option value="">Gurux</option>
                                                     <option value="A-Guruh">A-Gurux</option>
                                                     <option value="B-Guruh">B-Gurux</option>
                                                     <option value="C-Guruh">C-Gurux</option>
@@ -223,7 +234,7 @@ const Calculate = () => {
                                             <div className="col-md-6 mb-3 mt-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Smena</Form.Label>
                                                 <select id="inputState" className="form-select form-control choicesjs" onChange={e => setSmena(e.target.value)}>
-                                                    <option value="no">Smena</option>
+                                                    <option value="">Smena</option>
                                                     <option value="1-smena">1-smena</option>
                                                     <option value="2-smena">2-smena</option>
                                                 </select>
@@ -235,6 +246,12 @@ const Calculate = () => {
                                                     components={animatedComponents}
                                                     isMulti
                                                     options={myData}
+                                                    onChange={ (e) => {
+                                                        const temp = e.map((obj) => {
+                                                            return obj.value;
+                                                        });
+                                                        setChoosenStaff(temp);
+                                                    }}
                                                 />
                                                 {/* <Form.Control type="text" id="Text5" placeholder="Xodimni kiriting..." onChange={e => setXodim(e.target.value)} /> */}
                                             </div>
@@ -393,6 +410,7 @@ const Calculate = () => {
                     </Col>
                 </Row>
             </Container>
+}
 
         </>
     )

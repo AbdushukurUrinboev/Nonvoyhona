@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { Link, useHistory } from 'react-router-dom'
@@ -10,6 +10,7 @@ import DefaultBread from '../../../assets/images/logoBread.png'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './ProductAdd.css'
+import { xamkorDataContext } from './ContextProvider/DataProvider';
 
 const Productadd = () => {
     const [productName, setProductName] = useState(''); //
@@ -23,9 +24,12 @@ const Productadd = () => {
     // const [olinganSana, setOlinganSana] = useState(new Date()); // 
     // const [olinganSoat, setOlinganSoat] = useState(new Date().getHours() + ":" + new Date().getMinutes()); //
     const [storageImage, setStorageImage] = useState(''); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
-    const[error, setError] = useState(false);
+    const [error, setError] = useState(false);
 
     const history = useHistory()
+
+    const xamkorList = useContext(xamkorDataContext);
+
 
 
     // const month = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
@@ -41,30 +45,30 @@ const Productadd = () => {
 
     function handleChange(e) {
         e.preventDefault();
-        if(productName.length === 0 || description.length|| productPrice.length || poductQuantity.length || umumiyNarhi.length || xamkor.length || berilganAvans.length || qolganPul.length) {
+        if (productName.length === 0 || description.length || productPrice.length || poductQuantity.length || umumiyNarhi.length || xamkor.length || qolganPul.length) {
             setError(true)
         }
-        if(productName && description && productPrice && poductQuantity && umumiyNarhi && xamkor && berilganAvans && qolganPul) {
-        
-        const fd = new FormData()
-        fd.append('productName', productName)
-        fd.append('description', description)
-        fd.append('productPrice', productPrice)
-        fd.append('poductQuantity', poductQuantity)
-        fd.append('umumiyNarhi', umumiyNarhi.length ? umumiyNarhi : productPrice * poductQuantity)
-        fd.append('xamkor', xamkor)
-        fd.append('berilganAvans', berilganAvans)
-        fd.append('qolganPul', qolganPul)
-        // fd.append('olinganSana', olinganSana.getDate() + "-" + month[olinganSana.getMonth()] + "," + olinganSana.getFullYear())
-        // fd.append('olinganSoat', olinganSoat)
-        fd.append('storageImage', storageImage);
+        if (productName && description && productPrice && poductQuantity && umumiyNarhi && xamkor && qolganPul) {
 
-        axios.post(STORAGE_URL, fd)
-            .then(res => {
-                console.log("Data is saved", res)
-                history.push('/storage')
-            })
-            .catch(err => console.log(err))
+            const fd = new FormData()
+            fd.append('productName', productName)
+            fd.append('description', description)
+            fd.append('productPrice', productPrice)
+            fd.append('poductQuantity', poductQuantity)
+            fd.append('umumiyNarhi', umumiyNarhi.length ? umumiyNarhi : productPrice * poductQuantity)
+            fd.append('xamkor', xamkor)
+            fd.append('berilganAvans', berilganAvans)
+            fd.append('qolganPul', qolganPul)
+            // fd.append('olinganSana', olinganSana.getDate() + "-" + month[olinganSana.getMonth()] + "," + olinganSana.getFullYear())
+            // fd.append('olinganSoat', olinganSoat)
+            fd.append('storageImage', storageImage);
+
+            axios.post(STORAGE_URL, fd)
+                .then(res => {
+                    console.log("Data is saved", res)
+                    history.push('/storage')
+                })
+                .catch(err => console.log(err))
         }
 
     }
@@ -100,7 +104,7 @@ const Productadd = () => {
                     <Col lg="12">
                         <Card>
                             <Card.Body>
-                            { error ? <p className='text-danger text-center font-weight-bold'>Ushbu qatorlarning barchasini to'ldirishingiz shart</p> : ''}
+                                {error ? <p className='text-danger text-center font-weight-bold'>Ushbu qatorlarning barchasini to'ldirishingiz shart</p> : ''}
                                 <Row>
                                     <Col md="3" className="mb-3">
                                         <Card.Body className="productAddStyleCardBody mt-3 mx-auto">
@@ -123,7 +127,7 @@ const Productadd = () => {
                                                 <p className="mb-0 text-muted font-weight-bold">Rasm yuklash</p>
                                             </div>
                                         </Card.Body>
-                                    </Col>                                    
+                                    </Col>
                                     <Col md="9">
                                         <Form className="row g-3 date-icon-set-modal">
                                             <div className="col-md-6 mb-3">
@@ -147,7 +151,7 @@ const Productadd = () => {
                                                 <Form.Control type="number" id="Text3" placeholder="Miqdorini kiriting..." value={poductQuantity} required='required' onChange={e => {
                                                     setPoductQuantity(e.target.value);
                                                     calculateOverallPrice(productPrice, e.target.value);
-                                                    }} />
+                                                }} />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Umumiy narxi</Form.Label>
@@ -159,9 +163,14 @@ const Productadd = () => {
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-uppercase">Xamkorni tanlang</Form.Label>
                                                 <select id="inputState" className="form-select form-control choicesjs" onChange={e => setXamkor(e.target.value)}>
-                                                    <option value="Bajarildi">Xamkorlar</option>
-                                                    <option value="Bajarilmoqda">Sherov Abdurashid</option>
-                                                    <option value="Bajarilmadi">Karimov Komil</option>
+                                                    <option value='no'>Xamkorlar</option>
+                                                    {
+                                                        xamkorList.map((xamkor, index) => (
+                                                            <option value={xamkor.firstName + ' ' + xamkor.lastName} key={index}>{xamkor.firstName + ' ' + xamkor.lastName}</option>
+
+                                                        ))
+                                                    }
+                                                    
                                                 </select>
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
