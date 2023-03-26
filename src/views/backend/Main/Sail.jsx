@@ -22,7 +22,7 @@ const Sail = () => {
 
     const history = useHistory()
 
-    console.log(postsSail);
+
 
     const [loading, setLoading] = useState(true)
 

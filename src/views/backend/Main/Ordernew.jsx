@@ -28,6 +28,8 @@ const Ordernew = () => {
     const [deadlineMinut, setDeadlineMinut] = useState(); // bu backendga ketmaydi deadlineTimega qushdim 
     const [deadlineTime, setDeadlineTime] = useState(new Date().getHours() + ":" + new Date().getMinutes()); //
     const [error, setError] = useState(false);
+    const [choosenPhoneCode, setChoosenPhoneCode] = useState('') // backEnga ketmaydi tanlagan klient telini olaman holos
+    const [choosenPhone, setChoosenPhone] = useState('') // backEnga ketmaydi tanlagan klient telini olaman holos
 
 
     const breadList = useContext(breadDataContext);
@@ -54,8 +56,8 @@ const Ordernew = () => {
                 order,
                 customer,
                 turi,
-                productQuantity,                
-                deadline,
+                productQuantity,                              
+                deadline: deadline.toISOString().split('T')[0].replace('-', '/').split('T')[0].replace('-', '/'),
                 deadlineTime: deadlineSoat + ":" + deadlineMinut,
                 avans,
                 price,
@@ -71,7 +73,8 @@ const Ordernew = () => {
         }
     }
 
-    
+
+
 
     return (
         <>
@@ -157,7 +160,7 @@ const Ordernew = () => {
                                             {
                                                 mijozlar ? (<div className="col-md-6 mb-3">
                                                     <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Mijozlar ro'yhati</Form.Label>
-                                                    <select id="inputState" className="form-select form-control choicesjs" value={customer} onChange={e => setCustomer(e.target.value)} >
+                                                    <select id="inputState" className="form-select form-control choicesjs" value={customer} onChange={e =>  setCustomer(e.target.value) } >
                                                         <option value="">Mijozlar ro'yxati</option>
                                                         {
                                                             customerList.map((cust, ind) => {
@@ -189,6 +192,11 @@ const Ordernew = () => {
                                                     </svg>
                                                 </span>
                                             </div>
+                                            {
+                                              
+                                                customer && setChoosenPhone (customerList.find(e => customer === (e.lastName + ' ' + e.firstName)).phone)
+                                                
+                                            }
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Mijoz telefoni</Form.Label>
                                                 <div className='input-group'>

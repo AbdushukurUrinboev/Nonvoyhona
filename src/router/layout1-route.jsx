@@ -29,6 +29,7 @@ import ProductEdit from '../views/backend/Main/ProductEdit';
 import Order from '../views/backend/Main/Order';
 import Ordernew from '../views/backend/Main/Ordernew';
 import Orderdetails from '../views/backend/Main/Orderdetails';
+import OrderView from '../views/backend/Main/OrderView';
 
 // Output - CHIQIMLAR
 import Output from '../views/backend/Main/Output';
@@ -172,6 +173,7 @@ const Layout1Route = () => {
                                 <Route path="/order" exact component={Order} />
                                 <Route path="/order-new" exact component={Ordernew} />
                                 <Route path="/order-details/:id" exact component={Orderdetails} />
+                                <Route path="/order/:id" exact component={OrderView} />
 
                                 {/* Xamkorlar */}
                                 <Route path="/xamkorlar" exact component={Xamkorlar} />
