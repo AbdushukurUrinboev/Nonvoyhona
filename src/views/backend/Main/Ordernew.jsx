@@ -56,7 +56,7 @@ const Ordernew = () => {
                 order,
                 customer,
                 turi,
-                productQuantity,                              
+                productQuantity,
                 deadline: deadline.toISOString().split('T')[0].replace('-', '/').split('T')[0].replace('-', '/'),
                 deadlineTime: deadlineSoat + ":" + deadlineMinut,
                 avans,
@@ -72,8 +72,6 @@ const Ordernew = () => {
                 .catch(err => console.log(err))
         }
     }
-
-
 
 
     return (
@@ -151,7 +149,7 @@ const Ordernew = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Tur</Form.Label>
-                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => { setTuri(e.target.value); if (e.target.value === "Doimiy") setMijozlar(true); else setMijozlar(false) }}>
+                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => { setChoosenPhone('');setTuri(e.target.value); if (e.target.value === "Doimiy") setMijozlar(true); else setMijozlar(false) }}>
                                                     <option value="no">Turi</option>
                                                     <option value="Doimiy">Doimiy</option>
                                                     <option value="Vaqtincha">Vaqtincha</option>
@@ -160,7 +158,13 @@ const Ordernew = () => {
                                             {
                                                 mijozlar ? (<div className="col-md-6 mb-3">
                                                     <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Mijozlar ro'yhati</Form.Label>
-                                                    <select id="inputState" className="form-select form-control choicesjs" value={customer} onChange={e =>  setCustomer(e.target.value) } >
+                                                    <select id="inputState" className="form-select form-control choicesjs" value={customer} onChange={e => {
+                                                        setCustomer(e.target.value);
+                                                        console.log(customerList);
+                                                        if(turi === "Doimiy"){
+                                                            setChoosenPhone(customerList.find(evv => e.target.value === (evv.lastName + ' ' + evv.firstName)).phone);
+                                                        }
+                                                    }} >
                                                         <option value="">Mijozlar ro'yxati</option>
                                                         {
                                                             customerList.map((cust, ind) => {
@@ -192,16 +196,11 @@ const Ordernew = () => {
                                                     </svg>
                                                 </span>
                                             </div>
-                                            {
-                                              
-                                                customer && setChoosenPhone (customerList.find(e => customer === (e.lastName + ' ' + e.firstName)).phone)
-                                                
-                                            }
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Mijoz telefoni</Form.Label>
                                                 <div className='input-group'>
                                                     <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode(e.target.value)} disabled={mijozlar === true}>
-                                                    <option value="(71) ">(71)</option>
+                                                        <option value="(71) ">(71)</option>
                                                         <option value="(73) ">(73)</option>
                                                         <option value="(90) ">(90)</option>
                                                         <option value="(91) ">(91)</option>
@@ -220,7 +219,7 @@ const Ordernew = () => {
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Zakaz tayyor bo'ladigan soat</Form.Label>
                                                 <div className='input-group'>
-                                                    <Form.Control type="text" id="Text4" placeholder={'Soatni kiriting'} onChange={e => setDeadlineSoat(e.target.value)} style={{ width: 'auto', marginLeft: '8px' }}/>
+                                                    <Form.Control type="text" id="Text4" placeholder={'Soatni kiriting'} onChange={e => setDeadlineSoat(e.target.value)} style={{ width: 'auto', marginLeft: '8px' }} />
                                                     <Form.Control type="text" id="Text4" placeholder={'Minutni kiriting'} onChange={e => setDeadlineMinut(e.target.value)} style={{ width: '50%', marginLeft: '8px' }} />
 
                                                 </div>
