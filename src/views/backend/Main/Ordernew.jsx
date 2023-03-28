@@ -28,9 +28,7 @@ const Ordernew = () => {
     const [deadlineMinut, setDeadlineMinut] = useState(); // bu backendga ketmaydi deadlineTimega qushdim 
     const [deadlineTime, setDeadlineTime] = useState(new Date().getHours() + ":" + new Date().getMinutes()); //
     const [error, setError] = useState(false);
-    const [choosenPhoneCode, setChoosenPhoneCode] = useState('') // backEnga ketmaydi tanlagan klient telini olaman holos
-    const [choosenPhone, setChoosenPhone] = useState('') // backEnga ketmaydi tanlagan klient telini olaman holos
-
+   
 
     const breadList = useContext(breadDataContext);
 
@@ -149,7 +147,7 @@ const Ordernew = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Tur</Form.Label>
-                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => { setChoosenPhone('');setTuri(e.target.value); if (e.target.value === "Doimiy") setMijozlar(true); else setMijozlar(false) }}>
+                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => { setPhone('');setTuri(e.target.value); if (e.target.value === "Doimiy") setMijozlar(true); else setMijozlar(false) }}>
                                                     <option value="no">Turi</option>
                                                     <option value="Doimiy">Doimiy</option>
                                                     <option value="Vaqtincha">Vaqtincha</option>
@@ -162,7 +160,8 @@ const Ordernew = () => {
                                                         setCustomer(e.target.value);
                                                         console.log(customerList);
                                                         if(turi === "Doimiy"){
-                                                            setChoosenPhone(customerList.find(evv => e.target.value === (evv.lastName + ' ' + evv.firstName)).phone);
+                                                            setPhoneCode(customerList.find(evv => e.target.value === (evv.lastName + ' ' + evv.firstName)).phone.slice(0,4));
+                                                            setPhone(customerList.find(evv => e.target.value === (evv.lastName + ' ' + evv.firstName)).phone.slice(7, e.target.value.length));
                                                         }
                                                     }} >
                                                         <option value="">Mijozlar ro'yxati</option>
@@ -199,20 +198,21 @@ const Ordernew = () => {
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Mijoz telefoni</Form.Label>
                                                 <div className='input-group'>
-                                                    <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode(e.target.value)} disabled={mijozlar === true}>
+                                                    <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode(e.target.value)}>
+                                                        <option value={phoneCode}>{phoneCode}</option>
                                                         <option value="(71) ">(71)</option>
                                                         <option value="(73) ">(73)</option>
                                                         <option value="(90) ">(90)</option>
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
-                                                        <option value="(94) ">(98)</option>
-                                                        <option value="(94) ">(99)</option>
-                                                        <option value="(94) ">(97)</option>
-                                                        <option value="(94) ">(97)</option>
-                                                        <option value="(94) ">(92)</option>
+                                                        <option value="(98) ">(98)</option>
+                                                        <option value="(99) ">(99)</option>
+                                                        <option value="(97) ">(97)</option>
+                                                        <option value="(97) ">(97)</option>
+                                                        <option value="(92) ">(92)</option>
                                                     </select>
-                                                    <Form.Control type="text" id="Text4" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} disabled={mijozlar === true} />
+                                                    <Form.Control type="text" id="Text4" value={phone} style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} />
                                                 </div>
 
                                             </div>
