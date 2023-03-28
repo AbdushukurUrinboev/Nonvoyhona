@@ -28,12 +28,12 @@ const StaffEdit = () => {
     const [phone2, setPhone2] = useState('');
     const [typeOfWorker, setTypeOfWorker] = useState('');
     const [adress, setAdress] = useState('');
-    const [group, setGroup] = useState('');
-    const [smena, setSmena] = useState('');
+    const [group, setGroup] = useState();
+    const [smena, setSmena] = useState();
     const [salary, setSalary] = useState('');
     const [birthday, setBirthday] = useState('');
     const [image, setImage] = useState('');
-   
+
 
     const { id } = useParams();
     const history = useHistory()
@@ -61,9 +61,8 @@ const StaffEdit = () => {
     }, [id])
 
 
-
     function handleChange(e) {
-       
+
         e.preventDefault();
         const fd = new FormData()
         fd.append('firstName', firstName)
@@ -117,7 +116,7 @@ const StaffEdit = () => {
                     </Col>
                     <Col lg="12">
                         <Card>
-                            <Card.Body>                               
+                            <Card.Body>
                                 <Row>
                                     <Col md="3" className="mb-3 mt-5">
                                         <Card.Body className="staffAddStyleCardBody mx-auto">
@@ -183,9 +182,17 @@ const StaffEdit = () => {
                                                 <div className='input-group'>
                                                     <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode(e.target.value)}>
                                                         <option value={phoneCode}>{phoneCode}</option>
+                                                        <option value="(71) ">(71)</option>
+                                                        <option value="(73) ">(73)</option>
+                                                        <option value="(90) ">(90)</option>
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
+                                                        <option value="(94) ">(98)</option>
+                                                        <option value="(94) ">(99)</option>
+                                                        <option value="(94) ">(97)</option>
+                                                        <option value="(94) ">(97)</option>
+                                                        <option value="(94) ">(92)</option>
                                                     </select>
                                                     <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} value={phone} onChange={e => setPhone(e.target.value)} />
                                                 </div>
@@ -199,16 +206,24 @@ const StaffEdit = () => {
                                                 <div className='input-group'>
                                                     <select value={phoneCode2} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode2(e.target.value)}>
                                                         <option value={phoneCode2}>{phoneCode2}</option>
+                                                        <option value="(71) ">(71)</option>
+                                                        <option value="(73) ">(73)</option>
+                                                        <option value="(90) ">(90)</option>
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
+                                                        <option value="(94) ">(98)</option>
+                                                        <option value="(94) ">(99)</option>
+                                                        <option value="(94) ">(97)</option>
+                                                        <option value="(94) ">(97)</option>
+                                                        <option value="(94) ">(92)</option>
                                                     </select>
                                                     <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} value={phone2} onChange={e => setPhone2(e.target.value)} />
                                                 </div>
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputcountry" className="font-weight-bold text-muted text-uppercase">Guruhi</Form.Label>
-                                                <select defaultValue="" id="inputcountry" className="form-select form-control choicesjs" onChange={e => setGroup(e.target.value)} >
+                                                <select defaultValue="" id="inputcountry" className="form-select form-control choicesjs" value={group} onChange={e => setGroup(e.target.value)} >
                                                     <option value="" hidden disabled>Guruhni tanlang...</option>
                                                     <option value="A-guruh">A - guruh</option>
                                                     <option value="B-guruh">B - guruh</option>
@@ -219,7 +234,7 @@ const StaffEdit = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputcountry" className="font-weight-bold text-muted text-uppercase">Ish smenasi</Form.Label>
-                                                <select defaultValue="" id="inputcountry" className="form-select form-control choicesjs" onChange={e => setSmena(e.target.value)} >
+                                                <select defaultValue="" id="inputcountry" className="form-select form-control choicesjs" value={smena} onChange={e => setSmena(e.target.value)} >
                                                     <option value="" hidden disabled>Smenani tanlang...</option>
                                                     <option value="1-smena">1 - smena</option>
                                                     <option value="2-smena">2 - smena</option>
@@ -228,7 +243,7 @@ const StaffEdit = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text7" className="font-weight-bold text-muted text-uppercase">Oyligi</Form.Label>
-                                                <Form.Control type="text" id="Text7" placeholder="Xodimning qancha oylik olishini kiriting..." onChange={e => { setSalary(e.target.value) }} />
+                                                <Form.Control type="text" id="Text7" value={salary} onChange={e => { setSalary(e.target.value) }} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <div className="text-right mt-2">

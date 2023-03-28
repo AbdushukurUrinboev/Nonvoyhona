@@ -201,10 +201,17 @@ const Ordernew = () => {
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Mijoz telefoni</Form.Label>
                                                 <div className='input-group'>
                                                     <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode(e.target.value)} disabled={mijozlar === true}>
+                                                    <option value="(71) ">(71)</option>
+                                                        <option value="(73) ">(73)</option>
                                                         <option value="(90) ">(90)</option>
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
+                                                        <option value="(94) ">(98)</option>
+                                                        <option value="(94) ">(99)</option>
+                                                        <option value="(94) ">(97)</option>
+                                                        <option value="(94) ">(97)</option>
+                                                        <option value="(94) ">(92)</option>
                                                     </select>
                                                     <Form.Control type="text" id="Text4" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} disabled={mijozlar === true} />
                                                 </div>

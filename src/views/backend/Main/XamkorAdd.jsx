@@ -20,9 +20,9 @@ const XamkorAdd = () => {
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [phoneCode, setPhoneCode] = useState();
+    const [phoneCode, setPhoneCode] = useState('90');
     const [phone, setPhone] = useState('');
-    const [phoneCode2, setPhoneCode2] = useState();
+    const [phoneCode2, setPhoneCode2] = useState('90');
     const [phone2, setPhone2] = useState('');
     const [address, setAddress] = useState('');
     const [workPlace, setWorkPlace] = useState('');
@@ -36,7 +36,7 @@ const XamkorAdd = () => {
     // const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
     const history = useHistory()
 
-    
+
 
     function handleChange(e) {
         e.preventDefault();
@@ -113,10 +113,17 @@ const XamkorAdd = () => {
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Telefon raqami</Form.Label>
                                                 <div className='input-group'>
                                                     <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode(e.target.value)}>
+                                                        <option value="(71) ">(71)</option>
+                                                        <option value="(73) ">(73)</option>
                                                         <option value="(90) ">(90)</option>
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
+                                                        <option value="(94) ">(98)</option>
+                                                        <option value="(94) ">(99)</option>
+                                                        <option value="(94) ">(97)</option>
+                                                        <option value="(94) ">(97)</option>
+                                                        <option value="(94) ">(92)</option>
                                                     </select>
                                                     <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} />
                                                 </div>
@@ -125,10 +132,17 @@ const XamkorAdd = () => {
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Telefon raqami 2</Form.Label>
                                                 <div className='input-group'>
                                                     <select value={phoneCode2} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode2(e.target.value)}>
+                                                        <option value="(71) ">(71)</option>
+                                                        <option value="(73) ">(73)</option>
                                                         <option value="(90) ">(90)</option>
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
+                                                        <option value="(94) ">(98)</option>
+                                                        <option value="(94) ">(99)</option>
+                                                        <option value="(94) ">(97)</option>
+                                                        <option value="(94) ">(97)</option>
+                                                        <option value="(94) ">(92)</option>
                                                     </select>
                                                     <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone2(e.target.value)} />
                                                 </div>

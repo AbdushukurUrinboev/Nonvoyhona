@@ -27,7 +27,7 @@ const Customeradd = () => {
     const [address, setAddress] = useState('');
     const [workPlace, setWorkPlace] = useState('');
 
-    const[error, setError] = useState(false);
+    const [error, setError] = useState(false);
 
 
 
@@ -38,10 +38,10 @@ const Customeradd = () => {
 
     function handleChange(e) {
         e.preventDefault();
-        if(firstName.length === 0 || lastName.length === 0 || status.length === 0 || phone.length === 0 || phone2.length === 0 || customerType.length === 0 || address.length === 0 || workPlace.length === 0) {
+        if (firstName.length === 0 || lastName.length === 0 || status.length === 0 || phone.length === 0 || phone2.length === 0 || customerType.length === 0 || address.length === 0 || workPlace.length === 0) {
             setError(true)
         }
-        if(firstName && lastName && status && phone && phone2 && customerType && address && workPlace) {
+        if (firstName && lastName && status && phone && phone2 && customerType && address && workPlace) {
             axios.post(CUSTOMERS_URL, {
                 firstName,
                 lastName,
@@ -51,7 +51,7 @@ const Customeradd = () => {
                 customerType,
                 address,
                 workPlace
-    
+
             })
                 .then(res => {
                     console.log("Data is saved", res)
@@ -59,7 +59,7 @@ const Customeradd = () => {
                 })
                 .catch(err => console.log(err))
         }
-        
+
 
 
     }
@@ -100,7 +100,7 @@ const Customeradd = () => {
                                 <Row>
 
                                     <Col md="12">
-                                        { error ? <p className='text-danger text-center font-weight-bold'>Ushbu qatorlarning barchasini to'ldirishingiz shart</p> : ''}
+                                        {error ? <p className='text-danger text-center font-weight-bold'>Ushbu qatorlarning barchasini to'ldirishingiz shart</p> : ''}
                                         <Form className="row g-3 date-icon-set-modal myStyleCustomerAdd">
                                             <div className="col-md-6 mb-3 mt-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Familiyasi</Form.Label>
@@ -114,10 +114,17 @@ const Customeradd = () => {
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Telefon raqami</Form.Label>
                                                 <div className='input-group'>
                                                     <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode(e.target.value)}>
+                                                        <option value="(71) ">(71)</option>
+                                                        <option value="(73) ">(73)</option>
                                                         <option value="(90) ">(90)</option>
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
+                                                        <option value="(94) ">(98)</option>
+                                                        <option value="(94) ">(99)</option>
+                                                        <option value="(94) ">(97)</option>
+                                                        <option value="(94) ">(97)</option>
+                                                        <option value="(94) ">(92)</option>
                                                     </select>
                                                     <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} />
                                                 </div>
@@ -126,10 +133,17 @@ const Customeradd = () => {
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Telefon raqami 2</Form.Label>
                                                 <div className='input-group'>
                                                     <select value={phoneCode2} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode2(e.target.value)}>
+                                                        <option value="(71) ">(71)</option>
+                                                        <option value="(73) ">(73)</option>
                                                         <option value="(90) ">(90)</option>
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
+                                                        <option value="(94) ">(98)</option>
+                                                        <option value="(94) ">(99)</option>
+                                                        <option value="(94) ">(97)</option>
+                                                        <option value="(94) ">(97)</option>
+                                                        <option value="(94) ">(92)</option>
                                                     </select>
                                                     <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone2(e.target.value)} />
                                                 </div>

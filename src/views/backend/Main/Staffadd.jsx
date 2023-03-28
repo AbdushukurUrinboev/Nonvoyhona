@@ -34,7 +34,7 @@ const Staffadd = () => {
 
     const history = useHistory()
 
-    
+
 
 
     function handleChange(e) {
@@ -160,10 +160,17 @@ const Staffadd = () => {
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Telefon raqami (shahsiy)</Form.Label>
                                                 <div className='input-group'>
                                                     <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode(e.target.value)}>
+                                                        <option value="(71) ">(71)</option>
+                                                        <option value="(73) ">(73)</option>
                                                         <option value="(90) ">(90)</option>
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
+                                                        <option value="(94) ">(98)</option>
+                                                        <option value="(94) ">(99)</option>
+                                                        <option value="(94) ">(97)</option>
+                                                        <option value="(94) ">(97)</option>
+                                                        <option value="(94) ">(92)</option>
                                                     </select>
                                                     <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} />
                                                 </div>
@@ -176,10 +183,17 @@ const Staffadd = () => {
                                                 <Form.Label htmlFor="Text7" className="font-weight-bold text-muted text-uppercase">Telefon raqami (uy)</Form.Label>
                                                 <div className='input-group'>
                                                     <select value={phoneCode2} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode2(e.target.value)}>
+                                                        <option value="(71) ">(71)</option>
+                                                        <option value="(73) ">(73)</option>
                                                         <option value="(90) ">(90)</option>
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
+                                                        <option value="(94) ">(98)</option>
+                                                        <option value="(94) ">(99)</option>
+                                                        <option value="(94) ">(97)</option>
+                                                        <option value="(94) ">(97)</option>
+                                                        <option value="(94) ">(92)</option>
                                                     </select>
                                                     <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone2(e.target.value)} />
                                                 </div>
@@ -206,7 +220,7 @@ const Staffadd = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text7" className="font-weight-bold text-muted text-uppercase">Oyligi</Form.Label>
-                                                <Form.Control type="text" id="Text7" placeholder="Xodimning qancha oylik olishini kiriting..." onChange={e => {setSalary(e.target.value)}} />
+                                                <Form.Control type="text" id="Text7" placeholder="Xodimning qancha oylik olishini kiriting..." onChange={e => { setSalary(e.target.value) }} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <div className="text-right mt-2">

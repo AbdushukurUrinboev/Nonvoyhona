@@ -108,7 +108,15 @@ const SailAdd = () => {
                                     </Col>
                                     <Col md="9">
                                         <Form className="row g-3 date-icon-set-modal">
-
+                                            <div className="col-md-6 mb-3">
+                                                <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Mijozni tanlang</Form.Label>
+                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => { setCustomerType(e.target.value); }}>
+                                                    <option value="no">Turi</option>
+                                                    <option value="Doimiy">Doimiy</option>
+                                                    <option value="Vaqtincha">Vaqtincha</option>
+                                                    <option value="zakazlar">Zakazlar</option>
+                                                </select>
+                                            </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Nonni tanlang</Form.Label>
                                                 <select id="inputState" className="form-select form-control choicesjs" value={breadName} onChange={e => setBreadName(e.target.value)} >
@@ -120,15 +128,7 @@ const SailAdd = () => {
                                                     }
                                                 </select>
                                             </div>
-                                            <div className="col-md-6 mb-3">
-                                                <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Mijozni tanlang</Form.Label>
-                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => { setCustomerType(e.target.value); }}>
-                                                    <option value="no">Turi</option>
-                                                    <option value="Doimiy">Doimiy</option>
-                                                    <option value="Vaqtincha">Vaqtincha</option>
-                                                    <option value="zakazlar">Zakazlar</option>
-                                                </select>
-                                            </div>
+
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Berayotgan Non soni</Form.Label>
                                                 <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." onChange={e => setQuantity(e.target.value)} />
@@ -148,16 +148,16 @@ const SailAdd = () => {
                                                     <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Kimga</Form.Label>
                                                     <Form.Control type="text" id="Text5" placeholder="Kim uchunligini kiriting..." onChange={e => setCustomer(e.target.value)} />
                                                 </div>) : customerType == "zakazlar" ? (<div className="col-md-6 mb-3">
-                                                <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Zakazlar ro'yhati</Form.Label>
-                                                <select id="inputState" className="form-select form-control choicesjs" value={customer} onChange={e => setCustomer(e.target.value)} >
-                                                    <option value="">Zakazlar ro'yxati</option>
-                                                    {
-                                                        customerList.map((cust, ind) => {
-                                                            return <option key={ind} value={cust.lastName + " " + cust.firstName}>{cust.lastName + " " + cust.firstName}</option>
-                                                        })
-                                                    }
-                                                </select>
-                                            </div>) : null
+                                                    <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Zakazlar ro'yhati</Form.Label>
+                                                    <select id="inputState" className="form-select form-control choicesjs" value={customer} onChange={e => setCustomer(e.target.value)} >
+                                                        <option value="">Zakazlar ro'yxati</option>
+                                                        {
+                                                            customerList.map((cust, ind) => {
+                                                                return <option key={ind} value={cust.lastName + " " + cust.firstName}>{cust.lastName + " " + cust.firstName}</option>
+                                                            })
+                                                        }
+                                                    </select>
+                                                </div>) : null
                                             }
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Avans</Form.Label>
