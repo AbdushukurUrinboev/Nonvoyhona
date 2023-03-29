@@ -153,7 +153,7 @@ const Order = () => {
 
                                         </div>
 
-                                        <button className='btn btn-success' onClick={() => {
+                                        <button className='btn btn-primary' onClick={() => {
                                             const startDate = document.getElementById("dateStart").value
                                             const endDate = document.getElementById("dateEnd").value
                                             const [smonth, sday, syear] = startDate.split('/');
