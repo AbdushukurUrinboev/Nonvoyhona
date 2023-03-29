@@ -79,7 +79,7 @@ const ProductEdit = () => {
         if(productName && description && productPrice && poductQuantity && umumiyNarhi && xamkor && berilganAvans && qolganPul) {
         
         const fd = new FormData()
-        fd.append('productName', productName)
+        // fd.append('productName', productName) // buni o'zgartirmaslikni o'zim qildim
         fd.append('changingID', id)
         fd.append('description', description)
         fd.append('productPrice', productPrice)

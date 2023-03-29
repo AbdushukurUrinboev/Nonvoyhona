@@ -7,7 +7,7 @@ import { SALE_URL } from '../../../API';
 import "react-datepicker/dist/react-datepicker.css";
 import './ProductAdd.css'
 
-import { breadDataContext, customersDataContext } from './ContextProvider/DataProvider';
+import { breadDataContext, customersDataContext, zakazBreadDataContext, sotuvBreadDataContext } from './ContextProvider/DataProvider';
 
 const SailAdd = () => {
     const [breadName, setBreadName] = useState(''); // 
@@ -22,6 +22,9 @@ const SailAdd = () => {
 
     const breadList = useContext(breadDataContext);
     const customerList = useContext(customersDataContext);
+    const zakazBreadList = useContext(zakazBreadDataContext)
+    const sotuvBreadList = useContext(sotuvBreadDataContext)
+
 
 
     function handleChange(e) {
@@ -48,8 +51,6 @@ const SailAdd = () => {
                 })
                 .catch(err => console.log(err))
         }
-
-
     }
 
 
@@ -122,10 +123,23 @@ const SailAdd = () => {
                                                 <select id="inputState" className="form-select form-control choicesjs" value={breadName} onChange={e => setBreadName(e.target.value)} >
                                                     <option value="no">Nonlar ro'yxati</option>
                                                     {
+                                                        customerType === "zakazlar" ? (
+                                                            
+                                                                zakazBreadList.map((bread, ind) => {
+                                                                    return <option key={ind} value={bread}>{bread}</option>
+                                                                })
+                                                            
+                                                        ) : (
+                                                            sotuvBreadList.map((bread, ind) => {
+                                                                return <option key={ind} value={bread}>{bread}</option>
+                                                            })
+                                                        ) 
+                                                    }
+                                                    {/* {
                                                         breadList.map((bread, ind) => {
                                                             return <option key={ind} value={bread.productName}>{bread.productName}</option>
                                                         })
-                                                    }
+                                                    } */}
                                                 </select>
                                             </div>
 

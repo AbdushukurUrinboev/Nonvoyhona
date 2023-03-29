@@ -13,6 +13,7 @@ import Avatar from '../../../assets/images/avatar.png'
 const Staffview = () => {
 
     const [currentStaff, setCurrentStaff] = useState({});
+    const [staffWorkHistory, setStaffWorkHistory] = useState([])
 
     const { id } = useParams();
     // console.log(id);
@@ -21,10 +22,13 @@ const Staffview = () => {
         axios.get(`http://localhost:4000/staff/${id}`)
             .then(res => {
                 setCurrentStaff(res.data)
-                // console.log(res.data);
+                setStaffWorkHistory(res.data.workHistory)
+                console.log(res.data.workHistory);
             })
             .catch(err => console.log(err))
     }, [id])
+
+  
 
     // console.log(currentStaff);
 
@@ -138,7 +142,7 @@ const Staffview = () => {
                                             <ListGroup.Item as="li" className="d-flex justify-content-start align-items-center">
                                                 <div className="h-avatar is-medium">
                                                     {/* <img className="avatar myStaffAvatar" alt="staff-icon" src={user1} /> */}
-                                                    <img className="avatar myStaffAvatar" alt="user-icon" src={currentStaff.image === 'none' ? Avatar : `http://localhost:4000/${currentStaff.image}`} style={{ width: "75px" }} />
+                                                    <img className="avatar myStaffAvatar" alt="user-icon" src={currentStaff.image === 'none' ? Avatar : currentStaff.image ? `http://localhost:4000/${currentStaff.image}` : ''} style={{ width: "75px" }} />
                                                 </div>
                                                 <div className="list-style-detail ml-4 mr-2">
                                                     <h5 className="font-weight-bold">{currentStaff.firstName}   {currentStaff.lastName}</h5>
@@ -210,10 +214,10 @@ const Staffview = () => {
                                         </tbody>
                                     </table>
                                 </ListGroup.Item>
-                                <ListGroup.Item as="li" >
+                                {/* <ListGroup.Item as="li" >
                                     <h6 className="font-weight-bold mt-2">Umumiy Statistika</h6>
                                     <Chart options={chart1.options} series={chart1.series} type="bar" height="250px" />
-                                </ListGroup.Item>
+                                </ListGroup.Item> */}
                             </ListGroup>
                         </Card>
                     </Col>
@@ -231,276 +235,37 @@ const Staffview = () => {
                                         <div className="p-2">
                                             <div className="container">
                                                 <div className="row align-items-center myHeaderProductStyle">
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">№</div>
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">Qopi</div>
+                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">№</div>
+                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Qopi</div>
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Sana</div>
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Guruh</div>
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Smena</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">Umumiy</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">Status</div>
+                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-right">Olgan puli</div>
 
                                                 </div>
                                             </div>
                                         </div>
 
-
-                                        <div className="p-2 border myStyleProduct ownStylePro">
-                                            <div className="container">
-                                                <div className="row align-items-center">
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">1</div>
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">2</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">12/02/2023</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">B-Guruh</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">1-smena</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">500.000</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left">
-                                                        <svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
-                                                            <circle cx="12" cy="12" r="8" fill="#3cb72c"></circle>
-                                                        </svg> To'landi
+                                        {
+                                            staffWorkHistory.map((elem, ind) => {
+                                                return <div key={ind} className="p-2 border myStyleProduct ownStylePro">
+                                                <div className="container">
+                                                    <div className="row align-items-center">
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{ind + 1}</div>
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{elem.qoplarSoni}</div>
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{elem.date}</div>
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{currentStaff.group}</div>
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{currentStaff.smena}</div>
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-right">{currentStaff.salary}</div>
+                                                       
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                            })
+                                        }
+                                       
 
-                                        <div className="p-2 border myStyleProduct ownStylePro">
-                                            <div className="container">
-                                                <div className="row align-items-center">
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">2</div>
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">5</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">15/02/2023</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">C-Guruh</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">2-smena</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">500.000</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left">
-                                                        <svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
-                                                            <circle cx="12" cy="12" r="8" fill="#3cb72c"></circle>
-                                                        </svg> To'landi
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div className="p-2 border myStyleProduct ownStylePro">
-                                            <div className="container">
-                                                <div className="row align-items-center">
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">3</div>
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">10</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">15/02/2023</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">D-Guruh</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">1-smena</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">500.000</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left">
-                                                        <svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
-                                                            <circle cx="12" cy="12" r="8" fill="#db7e06"></circle>
-                                                        </svg>Chala
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div className="p-2 border myStyleProduct ownStylePro">
-                                            <div className="container">
-                                                <div className="row align-items-center">
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">4</div>
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">1</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">17/02/2023</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">A-Guruh</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">1-smena</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">500.000</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left">
-                                                        <svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
-                                                            <circle cx="12" cy="12" r="8" fill="#F42B3D"></circle>
-                                                        </svg>To'lanmadi
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="p-2 border myStyleProduct ownStylePro">
-                                            <div className="container">
-                                                <div className="row align-items-center">
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">5</div>
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">5</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">15/02/2023</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">C-Guruh</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">2-smena</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">500.000</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left">
-                                                        <svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
-                                                            <circle cx="12" cy="12" r="8" fill="#F42B3D"></circle>
-                                                        </svg>To'lanmadi
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="p-2 border myStyleProduct ownStylePro">
-                                            <div className="container">
-                                                <div className="row align-items-center">
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">6</div>
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">5</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">15/02/2023</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">C-Guruh</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">2-smena</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">500.000</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left">
-                                                        <svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
-                                                            <circle cx="12" cy="12" r="8" fill="#db7e06"></circle>
-                                                        </svg>Chala
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div className="p-2 border myStyleProduct ownStylePro">
-                                            <div className="container">
-                                                <div className="row align-items-center">
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">7</div>
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">15</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">15/02/2023</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">C-Guruh</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">2-smena</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">500.000</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left">
-                                                        <svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
-                                                            <circle cx="12" cy="12" r="8" fill="#db7e06"></circle>
-                                                        </svg>Chala
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="p-2 border myStyleProduct ownStylePro">
-                                            <div className="container">
-                                                <div className="row align-items-center">
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">8</div>
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">2</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">12/02/2023</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">B-Guruh</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">1-smena</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">500.000</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left">
-                                                        <svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
-                                                            <circle cx="12" cy="12" r="8" fill="#3cb72c"></circle>
-                                                        </svg> To'landi
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="p-2 border myStyleProduct ownStylePro">
-                                            <div className="container">
-                                                <div className="row align-items-center">
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">9</div>
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">12</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">15/02/2023</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">C-Guruh</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">2-smena</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">500.000</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left">
-                                                        <svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
-                                                            <circle cx="12" cy="12" r="8" fill="#3cb72c"></circle>
-                                                        </svg> To'landi
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div className="p-2 border myStyleProduct ownStylePro">
-                                            <div className="container">
-                                                <div className="row align-items-center">
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">10</div>
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">5</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">15/02/2023</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">C-Guruh</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">2-smena</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">500.000</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left">
-                                                        <svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
-                                                            <circle cx="12" cy="12" r="8" fill="#db7e06"></circle>
-                                                        </svg>Chala
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div className="p-2 border myStyleProduct ownStylePro">
-                                            <div className="container">
-                                                <div className="row align-items-center">
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">11</div>
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">7</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">15/02/2023</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">C-Guruh</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">2-smena</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">500.000</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left">
-                                                        <svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
-                                                            <circle cx="12" cy="12" r="8" fill="#F42B3D"></circle>
-                                                        </svg>To'lanmadi
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="p-2 border myStyleProduct ownStylePro">
-                                            <div className="container">
-                                                <div className="row align-items-center">
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">12</div>
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">5</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">15/02/2023</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">C-Guruh</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">2-smena</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">500.000</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left">
-                                                        <svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
-                                                            <circle cx="12" cy="12" r="8" fill="#F42B3D"></circle>
-                                                        </svg>To'lanmadi
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="p-2 border myStyleProduct ownStylePro">
-                                            <div className="container">
-                                                <div className="row align-items-center">
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">13</div>
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">3</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">15/02/2023</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">C-Guruh</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">2-smena</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">500.000</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left">
-                                                        <svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
-                                                            <circle cx="12" cy="12" r="8" fill="#db7e06"></circle>
-                                                        </svg>Chala
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div className="p-2 border myStyleProduct ownStylePro">
-                                            <div className="container">
-                                                <div className="row align-items-center">
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">14</div>
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">9</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">15/02/2023</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">C-Guruh</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">2-smena</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">500.000</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left">
-                                                        <svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
-                                                            <circle cx="12" cy="12" r="8" fill="#db7e06"></circle>
-                                                        </svg>Chala
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
 
 
 

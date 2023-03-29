@@ -30,7 +30,7 @@ const Sail = () => {
         axios.get(SALE_URL)
             .then(res => {
                 setpostsSail(res.data);
-                console.log(res.data);
+                // console.log(res.data);
                 setLoading(false)
             })
             .catch(err => console.log(err))

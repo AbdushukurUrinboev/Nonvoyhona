@@ -1,7 +1,7 @@
 import React, {useState, createContext, useEffect} from "react";
 import axios from "axios";
 // import STORAGE_URL
-import { STORAGE_URL, CALCULATE_URL, CUSTOMERS_URL, STAFF_URL, XAMKOR_URL } from '../../../../API';
+import { STORAGE_URL, CALCULATE_URL, CUSTOMERS_URL, STAFF_URL, XAMKOR_URL, ORDERS_URL, SALE_URL } from '../../../../API';
 
 // Mahsulotlar datasi (masalan un, yog va hokazo)
 export const dataContext = createContext();
@@ -112,5 +112,52 @@ export function XamkorListData(props) {
         <xamkorDataContext.Provider value={xamkorList}>
             {props.children}
         </xamkorDataContext.Provider>
+    )
+}
+
+
+// Zakazlardagi non ruyhati
+
+export const zakazBreadDataContext = createContext()
+
+export function ZakazBreadListData(props) {
+    const [zakazBreadList, setZakazBreadList] = useState([]);
+
+    useEffect(() => {
+        axios.get(ORDERS_URL)
+        .then(res => {
+            let breadNames = res.data.map(elem => elem.order)   
+            setZakazBreadList(breadNames)
+        })
+    }, [])
+
+    return (
+        <zakazBreadDataContext.Provider value={zakazBreadList}>
+            {props.children}
+        </zakazBreadDataContext.Provider>
+    )
+}
+
+
+
+// Sotuvdagi non ruyhati
+
+export const sotuvBreadDataContext = createContext()
+
+export function SotuvBreadListData(props) {
+    const [sotuvBreadList, setSotuvBreadList] = useState([]);
+
+    useEffect(() => {
+        axios.get(SALE_URL)
+        .then(res => {
+            let breadNames = res.data.map(elem => elem.breadName)   
+            setSotuvBreadList(breadNames)
+        })
+    }, [])
+
+    return (
+        <sotuvBreadDataContext.Provider value={sotuvBreadList}>
+            {props.children}
+        </sotuvBreadDataContext.Provider>
     )
 }
