@@ -44,6 +44,7 @@ const Calculate = () => {
     const [addInputBonusNon, setAddInputBonusNon] = useState([]) // bonus non uchun qildim
     const [addInputJastaNon, setAddInputJastaNon] = useState([]) // jasta non uchun qildim
     const [choosenStaff, setChoosenStaff] = useState([])
+    const [error, setError] = useState(false);
 
     const breadList = useContext(breadDataContext);
     const customerList = useContext(customersDataContext);
@@ -54,6 +55,12 @@ const Calculate = () => {
     const [msg, setMsg] = useState('')
 
     const month = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
+    
+    const calculateOverallPrice = (tulovInput, bonusTulovInput) => { 
+        setJamiTulov(tulovInput + bonusTulovInput);       
+    }
+    
+    
     function handleChange(e) {
 
         const newAllBonus = allBonus.map((b) => {
@@ -67,32 +74,40 @@ const Calculate = () => {
         })
 
         e.preventDefault();
-        axios.post(DAILY_TASKS_URL, {
-            group,
-            smena,
-            xodim: choosenStaff,
-            qoplarSoni,
-            nonTuri,
-            nonSoni,
-            bonus: newAllBonus,
-            jastaNonSoni,
-            tulov,
-            bonusTulov,
-            jamiTulov
 
-        })
-            .then(res => {
-                if (res.data.status === 400) {
-                    console.log(res.data.msg);
-                    setMsg(res.data.msg)
-                } else {
-                    console.log("Data is saved", res)
-                    // alert("Ma'lumot saqlandi")
-                    history.push('/')
-                }
+        if (group.length === 0 || smena.length === 0 || choosenStaff.length === 0 || qoplarSoni.length === 0 || nonTuri.length === 0 || nonSoni.length === 0 || jastaNonSoni.length === 0 || tulov.length === 0 || jamiTulov.length === 0) {
+            setError(true)
+        }
+
+        if (group && smena && choosenStaff && qoplarSoni && nonTuri && nonSoni && jastaNonSoni && tulov && jamiTulov) {
+
+
+            axios.post(DAILY_TASKS_URL, {
+                group,
+                smena,
+                xodim: choosenStaff,
+                qoplarSoni,
+                nonTuri,
+                nonSoni,
+                bonus: newAllBonus,
+                jastaNonSoni,
+                tulov,
+                bonusTulov,
+                jamiTulov
+
             })
-            .catch(err => console.log(err))
-
+                .then(res => {
+                    if (res.data.status === 400) {
+                        console.log(res.data.msg);
+                        setMsg(res.data.msg)
+                    } else {
+                        console.log("Data is saved", res)
+                        // alert("Ma'lumot saqlandi")
+                        history.push('/')
+                    }
+                })
+                .catch(err => console.log(err))
+        }
 
     }
 
@@ -120,7 +135,7 @@ const Calculate = () => {
     }
 
 
-
+    
 
 
 
@@ -145,7 +160,7 @@ const Calculate = () => {
                             <div className="modalBg">
                                 <div className="myModal">
                                     <h4 className='mb-3'>{msg}</h4>
-                                    <img  src={LogoEmpty} alt="" />
+                                    <img src={LogoEmpty} alt="" />
                                     <button className='btn btn-primary' onClick={() => setMsg('')}>Orqaga</button>
                                 </div>
                             </div>
@@ -168,6 +183,7 @@ const Calculate = () => {
                                     <Col lg="12">
                                         <Card>
                                             <Card.Body>
+                                                {error ? <p className='text-danger text-center font-weight-bold'>Ushbu qatorlarning barchasini to'ldirishingiz shart</p> : ''}
                                                 <Row>
                                                     <Col md="12" className='mt-4'>
                                                         <Form className="row g-3 date-icon-set-modal myStyleCustomerAdd text-center">
@@ -347,7 +363,10 @@ const Calculate = () => {
                                                             </div>
                                                             <div className="col-md-6 mb-3">
                                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">To'lov</Form.Label>
-                                                                <Form.Control type="number" id="Text3" placeholder="Tolovni kiriting..." required='required' onChange={e => setTulov(Number(e.target.value))} />
+                                                                <Form.Control type="number" id="Text3" placeholder="Tolovni kiriting..." required='required' onChange={e => {
+                                                                    setTulov(Number(e.target.value))
+                                                                    calculateOverallPrice(Number(e.target.value), bonusTulov);
+                                                                } } />
                                                             </div>
 
                                                             {/* Bonus Non map */}
@@ -374,11 +393,14 @@ const Calculate = () => {
                                                             }
                                                             <div className="col-md-6 mb-3">
                                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase text-primary">Bonus To'lov</Form.Label>
-                                                                <Form.Control type="number" id="Text3" placeholder="Bonus to'lovni kiriting..." required='required' onChange={e => setBonusTulov(Number(e.target.value))} />
+                                                                <Form.Control type="number" id="Text3" placeholder="Bonus to'lovni kiriting..." required='required' onChange={e => {
+                                                                    setBonusTulov(Number(e.target.value))
+                                                                    calculateOverallPrice(tulov, Number(e.target.value));
+                                                                }} />
                                                             </div>
                                                             <div className="col-md-6 mb-3">
                                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Jami To'lov</Form.Label>
-                                                                <Form.Control type="number" id="Text3" placeholder="Jami to'lovni kiriting..." required='required' onChange={e => setJamiTulov(Number(e.target.value))} />
+                                                                <Form.Control type="number" id="Text3" placeholder="Jami to'lovni kiriting..." required='required' value={jamiTulov} onChange={e => setJamiTulov(Number(e.target.value))} />
                                                             </div>
 
                                                             {/* Jasta Non map */}

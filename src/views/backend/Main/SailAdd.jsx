@@ -86,7 +86,7 @@ const SailAdd = () => {
                             <Card.Body>
                                 {error ? <p className='text-danger text-center font-weight-bold'>Ushbu qatorlarning barchasini to'ldirishingiz shart</p> : ''}
                                 <Row>
-                                    <Col md="3" className="mb-3">
+                                    {/* <Col md="3" className="mb-3">
                                         <Card.Body className="sailAddStyleCardBody mt-3 mx-auto">
                                             <input type="file" className='sailAddStyleInput ' accept='image/png, image/jpg, image/jpeg' onChange={e => setUploadImage(e.target.files[0])} />
                                             <div className="d-flex justify-content-center mt-4">
@@ -106,8 +106,8 @@ const SailAdd = () => {
                                                 <p className="mb-0 text-muted font-weight-bold">Rasm yuklash</p>
                                             </div>
                                         </Card.Body>
-                                    </Col>
-                                    <Col md="9">
+                                    </Col> */}
+                                    <Col md="12">
                                         <Form className="row g-3 date-icon-set-modal">
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Mijozni tanlang</Form.Label>
@@ -190,7 +190,7 @@ const SailAdd = () => {
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                                 </svg>
-                                                Qo'shish
+                                               Taqsimlash
                                             </Link>
                                         </div>
 

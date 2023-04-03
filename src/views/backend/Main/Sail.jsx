@@ -114,7 +114,7 @@ const Sail = () => {
                                                 <Link to="/sale-add" className="btn myButtonSail qushishSail position-relative d-flex align-items-center justify-content-between">
                                                     <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                                    </svg>Qo'shish
+                                                    </svg>Taqsimlash
                                                 </Link>
                                             </div>
                                         </div>

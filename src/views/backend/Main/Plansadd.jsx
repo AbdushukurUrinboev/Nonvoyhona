@@ -23,7 +23,7 @@ const Plansadd = () => {
 
     function handleAdd(e) {
         e.preventDefault();
-        if (plan.length === 0 || person.length || status.length) {
+        if (plan.length === 0 || person.length === 0 || status.length === 0) {
             setError(true)
         }
         if (plan && person && status) {
