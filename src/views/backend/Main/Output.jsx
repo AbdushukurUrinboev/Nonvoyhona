@@ -124,7 +124,7 @@ const Output = () => {
 
 
                                         </div>
-                                        <button className='btn btn-success' onClick={() => {
+                                        <button className='btn btn-primary myButtonOutput position-relative d-flex align-items-center justify-content-between' onClick={() => {
                                             const startDate = document.getElementById("dateStart").value
                                             const endDate = document.getElementById("dateEnd").value
                                             const [smonth, sday, syear] = startDate.split('/');

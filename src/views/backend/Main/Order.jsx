@@ -32,7 +32,7 @@ const Order = () => {
     const filterOrdersList = (data) => {
         return data.filter((order) => {
             if (filterTextValue == "Bajarildi") {
-                console.log(order.status == "Bajarildi");
+                // console.log(order.status == "Bajarildi");
                 return order.status == "Bajarildi"
             } else if (filterTextValue == "Bajarilmoqda") {
                 return order.status == "Bajarilmoqda"
@@ -153,7 +153,7 @@ const Order = () => {
 
                                         </div>
 
-                                        <button className='btn btn-primary' onClick={() => {
+                                        <button className='btn btn-primary myButtonOutput position-relative d-flex align-items-center justify-content-between' onClick={() => {
                                             const startDate = document.getElementById("dateStart").value
                                             const endDate = document.getElementById("dateEnd").value
                                             const [smonth, sday, syear] = startDate.split('/');
