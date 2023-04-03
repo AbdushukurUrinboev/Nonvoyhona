@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { Link, useHistory } from 'react-router-dom'
@@ -73,7 +73,15 @@ const Productadd = () => {
 
     }
 
+    const [storage, setStorage] = useState([])
 
+    useEffect(() => {
+        axios.get(STORAGE_URL)
+            .then(res => setStorage(res.data))
+            .catch(err => console.log(err))
+    }, [])
+
+    const [otherProduct, setOtherProduct] = useState('')
 
     return (
         <>
@@ -132,8 +140,27 @@ const Productadd = () => {
                                         <Form className="row g-3 date-icon-set-modal">
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Nomi</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Mahsulot nomini kiriting..." onChange={e => setProductName(e.target.value)} required='required' />
+                                                <select className='custom-select' onChange={e => { setProductName(e.target.value); if (e.target.value == 'boshqasi') { setOtherProduct('boshqasi') } else (setOtherProduct('')) }}>
+                                                    {
+                                                        storage.map(post => {
+                                                            return (
+                                                                <option key={post._id} value={post.productName}>{post.productName}</option>
+                                                            )
+                                                        })
+                                                    }
+                                                    <option value="boshqasi">boshqasi</option>
+                                                </select>
                                             </div>
+                                            {
+                                                otherProduct.length > 0 ?
+                                                    <div className="col-md-6 mb-3">
+                                                        <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Boshqa mahsulot nomini kiriting</Form.Label>
+                                                        <Form.Control type="text" id="Text1" placeholder="Mahsulot nomini kiriting..." onChange={e => setProductName(e.target.value)} required='required' />
+                                                    </div>
+                                                    :
+                                                    null
+                                            }
+
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Narxi</Form.Label>
                                                 <Form.Control type="number" id="Text1" placeholder="Narxini kiriting..." value={productPrice} onChange={e => {
@@ -170,7 +197,7 @@ const Productadd = () => {
 
                                                         ))
                                                     }
-                                                    
+
                                                 </select>
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
