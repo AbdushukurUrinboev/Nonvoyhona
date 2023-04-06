@@ -126,8 +126,8 @@ export function ZakazBreadListData(props) {
     useEffect(() => {
         axios.get(ORDERS_URL)
         .then(res => {
-            let breadNames = res.data.map(elem => elem.order)   
-            setZakazBreadList(breadNames)
+            // let breadNames = res.data.map(elem => elem.order)   
+            setZakazBreadList(res.data)
         })
     }, [])
 
