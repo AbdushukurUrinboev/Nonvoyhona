@@ -21,6 +21,7 @@ const Productadd = () => {
     const [xamkor, setXamkor] = useState(""); //
     const [berilganAvans, setBerilganAvans] = useState(0);
     const [qolganPul, setQolganPul] = useState(0);
+    const [otherProduct, setOtherProduct] = useState('boshqasi')
     // const [olinganSana, setOlinganSana] = useState(new Date()); // 
     // const [olinganSoat, setOlinganSoat] = useState(new Date().getHours() + ":" + new Date().getMinutes()); //
     const [storageImage, setStorageImage] = useState(''); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
@@ -81,7 +82,6 @@ const Productadd = () => {
             .catch(err => console.log(err))
     }, [])
 
-    const [otherProduct, setOtherProduct] = useState('')
 
     return (
         <>
@@ -148,11 +148,11 @@ const Productadd = () => {
                                                             )
                                                         })
                                                     }
-                                                    <option value="boshqasi">boshqasi</option>
+                                                    <option selected value="boshqasi">boshqasi</option>
                                                 </select>
                                             </div>
                                             {
-                                                otherProduct.length > 0 ?
+                                                otherProduct === 'boshqasi' ?
                                                     <div className="col-md-6 mb-3">
                                                         <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Boshqa mahsulot nomini kiriting</Form.Label>
                                                         <Form.Control type="text" id="Text1" placeholder="Mahsulot nomini kiriting..." onChange={e => setProductName(e.target.value)} required='required' />

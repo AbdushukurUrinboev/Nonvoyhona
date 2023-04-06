@@ -103,7 +103,7 @@ const Calculate = () => {
                     } else {
                         console.log("Data is saved", res)
                         // alert("Ma'lumot saqlandi")
-                        history.push('/')
+                        history.push('/sale')
                     }
                 })
                 .catch(err => console.log(err))

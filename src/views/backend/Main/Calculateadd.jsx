@@ -15,39 +15,43 @@ const Calculateadd = () => {
 
     const [requiredItems, setRequiredItems] = useState([])
     const [productExpenses, setProductExpenses] = useState([])
-
-
+       
+    
     const [addInput, setAddInput] = useState([])
+    const [birQopUchunTulov, setBirQopUchunTulov] = useState(0)   
+    const [breadPerBag, setBreadPerBag] = useState(0)
+
     const [productInput, setProductInput] = useState('no')
     const [productName, setProductName] = useState('');
     const [productPrice, setProductPrice] = useState(0);
+
     const [others, setOthers] = useState(["Elektr", "Gaz", "Ko'mir", "Ovqat", "Yo'lkira", "Nonho'ja", "Sotuvchi", "Boshqalar"]);
     const [addOthersInput, setAddOthersInput] = useState([]);
 
 
     // const [breadQuantity, setBreadQuantity] = useState(0);    
-    const [pista, setPista] = useState(0);
-    const [bodom, setBodom] = useState(0);
-    const [yongoq, setYongoq] = useState(0);
-    const [un, setUn] = useState(1);
-    const [shakar, setShakar] = useState(0);
-    const [yog, setYog] = useState(0);
-    const [suzma, setSuzma] = useState(0);
-    const [suhoy, setSuhoy] = useState(0);
-    const [droj, setDroj] = useState(0);
-    const [kunjut, setKunjut] = useState(0);
-    const [sedana, setSedana] = useState(0);
-    const [tuz, setTuz] = useState(0);
-    const [keshu, setKeshu] = useState(0);
-    const [nonhuja, setNonhuja] = useState(0);
-    const [kumir, setKumir] = useState(0);
-    const [gaz, setGaz] = useState(0);
-    const [elektr, setElektr] = useState(0);
-    const [paket, setPaket] = useState(1);
-    const [ovqat, setOvqat] = useState(0);
-    const [sotuvchi, setSotuvchi] = useState(0);
-    const [ishHaqi, setIshHaqi] = useState(0);
-    const [boshqalar, setBoshqalar] = useState(0);
+    // const [pista, setPista] = useState(0);
+    // const [bodom, setBodom] = useState(0);
+    // const [yongoq, setYongoq] = useState(0);
+    // const [un, setUn] = useState(1);
+    // const [shakar, setShakar] = useState(0);
+    // const [yog, setYog] = useState(0);
+    // const [suzma, setSuzma] = useState(0);
+    // const [suhoy, setSuhoy] = useState(0);
+    // const [droj, setDroj] = useState(0);
+    // const [kunjut, setKunjut] = useState(0);
+    // const [sedana, setSedana] = useState(0);
+    // const [tuz, setTuz] = useState(0);
+    // const [keshu, setKeshu] = useState(0);
+    // const [nonhuja, setNonhuja] = useState(0);
+    // const [kumir, setKumir] = useState(0);
+    // const [gaz, setGaz] = useState(0);
+    // const [elektr, setElektr] = useState(0);
+    // const [paket, setPaket] = useState(1);
+    // const [ovqat, setOvqat] = useState(0);
+    // const [sotuvchi, setSotuvchi] = useState(0);
+    // const [ishHaqi, setIshHaqi] = useState(0);
+    // const [boshqalar, setBoshqalar] = useState(0);
 
     const [currOthers, setCurrOthers] = useState("No");
     const [freeValue, setFreeValue] = useState(undefined);
@@ -71,8 +75,11 @@ const Calculateadd = () => {
 
 
         fd.append('productName', productName);
+        fd.append('birQopUchunTulov', birQopUchunTulov);
+        fd.append('breadPerBag', breadPerBag);
         fd.append('productPrice', productPrice);
         fd.append('productImage', productImage);
+        
         for (var i = 0; i < requiredItems.length; i++) {
             fd.append('requiredItems[]', JSON.stringify(requiredItems[i]));
         }
@@ -230,6 +237,18 @@ const Calculateadd = () => {
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Non narhi</Form.Label>
                                                 <Form.Control type="number" id="Text3" placeholder="Non narhini kiriting..." required='required' onChange={e => setProductPrice(e.target.value)} value={productPrice} />
                                             </div>
+
+                                            <div className="col-md-6 mb-3">
+                                                <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Bir qop uchun to'lov</Form.Label>
+                                                <Form.Control type="number" id="Text3" placeholder="Non narhini kiriting..." required='required' onChange={e => setBirQopUchunTulov(e.target.value)} value={birQopUchunTulov} /> 
+                                            </div>
+
+                                            <div className="col-md-6 mb-3">
+                                                <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Bir qopdan chiqadigan non soni</Form.Label>
+                                                <Form.Control type="number" id="Text3" placeholder="Non narhini kiriting..." required='required' onChange={e => setBreadPerBag(e.target.value)} value={breadPerBag} />
+                                            </div>
+
+
                                             {/* Mahsulotlarni qo'shish */}
                                             {
                                                 addInput.map((item, index) => {

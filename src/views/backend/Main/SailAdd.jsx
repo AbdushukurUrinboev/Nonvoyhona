@@ -16,7 +16,7 @@ const SailAdd = () => {
     const [customer, setCustomer] = useState(''); // 
     const [avans, setAvans] = useState(0);
     const [all, setAll] = useState(0);
-    const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
+    // const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
     const [error, setError] = useState(false);
     const history = useHistory()
 
@@ -25,31 +25,45 @@ const SailAdd = () => {
     const zakazBreadList = useContext(zakazBreadDataContext)
     const sotuvBreadList = useContext(sotuvBreadDataContext)
 
-
+   
 
     function handleChange(e) {
-        console.log("asb");
         e.preventDefault();
-        if (breadName.length === 0 || quantity.length === 0 || customer.length === 0 || avans.length === 0 || all.length === 0) {
-            setError(true);
-            console.log("Err");
-        }
-        if (breadName && quantity && customer && avans && all) {
+        // if (breadName.length === 0 || quantity.length === 0 || customer.length === 0 || customerType.length === 0 || avans.length === 0 || all.length === 0) {
+        //     setError(true);
+        //     console.log("Err");
+        // }
+        if (breadName && quantity && customer && customerType && avans && all) {
             console.log("working");
+
+            console.log(
+                {
+                    breadName,
+                    quantity,
+                    customerType,
+                    customer,
+                    avans,
+                    all
+                  
+                }
+            );
             axios.post(SALE_URL, {
                 breadName,
                 quantity,
                 customerType,
                 customer,
                 avans,
-                all,
-                uploadImage
+                all
+               
             })
                 .then(res => {
                     console.log("Data is saved", res)
                     history.push('/sale')
                 })
-                .catch(err => console.log(err))
+                .catch(err =>  {
+                    console.log(err)
+                   
+                })
         }
     }
 
@@ -121,22 +135,22 @@ const SailAdd = () => {
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Nonni tanlang</Form.Label>
                                                 <select id="inputState" className="form-select form-control choicesjs" value={breadName} onChange={e => setBreadName(e.target.value)} >
-                                                    <option value="no">Nonlar ro'yxati</option>
+                                                    <option defaultValue="no">Nonlar ro'yxati</option>
                                                     {
                                                         customerType === "zakazlar" ? (
                                                             
-                                                                zakazBreadList.map((bread, ind) => {
+                                                                zakazBreadList.map((bread, ind) => {                                                                   
                                                                     return <option key={ind} value={bread}>{bread}</option>
                                                                 })
                                                             
                                                         ) : (
-                                                            sotuvBreadList.map((bread, ind) => {
+                                                            sotuvBreadList.map((bread, ind) => {                                                               
                                                                 return <option key={ind} value={bread}>{bread}</option>
                                                             })
                                                         ) 
                                                     }
                                                     {/* {
-                                                        breadList.map((bread, ind) => {
+                                                       breadList && breadList.map((bread, ind) => {
                                                             return <option key={ind} value={bread.productName}>{bread.productName}</option>
                                                         })
                                                     } */}
@@ -145,7 +159,7 @@ const SailAdd = () => {
 
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Berayotgan Non soni</Form.Label>
-                                                <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." onChange={e => setQuantity(e.target.value)} />
+                                                <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." onChange={e => setQuantity(Number(e.target.value))} value={quantity} />
                                             </div>
                                             {
                                                 customerType == "Doimiy" ? (<div className="col-md-6 mb-3">
@@ -175,11 +189,11 @@ const SailAdd = () => {
                                             }
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Avans</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Mijoz bergan avansini kiriting..." onChange={e => setAvans(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" placeholder="Mijoz bergan avansini kiriting..." onChange={e => setAvans(Number(e.target.value))} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Jami</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Jami pul..." onChange={e => setAll(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" placeholder="Jami pul..." onChange={e => setAll(Number(e.target.value))} required='required' />
                                             </div>
 
 
