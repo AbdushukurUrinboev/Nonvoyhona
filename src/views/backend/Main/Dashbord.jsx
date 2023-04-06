@@ -32,6 +32,8 @@ const Dashbord = () => {
     const[nasiya, setNasiya] = useState('');
     const[foyda, setFoyda] = useState('');
     const[xarajat, setXarajat] = useState('');
+    const[ommabopNon, setOmmabopNon] = useState([]);
+
 
 
     useEffect(() => {
@@ -46,6 +48,7 @@ const Dashbord = () => {
         .then(res => {
             setFoyda(res.data.reduce((a,b) => a = a + b.overallPrice, 0));
             // res.data.reduce((a,b) => a = a + b.overall, 0)
+            setOmmabopNon(res.data)
         })
         .catch(err => console.log(err))
 
@@ -56,14 +59,32 @@ const Dashbord = () => {
         })
         .catch(err => console.log(err))
 
+        
+
+
+
     },[])
 
     const getData = (st, ed) => {
         axios.get(`http://localhost:4000/report/expenses?startDate=${st}&endDate=${ed}`)
         .then(({data: receivedDT}) => {
-            // setOrders(receivedDT);
+            setXarajat(receivedDT);
         })
+
+        axios.get(`http://localhost:4000/report/nasiya?startDate=${st}&endDate=${ed}`)
+        .then(({data: receivedDT}) => {
+            setNasiya(receivedDT);
+        })
+
+        axios.get(`http://localhost:4000/report/daromat?startDate=${st}&endDate=${ed}`)
+        .then(({data: receivedDT}) => {
+            setFoyda(receivedDT);
+        })
+
+
     }
+
+    
 
     const chart1 = {
         options: {
