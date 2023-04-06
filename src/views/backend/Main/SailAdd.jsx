@@ -29,10 +29,10 @@ const SailAdd = () => {
 
     function handleChange(e) {
         e.preventDefault();
-        // if (breadName.length === 0 || quantity.length === 0 || customer.length === 0 || customerType.length === 0 || avans.length === 0 || all.length === 0) {
-        //     setError(true);
-        //     console.log("Err");
-        // }
+        if (breadName.length === 0 || quantity.length === 0 || customer.length === 0 || customerType.length === 0 || avans.length === 0 || all.length === 0) {
+            setError(true);
+            console.log("Err");
+        }
         if (breadName && quantity && customer && customerType && avans && all) {
             console.log("working");
 
