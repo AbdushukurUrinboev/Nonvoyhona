@@ -17,6 +17,7 @@ const SailAdd = () => {
     const [avans, setAvans] = useState(0);
     const [price, setPrice] = useState(0);
     const [customerID, setCustomerID] = useState(0);
+    const [breadPrice, setBreadPrice] = useState(0);
 
     // const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
     const [error, setError] = useState(false);
@@ -27,7 +28,7 @@ const SailAdd = () => {
     const zakazBreadList = useContext(zakazBreadDataContext)
     const sotuvBreadList = useContext(sotuvBreadDataContext)
 
-   
+    // console.log(breadList);
 
     function handleChange(e) {
         e.preventDefault();
@@ -47,7 +48,7 @@ const SailAdd = () => {
                     avans,
                     price,
                     customerID
-                  
+
                 }
             );
             axios.post(SALE_URL, {
@@ -58,27 +59,40 @@ const SailAdd = () => {
                 avans,
                 price,
                 customerID
-               
+
             })
                 .then(res => {
                     console.log("Data is saved", res)
                     history.push('/sale')
                 })
-                .catch(err =>  {
+                .catch(err => {
                     console.log(err)
-                   
+
                 })
         }
     }
 
 
     const onChangeHandler = (e) => {
-        setOrder(e.target.value)
+        let currentBread = e.target.value
+        setOrder(currentBread)
         const index = e.target.selectedIndex;
         const el = e.target.childNodes[index]
-        const option =  el.getAttribute('id');  
+        const option = el.getAttribute('id');
         setCustomerID(option);
-      }
+
+        breadList.map(elem => {            
+            if(elem.productName === currentBread) {
+                setBreadPrice(elem.productPrice);
+            }
+        })
+
+    }
+
+    const calculateOverallPrice = (productPriceInput, poductQuantityInput, productAvans) => {
+        setPrice((poductQuantityInput * productPriceInput) - productAvans);        
+    }
+
 
 
     return (
@@ -150,16 +164,16 @@ const SailAdd = () => {
                                                     <option defaultValue="no">Nonlar ro'yxati</option>
                                                     {
                                                         customerType === "zakazlar" ? (
-                                                            
-                                                            zakazBreadList.map((bread, ind) => {                                                                                                                              
-                                                                    return <option id={bread._id} key={bread._id} value={bread.order}>{bread.order}</option>
-                                                                })
-                                                            
+
+                                                            zakazBreadList.map((bread, ind) => {
+                                                                return <option id={bread._id} key={bread._id} value={bread.order}>{bread.order}</option>
+                                                            })
+
                                                         ) : (
-                                                            sotuvBreadList.map((bread, ind) => {                        
+                                                            sotuvBreadList.map((bread, ind) => {
                                                                 return <option key={ind} value={bread}>{bread}</option>
                                                             })
-                                                        ) 
+                                                        )
                                                     }
                                                     {/* {
                                                        breadList && breadList.map((bread, ind) => {
@@ -169,9 +183,20 @@ const SailAdd = () => {
                                                 </select>
                                             </div>
 
+                                             <div className="col-md-6 mb-3">
+                                                <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Berayotgan Non narhi</Form.Label>
+                                                <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." value={breadPrice} onChange={e => {
+                                                    setBreadPrice(Number(e.target.value))
+                                                    calculateOverallPrice(Number(e.target.value), productQuantity, avans)
+                                                } }/>
+                                            </div>
+
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Berayotgan Non soni</Form.Label>
-                                                <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." onChange={e => setProductQuantity(Number(e.target.value))} value={productQuantity} />
+                                                <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." value={productQuantity} onChange={e => {
+                                                    setProductQuantity(Number(e.target.value))
+                                                    calculateOverallPrice(breadPrice, Number(e.target.value), avans)
+                                                } }  />
                                             </div>
                                             {
                                                 customerType == "Doimiy" ? (<div className="col-md-6 mb-3">
@@ -201,11 +226,14 @@ const SailAdd = () => {
                                             }
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Avans</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Mijoz bergan avansini kiriting..." onChange={e => setAvans(Number(e.target.value))} required='required' />
+                                                <Form.Control type="text" id="Text1" placeholder="Mijoz bergan avansini kiriting..." onChange={e => {
+                                                    setAvans(Number(e.target.value))
+                                                    calculateOverallPrice(breadPrice, productQuantity, Number(e.target.value))
+                                                } } required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Jami</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Jami pul..." onChange={e => setPrice(Number(e.target.value))} required='required' />
+                                                <Form.Control type="text" id="Text1" placeholder="Jami pul..." value={price} onChange={e => setPrice(Number(e.target.value))} required='required' />
                                             </div>
 
 
@@ -216,7 +244,7 @@ const SailAdd = () => {
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                                 </svg>
-                                               Taqsimlash
+                                                Taqsimlash
                                             </Link>
                                         </div>
 
