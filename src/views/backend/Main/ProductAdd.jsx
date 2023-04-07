@@ -148,7 +148,7 @@ const Productadd = () => {
                                                             )
                                                         })
                                                     }
-                                                    <option selected value="boshqasi">boshqasi</option>
+                                                    <option defaultValue="boshqasi">boshqasi</option>
                                                 </select>
                                             </div>
                                             {
