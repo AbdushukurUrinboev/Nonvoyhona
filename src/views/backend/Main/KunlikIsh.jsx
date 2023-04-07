@@ -31,18 +31,22 @@ const Calculate = () => {
     const [allBonus, setAllBonus] = useState([]);
     const [group, setGroup] = useState('');
     const [smena, setSmena] = useState('');
-    const [qoplarSoni, setQoplarSoni] = useState('');
+    const [qoplarSoni, setQoplarSoni] = useState(0);
     const [nonTuri, setNonTuri] = useState('');
-    const [nonSoni, setNonSoni] = useState('');
+    const [nonSoni, setNonSoni] = useState(0);
     const [jastaNonSoni, setJastaNonSoni] = useState('');
     const [bonusNon, setBonusNon] = useState('');
     const [jastaNonTuri, setJastaNonTuri] = useState('');
-    const [tulov, setTulov] = useState('');
-    const [bonusTulov, setBonusTulov] = useState('');
-    const [jamiTulov, setJamiTulov] = useState('');
+    const [tulov, setTulov] = useState(0);
+    const [bonusTulov, setBonusTulov] = useState(0);
+    const [jamiTulov, setJamiTulov] = useState(0);
     const [sana, setSana] = useState(new Date());
     const [addInputBonusNon, setAddInputBonusNon] = useState([]) // bonus non uchun qildim
     const [addInputJastaNon, setAddInputJastaNon] = useState([]) // jasta non uchun qildim
+    const [birQopUchunTulov, setBirQopUchunTulov] = useState(0) 
+
+    const [breadInfo, setBreadInfo] = useState({}) 
+
     const [choosenStaff, setChoosenStaff] = useState([])
     const [error, setError] = useState(false);
 
@@ -55,12 +59,12 @@ const Calculate = () => {
     const [msg, setMsg] = useState('')
 
     const month = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
-    
-    const calculateOverallPrice = (tulovInput, bonusTulovInput) => { 
-        setJamiTulov(tulovInput + bonusTulovInput);       
+
+    const calculateOverallPrice = (tulovInput, bonusTulovInput) => {
+        setJamiTulov(tulovInput + bonusTulovInput);
     }
-    
-    
+
+
     function handleChange(e) {
 
         const newAllBonus = allBonus.map((b) => {
@@ -135,10 +139,29 @@ const Calculate = () => {
     }
 
 
-    
+    function onChange(e) {
+        setNonTuri(e.target.value)
+        breadList.map(elem => {
+            if (e.target.value === elem.productName) {
+                setBreadInfo(elem);
+                setBirQopUchunTulov(elem.birQopUchunTulov)
+                calculateOverallQuantity(elem.breadPerBag, qoplarSoni )
+                calculateQoplarUchunTulov(elem.birQopUchunTulov, qoplarSoni);
+            }
+        })
+
+    }
 
 
+    const calculateOverallQuantity = (perProductPriceInput, perPoductQuantityInput) => {
+        setNonSoni(perProductPriceInput * perPoductQuantityInput);
+        // console.log(perProductPriceInput * perPoductQuantityInput);
+    }
 
+    const calculateQoplarUchunTulov = (perProductPriceInput, perPoductQuantityInput) => {
+        setTulov(perProductPriceInput * perPoductQuantityInput);
+        // console.log(perProductPriceInput * perPoductQuantityInput);
+    }
 
     return (
         <>
@@ -190,7 +213,7 @@ const Calculate = () => {
                                                             <div className="col-md-4 mb-3 mt-3">
                                                                 {/* Asosiy non */}
                                                                 <Form.Label htmlFor="inputState" className="font-weight-bold text-muted text-uppercase">Nonni tanlang</Form.Label>
-                                                                <select id="inputState" className="form-select form-control choicesjs" value={nonTuri} onChange={e => setNonTuri(e.target.value)}>
+                                                                <select id="inputState" className="form-select form-control choicesjs" value={nonTuri} onChange={onChange}>
                                                                     <option value="no">Nonlar ro'yxati</option>
                                                                     {
                                                                         breadList.map((bread, ind) => {
@@ -290,7 +313,11 @@ const Calculate = () => {
                                                             </div>
                                                             <div className="col-md-6 mb-3">
                                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Qoplar Soni</Form.Label>
-                                                                <Form.Control type="number" id="Text5" placeholder="Qoplar sonini kiriting..." onChange={e => setQoplarSoni(Number(e.target.value))} />
+                                                                <Form.Control type="number" id="Text5" placeholder="Qoplar sonini kiriting..." onChange={e => {
+                                                                    setQoplarSoni(Number(e.target.value))
+                                                                    calculateOverallQuantity(breadInfo.breadPerBag, Number(e.target.value))
+                                                                    calculateQoplarUchunTulov(breadInfo.birQopUchunTulov, Number(e.target.value))
+                                                                }} />
                                                             </div>
                                                             {/* <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="font-weight-bold text-muted text-uppercase">Nonni tanlang</Form.Label>
@@ -305,7 +332,7 @@ const Calculate = () => {
                                             </div> */}
                                                             <div className="col-md-6 mb-3">
                                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Non Soni</Form.Label>
-                                                                <Form.Control type="number" id="Text3" placeholder="Yopilgan nonlar sonini kiriting..." required='required' onChange={e => setNonSoni(Number(e.target.value))} />
+                                                                <Form.Control type="number" id="Text3" placeholder="Yopilgan nonlar sonini kiriting..." required='required' value={nonSoni} onChange={e => setNonSoni(Number(e.target.value))} />
                                                             </div>
 
 
@@ -363,10 +390,10 @@ const Calculate = () => {
                                                             </div>
                                                             <div className="col-md-6 mb-3">
                                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">To'lov</Form.Label>
-                                                                <Form.Control type="number" id="Text3" placeholder="Tolovni kiriting..." required='required' onChange={e => {
+                                                                <Form.Control type="number" id="Text3" placeholder="Tolovni kiriting..." required='required' value={tulov} onChange={e => {
                                                                     setTulov(Number(e.target.value))
                                                                     calculateOverallPrice(Number(e.target.value), bonusTulov);
-                                                                } } />
+                                                                }} />
                                                             </div>
 
                                                             {/* Bonus Non map */}
