@@ -28,7 +28,7 @@ const SailAdd = () => {
     const zakazBreadList = useContext(zakazBreadDataContext)
     const sotuvBreadList = useContext(sotuvBreadDataContext)
 
-  
+
 
     function handleChange(e) {
         e.preventDefault();
@@ -72,7 +72,7 @@ const SailAdd = () => {
         }
     }
 
-    
+
 
     const onChangeHandler = (e) => {
         let currentBread = e.target.value
@@ -83,28 +83,28 @@ const SailAdd = () => {
         setCustomerID(option);
 
 
-        breadList.map(elem => {            
-            if(elem.productName === currentBread) {
+        breadList.map(elem => {
+            if (elem.productName === currentBread) {
                 setBreadPrice(elem.productPrice);
-                
+
             }
         })
 
-        if(customerType === 'zakaz') {
-            zakazBreadList.map(elem => {              
-                if(elem._id === option) {
+        if (customerType === 'zakaz') {
+            zakazBreadList.map(elem => {
+                if (elem._id === option) {
                     setProductQuantity(elem.productQuantity);
                     // console.log(elem.productQuantity);
-                    
+
                 }
             })
         }
-        
+
 
     }
 
     const calculateOverallPrice = (productPriceInput, poductQuantityInput, productAvans) => {
-        setPrice((poductQuantityInput * productPriceInput) - productAvans);        
+        setPrice((poductQuantityInput * productPriceInput) - productAvans);
     }
 
 
@@ -188,11 +188,15 @@ const SailAdd = () => {
                                                     <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Kimga</Form.Label>
                                                     <Form.Control type="text" id="Text5" placeholder="Kim uchunligini kiriting..." onChange={e => setCustomer(e.target.value)} />
                                                 </div>) : customerType == "zakaz" ? (<div className="col-md-6 mb-3">
-                                                    <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Zakazlar ro'yhati</Form.Label>
+                                                    <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Zakaz bergan mijozlar ro'yhati</Form.Label>
                                                     <select id="inputState" className="form-select form-control choicesjs" value={customer} onChange={e => setCustomer(e.target.value)} >
                                                         <option value="">Zakazlar ro'yxati</option>
                                                         {
-                                                            zakazBreadList.map((cust, ind) => {
+                                                            zakazBreadList.filter((obj, index, self) =>
+                                                                index === self.findIndex((t) => (
+                                                                    t.customer === obj.customer
+                                                                ))
+                                                            ).map((cust, ind) => {
                                                                 return <option key={ind} value={cust.customer}>{cust.customer}</option>
                                                             })
                                                         }
@@ -226,12 +230,12 @@ const SailAdd = () => {
                                                 </select>
                                             </div>
 
-                                             <div className="col-md-6 mb-3">
+                                            <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Berayotgan Non narhi</Form.Label>
                                                 <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." value={breadPrice} onChange={e => {
                                                     setBreadPrice(Number(e.target.value))
                                                     calculateOverallPrice(Number(e.target.value), productQuantity, avans)
-                                                } }/>
+                                                }} />
                                             </div>
 
                                             <div className="col-md-6 mb-3">
@@ -239,15 +243,15 @@ const SailAdd = () => {
                                                 <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." value={productQuantity} onChange={e => {
                                                     setProductQuantity(Number(e.target.value))
                                                     calculateOverallPrice(breadPrice, Number(e.target.value), avans)
-                                                } }  />
+                                                }} />
                                             </div>
-                                            
+
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Avans</Form.Label>
                                                 <Form.Control type="text" id="Text1" placeholder="Mijoz bergan avansini kiriting..." onChange={e => {
                                                     setAvans(Number(e.target.value))
                                                     calculateOverallPrice(breadPrice, productQuantity, Number(e.target.value))
-                                                } } required='required' />
+                                                }} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Jami</Form.Label>
