@@ -33,6 +33,7 @@ const Dashbord = () => {
     const[foyda, setFoyda] = useState('');
     const[xarajat, setXarajat] = useState('');
     const[ommabopNon, setOmmabopNon] = useState([]);
+    const[currentFoyda, setCurrentFoyda] = useState(0);
 
 
 
@@ -66,21 +67,24 @@ const Dashbord = () => {
     },[])
 
     const getData = (st, ed) => {
+        
         axios.get(`http://localhost:4000/report/expenses?startDate=${st}&endDate=${ed}`)
-        .then(({data: receivedDT}) => {
-            setXarajat(receivedDT);
+        .then(({data: receivedDT}) => {            
+            let currentXarajat = receivedDT.reduce((acc, a) => a.overallPrice + acc, 0) 
+            setXarajat(currentXarajat);
         })
 
         axios.get(`http://localhost:4000/report/nasiya?startDate=${st}&endDate=${ed}`)
         .then(({data: receivedDT}) => {
-            setNasiya(receivedDT);
+            let currentNasiya = receivedDT.reduce((acc, a) => a.overall + acc, 0) 
+            setNasiya(currentNasiya);
         })
 
         axios.get(`http://localhost:4000/report/daromat?startDate=${st}&endDate=${ed}`)
         .then(({data: receivedDT}) => {
+            setCurrentFoyda(receivedDT.reduce((acc, a) => a.overallPrice + acc, 0))            
             setFoyda(receivedDT);
         })
-
 
     }
 
@@ -349,7 +353,7 @@ const Dashbord = () => {
                                         <div className="align-items-center" >
                                             <p className="mb-2 text-secondary" style={{ fontSize: '18px', fontWeight: '600', lineHeight: '21px', color: '#52BA00', textAlign: 'center' }}>Umumiy Foyda</p>
                                             <div className="flex-wrap justify-content-start align-items-center">
-                                                <h5 className="mb-0 font-weight-bold" style={{ fontSize: '22px', fontWeight: '700', textAlign: 'center' }}>{foyda} so'm</h5>
+                                                <h5 className="mb-0 font-weight-bold" style={{ fontSize: '22px', fontWeight: '700', textAlign: 'center' }}>{currentFoyda} so'm</h5>
                                             </div>
                                         </div>
                                     </div>

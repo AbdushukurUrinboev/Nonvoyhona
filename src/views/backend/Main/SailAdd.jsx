@@ -12,7 +12,7 @@ import { breadDataContext, customersDataContext, zakazBreadDataContext, sotuvBre
 const SailAdd = () => {
     const [order, setOrder] = useState(''); // 
     const [productQuantity, setProductQuantity] = useState(0);
-    const [customerType, setCustomerType] = useState(''); // 
+    const [customerType, setCustomerType] = useState('no'); // 
     const [customer, setCustomer] = useState(''); // 
     const [avans, setAvans] = useState(0);
     const [price, setPrice] = useState(0);
@@ -28,7 +28,7 @@ const SailAdd = () => {
     const zakazBreadList = useContext(zakazBreadDataContext)
     const sotuvBreadList = useContext(sotuvBreadDataContext)
 
-    // console.log(breadList);
+  
 
     function handleChange(e) {
         e.preventDefault();
@@ -39,18 +39,18 @@ const SailAdd = () => {
         if (order && productQuantity && customer && customerType && avans && price) {
             console.log("working");
 
-            console.log(
-                {
-                    order,
-                    productQuantity,
-                    customerType,
-                    customer,
-                    avans,
-                    price,
-                    customerID
+            // console.log(
+            //     {
+            //         order,
+            //         productQuantity,
+            //         customerType,
+            //         customer,
+            //         avans,
+            //         price,
+            //         customerID
 
-                }
-            );
+            //     }
+            // );
             axios.post(SALE_URL, {
                 order,
                 productQuantity,
@@ -72,6 +72,7 @@ const SailAdd = () => {
         }
     }
 
+    
 
     const onChangeHandler = (e) => {
         let currentBread = e.target.value
@@ -81,11 +82,24 @@ const SailAdd = () => {
         const option = el.getAttribute('id');
         setCustomerID(option);
 
+
         breadList.map(elem => {            
             if(elem.productName === currentBread) {
                 setBreadPrice(elem.productPrice);
+                
             }
         })
+
+        if(customerType === 'zakaz') {
+            zakazBreadList.map(elem => {              
+                if(elem._id === option) {
+                    setProductQuantity(elem.productQuantity);
+                    // console.log(elem.productQuantity);
+                    
+                }
+            })
+        }
+        
 
     }
 
@@ -151,29 +165,58 @@ const SailAdd = () => {
                                         <Form className="row g-3 date-icon-set-modal">
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Mijozni tanlang</Form.Label>
-                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => { setCustomerType(e.target.value); }}>
+                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => { setCustomerType(e.target.value); setProductQuantity(0); setBreadPrice(0) }}>
                                                     <option value="no">Turi</option>
-                                                    <option value="Doimiy">Doimiy</option>
-                                                    <option value="Vaqtincha">Vaqtincha</option>
-                                                    <option value="zakazlar">Zakazlar</option>
+                                                    <option value="daily">Doimiy</option>
+                                                    <option value="temporary">Vaqtincha</option>
+                                                    <option value="zakaz">Zakazlar</option>
                                                 </select>
                                             </div>
+
+                                            {
+                                                customerType == "daily" ? (<div className="col-md-6 mb-3">
+                                                    <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Mijozlar ro'yhati</Form.Label>
+                                                    <select id="inputState" className="form-select form-control choicesjs" value={customer} onChange={e => setCustomer(e.target.value)} >
+                                                        <option value="">Mijozlar ro'yxati</option>
+                                                        {
+                                                            customerList.map((cust, ind) => {
+                                                                return <option key={ind} value={cust.firstName + " " + cust.lastName}>{cust.lastName + " " + cust.firstName}</option>
+                                                            })
+                                                        }
+                                                    </select>
+                                                </div>) : customerType == "temporary" ? (<div className="col-md-6 mb-3">
+                                                    <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Kimga</Form.Label>
+                                                    <Form.Control type="text" id="Text5" placeholder="Kim uchunligini kiriting..." onChange={e => setCustomer(e.target.value)} />
+                                                </div>) : customerType == "zakaz" ? (<div className="col-md-6 mb-3">
+                                                    <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Zakazlar ro'yhati</Form.Label>
+                                                    <select id="inputState" className="form-select form-control choicesjs" value={customer} onChange={e => setCustomer(e.target.value)} >
+                                                        <option value="">Zakazlar ro'yxati</option>
+                                                        {
+                                                            zakazBreadList.map((cust, ind) => {
+                                                                return <option key={ind} value={cust.customer}>{cust.customer}</option>
+                                                            })
+                                                        }
+                                                    </select>
+                                                </div>) : null
+                                            }
+
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Nonni tanlang</Form.Label>
                                                 <select id="inputState" className="form-select form-control choicesjs" value={order} onChange={onChangeHandler} >
                                                     <option defaultValue="no">Nonlar ro'yxati</option>
                                                     {
-                                                        customerType === "zakazlar" ? (
+                                                        customerType === "zakaz" ? (
 
                                                             zakazBreadList.map((bread, ind) => {
-                                                                return <option id={bread._id} key={bread._id} value={bread.order}>{bread.order}</option>
+                                                                // console.log(bread)
+                                                                return bread.customer === customer && <option id={bread._id} key={bread._id} value={bread.order}>{bread.order}</option>
                                                             })
 
-                                                        ) : (
+                                                        ) : customerType !== "no" ? (
                                                             sotuvBreadList.map((bread, ind) => {
                                                                 return <option key={ind} value={bread}>{bread}</option>
                                                             })
-                                                        )
+                                                        ) : null
                                                     }
                                                     {/* {
                                                        breadList && breadList.map((bread, ind) => {
@@ -198,32 +241,7 @@ const SailAdd = () => {
                                                     calculateOverallPrice(breadPrice, Number(e.target.value), avans)
                                                 } }  />
                                             </div>
-                                            {
-                                                customerType == "Doimiy" ? (<div className="col-md-6 mb-3">
-                                                    <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Mijozlar ro'yhati</Form.Label>
-                                                    <select id="inputState" className="form-select form-control choicesjs" value={customer} onChange={e => setCustomer(e.target.value)} >
-                                                        <option value="">Mijozlar ro'yxati</option>
-                                                        {
-                                                            customerList.map((cust, ind) => {
-                                                                return <option key={ind} value={cust.lastName + " " + cust.firstName}>{cust.lastName + " " + cust.firstName}</option>
-                                                            })
-                                                        }
-                                                    </select>
-                                                </div>) : customerType == "Vaqtincha" ? (<div className="col-md-6 mb-3">
-                                                    <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Kimga</Form.Label>
-                                                    <Form.Control type="text" id="Text5" placeholder="Kim uchunligini kiriting..." onChange={e => setCustomer(e.target.value)} />
-                                                </div>) : customerType == "zakazlar" ? (<div className="col-md-6 mb-3">
-                                                    <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Zakazlar ro'yhati</Form.Label>
-                                                    <select id="inputState" className="form-select form-control choicesjs" value={customer} onChange={e => setCustomer(e.target.value)} >
-                                                        <option value="">Zakazlar ro'yxati</option>
-                                                        {
-                                                            customerList.map((cust, ind) => {
-                                                                return <option key={ind} value={cust.lastName + " " + cust.firstName}>{cust.lastName + " " + cust.firstName}</option>
-                                                            })
-                                                        }
-                                                    </select>
-                                                </div>) : null
-                                            }
+                                            
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Avans</Form.Label>
                                                 <Form.Control type="text" id="Text1" placeholder="Mijoz bergan avansini kiriting..." onChange={e => {
