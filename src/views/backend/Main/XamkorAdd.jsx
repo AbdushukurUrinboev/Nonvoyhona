@@ -56,7 +56,8 @@ const XamkorAdd = () => {
             })
                 .then(res => {
                     console.log("Data is saved", res)
-                    history.push('/xamkorlar')
+                    window.location.reload(history.push('/xamkorlar'));
+                    // history.push('/xamkorlar')
                 })
                 .catch(err => console.log(err))
         }

@@ -92,7 +92,8 @@ const Calculateadd = () => {
         axios.post(CALCULATE_URL, fd)
             .then(res => {
                 console.log("Data is saved", res)
-                history.push('/calculate')
+                window.location.reload(history.push('/calculate'));
+                // history.push('/calculate')
             })
             .catch(err => console.log(err))
 

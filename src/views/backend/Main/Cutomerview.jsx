@@ -157,7 +157,7 @@ const Customerview = () => {
                                                     <p className="mb-0 text-muted">Tur: </p>
                                                 </td>
                                                 <td>
-                                                    <p className="mb-0 " style={{ color: customer.turi === "Doimiy" ? '#149100' : "#EC0000" }}>{customer.status}</p>
+                                                    <p className="mb-0 " style={{ color: customer.customerType === "temporary" ? '#149100' : "#EC0000", fontWeight: '500' }}>{customer.customerType === 'temporary' ? 'Doimiy' : "Vaqtincha"}</p>
                                                 </td>
                                             </tr>
                                             <tr>

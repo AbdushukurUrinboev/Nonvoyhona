@@ -55,7 +55,7 @@ const Customeradd = () => {
             })
                 .then(res => {
                     console.log("Data is saved", res)
-                    history.push('/customers')
+                    window.location.reload(history.push('/customers'));
                 })
                 .catch(err => console.log(err))
         }

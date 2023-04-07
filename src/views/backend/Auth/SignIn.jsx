@@ -51,21 +51,21 @@ const SignIn = (props) => {
                               {/* <p className="text-left text-secondary mb-4">Novvoyxona dasturiga kirish uchun iltimos telefon raqamingiz va parolingizni kiriting!</p> */}
 
                               <div className="mb-5">
-                                 <p className="line-around text-secondary mb-0"><span className="line-around-1 line-st">Dasturga telefon raqamingiz orqali kiring</span></p>
+                                 <p className="line-around text-secondary mb-0"><span className="line-around-1 line-st">Dasturga login orqali kiring</span></p>
                               </div>
                               <Form>
                                  <Row>
                                     <Col lg="12">
                                        <Form.Group>
-                                          <Form.Label className="text-secondary">Telefon raqam</Form.Label>
-                                          <Form.Control type="number" placeholder="90 - 633 - 55 - 99" />
+                                          <Form.Label className="text-secondary">Login</Form.Label>
+                                          <Form.Control type="number" placeholder="Loginni kiriting" />
                                        </Form.Group>
                                     </Col>
                                     <Col lg="12" className="mt-2">
                                        <Form.Group>
                                           <div className="d-flex justify-content-between align-items-center">
                                              <Form.Label className="text-secondary">Parol</Form.Label>
-                                             <Form.Label><Link to="/auth/recoverpw">Parolni unutdingizmi?</Link></Form.Label>
+                                             {/* <Form.Label><Link to="/auth/recoverpw">Parolni unutdingizmi?</Link></Form.Label> */}
                                           </div>
                                           <Form.Control type="password" placeholder="Enter Password" />
                                        </Form.Group>

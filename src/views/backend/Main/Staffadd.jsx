@@ -60,7 +60,8 @@ const Staffadd = () => {
             axios.post(STAFF_URL, fd)
                 .then(res => {
                     console.log("Data is saved", res)
-                    history.push('/staff')
+                    window.location.reload(history.push('/staff'));
+                    // history.push('/staff')
                 })
                 .catch(err => console.log(err))
         }

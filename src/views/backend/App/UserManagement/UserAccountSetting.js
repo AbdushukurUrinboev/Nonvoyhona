@@ -7,7 +7,7 @@ const UserAccountSetting = () => {
     <>
     <Container fluid>
         <Row>
-            <Col lg="6">
+            <Col lg="12">
                 <Card>
                     <Card.Header>
                         <Card.Header.Title>
@@ -19,17 +19,17 @@ const UserAccountSetting = () => {
                             <Form>
                                 <Form.Group controlId="uname">
                                     <Form.Check.Label>User Name:</Form.Check.Label>
-                                    <Form.Control type="text"   defaultValue="Barry@01" />
+                                    <Form.Control type="text"   defaultValue="Abdushukur" />
                                 </Form.Group>
                                 <Form.Group controlId="email">
                                     <Form.Check.Label>Email Id:</Form.Check.Label>
-                                    <Form.Control type="email" defaultValue="Barryjohn@gmail.com" />
+                                    <Form.Control type="email" defaultValue="Abdushukur@gmail.com" />
                                 </Form.Group>
                                 <Form.Group controlId="altemail">
                                     <Form.Check.Label>Alternate Email:</Form.Check.Label>
-                                    <Form.Control type="email"  defaultValue="designtemplate@gmail.com" />
+                                    <Form.Control type="email"  defaultValue="Abdushukur@gmail.com" />
                                 </Form.Group>
-                                <Form.Group controlId="altemail">
+                                {/* <Form.Group controlId="altemail">
                                     <Form.Check.Label className="d-block">Language Known:</Form.Check.Label>
                                     <div className="custom-control custom-checkbox custom-control-inline">
                                         <Form.Check.Input  bsPrefix="custom-control-input" id="english" defaultChecked="true" />
@@ -55,7 +55,7 @@ const UserAccountSetting = () => {
                                         <Form.Check.Input bsPrefix="custom-control-input" id="italian" />
                                         <Form.Check.Label bsPrefix="custom-control-label" htmlFor="italian">Italian</Form.Check.Label>
                                     </div>
-                                </Form.Group>
+                                </Form.Group> */}
                                 <Button type="submit">Submit</Button>
                                 <Button type="reset" variant=" mm-bg-danger">Cancel</Button>
                             </Form>
@@ -63,7 +63,7 @@ const UserAccountSetting = () => {
                     </Card.Body>
                 </Card>
             </Col>
-            <Col lg="6">
+            {/* <Col lg="6">
                 <Card>
                     <Card.Header>
                         <Card.Header.Title>
@@ -99,7 +99,7 @@ const UserAccountSetting = () => {
                         </div>
                     </Card.Body>
                 </Card>
-            </Col>
+            </Col> */}
         </Row>
     </Container>
     </>

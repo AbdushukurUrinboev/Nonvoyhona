@@ -32,18 +32,18 @@ const SailAdd = () => {
 
     function handleChange(e) {
         e.preventDefault();
-        console.log(
-            {
-                order,
-                productQuantity,
-                customerType,
-                customer,
-                avans,
-                price,
-                customerID
+        // console.log(
+        //     {
+        //         order,
+        //         productQuantity,
+        //         customerType,
+        //         customer,
+        //         avans,
+        //         price,
+        //         customerID
 
-            }
-        );
+        //     }
+        // );
         if (order.length === 0 || productQuantity.length === 0 || customer.length === 0 || customerType.length === 0 || price.length === 0) {
             setError(true);
             console.log("Err");
@@ -64,7 +64,8 @@ const SailAdd = () => {
             })
                 .then(res => {
                     console.log("Data is saved", res)
-                    history.push('/sale')
+                    window.location.reload(history.push('/sale'));
+                    // history.push('/sale')
                 })
                 .catch(err => {
                     console.log(err)

@@ -65,7 +65,8 @@ const Ordernew = () => {
             })
                 .then(res => {
                     console.log("Data is saved", res)
-                    history.push('/order')
+                    window.location.reload(history.push('/order'));
+                    // history.push('/order')
                 })
                 .catch(err => console.log(err))
         }

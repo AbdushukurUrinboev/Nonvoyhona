@@ -107,7 +107,8 @@ const Calculate = () => {
                     } else {
                         console.log("Data is saved", res)
                         // alert("Ma'lumot saqlandi")
-                        history.push('/sale')
+                        window.location.reload(history.push('/sale'));
+                        // history.push('/sale')
                     }
                 })
                 .catch(err => console.log(err))

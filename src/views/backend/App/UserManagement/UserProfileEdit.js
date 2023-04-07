@@ -24,12 +24,12 @@ const UserProfileEdit = () => {
                                             <li className="col-md-3 p-0">
                                                 <Nav.Link eventKey="chang-pwd">Change Password</Nav.Link>
                                             </li>
-                                            <li className="col-md-3 p-0">
+                                            {/* <li className="col-md-3 p-0">
                                                 <Nav.Link eventKey="emailandsms">Email and SMS</Nav.Link>
                                             </li>
                                             <li className="col-md-3 p-0">
                                                 <Nav.Link eventKey="manage-contact">Manage Contact</Nav.Link>
-                                            </li>
+                                            </li> */}
                                         </Nav>
                                     </div>
                                 </Card.Body>
@@ -158,7 +158,7 @@ const UserProfileEdit = () => {
                                                 <Form>
                                                     <Form.Group controlId="cpass">
                                                         <Form.Label>Current Password:</Form.Label>
-                                                        <Link to="/" onClick={ e => e.preventDefault()}  className="float-right">Forgot Password</Link>
+                                                        {/* <Link to="/" onClick={ e => e.preventDefault()}  className="float-right">Forgot Password</Link> */}
                                                         <Form.Control  type="Password" />
                                                     </Form.Group>
                                                     <Form.Group controlId="npass">
@@ -175,7 +175,7 @@ const UserProfileEdit = () => {
                                             </Card.Body>
                                         </Card>
                                     </Tab.Pane>
-                                    <Tab.Pane eventKey="emailandsms" role="tabpanel">
+                                    {/* <Tab.Pane eventKey="emailandsms" role="tabpanel">
                                         <Card>
                                             <Card.Header>
                                                 <Card.Header.Title>
@@ -264,7 +264,7 @@ const UserProfileEdit = () => {
                                                 </Form>
                                             </Card.Body>
                                         </Card>
-                                    </Tab.Pane>
+                                    </Tab.Pane> */}
                                 </Tab.Content>
                             </div>
                         </Col>

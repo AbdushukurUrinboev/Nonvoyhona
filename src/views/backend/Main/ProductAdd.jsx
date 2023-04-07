@@ -67,7 +67,8 @@ const Productadd = () => {
             axios.post(STORAGE_URL, fd)
                 .then(res => {
                     console.log("Data is saved", res)
-                    history.push('/storage')
+                    window.location.reload(history.push('/storage'));
+                    // history.push('/storage')
                 })
                 .catch(err => console.log(err))
         }
