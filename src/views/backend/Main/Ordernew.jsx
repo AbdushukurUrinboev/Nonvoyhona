@@ -147,10 +147,10 @@ const Ordernew = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Tur</Form.Label>
-                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => { setPhone('');setTuri(e.target.value); if (e.target.value === "Doimiy") setMijozlar(true); else setMijozlar(false) }}>
+                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => { setPhone('');setTuri(e.target.value); if (e.target.value === "daily") setMijozlar(true); else setMijozlar(false) }}>
                                                     <option value="no">Turi</option>
-                                                    <option value="Doimiy">Doimiy</option>
-                                                    <option value="Vaqtincha">Vaqtincha</option>
+                                                    <option value="daily">Doimiy</option>
+                                                    <option value="temporary">Vaqtincha</option>
                                                 </select>
                                             </div>
                                             {
@@ -159,7 +159,7 @@ const Ordernew = () => {
                                                     <select id="inputState" className="form-select form-control choicesjs" value={customer} onChange={e => {
                                                         setCustomer(e.target.value);
                                                         console.log(customerList);
-                                                        if(turi === "Doimiy"){
+                                                        if(turi === "daily"){
                                                             setPhoneCode(customerList.find(evv => e.target.value === (evv.lastName + ' ' + evv.firstName)).phone.slice(0,4));
                                                             setPhone(customerList.find(evv => e.target.value === (evv.lastName + ' ' + evv.firstName)).phone.slice(7, e.target.value.length));
                                                         }
