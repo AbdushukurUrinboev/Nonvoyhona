@@ -32,25 +32,26 @@ const SailAdd = () => {
 
     function handleChange(e) {
         e.preventDefault();
-        if (order.length === 0 || productQuantity.length === 0 || customer.length === 0 || customerType.length === 0 || avans.length === 0 || price.length === 0) {
+        console.log(
+            {
+                order,
+                productQuantity,
+                customerType,
+                customer,
+                avans,
+                price,
+                customerID
+
+            }
+        );
+        if (order.length === 0 || productQuantity.length === 0 || customer.length === 0 || customerType.length === 0 || price.length === 0) {
             setError(true);
             console.log("Err");
         }
-        if (order && productQuantity && customer && customerType && avans && price) {
+        if (order && productQuantity && customer && customerType && price) {
             console.log("working");
 
-            // console.log(
-            //     {
-            //         order,
-            //         productQuantity,
-            //         customerType,
-            //         customer,
-            //         avans,
-            //         price,
-            //         customerID
-
-            //     }
-            // );
+            
             axios.post(SALE_URL, {
                 order,
                 productQuantity,
@@ -76,31 +77,44 @@ const SailAdd = () => {
 
     const onChangeHandler = (e) => {
         let currentBread = e.target.value
-        setOrder(currentBread)
+        
         const index = e.target.selectedIndex;
         const el = e.target.childNodes[index]
+        const selectedInd = e.target.options.selectedIndex;
+        const customAtrribute = e.target.options[selectedInd].getAttribute('customkey');
         const option = el.getAttribute('id');
         setCustomerID(option);
-
-
-        breadList.map(elem => {
-            if (elem.productName === currentBread) {
-                setBreadPrice(elem.productPrice);
-
-            }
-        })
-
+        
         if (customerType === 'zakaz') {
+            let tempPrice = 0;
+            breadList.map(elem => {
+                if (elem.productName + customAtrribute === currentBread) {
+                    setBreadPrice(elem.productPrice);
+                    tempPrice = elem.productPrice
+                }
+            })
+
+            let tempQuantity = 0;
+
             zakazBreadList.map(elem => {
                 if (elem._id === option) {
                     setProductQuantity(elem.productQuantity);
-                    // console.log(elem.productQuantity);
+                    tempQuantity = elem.productQuantity
+                    setOrder(elem.order)
+                    console.log(elem.order);
 
                 }
             })
+            calculateOverallPrice(tempPrice, tempQuantity, avans)
+        } else {
+            setOrder(currentBread)
+            breadList.map(elem => {
+                if (elem.productName === currentBread) {
+                    setBreadPrice(elem.productPrice);                    
+                }
+            })
+
         }
-
-
     }
 
     const calculateOverallPrice = (productPriceInput, poductQuantityInput, productAvans) => {
@@ -210,10 +224,9 @@ const SailAdd = () => {
                                                     <option defaultValue="no">Nonlar ro'yxati</option>
                                                     {
                                                         customerType === "zakaz" ? (
-
                                                             zakazBreadList.map((bread, ind) => {
                                                                 // console.log(bread)
-                                                                return bread.customer === customer && <option id={bread._id} key={bread._id} value={bread.order}>{bread.order}</option>
+                                                                return bread.customer === customer && <option id={bread._id} key={ind} customkey={ind} value={bread.order + ind}>{bread.order}</option>
                                                             })
 
                                                         ) : customerType !== "no" ? (
@@ -248,7 +261,7 @@ const SailAdd = () => {
 
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Avans</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Mijoz bergan avansini kiriting..." onChange={e => {
+                                                <Form.Control type="text" id="Text1" placeholder="Mijoz bergan avansini kiriting..." value={avans} onChange={e => {
                                                     setAvans(Number(e.target.value))
                                                     calculateOverallPrice(breadPrice, productQuantity, Number(e.target.value))
                                                 }} required='required' />

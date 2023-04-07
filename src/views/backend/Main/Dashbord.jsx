@@ -47,7 +47,8 @@ const Dashbord = () => {
 
         axios.get('http://localhost:4000/report/daromat')
         .then(res => {
-            setFoyda(res.data.reduce((a,b) => a = a + b.overallPrice, 0));
+            setCurrentFoyda(res.data.reduce((a,b) => a = a + b.overallPrice, 0));
+            setFoyda(res.data);
             // res.data.reduce((a,b) => a = a + b.overall, 0)
             setOmmabopNon(res.data)
         })
@@ -88,7 +89,7 @@ const Dashbord = () => {
 
     }
 
-    
+        console.log(foyda);
 
     const chart1 = {
         options: {
