@@ -209,7 +209,7 @@ const Calculate = () => {
                                             <Card.Body>
                                                 {error ? <p className='text-danger text-center font-weight-bold'>Ushbu qatorlarning barchasini to'ldirishingiz shart</p> : ''}
                                                 <Row>
-                                                    <Col md="12" className='mt-4'>
+                                                    <Col md="12" className='mt-4 '>
                                                         <Form className="row g-3 date-icon-set-modal myStyleCustomerAdd text-center">
                                                             <div className="col-md-4 mb-3 mt-3">
                                                                 {/* Asosiy non */}

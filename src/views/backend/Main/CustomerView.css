@@ -1,4 +1,12 @@
 
+.myContainerStyleCustomer {
+    width: 95% !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    border-radius: 10px;
+    padding-top: 15px !important;
+    padding-bottom: 40px !important;    
+    margin-bottom: 15px !important;
+}
 
 .customerViewHeadStyle {
     font-family: 'Roboto';
@@ -6,7 +14,7 @@
     font-weight: 700;
     font-size: 32px;
     line-height: 38px;
-    color: #000000;
+    
 }
 
 .customerViewStP p {
@@ -15,7 +23,7 @@
     font-weight: 600;
     font-size: 20px;
     line-height: 24px;
-    color: #000000;
+    
 }
 
 .myHeadStyleCustomerView th {
@@ -25,5 +33,10 @@
     font-size: 17px;
     line-height: 20px;
     letter-spacing: 0.01em;
-    color: #222222;
+   
+}
+
+.gapStyleCustomer {
+    display: grid;
+    gap: 15px !important;
 }

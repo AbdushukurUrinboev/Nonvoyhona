@@ -203,8 +203,8 @@ const Customerview = () => {
                                 {/* New version */}
 
 
-                                <div className="container-fluid mt-2 myContainerStyleProduct">
-                                    <div className="d-grid gapStyleProduct">
+                                <div className="myContainerStyleCustomer container-fluid mt-2">
+                                    <div className="d-grid gapStyleCustomer">
                                         <div className="p-2">
                                             <div className="container">
                                                 <div className="row align-items-center myHeaderProductStyle">
@@ -218,22 +218,22 @@ const Customerview = () => {
                                             </div>
                                         </div>
 
-                                    {
-                                        customerHistory && customerHistory.map((elem, id) => {
-                                            return <div className="p-2 border myStyleProduct ownStylePro" key={id}>
-                                            <div className="container">
-                                                <div className="row align-items-center">
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{id + 1}</div>
-                                                    <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3">{elem.product}</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{elem.productQuantity}</div>
-                                                    <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3">{elem.date}</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{elem.overall}</div>
-                                                   
+                                        {
+                                            customerHistory && customerHistory.map((elem, id) => {
+                                                return <div className="p-2 border myStyleProduct ownStylePro" key={id}>
+                                                    <div className="container">
+                                                        <div className="row align-items-center">
+                                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{id + 1}</div>
+                                                            <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3">{elem.product}</div>
+                                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{elem.productQuantity}</div>
+                                                            <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3">{elem.date}</div>
+                                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{elem.overall}</div>
+
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        })
-                                    }  
+                                            })
+                                        }
                                     </div>
                                 </div>
                             </Card.Body>

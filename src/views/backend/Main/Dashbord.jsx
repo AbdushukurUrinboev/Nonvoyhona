@@ -331,8 +331,6 @@ const Dashbord = () => {
                                     </svg>
                                 </span>
                             </div>
-
-
                         <button className='btn btn-primary myButtonOutput position-relative d-flex align-items-center justify-content-between' onClick={() => {
                             const startDate = document.getElementById("dateStart").value
                             const endDate = document.getElementById("dateEnd").value
@@ -368,7 +366,7 @@ const Dashbord = () => {
                                         <div className="align-items-center justify-content-center">
                                             <p className="mb-2 text-secondary" style={{ color: '#C37500', fontSize: '18px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>Nasiya</p>
                                             <div className="justify-content-center align-items-center">
-                                                <h5 className="mb-0 font-weight-bold" style={{ color: '#000000', fontSize: '22px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>{nasiya} so'm</h5>
+                                                <h5 className="mb-0 font-weight-bold" style={{ fontSize: '22px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>{nasiya} so'm</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -382,7 +380,7 @@ const Dashbord = () => {
                                         <div className="">
                                             <p className="mb-2 text-secondary" style={{ color: '#EC0000', fontSize: '18px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>Xarajatlar</p>
                                             <div className="justify-content-center align-items-center">
-                                                <h5 className="mb-0 font-weight-bold" style={{ color: '#000000', fontSize: '22px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>{xarajat} so'm</h5>
+                                                <h5 className="mb-0 font-weight-bold" style={{ fontSize: '22px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>{xarajat} so'm</h5>
                                             </div>
                                         </div>
                                     </div>
