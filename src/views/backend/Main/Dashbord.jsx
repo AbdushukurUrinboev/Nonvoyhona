@@ -29,67 +29,67 @@ import { color } from 'highcharts';
 
 
 const Dashbord = () => {
-    const[nasiya, setNasiya] = useState('');
-    const[foyda, setFoyda] = useState('');
-    const[xarajat, setXarajat] = useState('');
-    const[ommabopNon, setOmmabopNon] = useState([]);
-    const[currentFoyda, setCurrentFoyda] = useState(0);
+    const [nasiya, setNasiya] = useState('');
+    const [foyda, setFoyda] = useState('');
+    const [xarajat, setXarajat] = useState('');
+    const [ommabopNon, setOmmabopNon] = useState([]);
+    const [currentFoyda, setCurrentFoyda] = useState(0);
 
 
 
     useEffect(() => {
         axios.get('http://localhost:4000/report/nasiya')
-        .then(res => {
-            setNasiya(res.data.reduce((a,b) => a = a + b.overall, 0));
-            // res.data.reduce((a,b) => a = a + b.overall, 0)
-        })
-        .catch(err => console.log(err));
+            .then(res => {
+                setNasiya(res.data.reduce((a, b) => a = a + b.overall, 0));
+                // res.data.reduce((a,b) => a = a + b.overall, 0)
+            })
+            .catch(err => console.log(err));
 
         axios.get('http://localhost:4000/report/daromat')
-        .then(res => {
-            setCurrentFoyda(res.data.reduce((a,b) => a = a + b.overallPrice, 0));
-            setFoyda(res.data);
-            // res.data.reduce((a,b) => a = a + b.overall, 0)
-            setOmmabopNon(res.data)
-        })
-        .catch(err => console.log(err))
+            .then(res => {
+                setCurrentFoyda(res.data.reduce((a, b) => a = a + b.overallPrice, 0));
+                setFoyda(res.data);
+                // res.data.reduce((a,b) => a = a + b.overall, 0)
+                setOmmabopNon(res.data)
+            })
+            .catch(err => console.log(err))
 
         axios.get('http://localhost:4000/report/expenses')
-        .then(res => {
-            setXarajat(res.data.reduce((a,b) => a = a + b.overallPrice, 0));
-            // res.data.reduce((a,b) => a = a + b.overall, 0)
-        })
-        .catch(err => console.log(err))
-
-        
+            .then(res => {
+                setXarajat(res.data.reduce((a, b) => a = a + b.overallPrice, 0));
+                // res.data.reduce((a,b) => a = a + b.overall, 0)
+            })
+            .catch(err => console.log(err))
 
 
 
-    },[])
+
+
+    }, [])
 
     const getData = (st, ed) => {
-        
+
         axios.get(`http://localhost:4000/report/expenses?startDate=${st}&endDate=${ed}`)
-        .then(({data: receivedDT}) => {            
-            let currentXarajat = receivedDT.reduce((acc, a) => a.overallPrice + acc, 0) 
-            setXarajat(currentXarajat);
-        })
+            .then(({ data: receivedDT }) => {
+                let currentXarajat = receivedDT.reduce((acc, a) => a.overallPrice + acc, 0)
+                setXarajat(currentXarajat);
+            })
 
         axios.get(`http://localhost:4000/report/nasiya?startDate=${st}&endDate=${ed}`)
-        .then(({data: receivedDT}) => {
-            let currentNasiya = receivedDT.reduce((acc, a) => a.overall + acc, 0) 
-            setNasiya(currentNasiya);
-        })
+            .then(({ data: receivedDT }) => {
+                let currentNasiya = receivedDT.reduce((acc, a) => a.overall + acc, 0)
+                setNasiya(currentNasiya);
+            })
 
         axios.get(`http://localhost:4000/report/daromat?startDate=${st}&endDate=${ed}`)
-        .then(({data: receivedDT}) => {
-            setCurrentFoyda(receivedDT.reduce((acc, a) => a.overallPrice + acc, 0))            
-            setFoyda(receivedDT);
-        })
+            .then(({ data: receivedDT }) => {
+                setCurrentFoyda(receivedDT.reduce((acc, a) => a.overallPrice + acc, 0))
+                setFoyda(receivedDT);
+            })
 
     }
 
-        console.log(foyda);
+    console.log(foyda);
 
     const chart1 = {
         options: {
@@ -333,16 +333,16 @@ const Dashbord = () => {
                             </div>
 
 
+                        <button className='btn btn-primary myButtonOutput position-relative d-flex align-items-center justify-content-between' onClick={() => {
+                            const startDate = document.getElementById("dateStart").value
+                            const endDate = document.getElementById("dateEnd").value
+                            const [smonth, sday, syear] = startDate.split('/');
+                            const [emonth, eday, eyear] = endDate.split('/');
+                            const modifiedStart = `${syear}-${smonth}-${sday}`
+                            const modifiedEnd = `${eyear}-${emonth}-${eday}`
+                            getData(modifiedStart, modifiedEnd)
+                        }}>Saralash</button>
                         </div>
-                        <button className='btn btn-success' onClick={() => {
-                                    const startDate = document.getElementById("dateStart").value
-                                    const endDate = document.getElementById("dateEnd").value
-                                    const [smonth, sday, syear] = startDate.split('/');
-                                    const [emonth, eday, eyear] = endDate.split('/');
-                                    const modifiedStart = `${syear}-${smonth}-${sday}`
-                                    const modifiedEnd = `${eyear}-${emonth}-${eday}`
-                                    getData(modifiedStart, modifiedEnd)
-                                }}>Saralash</button>
                     </div>
                 </Col>
                 <Col lg="8" md="12">
