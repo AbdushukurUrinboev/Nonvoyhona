@@ -49,6 +49,8 @@ const Dashbord = () => {
             .then(res => {
                 setCurrentFoyda(res.data.reduce((a, b) => a = a + b.overallPrice, 0));
                 setFoyda(res.data);
+                
+               
                 // res.data.reduce((a,b) => a = a + b.overall, 0)
                 setOmmabopNon(res.data)
             })
@@ -62,6 +64,7 @@ const Dashbord = () => {
             .catch(err => console.log(err))
 
 
+            
 
 
 
@@ -83,13 +86,17 @@ const Dashbord = () => {
 
         axios.get(`http://localhost:4000/report/daromat?startDate=${st}&endDate=${ed}`)
             .then(({ data: receivedDT }) => {
-                setCurrentFoyda(receivedDT.reduce((acc, a) => a.overallPrice + acc, 0))
+                setCurrentFoyda(receivedDT.reduce((acc, a) => a.overallPrice + acc, 0))                
                 setFoyda(receivedDT);
             })
 
     }
 
-    console.log(foyda);
+    let nonArray = [15,24,78,96,32,45,68,74,11,12,369,85,11,45,20,32];
+    let sumNonArray = nonArray.reduce((acc, a) => acc + a, 0)
+    
+    // console.log(sumNonArray); // 6
+
 
     const chart1 = {
         options: {
@@ -156,10 +163,10 @@ const Dashbord = () => {
         },
         series: [{
             name: 'Incomes',
-            data: [90, 105, 72, 90, 65, 109, 130]
+            data: [90, 105, 72, 90, 65, 109, 130]  // kirim datasi 
         }, {
             name: 'Expenses',
-            data: [115, 93, 75, 102, 144, 52, 71]
+            data: [115, 93, 75, 102, 144, 52, 71] // chiqim datasi
         }]
     }
 
@@ -291,7 +298,7 @@ const Dashbord = () => {
                 }
             }]
         },
-        series: [43, 58, 20, 35]
+        series: [43, 58, 20, 35] // Total Sum of circled diagram
     }
     return (
         <Container fluid>
