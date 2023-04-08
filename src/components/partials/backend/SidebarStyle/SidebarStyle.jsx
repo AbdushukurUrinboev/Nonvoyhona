@@ -57,7 +57,7 @@ const SidebarStyle = (props) => {
                 <div className="iq-sidebar-logo d-flex align-items-end justify-content-between mt-3">
                     <Link to="/" className="header-logo">
                         <img src={logoDash} style={{ width: '35px', height: '34px' }} className={`img-fluid rounded-normal light-logo ${props.darkMode ? 'd-none' : ''}`} alt="logo" />
-                        <span style={{ color: '#C37500', fontWeight: '800', fontSize: '26px', lineHeight: '30px' }}>Non Markazi</span>
+                        <span style={{ color: '#C37500', fontWeight: '800', fontSize: '26px', lineHeight: '30px' }}>Javdar</span>
                     </Link>
                     <div className="side-menu-bt-sidebar-1">
                         <svg onClick={minisidbar} xmlns="http://www.w3.org/2000/svg" className="text-light wrapper-menu" width="30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
