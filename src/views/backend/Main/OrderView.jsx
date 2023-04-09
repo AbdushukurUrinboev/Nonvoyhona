@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import './CustomerView.css'
 import { xamkorDataContext } from './ContextProvider/DataProvider';
 import axios from 'axios';
+import { base_URL } from '../../../API';
 
 //img
 import BreadImage from '../../../assets/images/bread/logoBread.png'
@@ -19,7 +20,7 @@ const OrderView = () => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/order/${id}`)
+        axios.get(`${base_URL}/order/${id}`)
             .then(res => {
                 setOrder(res.data)
                 // console.log(res.data);

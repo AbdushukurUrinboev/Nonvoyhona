@@ -9,6 +9,7 @@ import { FilterPlans } from './FilterCustomer/FilterCustomer';
 import Datepickers from '../../../components/Datepicker';
 import './Plans.css'
 import { useHistory } from "react-router";
+import { base_URL } from '../../../API';
 
 
 
@@ -86,7 +87,7 @@ const Plans = () => {
     }
 
     const getData = (st, ed) => {       
-        axios.get(`http://localhost:4000/plans?startDate=${st}&endDate=${ed}`)
+        axios.get(`${base_URL}/plans?startDate=${st}&endDate=${ed}`)
             .then(({ data: receivedDT }) => {
                 setPlans(receivedDT);
             })

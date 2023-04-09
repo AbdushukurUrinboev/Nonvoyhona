@@ -6,6 +6,7 @@ import axios from 'axios';
 import { ORDERS_URL } from '../../../API';
 import DatePicker from "react-datepicker";
 import { breadDataContext, customersDataContext } from './ContextProvider/DataProvider';
+import { base_URL } from '../../../API';
 
 
 
@@ -43,7 +44,7 @@ const Orderdetails = () => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/order/${id}`)
+        axios.get(`${base_URL}/order/${id}`)
             .then(res => {              
                 setOrder(res.data.order);                
                 setCustomer(res.data.customer);

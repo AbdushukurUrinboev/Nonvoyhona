@@ -7,6 +7,7 @@ import { CUSTOMERS_URL } from '../../../API';
 import './Customer.css'
 import { FilterCustomer } from './FilterCustomer/FilterCustomer';
 import { useHistory } from "react-router";
+import { base_URL } from '../../../API';
 
 // Delete Icon
 import deleteIcon from '../../../assets/images/delete.png'
@@ -67,7 +68,7 @@ const Customer = () => {
     }
 
     function deleteCustomer() {
-        axios.delete(`http://localhost:4000/customers/`, { data: { id } })
+        axios.delete(`${base_URL}/customers/`, { data: { id } })
             .then(res => {
                 setModal('modal')
                 console.log("Data is deleted!!!", res)

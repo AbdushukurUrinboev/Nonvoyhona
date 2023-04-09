@@ -5,6 +5,8 @@ import { Link, useParams } from 'react-router-dom'
 import Chart from "react-apexcharts";
 import axios from 'axios';
 import './Staff.css'
+import { base_URL } from '../../../API';
+import { base_URL } from '../../../API';
 
 //img
 import Avatar from '../../../assets/images/avatar.png'
@@ -19,7 +21,7 @@ const Staffview = () => {
     // console.log(id);
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/staff/${id}`)
+        axios.get(`${base_URL}/staff/${id}`)
             .then(res => {
                 setCurrentStaff(res.data)
                 setStaffWorkHistory(res.data.workHistory)
@@ -142,7 +144,7 @@ const Staffview = () => {
                                             <ListGroup.Item as="li" className="d-flex justify-content-start align-items-center">
                                                 <div className="h-avatar is-medium">
                                                     {/* <img className="avatar myStaffAvatar" alt="staff-icon" src={user1} /> */}
-                                                    <img className="avatar myStaffAvatar" alt="user-icon" src={currentStaff.image === 'none' ? Avatar : currentStaff.image ? `http://localhost:4000/${currentStaff.image}` : ''} style={{ width: "75px" }} />
+                                                    <img className="avatar myStaffAvatar" alt="user-icon" src={currentStaff.image === 'none' ? Avatar : currentStaff.image ? `${base_URL}/${currentStaff.image}` : ''} style={{ width: "75px" }} />
                                                 </div>
                                                 <div className="list-style-detail ml-4 mr-2">
                                                     <h5 className="font-weight-bold">{currentStaff.firstName}   {currentStaff.lastName}</h5>

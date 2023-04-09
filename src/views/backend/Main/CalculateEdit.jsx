@@ -10,6 +10,7 @@ import './Calculate.css'
 // DataProvider
 import { dataContext } from './ContextProvider/DataProvider';
 import { useEffect } from 'react';
+import { base_URL } from '../../../API';
 
 const Calculateadd = () => {
 
@@ -28,7 +29,7 @@ const Calculateadd = () => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/calculation/${id}`)
+        axios.get(`${base_URL}/calculation/${id}`)
             .then(res => {
                 setProductName(res.data.productName);
                 setProductPrice(res.data.productPrice);

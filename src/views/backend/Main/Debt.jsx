@@ -9,6 +9,7 @@ import { FilterCustomer } from './FilterCustomer/FilterCustomer';
 import Datepickers from '../../../components/Datepicker';
 import './Debt.css'
 import { useHistory } from "react-router";
+import { base_URL } from '../../../API';
 
 
 // Delete Icon
@@ -81,7 +82,7 @@ const Debt = () => {
 
     const getData = (st, ed) => {
         console.log(st + " va " + ed);
-        axios.get(`http://localhost:4000/report/nasiya?startDate=${st}&endDate=${ed}`)
+        axios.get(`${base_URL}/report/nasiya?startDate=${st}&endDate=${ed}`)
             .then(({ data: receivedDT }) => {                
                 setDebts(receivedDT);
             })

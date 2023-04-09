@@ -25,6 +25,7 @@ import user2 from '../../../assets/images/user/2.jpg'
 import user3 from '../../../assets/images/user/3.jpg'
 import logoBread from '../../../assets/images/bread/logoBread.png'
 import { color } from 'highcharts';
+import { base_URL } from '../../../API';
 
 
 
@@ -38,14 +39,14 @@ const Dashbord = () => {
 
 
     useEffect(() => {
-        axios.get('http://localhost:4000/report/nasiya')
+        axios.get(`${base_URL}/report/nasiya`)
             .then(res => {
                 setNasiya(res.data.reduce((a, b) => a = a + b.overall, 0));
                 // res.data.reduce((a,b) => a = a + b.overall, 0)
             })
             .catch(err => console.log(err));
 
-        axios.get('http://localhost:4000/report/daromat')
+        axios.get(`${base_URL}/report/daromat`)
             .then(res => {
                 setCurrentFoyda(res.data.reduce((a, b) => a = a + b.overallPrice, 0));
                 setFoyda(res.data);
@@ -56,7 +57,7 @@ const Dashbord = () => {
             })
             .catch(err => console.log(err))
 
-        axios.get('http://localhost:4000/report/expenses')
+        axios.get(`${base_URL}/report/expenses`)
             .then(res => {
                 setXarajat(res.data.reduce((a, b) => a = a + b.overallPrice, 0));
                 // res.data.reduce((a,b) => a = a + b.overall, 0)
@@ -72,19 +73,19 @@ const Dashbord = () => {
 
     const getData = (st, ed) => {
 
-        axios.get(`http://localhost:4000/report/expenses?startDate=${st}&endDate=${ed}`)
+        axios.get(`${base_URL}/report/expenses?startDate=${st}&endDate=${ed}`)
             .then(({ data: receivedDT }) => {
                 let currentXarajat = receivedDT.reduce((acc, a) => a.overallPrice + acc, 0)
                 setXarajat(currentXarajat);
             })
 
-        axios.get(`http://localhost:4000/report/nasiya?startDate=${st}&endDate=${ed}`)
+        axios.get(`${base_URL}/report/nasiya?startDate=${st}&endDate=${ed}`)
             .then(({ data: receivedDT }) => {
                 let currentNasiya = receivedDT.reduce((acc, a) => a.overall + acc, 0)
                 setNasiya(currentNasiya);
             })
 
-        axios.get(`http://localhost:4000/report/daromat?startDate=${st}&endDate=${ed}`)
+        axios.get(`${base_URL}/report/daromat?startDate=${st}&endDate=${ed}`)
             .then(({ data: receivedDT }) => {
                 setCurrentFoyda(receivedDT.reduce((acc, a) => a.overallPrice + acc, 0))                
                 setFoyda(receivedDT);

@@ -6,6 +6,7 @@ import axios from 'axios';
 import { EXPENSES_URL } from '../../../API';
 import DatePicker from "react-datepicker";
 import './Output.css'
+import { base_URL } from '../../../API';
 
 
 const OutputEdit = () => {
@@ -22,7 +23,7 @@ const OutputEdit = () => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/expenses/${id}`)
+        axios.get(`${base_URL}/expenses/${id}`)
             .then(res => {  
                 console.log(res.data.name);              
                 setName(res.data.name);

@@ -142,7 +142,7 @@ const Sail = () => {
                                                     <div className="container">
                                                         <div className="row align-items-center">
                                                             <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left">{index + 1}</div>
-                                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2"><img className="avatar myCalculateAvatar" src={sail.imageUrl === 'none' ? LogoBread : `http://localhost:4000/${sail.imageUrl}`} alt="Rasm" style={{ width: "35px" }} /></div>
+                                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2"><img className="avatar myCalculateAvatar" src={sail.imageUrl === 'none' ? LogoBread : `${base_URL}/${sail.imageUrl}`} alt="Rasm" style={{ width: "35px" }} /></div>
                                                             <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-center">{sail.breadName}</div>
                                                             <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{sail.quantity}</div>
                                                             <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-right sailSvgStyle">

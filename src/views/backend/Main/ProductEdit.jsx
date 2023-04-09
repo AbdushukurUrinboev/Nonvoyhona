@@ -10,6 +10,7 @@ import DefaultBread from '../../../assets/images/logoBread.png'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './ProductAdd.css';
+import { base_URL } from '../../../API';
 
 
 const ProductEdit = () => {
@@ -44,7 +45,7 @@ const ProductEdit = () => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/storage/${id}`)
+        axios.get(`${base_URL}/storage/${id}`)
             .then(res => {              
                 // setReceivedData(res.data)  
                 setProductName(res.data.productName); //

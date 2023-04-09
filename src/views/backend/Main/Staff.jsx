@@ -7,6 +7,7 @@ import { STAFF_URL } from '../../../API';
 import { FilterStaff, FilterStaffSmena } from './FilterProduct/FilterStaff';
 import { useHistory } from "react-router";
 import './Staff.css'
+import { base_URL } from '../../../API';
 
 //img
 import Avatar from '../../../assets/images/avatar.png'
@@ -210,7 +211,7 @@ const Staff = () => {
                                                             <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{index + 1}</div>
                                                             <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-left">
                                                                 <div className="h-avatar is-small">
-                                                                    <img className="avatar myStaffAvatar" alt="user-icon" src={staff.image === 'none' ? Avatar : `http://localhost:4000/${staff.image}`} style={{ width: "35px" }} />
+                                                                    <img className="avatar myStaffAvatar" alt="user-icon" src={staff.image === 'none' ? Avatar : `${base_URL}/${staff.image}`} style={{ width: "35px" }} />
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-left" style={{ fontWeight: "500" }}>{staff.firstName} {staff.lastName}</div>

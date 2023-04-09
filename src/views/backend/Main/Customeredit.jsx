@@ -9,6 +9,7 @@ import { CUSTOMERS_URL } from '../../../API';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './CustomerAdd.css'
+import { base_URL } from '../../../API'
 
 
 
@@ -33,7 +34,7 @@ const Customeredit = () => {
    const history = useHistory()
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/customer/${id}`)
+        axios.get(`${base_URL}/customer/${id}`)
             .then(res => {                
                 setFirstName(res.data.firstName);
                 setLastName(res.data.lastName);
@@ -52,7 +53,7 @@ const Customeredit = () => {
 
     function handleChange(e) {
         // e.preventDefault();
-        axios.put('http://localhost:4000/customers', {
+        axios.put(`${base_URL}/customers`, {
             id: id,
             new: {
                 firstName,

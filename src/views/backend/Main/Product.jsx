@@ -6,6 +6,7 @@ import axios from 'axios';
 import { STORAGE_URL } from '../../../API';
 import { useHistory } from "react-router";
 import "./Product.css"
+import { base_URL } from '../../../API';
 
 //img
 import LogoBread from '../../../assets/images/logoBread.png'
@@ -155,7 +156,7 @@ const Product = () => {
                                             <div className="container">
                                                 <div className="row align-items-center">
                                                     <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{index + 1}</div>
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1"><img className="avatar myProductAvatar" src={product.storageImage === 'none' ? LogoBread : `http://localhost:4000/${product.storageImage}`} alt="Rasm" style={{ width: "35px" }} /></div>
+                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1"><img className="avatar myProductAvatar" src={product.storageImage === 'none' ? LogoBread : `${base_URL}/${product.storageImage}`} alt="Rasm" style={{ width: "35px" }} /></div>
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ fontWeight: "500" }}>{product.productName}</div>
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{product.description}</div>
                                                     <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{product.productPrice} - so'm</div>

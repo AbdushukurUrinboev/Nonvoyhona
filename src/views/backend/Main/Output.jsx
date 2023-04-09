@@ -17,6 +17,8 @@ import { contains } from 'jquery';
 // Loading
 import { FallingLines } from 'react-loader-spinner';
 
+import { base_URL } from '../../../API';
+
 
 const Output = () => {
 
@@ -57,7 +59,7 @@ const Output = () => {
     }
 
     const getData = (st, ed) => {
-        axios.get(`http://localhost:4000/report/expenses?startDate=${st}&endDate=${ed}`)
+        axios.get(`${base_URL}/report/expenses?startDate=${st}&endDate=${ed}`)
             .then(({ data: receivedDT }) => {
                 setOutputs(receivedDT);
             })

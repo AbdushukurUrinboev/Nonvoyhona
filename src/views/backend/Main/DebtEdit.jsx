@@ -7,6 +7,7 @@ import { NASIYA_URL } from '../../../API';
 import DatePicker from "react-datepicker";
 
 import { customersDataContext } from './ContextProvider/DataProvider';
+import { base_URL } from '../../../API';
 
 
 const DebtEdit = () => {
@@ -30,7 +31,7 @@ const DebtEdit = () => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/nasiya/${id}`)
+        axios.get(`${base_URL}/nasiya/${id}`)
             .then(res => {               
                 setProduct(res.data.product);
                 setCustomer(res.data.customer);

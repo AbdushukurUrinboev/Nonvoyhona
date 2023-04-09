@@ -9,6 +9,7 @@ import { XAMKOR_URL } from '../../../API';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './CustomerAdd.css'
+import { base_URL } from '../../../API'
 
 
 
@@ -32,7 +33,7 @@ const XamkorEdit = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/xamkor/${id}`)
+        axios.get(`${base_URL}/xamkor/${id}`)
             .then(res => { 
                 setFirstName(res.data.firstName)
                 setLastName(res.data.lastName)

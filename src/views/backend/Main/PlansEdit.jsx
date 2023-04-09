@@ -6,6 +6,7 @@ import axios from 'axios';
 import { PLANS_URL } from '../../../API';
 import DatePicker from "react-datepicker";
 import './Plans.css'
+import { base_URL } from '../../../API';
 
 import { staffDataContext } from './ContextProvider/DataProvider';
 
@@ -24,7 +25,7 @@ const PlansEdit = () => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/plan/${id}`)
+        axios.get(`${base_URL}/plan/${id}`)
             .then(res => {              
                 setPlan(res.data.plan);
                 setPerson(res.data.person);

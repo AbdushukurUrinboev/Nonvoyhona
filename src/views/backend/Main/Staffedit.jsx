@@ -12,6 +12,8 @@ import './StaffAdd.css'
 //img
 import Avatar from '../../../assets/images/avatar.png'
 
+import { base_URL } from '../../../API';
+
 
 
 
@@ -40,7 +42,7 @@ const StaffEdit = () => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/staff/${id}`)
+        axios.get(`${base_URL}/staff/${id}`)
             .then(res => {
                 setFirstName(res.data.firstName);
                 setLastName(res.data.lastName);

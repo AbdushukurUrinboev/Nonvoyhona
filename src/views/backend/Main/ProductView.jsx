@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import './CustomerView.css'
 import { xamkorDataContext } from './ContextProvider/DataProvider';
 import axios from 'axios';
+import { base_URL } from '../../../API';
 
 //img
 import BreadImage from '../../../assets/images/bread/logoBread.png'
@@ -19,7 +20,7 @@ const ProductView = () => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/storage/${id}`)
+        axios.get(`${base_URL}/storage/${id}`)
             .then(res => {
                 setProduct(res.data)
                 // console.log(res.data);
@@ -66,7 +67,7 @@ const ProductView = () => {
                                         <ListGroup as="ul" className="list-style-1 mb-0">
                                             <ListGroup.Item as="li" className="d-flex justify-content-start align-items-center">
                                                 <div className="avatar">
-                                                    <img className="avatar myStaffAvatar" alt="user-icon" src={product.storageImage === 'none' ? BreadImage : product.storageImage ? `http://localhost:4000/${product.storageImage}` : ''} style={{ width: "75px" }} />
+                                                    <img className="avatar myStaffAvatar" alt="user-icon" src={product.storageImage === 'none' ? BreadImage : product.storageImage ? `${base_URL}/${product.storageImage}` : ''} style={{ width: "75px" }} />
                                                 </div>
                                                 <div className="list-style-detail ml-4 mr-2">
                                                     <h5 className="font-weight-bold">{product.productName}</h5>

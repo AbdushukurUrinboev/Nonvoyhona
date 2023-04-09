@@ -6,6 +6,7 @@ import Chart from "react-apexcharts";
 import { CALCULATE_URL } from '../../../API';
 import { useParams } from 'react-router-dom';
 import './CalculateView.css'
+import { base_URL } from '../../../API';
 
 import axios from 'axios';
 
@@ -22,7 +23,7 @@ const CalculateView = () => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/calculation/${id}`)
+        axios.get(`${base_URL}/calculation/${id}`)
             .then(res => {
                 setCalculate(res.data)
                 setReqItems(res.data.requiredItems)
@@ -74,7 +75,7 @@ const CalculateView = () => {
                                         <ListGroup as="ul" className="list-style-1 mb-0">
                                             <ListGroup.Item as="li" className="d-flex justify-content-start align-items-center">
                                                 <div className="avatar">
-                                                    <img className="avatar myStaffAvatar" alt="user-icon" src={calculate.productImage === 'none' ? BreadImage : `http://localhost:4000/${calculate.productImage}`} style={{ width: "75px" }} />
+                                                    <img className="avatar myStaffAvatar" alt="user-icon" src={calculate.productImage === 'none' ? BreadImage : `${base_URL}/${calculate.productImage}`} style={{ width: "75px" }} />
                                                 </div>
 
                                                 <div className="list-style-detail ml-4 mr-2">

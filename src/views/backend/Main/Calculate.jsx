@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { CALCULATE_URL } from '../../../API';
 import './Calculate.css'
+import { base_URL } from '../../../API';
 
 //img
 import LogoBread from '../../../assets/images/logoBread.png'
@@ -158,7 +159,7 @@ const Calculate = () => {
                                             <div className="container">
                                                 <div className="row align-items-center">
                                                     <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{index + 1}</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2"><img className="avatar myCalculateAvatar" src={bread.productImage === 'none' ? LogoBread : `http://localhost:4000/${bread.productImage}`} alt="Rasm" style={{ width: "35px" }} /></div>
+                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2"><img className="avatar myCalculateAvatar" src={bread.productImage === 'none' ? LogoBread : `${base_URL}/${bread.productImage}`} alt="Rasm" style={{ width: "35px" }} /></div>
                                                     <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3" style={{ fontWeight: "500" }}>{bread.productName}</div>
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{bread.productPrice}  -  so'm</div>
                                                     <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4 text-right productSvgStyle">

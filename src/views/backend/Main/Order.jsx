@@ -10,6 +10,7 @@ import { ORDERS_URL } from '../../../API';
 import axios from 'axios';
 import "./Order.css"
 import { useHistory } from "react-router";
+import { base_URL } from '../../../API';
 
 
 
@@ -85,7 +86,7 @@ const Order = () => {
     }
 
     const getData = (st, ed) => {
-        axios.get(`http://localhost:4000/orders?startDate=${st}&endDate=${ed}`)
+        axios.get(`${base_URL}/orders?startDate=${st}&endDate=${ed}`)
             .then(({ data: receivedDT }) => {
                 setOrders(receivedDT);
             })

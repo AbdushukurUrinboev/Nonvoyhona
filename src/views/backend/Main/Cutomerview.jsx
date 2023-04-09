@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import './CustomerView.css'
 
 import axios from 'axios';
+import { base_URL } from '../../../API';
 
 
 const Customerview = () => {
@@ -19,7 +20,7 @@ const Customerview = () => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/customer/${id}`)
+        axios.get(`${base_URL}/customer/${id}`)
             .then(res => {
                 setCustomer(res.data)
                 setCustomerHistory(res.data.history)
