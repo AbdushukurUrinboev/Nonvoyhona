@@ -6,6 +6,7 @@ import axios from 'axios';
 import { SALE_URL } from '../../../API';
 import { useHistory } from "react-router";
 import './Sail.css'
+import { base_URL } from '../../../API';
 
 //img
 import LogoBread from '../../../assets/images/logoBread.png'

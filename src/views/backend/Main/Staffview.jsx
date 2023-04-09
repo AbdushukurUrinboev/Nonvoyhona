@@ -6,7 +6,6 @@ import Chart from "react-apexcharts";
 import axios from 'axios';
 import './Staff.css'
 import { base_URL } from '../../../API';
-import { base_URL } from '../../../API';
 
 //img
 import Avatar from '../../../assets/images/avatar.png'
