@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Row, Col, Form, Button, OverlayTrigger, Tooltip } from 'react-bootstrap'
-import Card from '../../../components/Card'
+import { Container, Form, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { STORAGE_URL } from '../../../API';

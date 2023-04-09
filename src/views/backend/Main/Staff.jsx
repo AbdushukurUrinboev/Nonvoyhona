@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Form, Button, OverlayTrigger, Tooltip } from 'react-bootstrap'
-import Card from '../../../components/Card'
+import { Container, Row, Col, Form, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { STAFF_URL } from '../../../API';

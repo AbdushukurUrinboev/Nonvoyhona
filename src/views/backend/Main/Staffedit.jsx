@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+import { Container, Row, Col, Form } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { Link, useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -9,8 +9,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './StaffAdd.css'
 
-//img
-import Avatar from '../../../assets/images/avatar.png'
 
 import { base_URL } from '../../../API';
 

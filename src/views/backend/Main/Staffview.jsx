@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Row, Col, Button, ListGroup, Tab, Nav } from 'react-bootstrap'
+import { Container, Row, Col, ListGroup } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { Link, useParams } from 'react-router-dom'
-import Chart from "react-apexcharts";
 import axios from 'axios';
 import './Staff.css'
 import { base_URL } from '../../../API';

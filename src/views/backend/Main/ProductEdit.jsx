@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Row, Col, Form, Button } from 'react-bootstrap'
+import { Container, Row, Col, Form } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { Link, useHistory, useParams } from 'react-router-dom'
 import axios from 'axios';
 import { STORAGE_URL } from '../../../API';
-import Avatar from '../../../assets/images/avatar.png'
-import DefaultBread from '../../../assets/images/logoBread.png'
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -13,18 +11,7 @@ import './ProductAdd.css';
 import { base_URL } from '../../../API';
 
 
-const ProductEdit = () => {
-    // const productSchema = {
-    //     productName: "",
-    //     description: "",
-    //     productPrice: '',
-    //     poductQuantity: "",
-    //     olinganSana: "",
-    //     olinganSoat: "",
-    //     xamkor: "",
-    //     storageImage: "",
-    //   }
-    // const [receivedData, setReceivedData] = useState(productSchema)
+const ProductEdit = () => {    
     const [productName, setProductName] = useState(''); //
     const [description, setDescription] = useState(''); //
     const [productPrice, setProductPrice] = useState(0); //

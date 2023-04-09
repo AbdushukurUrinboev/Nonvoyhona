@@ -6,7 +6,7 @@ import { Link, useHistory, useParams } from 'react-router-dom'
 import axios from "axios"
 import { XAMKOR_URL } from '../../../API';
 // DatePicker
-import DatePicker from "react-datepicker";
+
 import "react-datepicker/dist/react-datepicker.css";
 import './CustomerAdd.css'
 import { base_URL } from '../../../API'
