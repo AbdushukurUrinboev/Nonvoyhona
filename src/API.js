@@ -1,4 +1,4 @@
-export const base_URL = "http://localhost:4000"
+export const base_URL = "http://85.193.82.65:4000"
 
 
 export const CUSTOMERS_URL = base_URL + '/customers'; // tugri
