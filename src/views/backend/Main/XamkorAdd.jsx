@@ -120,11 +120,10 @@ const XamkorAdd = () => {
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
-                                                        <option value="(94) ">(98)</option>
-                                                        <option value="(94) ">(99)</option>
-                                                        <option value="(94) ">(97)</option>
-                                                        <option value="(94) ">(97)</option>
-                                                        <option value="(94) ">(92)</option>
+                                                        <option value="(98) ">(98)</option>
+                                                        <option value="(99) ">(99)</option>
+                                                        <option value="(97) ">(97)</option>
+                                                        <option value="(92) ">(92)</option>
                                                     </select>
                                                     <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} />
                                                 </div>
@@ -139,11 +138,10 @@ const XamkorAdd = () => {
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
-                                                        <option value="(94) ">(98)</option>
-                                                        <option value="(94) ">(99)</option>
-                                                        <option value="(94) ">(97)</option>
-                                                        <option value="(94) ">(97)</option>
-                                                        <option value="(94) ">(92)</option>
+                                                        <option value="(98) ">(98)</option>
+                                                        <option value="(99) ">(99)</option>
+                                                        <option value="(97) ">(97)</option>
+                                                        <option value="(92) ">(92)</option>
                                                     </select>
                                                     <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone2(e.target.value)} />
                                                 </div>

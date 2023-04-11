@@ -37,8 +37,8 @@ const XamkorEdit = () => {
             .then(res => { 
                 setFirstName(res.data.firstName)
                 setLastName(res.data.lastName)
+                setPhone(res.data.phone.slice(8, res.data.phone.length));
                 setPhoneCode(res.data.phone.slice(0,4));
-                setPhone(res.data.phone.slice(8,res.data.phone.length));
                 setPhoneCode2(res.data.phone2.slice(0,4));
                 setPhone2(res.data.phone2.slice(8,res.data.phone2.length));
                 setCategory(res.data.category)  
