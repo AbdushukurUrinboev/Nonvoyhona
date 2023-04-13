@@ -13,7 +13,6 @@
     border-radius: 10px;
     padding-top: 15px !important;
     padding-bottom: 40px !important;
-    background-color: white;
     margin-bottom: 15px !important;
 }
 
@@ -28,7 +27,7 @@
 }
 
 .myStyleCustomer:hover {
-    background: #FBF7EA;
+    background: #fbf7ea52;
     border: 1px solid #C47500 !important;
 }
 
@@ -49,7 +48,6 @@
     font-size: 16px;
     line-height: 19px;
     letter-spacing: 0.01em;
-    color: #222222;
 }
 
 .myButtonCustomer {

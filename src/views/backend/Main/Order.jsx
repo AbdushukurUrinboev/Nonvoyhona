@@ -179,78 +179,79 @@ const Order = () => {
                         </div>
 
 
+                        <Card>
 
-
-                        <div className="container-fluid mt-5 myContainerStyleOrder">
-                            <div className="d-grid gapStyleOrder">
-                                <div className="p-2">
-                                    <div className="container">
-                                        <div className="row align-items-center myHeaderOrderStyle">
-                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">№ &nbsp; &nbsp; &nbsp; Zakaz nomi</div>
-                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Mijoz</div>
-                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">Telefon</div>
-                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">Muddati</div>
-                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">Avans</div>
-                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">Umumiy</div>
-                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center"><FilterPlans filterValueSelected={onFilterValueSelected}></FilterPlans></div>
-                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-right">Amal</div>
+                            <div className="container-fluid mt-5 myContainerStyleOrder">
+                                <div className="d-grid gapStyleOrder">
+                                    <div className="p-2">
+                                        <div className="container">
+                                            <div className="row align-items-center myHeaderOrderStyle">
+                                                <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">№ &nbsp; &nbsp; &nbsp; Zakaz nomi</div>
+                                                <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Mijoz</div>
+                                                <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">Telefon</div>
+                                                <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">Muddati</div>
+                                                <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">Avans</div>
+                                                <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">Umumiy</div>
+                                                <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center"><FilterPlans filterValueSelected={onFilterValueSelected}></FilterPlans></div>
+                                                <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-right">Amal</div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                {
-                                    filteredOrderslist.map((order, index) => (
-                                        <div key={index} className="p-2 border myStyleOrder ownStyleOrder">
-                                            <div className="container">
-                                                <div className="row align-items-center">
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ fontWeight: "500" }}>{index + 1} &nbsp; &nbsp; {order.order}</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{order.customer}</div>
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{order.phone}</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">
-                                                        <p>{order.date}</p>
-                                                        <p style={{ lineHeight: "0px" }}>{order.time}</p>
-                                                    </div>
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{order.avans}</div>
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{order.price}</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left" style={{ color: order.status === "Bajarildi" ? '#149100' : order.status === "Bajarilmadi" ? "#EC0000" : '#EFAC00', fontWeight: '500' }}>
-                                                        <small><svg className="" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
-                                                            <circle cx="12" cy="12" r="8" style={{ fill: order.status === "Bajarildi" ? '#149100' : order.status === "Bajarilmadi" ? "#EC0000" : '#EFAC00' }}></circle></svg>
-                                                        </small>
-                                                        {order.status}
-                                                    </div>
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-right">
-                                                        <OverlayTrigger placement="top" overlay={<Tooltip>View</Tooltip>} >
-                                                            <Link className="" to="#">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" className="text-secondary" width="20" fill="none" viewBox="0 0 24 24" stroke="#0A7AFF" onClick={() => history.push(`/order/${order._id}`)}>
-                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                                                </svg>
-                                                            </Link>
-                                                        </OverlayTrigger>
-                                                        <OverlayTrigger placement="top" overlay={<Tooltip>Edit</Tooltip>} >
-                                                            <Link className="" to="#">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" className="text-secondary" width="20" fill="none" viewBox="0 0 24 24" stroke="#E87129" onClick={() => history.push({ pathname: `/order-details/${order._id}` })}>
-                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                                                </svg>
-                                                            </Link>
-                                                        </OverlayTrigger>
-                                                        <OverlayTrigger placement="top" overlay={<Tooltip>Delete</Tooltip>} >
-                                                            <Link className="badge" to="#">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="none" viewBox="0 0 24 24" stroke="#EE1D00" onClick={() => deleteFunction(order._id)}>
-                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                                </svg>
-                                                            </Link>
-                                                        </OverlayTrigger>
+                                    {
+                                        filteredOrderslist.map((order, index) => (
+                                            <div key={index} className="p-2 border myStyleOrder ownStyleOrder">
+                                                <div className="container">
+                                                    <div className="row align-items-center">
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ fontWeight: "500" }}>{index + 1} &nbsp; &nbsp; {order.order}</div>
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{order.customer}</div>
+                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{order.phone}</div>
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">
+                                                            <p>{order.date}</p>
+                                                            <p style={{ lineHeight: "0px" }}>{order.time}</p>
+                                                        </div>
+                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{order.avans}</div>
+                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{order.price}</div>
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left" style={{ color: order.status === "Bajarildi" ? '#149100' : order.status === "Bajarilmadi" ? "#EC0000" : '#EFAC00', fontWeight: '500' }}>
+                                                            <small><svg className="" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
+                                                                <circle cx="12" cy="12" r="8" style={{ fill: order.status === "Bajarildi" ? '#149100' : order.status === "Bajarilmadi" ? "#EC0000" : '#EFAC00' }}></circle></svg>
+                                                            </small>
+                                                            {order.status}
+                                                        </div>
+                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-right">
+                                                            <OverlayTrigger placement="top" overlay={<Tooltip>View</Tooltip>} >
+                                                                <Link className="" to="#">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" className="text-secondary" width="20" fill="none" viewBox="0 0 24 24" stroke="#0A7AFF" onClick={() => history.push(`/order/${order._id}`)}>
+                                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                                    </svg>
+                                                                </Link>
+                                                            </OverlayTrigger>
+                                                            <OverlayTrigger placement="top" overlay={<Tooltip>Edit</Tooltip>} >
+                                                                <Link className="" to="#">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" className="text-secondary" width="20" fill="none" viewBox="0 0 24 24" stroke="#E87129" onClick={() => history.push({ pathname: `/order-details/${order._id}` })}>
+                                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                                                    </svg>
+                                                                </Link>
+                                                            </OverlayTrigger>
+                                                            <OverlayTrigger placement="top" overlay={<Tooltip>Delete</Tooltip>} >
+                                                                <Link className="badge" to="#">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="none" viewBox="0 0 24 24" stroke="#EE1D00" onClick={() => deleteFunction(order._id)}>
+                                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                                    </svg>
+                                                                </Link>
+                                                            </OverlayTrigger>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ))
-                                }
+                                        ))
+                                    }
+
+                                </div>
 
                             </div>
-
-                        </div>
+                        </Card>
                         <div className='container text-center mt-5'>
                             {filteredOrderslist && filteredOrderslist.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
                         </div>
