@@ -125,17 +125,17 @@ const Customeredit = () => {
                                                 <div className='input-group'>
                                                     <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode(e.target.value)}>
                                                         <option value={phoneCode}>{phoneCode}</option>
-                                                        <option value="(71) ">(71)</option>
-                                                        <option value="(73) ">(73)</option>
                                                         <option value="(90) ">(90)</option>
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
-                                                        <option value="(94) ">(98)</option>
-                                                        <option value="(94) ">(99)</option>
-                                                        <option value="(94) ">(97)</option>
-                                                        <option value="(94) ">(97)</option>
-                                                        <option value="(94) ">(92)</option>
+                                                        <option value="(99) ">(99)</option>
+                                                        <option value="(33) ">(33)</option>
+                                                        <option value="(98) ">(98)</option>
+                                                        <option value="(97) ">(97)</option>
+                                                        <option value="(92) ">(92)</option>
+                                                        <option value="(71) ">(71)</option>
+                                                        <option value="(73) ">(73)</option>
                                                     </select>
                                                     <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} value={phone} onChange={e => setPhone(e.target.value)} />
                                                 </div>
@@ -145,17 +145,17 @@ const Customeredit = () => {
                                                 <div className='input-group'>
                                                     <select value={phoneCode2} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode2(e.target.value)}>
                                                         <option value={phoneCode2}>{phoneCode2}</option>
-                                                        <option value="(71) ">(71)</option>
-                                                        <option value="(73) ">(73)</option>
                                                         <option value="(90) ">(90)</option>
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
-                                                        <option value="(94) ">(98)</option>
-                                                        <option value="(94) ">(99)</option>
-                                                        <option value="(94) ">(97)</option>
-                                                        <option value="(94) ">(97)</option>
-                                                        <option value="(94) ">(92)</option>
+                                                        <option value="(99) ">(99)</option>
+                                                        <option value="(33) ">(33)</option>
+                                                        <option value="(98) ">(98)</option>
+                                                        <option value="(97) ">(97)</option>
+                                                        <option value="(92) ">(92)</option>
+                                                        <option value="(71) ">(71)</option>
+                                                        <option value="(73) ">(73)</option>
                                                     </select>
                                                     <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} value={phone2} onChange={e => setPhone2(e.target.value)} />
                                                 </div>
