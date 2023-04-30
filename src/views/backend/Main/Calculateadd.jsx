@@ -29,29 +29,6 @@ const Calculateadd = () => {
     const [addOthersInput, setAddOthersInput] = useState([]);
 
 
-    // const [breadQuantity, setBreadQuantity] = useState(0);    
-    // const [pista, setPista] = useState(0);
-    // const [bodom, setBodom] = useState(0);
-    // const [yongoq, setYongoq] = useState(0);
-    // const [un, setUn] = useState(1);
-    // const [shakar, setShakar] = useState(0);
-    // const [yog, setYog] = useState(0);
-    // const [suzma, setSuzma] = useState(0);
-    // const [suhoy, setSuhoy] = useState(0);
-    // const [droj, setDroj] = useState(0);
-    // const [kunjut, setKunjut] = useState(0);
-    // const [sedana, setSedana] = useState(0);
-    // const [tuz, setTuz] = useState(0);
-    // const [keshu, setKeshu] = useState(0);
-    // const [nonhuja, setNonhuja] = useState(0);
-    // const [kumir, setKumir] = useState(0);
-    // const [gaz, setGaz] = useState(0);
-    // const [elektr, setElektr] = useState(0);
-    // const [paket, setPaket] = useState(1);
-    // const [ovqat, setOvqat] = useState(0);
-    // const [sotuvchi, setSotuvchi] = useState(0);
-    // const [ishHaqi, setIshHaqi] = useState(0);
-    // const [boshqalar, setBoshqalar] = useState(0);
 
     const [currOthers, setCurrOthers] = useState("No");
     const [freeValue, setFreeValue] = useState(undefined);

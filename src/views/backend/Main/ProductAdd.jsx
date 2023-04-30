@@ -204,8 +204,8 @@ const Productadd = () => {
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Berilgan avans</Form.Label>
                                                 <Form.Control type="number" id="Text1" placeholder="Berilgan pulni kiriting..." value={berilganAvans} onChange={e => {
-                                                    setBerilganAvans(e.target.value);
-                                                    calculateQolganPul(umumiyNarhi, e.target.value)
+                                                    setBerilganAvans(Number(e.target.value));
+                                                    calculateQolganPul(umumiyNarhi, (Number(e.target.value)))
                                                 }} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
