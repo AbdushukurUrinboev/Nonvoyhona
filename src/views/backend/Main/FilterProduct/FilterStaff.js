@@ -12,9 +12,9 @@ export function FilterStaff(props) {
 
     <select name="group" defaultValue="" id="staff-filter" className="form-select form-control font-weight-bold choicesjs" style={{padding: "5px"}} onChange={onFilterValueChanged}>
         <option value="No"> Guruhi </option>
-        <option value="A-guruh"> A-Guruh </option>
-        <option value="B-guruh"> B-Guruh </option>
-        <option value="C-guruh"> C-Guruh </option>
+        <option value="TepaTandir"> Tepa Tandir </option>
+        <option value="KulchaTandir"> Kulcha Tandir </option>
+        <option value="PodvalPatir"> Podval Patir </option>
         <option value="D-guruh"> D-Guruh </option>
     </select>
       
@@ -35,6 +35,8 @@ export function FilterStaffSmena(props) {
         <option value="No"> Smena </option>
         <option value="1-smena"> 1-smena </option>
         <option value="2-smena"> 2-smena </option>
+        <option value="3-smena"> 3-smena </option>
+        <option value="4-smena"> 4-smena </option>
     </select>
       
     )

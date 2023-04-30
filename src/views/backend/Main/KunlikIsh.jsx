@@ -282,9 +282,9 @@ const Calculate = () => {
                                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Gurux</Form.Label>
                                                                 <select id="inputState" className="form-select form-control choicesjs" onChange={e => setGroup(e.target.value)}>
                                                                     <option value="">Gurux</option>
-                                                                    <option value="A-Guruh">A-Gurux</option>
-                                                                    <option value="B-Guruh">B-Gurux</option>
-                                                                    <option value="C-Guruh">C-Gurux</option>
+                                                                    <option value="TepaTandir">Tepa Tandir</option>
+                                                                    <option value="KulchaTandir">Kulcha Tandir</option>
+                                                                    <option value="PodvalPatir">Podval Patir</option>
                                                                     <option value="D-Guruh">D-Gurux</option>
                                                                 </select>
                                                             </div>
@@ -294,6 +294,8 @@ const Calculate = () => {
                                                                     <option value="">Smena</option>
                                                                     <option value="1-smena">1-smena</option>
                                                                     <option value="2-smena">2-smena</option>
+                                                                    <option value="3-smena">3-smena</option>
+                                                                    <option value="4-smena">4-smena</option>
                                                                 </select>
                                                             </div>
                                                             <div className="col-md-6 mb-3">

@@ -225,9 +225,9 @@ const StaffEdit = () => {
                                                 <Form.Label htmlFor="inputcountry" className="font-weight-bold text-muted text-uppercase">Guruhi</Form.Label>
                                                 <select defaultValue="" id="inputcountry" className="form-select form-control choicesjs" value={group} onChange={e => setGroup(e.target.value)} >
                                                     <option value="" hidden disabled>Guruhni tanlang...</option>
-                                                    <option value="A-guruh">A - guruh</option>
-                                                    <option value="B-guruh">B - guruh</option>
-                                                    <option value="C-guruh">C - guruh</option>
+                                                    <option value="TepaTandir">Tepa Tandir</option>
+                                                    <option value="KulchaTandir">Kulcha Tandir</option>
+                                                    <option value="PodvalPatir">Podval Patir</option>
                                                     <option value="D-guruh">D - guruh</option>
                                                     <option value="No">Yo'q</option>
                                                 </select>
@@ -238,6 +238,8 @@ const StaffEdit = () => {
                                                     <option value="" hidden disabled>Smenani tanlang...</option>
                                                     <option value="1-smena">1 - smena</option>
                                                     <option value="2-smena">2 - smena</option>
+                                                    <option value="3-smena">3 - smena</option>
+                                                    <option value="4-smena">4 - smena</option>
                                                     <option value="No">Yo'q</option>
                                                 </select>
                                             </div>

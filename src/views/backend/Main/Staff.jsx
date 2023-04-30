@@ -31,13 +31,13 @@ const Staff = () => {
 
     const filterStaffList = (data) => {
         return data.filter((staff) => {
-            if (filterTextValue === "A-guruh") {
+            if (filterTextValue === "TepaTandir") {
                 // console.log(staff.group==="A-guruh");
-                return staff.group === "A-guruh"
-            } else if (filterTextValue === "B-guruh") {
-                return staff.group === "B-guruh"
-            } else if (filterTextValue === "C-guruh") {
-                return staff.group === "C-guruh"
+                return staff.group === "TepaTandir"
+            } else if (filterTextValue === "KulchaTandir") {
+                return staff.group === "KulchaTandir"
+            } else if (filterTextValue === "PodvalPatir") {
+                return staff.group === "PodvalPatir"
             } else if (filterTextValue === "D-guruh") {
                 return staff.group === "D-guruh"
             } else {
@@ -52,6 +52,10 @@ const Staff = () => {
                 return staffSmena.smena === "1-smena"
             } else if (filterTextValueSmena === "2-smena") {
                 return staffSmena.smena === "2-smena"
+            } else if (filterTextValueSmena === "3-smena") {
+                return staffSmena.smena === "3-smena"
+            } else if (filterTextValueSmena === "4-smena") {
+                return staffSmena.smena === "4-smena"
             } else {
                 return staffSmena
             }
