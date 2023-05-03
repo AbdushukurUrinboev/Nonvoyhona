@@ -54,7 +54,7 @@ const StaffEdit = () => {
                 setGroup(res.data.group);
                 setSmena(res.data.smena);
                 setSalary(res.data.salary);
-                setBirthday(new Date(res.data.birthday));
+                setBirthday(res.data.birthday);
                 setImage(res.data.image);
             })
             .catch(err => console.log(err))
@@ -76,7 +76,7 @@ const StaffEdit = () => {
         fd.append('group', group)
         fd.append('smena', smena)
         fd.append('salary', salary)
-        fd.append('birthday', birthday.getDate() + "/" + birthday.getMonth() + "/" + birthday.getFullYear())
+        fd.append('birthday', birthday)
         fd.append('image', image)
 
         axios.put(STAFF_URL, fd)
@@ -168,7 +168,12 @@ const StaffEdit = () => {
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Lavozimi</Form.Label>
                                                 <Form.Control type="text" id="Text3" placeholder="Lavozimini kiriting..." required='required' value={typeOfWorker} onChange={e => setTypeOfWorker(e.target.value)} />
                                             </div>
-                                            <div className="col-md-6 mb-3 position-relative">
+                                            <div className="col-md-6 mb-3">
+                                                <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Tug'ilgan sanasi</Form.Label>
+                                                <Form.Control type="text" id="Text3" placeholder="Tug'ilgan sanasini..." required='required' value={birthday} onChange={e => setBirthday(e.target.value)} />
+                                            </div>
+                                            
+                                            {/* <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text2" className="font-weight-bold text-muted text-uppercase">Tug'ilgan sanasi</Form.Label>
                                                 <DatePicker className="form-control" id="Text2" name="event_date" dateFormat="dd/MM/yyyy" autoComplete="off" value={birthday} selected={birthday} onChange={date => setBirthday(date)} />
                                                 <span className="search-link">
@@ -176,7 +181,9 @@ const StaffEdit = () => {
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                                     </svg>
                                                 </span>
-                                            </div>
+                                            </div> */}
+                                            
+                                            
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Telefon raqami (shahsiy)</Form.Label>
                                                 <div className='input-group'>

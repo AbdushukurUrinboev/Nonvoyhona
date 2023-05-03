@@ -28,7 +28,11 @@ const Staffadd = () => {
     const [group, setGroup] = useState('');
     const [smena, setSmena] = useState('');
     const [salary, setSalary] = useState('');
-    const [birthday, setBirthday] = useState();
+    const [birthdayDay, setBirthdayDay] = useState(0);
+    const [birthdayMonth, setBirthdayMonth] = useState('');
+    const [birthdayYear, setBirthdayYear] = useState(0);
+
+
     const [image, setImage] = useState();
     const [error, setError] = useState(false);
 
@@ -39,10 +43,10 @@ const Staffadd = () => {
 
     function handleChange(e) {
         e.preventDefault();
-        if (firstName.length === 0 || lastName.length === 0 || gender.length === 0 || phone.length === 0 || phone2.length === 0 || typeOfWorker.length === 0 || adress.length === 0 || group.length === 0 || smena.length === 0 || salary.length === 0 || birthday.length === 0) {
+        if (firstName.length === 0 || lastName.length === 0 || gender.length === 0 || phone.length === 0 || phone2.length === 0 || typeOfWorker.length === 0 || adress.length === 0 || group.length === 0 || smena.length === 0 || salary.length === 0 || birthdayDay.length === 0 || birthdayMonth.length === 0 || birthdayYear.length === 0) {
             setError(true)
         }
-        if (firstName && lastName && gender && phone && phone2 && typeOfWorker && adress && group && smena && salary && birthday) {
+        if (firstName && lastName && gender && phone && phone2 && typeOfWorker && adress && group && smena && salary && birthdayDay && birthdayMonth && birthdayYear) {
             const fd = new FormData()
             fd.append('firstName', firstName)
             fd.append('lastName', lastName)
@@ -54,7 +58,7 @@ const Staffadd = () => {
             fd.append('group', group)
             fd.append('smena', smena)
             fd.append('salary', salary)
-            fd.append('birthday', (birthday.getMonth() + 1) + " " + + birthday.getDate() + " " + birthday.getFullYear())
+            fd.append('birthday', birthdayDay + " " + birthdayMonth + " " + birthdayYear + " yil")
             fd.append('image', image)
 
             axios.post(STAFF_URL, fd)
@@ -65,6 +69,7 @@ const Staffadd = () => {
                 })
                 .catch(err => console.log(err))
         }
+       
     }
 
 
@@ -148,7 +153,29 @@ const Staffadd = () => {
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Lavozimi</Form.Label>
                                                 <Form.Control type="text" id="Text3" placeholder="Lavozimini kiriting..." required='required' onChange={e => setTypeOfWorker(e.target.value)} />
                                             </div>
-                                            <div className="col-md-6 mb-3 position-relative">
+
+                                            <div className="col-md-6 mb-3">
+                                                <Form.Label htmlFor="Text7" className="font-weight-bold text-muted text-uppercase">Tug'ilgan sanasi</Form.Label>
+                                                <div className='input-group'>
+                                                <Form.Control type="number" id="Text5" placeholder="Kun..." style={{ width: '10%', marginRight: '8px' }} onChange={e => setBirthdayDay(e.target.value)} />
+                                                    <select value={birthdayMonth} id="inputState" className="form-select form-control choicesjs" onChange={e => setBirthdayMonth(e.target.value)}>
+                                                        <option value="Yanvar">Yanvar</option>
+                                                        <option value="Fevral">Fevral</option>
+                                                        <option value="Mart">Mart</option>
+                                                        <option value="Aprel">Aprel</option>
+                                                        <option value="May">May</option>
+                                                        <option value="Iyun">Iyun</option>
+                                                        <option value="Iyul">Iyul</option>
+                                                        <option value="Avgust">Avgust</option>
+                                                        <option value="Sentyabr">Sentyabr</option>
+                                                        <option value="Octyabr">Octyabr</option>
+                                                        <option value="Noyabr">Noyabr</option>
+                                                        <option value="Dekabr">Dekabr</option>
+                                                    </select>
+                                                    <Form.Control type="number" id="Text5" placeholder="Yil..." style={{ width: '10%', marginLeft: '8px' }} onChange={e => setBirthdayYear(e.target.value)} />
+                                                </div>
+                                            </div>
+                                            {/* <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text2" className="font-weight-bold text-muted text-uppercase">Tug'ilgan sanasi</Form.Label>
                                                 <DatePicker className="form-control" id="Text2" name="event_date" placeholderText="Tug'ilgan sanani kiriting" autoComplete="off" selected={birthday} onChange={date => setBirthday(date)} />
                                                 <span className="search-link">
@@ -156,7 +183,7 @@ const Staffadd = () => {
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                                     </svg>
                                                 </span>
-                                            </div>
+                                            </div> */}
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Telefon raqami (shahsiy)</Form.Label>
                                                 <div className='input-group'>

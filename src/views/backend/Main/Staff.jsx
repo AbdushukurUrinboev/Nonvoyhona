@@ -197,8 +197,8 @@ const Staff = () => {
                                                     <div className="row align-items-center myHeaderStaffStyle">
                                                         <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">№</div>
                                                         <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center"></div>
-                                                        <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-left">Familiya Ismi</div>
-                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">Lavozimi</div>
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left">Familiya Ismi</div>
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Lavozimi</div>
                                                         <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-left"><FilterStaff filterValueSelected={onFilterValueSelected}></FilterStaff></div>
                                                         <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-right"><FilterStaffSmena filterValueSelectedSmena={onFilterValueSelectedSmena}></FilterStaffSmena></div>
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">Telefon</div>
@@ -218,8 +218,8 @@ const Staff = () => {
                                                                         <img className="avatar myStaffAvatar" alt="user-icon" src={staff.image === 'none' ? Avatar : `${base_URL}/${staff.image}`} style={{ width: "35px" }} />
                                                                     </div>
                                                                 </div>
-                                                                <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-left" style={{ fontWeight: "500" }}>{staff.firstName} {staff.lastName}</div>
-                                                                <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{staff.typeOfWorker}</div>
+                                                                <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left" style={{ fontWeight: "500" }}>{staff.firstName} {staff.lastName}</div>
+                                                                <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{staff.typeOfWorker}</div>
                                                                 <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{staff.group == 'No' ? "Yo'q" : staff.group}</div>
                                                                 <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{staff.smena == 'No' ? "Yo'q" : staff.smena}</div>
                                                                 <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center" >{staff.phone}</div>
