@@ -18,7 +18,7 @@ const Staffadd = () => {
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [gender, setGender] = useState('');
+    const [gender, setGender] = useState();
     const [phoneCode, setPhoneCode] = useState('(90) ');
     const [phone, setPhone] = useState('');
     const [phoneCode2, setPhoneCode2] = useState('(90) ');
@@ -32,13 +32,13 @@ const Staffadd = () => {
     const [birthdayMonth, setBirthdayMonth] = useState('');
     const [birthdayYear, setBirthdayYear] = useState(0);
 
-
+  
     const [image, setImage] = useState();
     const [error, setError] = useState(false);
 
     const history = useHistory()
 
-
+    console.log(gender);
 
 
     function handleChange(e) {
@@ -140,7 +140,7 @@ const Staffadd = () => {
                                                 </div>
                                                 <div className="form-check form-check-inline">
                                                     <div className="custom-control custom-radio custom-control-inline">
-                                                        <Form.Control type="radio" id="inlineRadio2" name="customRadio-1" className="custom-control-input" value="Female" onChange={e => setGender(e.target.value)} />
+                                                        <Form.Control type="radio" id="inlineRadio2" name="customRadio-2" className="custom-control-input" value="Female" onChange={e => setGender(e.target.value)} />
                                                         <Form.Label className="custom-control-label" htmlFor="inlineRadio2"> Ayol </Form.Label>
                                                     </div>
                                                 </div>

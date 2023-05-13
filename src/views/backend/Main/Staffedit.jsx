@@ -44,11 +44,11 @@ const StaffEdit = () => {
             .then(res => {
                 setFirstName(res.data.firstName);
                 setLastName(res.data.lastName);
-                setGender(res.data.gender == "Male" ? true : false);
+                setGender(res.data.gender);
                 setPhoneCode(res.data.phone.slice(0, 4));
-                setPhone(res.data.phone.slice(8, res.data.phone.length));
+                setPhone(res.data.phone.slice(7, res.data.phone.length));
                 setPhoneCode2(res.data.phone2.slice(0, 4));
-                setPhone2(res.data.phone2.slice(8, res.data.phone2.length));
+                setPhone2(res.data.phone2.slice(7, res.data.phone2.length));
                 setTypeOfWorker(res.data.typeOfWorker);
                 setAdress(res.data.adress);
                 setGroup(res.data.group);
@@ -88,6 +88,7 @@ const StaffEdit = () => {
 
     }
 
+// console.log(gender);
 
     return (
         <>
@@ -149,13 +150,13 @@ const StaffEdit = () => {
                                                 <Form.Label className="font-weight-bold text-muted text-uppercase" >Jinsi</Form.Label><br />
                                                 <div className="form-check form-check-inline">
                                                     <div className="custom-control custom-radio custom-control-inline" >
-                                                        <Form.Control type="radio" id="inlineRadio1" name="customRadio-1" className="custom-control-input" checked={gender} value={gender} onChange={e => setGender(e.target.value)} />
+                                                        <Form.Control type="radio" id="inlineRadio1" name="customRadio-1" className="custom-control-input" checked={gender === "Male"} value="Male" onChange={e => setGender(e.target.value)} />
                                                         <Form.Label className="custom-control-label" htmlFor="inlineRadio1"> Erkak </Form.Label>
                                                     </div>
                                                 </div>
                                                 <div className="form-check form-check-inline">
                                                     <div className="custom-control custom-radio custom-control-inline">
-                                                        <Form.Control type="radio" id="inlineRadio2" name="customRadio-1" className="custom-control-input" checked={!gender} value={gender} onChange={e => setGender(e.target.value)} />
+                                                        <Form.Control type="radio" id="inlineRadio2" name="customRadio-2" className="custom-control-input" checked={gender === "Female"} value="Female" onChange={e => setGender(e.target.value)} />
                                                         <Form.Label className="custom-control-label" htmlFor="inlineRadio2"> Ayol </Form.Label>
                                                     </div>
                                                 </div>
