@@ -31,75 +31,75 @@ const Customerview = () => {
 
 
 
-    const chart1 = {
-        series: [{
-            data: [91, 82, 90, 88, 105, 99, 62]
-        }],
-        options: {
-            chart: {
-                //   height: 265,
-                //   type: 'bar',
-                toolbar: {
-                    show: false,
-                },
-                events: {
-                    click: function (chart, w, e) {
-                        // console.log(chart, w, e)
-                    }
-                }
-            },
-            plotOptions: {
-                bar: {
-                    columnWidth: '35%',
-                    distributed: true,
-                }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            grid: {
-                xaxis: {
-                    lines: {
-                        show: false
-                    }
-                },
-                yaxis: {
-                    lines: {
-                        show: true
-                    }
-                }
-            },
-            legend: {
-                show: false
-            },
-            yaxis: {
-                labels: {
-                    offsetY: 0,
-                    minWidth: 20,
-                    maxWidth: 20
-                },
-            },
-            xaxis: {
-                categories: [
-                    'Dush',
-                    'Sesh',
-                    'Chor',
-                    'Pay',
-                    'Juma',
-                    'Shan',
-                    'Yak'
-                ],
-                labels: {
-                    minHeight: 22,
-                    maxHeight: 22,
-                    style: {
-                        fontSize: '12px'
-                    }
-                }
-            }
-        }
+    // const chart1 = {
+    //     series: [{
+    //         data: [91, 82, 90, 88, 105, 99, 62]
+    //     }],
+    //     options: {
+    //         chart: {
+    //             //   height: 265,
+    //             //   type: 'bar',
+    //             toolbar: {
+    //                 show: false,
+    //             },
+    //             events: {
+    //                 click: function (chart, w, e) {
+    //                     // console.log(chart, w, e)
+    //                 }
+    //             }
+    //         },
+    //         plotOptions: {
+    //             bar: {
+    //                 columnWidth: '35%',
+    //                 distributed: true,
+    //             }
+    //         },
+    //         dataLabels: {
+    //             enabled: false
+    //         },
+    //         grid: {
+    //             xaxis: {
+    //                 lines: {
+    //                     show: false
+    //                 }
+    //             },
+    //             yaxis: {
+    //                 lines: {
+    //                     show: true
+    //                 }
+    //             }
+    //         },
+    //         legend: {
+    //             show: false
+    //         },
+    //         yaxis: {
+    //             labels: {
+    //                 offsetY: 0,
+    //                 minWidth: 20,
+    //                 maxWidth: 20
+    //             },
+    //         },
+    //         xaxis: {
+    //             categories: [
+    //                 'Dush',
+    //                 'Sesh',
+    //                 'Chor',
+    //                 'Pay',
+    //                 'Juma',
+    //                 'Shan',
+    //                 'Yak'
+    //             ],
+    //             labels: {
+    //                 minHeight: 22,
+    //                 maxHeight: 22,
+    //                 style: {
+    //                     fontSize: '12px'
+    //                 }
+    //             }
+    //         }
+    //     }
 
-    }
+    // }
 
     return (
         <>
@@ -188,10 +188,10 @@ const Customerview = () => {
                                         </tbody>
                                     </table>
                                 </ListGroup.Item>
-                                <ListGroup.Item as="li" >
+                                {/* <ListGroup.Item as="li" >
                                     <h6 className="font-weight-bold mt-5 mb-4">Umumiy Statistika</h6>
                                     <Chart options={chart1.options} series={chart1.series} type="bar" height="250px" />
-                                </ListGroup.Item>
+                                </ListGroup.Item> */}
                             </ListGroup>
                         </Card>
                     </Col>
