@@ -161,3 +161,28 @@ export function SotuvBreadListData(props) {
         </sotuvBreadDataContext.Provider>
     )
 }
+
+
+
+
+// Kalkulyatsiyadagi Xodimlar vazifasi masalan yopuvchi, parkash, xamirkash
+
+export const staffTaskDataContext = createContext()
+
+export function StaffTaskListData(props) {
+    const [tasksList, setTasksList] = useState([]);
+
+    useEffect(() => {
+        axios.get(CALCULATE_URL)
+        .then(res => {
+            let taskNames = res.data.map(elem => elem.staffShare) // type - turi, share-puli   
+            setTasksList(taskNames)
+        })
+    }, [])
+
+    return (
+        <staffTaskDataContext.Provider value={tasksList}>
+            {props.children}
+        </staffTaskDataContext.Provider>
+    )
+}

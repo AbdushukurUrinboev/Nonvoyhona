@@ -8,18 +8,25 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './Calculate.css'
 // DataProvider
-import { dataContext } from './ContextProvider/DataProvider';
+import { dataContext, staffTaskDataContext } from './ContextProvider/DataProvider';
 import { useEffect } from 'react';
 
 const Calculateadd = () => {
 
     const [requiredItems, setRequiredItems] = useState([])
     const [productExpenses, setProductExpenses] = useState([])
-       
-    
+
+
     const [addInput, setAddInput] = useState([])
-    const [birQopUchunTulov, setBirQopUchunTulov] = useState(0)   
+    const [birQopUchunTulov, setBirQopUchunTulov] = useState(0)
     const [breadPerBag, setBreadPerBag] = useState(0)
+
+    // Staff Tasks
+    const [otherTasks, setOtherTasks] = useState(["Yopuvchi", "Parkash", "Xamirkash"]);
+    const [staffTasksInput, setStaffTasksInput] = useState('No')
+    const [addstaffTasksInput, setAddStaffTasksInput] = useState([]);
+    const [staffShare, setStaffShare] = useState([]);
+
 
     const [productInput, setProductInput] = useState('no')
     const [productName, setProductName] = useState('');
@@ -27,7 +34,7 @@ const Calculateadd = () => {
 
     const [others, setOthers] = useState(["Elektr", "Gaz", "Ko'mir", "Ovqat", "Yo'lkira", "Nonho'ja", "Sotuvchi", "Boshqalar"]);
     const [addOthersInput, setAddOthersInput] = useState([]);
-
+    const [freeValueStaff, setFreeValueStaff] = useState('');
 
 
     const [currOthers, setCurrOthers] = useState("No");
@@ -38,25 +45,38 @@ const Calculateadd = () => {
 
     const history = useHistory()
 
-    const valueProducts = useContext(dataContext)
+    const valueProducts = useContext(dataContext);
+
+    // staffType - yopuvchi, parkash, xamirkash
+    const valueStaffTasks = useContext(staffTaskDataContext)
+
+
 
 
 
     function handleChange(e) {
         e.preventDefault();
 
+
         const fd = new FormData()
 
 
+        const overallShare = staffShare.reduce((acc, objt) => acc + objt.share, 0)
+
+       
+        if(overallShare !== birQopUchunTulov) {
+            alert("Bir qop uchun to'ov Xodimlar vazifasi qiymatiga to'g'ri kelmadi")
+            return
+        }
 
 
-
+       
         fd.append('productName', productName);
         fd.append('birQopUchunTulov', birQopUchunTulov);
         fd.append('breadPerBag', breadPerBag);
         fd.append('productPrice', productPrice);
         fd.append('productImage', productImage);
-        
+
         for (var i = 0; i < requiredItems.length; i++) {
             fd.append('requiredItems[]', JSON.stringify(requiredItems[i]));
         }
@@ -65,14 +85,21 @@ const Calculateadd = () => {
         }
         const overallexpenses = productExpenses.reduce((acc, objt) => acc + objt.spent, 0)
 
+        for (var i = 0; i < staffShare.length; i++) {
+            fd.append('staffShare[]', JSON.stringify(staffShare[i]));
+        }
+        
+       
+
         fd.append('allExpensesPerBag', overallexpenses);
-        axios.post(CALCULATE_URL, fd)
-            .then(res => {
-                console.log("Data is saved", res)
-                window.location.reload(history.push('/calculate'));
-                // history.push('/calculate')
-            })
-            .catch(err => console.log(err))
+        
+        // axios.post(CALCULATE_URL, fd)
+        //     .then(res => {
+        //         console.log("Data is saved", res)
+        //         window.location.reload(history.push('/calculate'));
+        //         // history.push('/calculate')
+        //     })
+        //     .catch(err => console.log(err))
 
     }
 
@@ -109,6 +136,51 @@ const Calculateadd = () => {
                                 <Row>
                                     <Col md="3" className="mb-3">
 
+                                        {/* Xodimlar vazifalari (parkash, xamirkash, yopuvchi) */}
+                                        <Card.Body className=" mt-3 mx-auto">
+                                            <div className="col-md-12 mb-3">
+                                                <Form.Label htmlFor="inputState1" className="form-label font-weight-bold text-muted text-uppercase">Xodim Vazifasini tanlang</Form.Label>
+                                                <select id="inputState1" className="form-select form-control choicesjs" value={staffTasksInput} onChange={e => {
+                                                    setStaffTasksInput(e.target.value);
+                                                    if (e.target.value !== "Qo'shimcha kiritish") {
+                                                        setFreeValueStaff('');
+                                                    }
+                                                }}>
+                                                    <option value="No">Vazifalar</option>
+                                                    {
+                                                        otherTasks.filter((product) => {
+                                                            return !addstaffTasksInput.includes(product)
+                                                        }).map((product, ind) => {
+                                                            return <option key={ind} value={product}>{product}</option>
+                                                        })
+                                                    }
+                                                    <option value="Qo'shimcha kiritish">Qo'shimcha kiritish</option>
+
+                                                </select>
+                                                {
+
+                                                    staffTasksInput == "Qo'shimcha kiritish" ? <Form.Control type="text" id="Text1" className='mt-2' placeholder="Vazifa nomini kiriting..." value={freeValue} onChange={(e) => setFreeValueStaff(e.target.value)} /> : null
+                                                }
+                                            </div>
+
+                                            <button className='btn btn-primary mt-2 w-100' disabled={staffTasksInput === "No" ? true : false} onClick={() => {
+
+                                                if (freeValueStaff) {
+                                                    setAddStaffTasksInput([...addstaffTasksInput, freeValueStaff]);
+                                                } else {
+                                                    setAddStaffTasksInput([...addstaffTasksInput, staffTasksInput]);
+                                                }
+                                                setStaffTasksInput('No')
+                                            }}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                                </svg>
+                                                Vazifani qo'shish
+                                            </button>
+                                        </Card.Body>
+
+
+                                        {/* Maxsulotlar ruyhati */}
                                         <Card.Body className=" mt-3 mx-auto">
                                             <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Maxsulotni tanlang</Form.Label>
                                             <select id="inputState" className="form-select form-control choicesjs" value={productInput} onChange={e => setProductInput(e.target.value)} >
@@ -164,8 +236,8 @@ const Calculateadd = () => {
 
                                                 </select>
                                                 {
-                                                    
-                                                    currOthers == "Qo'shimcha kiritish" ? <Form.Control type="text" id="Text1" className='mt-2' placeholder="Chiqim nomini kiriting..." value={freeValue} onChange={(e) => setFreeValue(e.target.value)} type="text" /> : null
+
+                                                    currOthers == "Qo'shimcha kiritish" ? <Form.Control type="text" id="Text1" className='mt-2' placeholder="Chiqim nomini kiriting..." value={freeValue} onChange={(e) => setFreeValue(e.target.value)} /> : null
                                                 }
                                             </div>
 
@@ -218,13 +290,37 @@ const Calculateadd = () => {
 
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Bir qop uchun to'lov</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Non narhini kiriting..." required='required' onChange={e => setBirQopUchunTulov(e.target.value)} value={birQopUchunTulov} /> 
+                                                <Form.Control type="number" id="Text3" placeholder="Non narhini kiriting..." required='required' onChange={e => setBirQopUchunTulov (Number(e.target.value))} value={birQopUchunTulov} />
                                             </div>
 
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Bir qopdan chiqadigan non soni</Form.Label>
                                                 <Form.Control type="number" id="Text3" placeholder="Non narhini kiriting..." required='required' onChange={e => setBreadPerBag(e.target.value)} value={breadPerBag} />
                                             </div>
+
+                                            
+                                            {/* Staff vazifalarini qo'shish */}
+                                            {
+                                                addstaffTasksInput.map((item, index) => {
+                                                    return <div className="col-md-6 mb-3" key={index}>
+                                                        <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase" style={{ color: 'red' }}>{item} pulini kiriting</Form.Label>
+                                                        <Form.Control type="number" id="Text1" placeholder="Narhni kiriting..." onChange={(e) => {
+                                                            function addOrUpdateBread(arr, newBread) {
+                                                                const index = arr.findIndex(bread => bread.type === newBread.type);
+                                                                if (index !== -1) {
+                                                                    arr[index].share = newBread.share;
+                                                                } else {
+                                                                    arr.push(newBread);
+                                                                }
+                                                                return arr;
+                                                            }
+                                                            let result = addOrUpdateBread(staffShare, { type: item, share: Number(e.target.value) })
+                                                            setStaffShare([...result]);
+                                                        }} required='required' />
+
+                                                    </div>
+                                                })
+                                            }
 
 
                                             {/* Mahsulotlarni qo'shish */}
@@ -270,7 +366,7 @@ const Calculateadd = () => {
 
                                                     </div>
                                                 })
-                                            }  
+                                            }
                                         </Form>
                                     </Col>
                                 </Row>
