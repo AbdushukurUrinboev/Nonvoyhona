@@ -64,10 +64,10 @@ const Calculateadd = () => {
         const overallShare = staffShare.reduce((acc, objt) => acc + objt.share, 0)
 
        
-        // if(overallShare !== birQopUchunTulov) {
-        //     alert("Bir qop uchun to'ov Xodimlar vazifasi qiymatiga to'g'ri kelmadi")
-        //     return
-        // }
+        if(overallShare !== birQopUchunTulov) {
+            alert("Bir qop uchun to'ov Xodimlar vazifasi qiymatiga to'g'ri kelmadi")
+            return
+        }
 
 
        
@@ -85,11 +85,11 @@ const Calculateadd = () => {
         }
         const overallexpenses = productExpenses.reduce((acc, objt) => acc + objt.spent, 0)
 
-        // for (var i = 0; i < staffShare.length; i++) {
-        //     fd.append('staffShare[]', JSON.stringify(staffShare[i]));
-        // }
+        for (var i = 0; i < staffShare.length; i++) {
+            fd.append('staffShare[]', JSON.stringify(staffShare[i]));
+        }
         
-       
+       console.log(staffShare);
 
         fd.append('allExpensesPerBag', overallexpenses);
         
