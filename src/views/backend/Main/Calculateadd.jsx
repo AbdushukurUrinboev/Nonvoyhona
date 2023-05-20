@@ -93,13 +93,13 @@ const Calculateadd = () => {
 
         fd.append('allExpensesPerBag', overallexpenses);
         
-        // axios.post(CALCULATE_URL, fd)
-        //     .then(res => {
-        //         console.log("Data is saved", res)
-        //         window.location.reload(history.push('/calculate'));
-        //         // history.push('/calculate')
-        //     })
-        //     .catch(err => console.log(err))
+        axios.post(CALCULATE_URL, fd)
+            .then(res => {
+                console.log("Data is saved", res)
+                window.location.reload(history.push('/calculate'));
+                // history.push('/calculate')
+            })
+            .catch(err => console.log(err))
 
     }
 
