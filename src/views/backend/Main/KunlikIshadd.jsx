@@ -1,10 +1,9 @@
-import  React, {useState, useContext} from 'react'
+import  React, {useState} from 'react'
 import {Container,Row,Col,Form,Button} from 'react-bootstrap'
 import  Card from '../../../components/Card'
 import {Link, useHistory} from 'react-router-dom'
 import axios from 'axios';
 import { DAILY_TASKS_URL } from '../../../API';
-import { staffTaskDataContext } from './ContextProvider/DataProvider';
 
 
 const Calculateadd =()=>{
@@ -23,10 +22,7 @@ const Calculateadd =()=>{
 
     const history = useHistory()
 
-        // staffType - yopuvchi, parkash, xamirkash
-        const valueStaffTasks = useContext(staffTaskDataContext)
-
-        console.log(valueStaffTasks);
+        
 
 
     function handleAdd (e) {

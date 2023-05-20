@@ -32,7 +32,7 @@ const Calculate = () => {
     const [group, setGroup] = useState('');
     const [smena, setSmena] = useState('');
     const [qoplarSoni, setQoplarSoni] = useState(0);
-    const [nonTuri, setNonTuri] = useState('');
+    const [nonTuri, setNonTuri] = useState('no');
     const [nonSoni, setNonSoni] = useState(0);
     const [jastaNonSoni, setJastaNonSoni] = useState('');
     const [bonusNon, setBonusNon] = useState('');
@@ -52,6 +52,8 @@ const Calculate = () => {
 
     const breadList = useContext(breadDataContext);
     const customerList = useContext(customersDataContext);
+
+ 
 
     // const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
     const history = useHistory()
@@ -298,22 +300,46 @@ const Calculate = () => {
                                                                     <option value="4-smena">4-smena</option>
                                                                 </select>
                                                             </div>
-                                                            <div className="col-md-6 mb-3">
-                                                                <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Xodim</Form.Label>
-                                                                <Select
-                                                                    closeMenuOnSelect={false}
-                                                                    components={animatedComponents}
-                                                                    isMulti
-                                                                    options={myData}
-                                                                    onChange={(e) => {
-                                                                        const temp = e.map((obj) => {
-                                                                            return obj.value;
-                                                                        });
-                                                                        setChoosenStaff(temp);
-                                                                    }}
-                                                                />
-                                                                {/* <Form.Control type="text" id="Text5" placeholder="Xodimni kiriting..." onChange={e => setXodim(e.target.value)} /> */}
-                                                            </div>
+
+                                                               {
+                                                                nonTuri != "no" && breadList.find(obj => obj.productName === nonTuri).staffShare.map((objSt, nig) => (
+                                                                    <div key={nig} className="col-md-6 mb-3">
+                                                                    <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">{objSt.type}</Form.Label>
+                                                                    <Select
+                                                                        closeMenuOnSelect={false}
+                                                                        components={animatedComponents}
+                                                                        isMulti
+                                                                        options={myData}
+                                                                        onChange={(e) => {
+                                                                            const temp = e.map((obj) => {
+                                                                                return obj.value;
+                                                                            });
+                                                                            function replaceStaff(type, newStaff) {
+                                                                                let foundObj = choosenStaff.find(objtr => objtr.type === type);
+                                                                                if(foundObj){
+                                                                                    foundObj.staff = newStaff;
+                                                                                }else{
+                                                                                    choosenStaff.push({
+                                                                                        type: objSt.type,
+                                                                                        staff: newStaff
+                                                                                    });
+                                                                                }
+                                                                                return choosenStaff;
+                                                                            }
+                                                                            const tempResult = replaceStaff(objSt.type, temp)
+                                                                            setChoosenStaff(tempResult);
+                                                                        }}
+                                                                    />
+                                                                    {/* <Form.Control type="text" id="Text5" placeholder="Xodimni kiriting..." onChange={e => setXodim(e.target.value)} /> */}
+                                                                </div>
+                                                                ))
+                                                               }
+
+
+
+
+
+                                                            
                                                             <div className="col-md-6 mb-3">
                                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Qoplar Soni</Form.Label>
                                                                 <Form.Control type="number" id="Text5" placeholder="Qoplar sonini kiriting..." onChange={e => {
