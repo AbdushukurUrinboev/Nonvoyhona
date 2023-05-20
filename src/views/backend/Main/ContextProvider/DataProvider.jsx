@@ -28,6 +28,32 @@ export function DataProvider(props){
 }
 
 
+
+
+// Mahsulotlar datasi2 (masalan un, yog va hokazo)
+export const dataContext2 = createContext();
+
+export function DataProvider2(props){ 
+    const [all2, setAll2] = useState([]);
+
+
+    useEffect(() => {
+        axios.get(STORAGE_URL)
+        .then(res => {
+            // console.log(res.data);
+            let productNames = res.data.map((elem) => elem)
+            setAll2(productNames)
+        })
+    }, [])
+
+   
+    return (
+        <dataContext2.Provider value={all2}>
+            {props.children}
+        </dataContext2.Provider>
+    )
+}
+
 // Nonlar ro'yhati (masalan patir, gijda va hokazo)
 export const breadDataContext = createContext()
 

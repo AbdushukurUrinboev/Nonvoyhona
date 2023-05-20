@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { Link, useHistory } from 'react-router-dom'
@@ -8,8 +8,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './Calculate.css'
 // DataProvider
-import { dataContext } from './ContextProvider/DataProvider';
-import { useEffect } from 'react';
+import { dataContext, dataContext2 } from './ContextProvider/DataProvider';
 
 const Calculateadd = () => {
 
@@ -35,6 +34,9 @@ const Calculateadd = () => {
     const [others, setOthers] = useState(["Elektr", "Gaz", "Ko'mir", "Ovqat", "Yo'lkira", "Nonho'ja", "Sotuvchi", "Boshqalar"]);
     const [addOthersInput, setAddOthersInput] = useState([]);
     const [freeValueStaff, setFreeValueStaff] = useState('');
+    
+    
+    const [productOverallExpense, setProductOverallExpense] = useState(0);
 
 
     const [currOthers, setCurrOthers] = useState("No");
@@ -46,10 +48,16 @@ const Calculateadd = () => {
     const history = useHistory()
 
     const valueProducts = useContext(dataContext);
+    const valueProducts2 = useContext(dataContext2);
 
 
 
+        
 
+    useEffect(() => {
+        let allexpenses = productExpenses.reduce((acc, objt) => acc + objt.spent, 0) + requiredItems.reduce((acc, tempobj) => acc + valueProducts2.find(objjj => objjj.productName === tempobj.itemName).productPrice * tempobj.itemQuantity, 0)
+        setProductOverallExpense(allexpenses);
+    }, [productExpenses, requiredItems]);
 
 
 
@@ -62,19 +70,21 @@ const Calculateadd = () => {
 
         const overallShare = staffShare.reduce((acc, objt) => acc + objt.share, 0)
 
-       
-        if(overallShare !== birQopUchunTulov) {
+
+        if (overallShare !== birQopUchunTulov) {
             alert("Bir qop uchun to'ov Xodimlar vazifasi qiymatiga to'g'ri kelmadi")
             return
         }
 
 
-       
+
         fd.append('productName', productName);
         fd.append('birQopUchunTulov', birQopUchunTulov);
         fd.append('breadPerBag', breadPerBag);
         fd.append('productPrice', productPrice);
+        fd.append('productOverallExpense', productOverallExpense);
         fd.append('productImage', productImage);
+        
 
         for (var i = 0; i < requiredItems.length; i++) {
             fd.append('requiredItems[]', JSON.stringify(requiredItems[i]));
@@ -87,11 +97,11 @@ const Calculateadd = () => {
         for (var i = 0; i < staffShare.length; i++) {
             fd.append('staffShare[]', JSON.stringify(staffShare[i]));
         }
-        
-       console.log(staffShare);
+
+        console.log(staffShare);
 
         fd.append('allExpensesPerBag', overallexpenses);
-        
+
         axios.post(CALCULATE_URL, fd)
             .then(res => {
                 console.log("Data is saved", res)
@@ -289,7 +299,7 @@ const Calculateadd = () => {
 
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Bir qop uchun to'lov</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Non narhini kiriting..." required='required' onChange={e => setBirQopUchunTulov (Number(e.target.value))} value={birQopUchunTulov} />
+                                                <Form.Control type="number" id="Text3" placeholder="Non narhini kiriting..." required='required' onChange={e => setBirQopUchunTulov(Number(e.target.value))} value={birQopUchunTulov} />
                                             </div>
 
                                             <div className="col-md-6 mb-3">
@@ -297,7 +307,7 @@ const Calculateadd = () => {
                                                 <Form.Control type="number" id="Text3" placeholder="Non narhini kiriting..." required='required' onChange={e => setBreadPerBag(e.target.value)} value={breadPerBag} />
                                             </div>
 
-                                            
+
                                             {/* Staff vazifalarini qo'shish */}
                                             {
                                                 addstaffTasksInput.map((item, index) => {
@@ -367,6 +377,13 @@ const Calculateadd = () => {
                                                 })
                                             }
                                         </Form>
+                                        <hr />
+                                        <div>
+                                            <div className="col-md-6 mb-3">
+                                                <p>Jami Xarajat: {productOverallExpense}</p>
+                                            </div>
+                                        </div>
+
                                     </Col>
                                 </Row>
                                 <div className="text-right mt-4">

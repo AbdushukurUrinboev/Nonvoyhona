@@ -23,7 +23,7 @@ const Staffview = () => {
             .then(res => {
                 setCurrentStaff(res.data)
                 setStaffWorkHistory(res.data.workHistory)
-                console.log(res.data.workHistory);
+                // console.log(res.data.workHistory);
             })
             .catch(err => console.log(err))
     }, [id])
@@ -256,7 +256,7 @@ const Staffview = () => {
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{elem.date}</div>
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{currentStaff.group}</div>
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{currentStaff.smena}</div>
-                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-right">{currentStaff.salary}</div>
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-right">{elem.tulov}</div>
                                                        
                                                     </div>
                                                 </div>
