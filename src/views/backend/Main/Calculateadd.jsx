@@ -8,7 +8,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './Calculate.css'
 // DataProvider
-import { dataContext, staffTaskDataContext } from './ContextProvider/DataProvider';
+import { dataContext } from './ContextProvider/DataProvider';
 import { useEffect } from 'react';
 
 const Calculateadd = () => {
@@ -47,8 +47,7 @@ const Calculateadd = () => {
 
     const valueProducts = useContext(dataContext);
 
-    // staffType - yopuvchi, parkash, xamirkash
-    const valueStaffTasks = useContext(staffTaskDataContext)
+
 
 
 

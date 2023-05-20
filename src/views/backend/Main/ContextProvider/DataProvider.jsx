@@ -167,7 +167,7 @@ export function SotuvBreadListData(props) {
 
 // Kalkulyatsiyadagi Xodimlar vazifasi masalan yopuvchi, parkash, xamirkash
 
-export const staffTaskDataContext = createContext() // Ishlatmadim xozircha uchirsam buladi
+export const staffTaskDataContext = createContext() 
 
 export function StaffTaskListData(props) {
     const [tasksList, setTasksList] = useState([]);
