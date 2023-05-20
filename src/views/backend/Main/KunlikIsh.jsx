@@ -321,7 +321,8 @@ const Calculate = () => {
                                                                                 }else{
                                                                                     choosenStaff.push({
                                                                                         type: objSt.type,
-                                                                                        staff: newStaff
+                                                                                        staff: newStaff,
+                                                                                        joined: true
                                                                                     });
                                                                                 }
                                                                                 return choosenStaff;
