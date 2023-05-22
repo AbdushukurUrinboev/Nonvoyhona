@@ -13,9 +13,11 @@ import { useEffect } from 'react';
 import { base_URL } from '../../../API';
 
 const Calculateadd = () => {
-
+    const [staffShare, setStaffShare] = useState([])
     const [productName, setProductName] = useState('')
     const [productPrice, setProductPrice] = useState('')
+    const [birQopUchunTulov, setBirQopUchunTulov] = useState('')
+    const [breadPerBag, setBreadPerBag] = useState('')
     const [allExpensesPerBag, setAllExpensesPerBag] = useState(0)
     const [requiredItems, setRequiredItems] = useState([])
     const [others, setOthers] = useState([])
@@ -31,8 +33,11 @@ const Calculateadd = () => {
     useEffect(() => {
         axios.get(`${base_URL}/calculation/${id}`)
             .then(res => {
+                setStaffShare(res.data.staffShare)
                 setProductName(res.data.productName);
                 setProductPrice(res.data.productPrice);
+                setBirQopUchunTulov(res.data.birQopUchunTulov);
+                setBreadPerBag(res.data.breadPerBag);
                 setAllExpensesPerBag(res.data.allExpensesPerBag);
                 setRequiredItems(res.data.requiredItems)
                 setOthers(res.data.others)
@@ -40,29 +45,25 @@ const Calculateadd = () => {
             .catch(err => console.log(err))
     }, [id])
 
-
-
-
     function handleChange(e) {
-        console.log("Handle change");
         e.preventDefault();
-        axios.put(CALCULATE_URL, {
-            id,
-            new: {
-                productName,
-                productPrice,
-                allExpensesPerBag: others.reduce((acc, objt) => acc + objt.spent, 0),
-                requiredItems,                
-                others
-            }
-        })
+        
+        const fd = new FormData()
+        fd.append('productName', productName)
+        fd.append('productPrice', productPrice)
+        fd.append('allExpensesPerBag', others.reduce((acc, objt) => acc + objt.spent, 0))
+        fd.append('requiredItems', requiredItems)
+        fd.append('others', others)
+        fd.append('staffShare', staffShare)
+        fd.append('birQopUchunTulov', birQopUchunTulov) //
+        fd.append('breadPerBag', breadPerBag)
+
+        axios.put(CALCULATE_URL, fd)
             .then(res => {
                 console.log("Data is updated", res)
                 history.push('/calculate')
             })
             .catch(err => console.log(err))
-
-
     }
 
     return (
@@ -103,13 +104,52 @@ const Calculateadd = () => {
                                         <Form className="row g-3 date-icon-set-modal myStyleCustomerAdd">
                                             <div className="col-md-6 mb-3 mt-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Nomi</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Nomini kiriting..." value={productName} onChange={e => setProductName(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" placeholder="Nomini kiriting..." defaultValue={productName} onChange={e => setProductName(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3 mt-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Non narhi</Form.Label>
-                                                <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." value={productPrice} onChange={e => setProductPrice(e.target.value)} />
+                                                <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." defaultValue={productPrice} onChange={e => setProductPrice(e.target.value)} />
                                             </div>
+                                            <div className="col-md-6 mb-3 mt-3">
+                                                <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Bir qop uchun to'lov</Form.Label>
+                                                <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." defaultValue={birQopUchunTulov} onChange={e => setBirQopUchunTulov(e.target.value)} />
+                                            </div>
+                                            <div className="col-md-6 mb-3 mt-3">
+                                                <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Bir qopdan chiqadigan non soni</Form.Label>
+                                                <Form.Control type="number" id="Text1" placeholder="Nomini kiriting..." defaultValue={breadPerBag} onChange={e => setBreadPerBag(e.target.value)} required='required' />
+                                            </div>
+                                            {
+                                                staffShare.map((elem, ind) => (
+                                                    <div className="col-md-6 mb-3 mt-3" key={ind}>
+                                                        <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">{elem.type}</Form.Label>                                                    
+                                                        <Form.Control onChange={(e) => {
+                                                                function addOrUpdateBread(arr, newBread) {
+                                                                    const index = arr.findIndex(bread => bread.type === newBread.type);
+                                                                    if (index !== -1) {
+                                                                        arr[index].share = newBread.share;
+                                                                    } else {
+                                                                        arr.push(newBread);
+                                                                    }
+                                                                    return arr;
+                                                                }
+                                                                let result = addOrUpdateBread(staffShare, { type: elem.type, share: Number(e.target.value) })
+
+                                                                setStaffShare([...result])
+                                                            }} type="number" id="Text1" defaultValue={elem.share} />                                            
+                                                    
+                                                    
+                                                    </div>
+
+                                                    
+
+
+                                                ))
+                                            }
+
+
+
                                         </Form>
+                                        <hr />
                                         <h4 className='col-md-6 mb-3 text-center mt-4 text-danger'>{productName} ga ishlatiladigan mahsulotlar</h4>
 
                                         {
@@ -118,11 +158,11 @@ const Calculateadd = () => {
                                                     <Form className="row g-3 date-icon-set-modal myStyleCustomerAdd" key={index}>
                                                         <div className="col-md-6 mb-3">
                                                             <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Nomi</Form.Label>
-                                                            <Form.Control type="text" id="Text3" required='required' value={item.itemName} />
+                                                            <Form.Control type="text" id="Text3" required='required' defaultValue={item.itemName} />
                                                         </div>
                                                         <div className="col-md-6 mb-3">
                                                             <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Miqdori</Form.Label>
-                                                            <Form.Control type="number" id="Text4" value={item.itemQuantity} onChange={(e) => {
+                                                            <Form.Control type="number" id="Text4" defaultValue={item.itemQuantity} onChange={(e) => {
                                                                 function addOrUpdateBread(arr, newBread) {
                                                                     const index = arr.findIndex(bread => bread.itemName === newBread.itemName);
                                                                     if (index !== -1) {
@@ -148,7 +188,7 @@ const Calculateadd = () => {
                                                     <Form className="row g-3 date-icon-set-modal myStyleCustomerAdd mt-5" key={index}>
                                                         <div className="col-md-6 mb-3">
                                                             <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Nomi</Form.Label>
-                                                            <Form.Control type="text" id="Text3" required='required' value={item.name} />
+                                                            <Form.Control type="text" id="Text3" required='required' defaultValue={item.name} />
                                                         </div>
                                                         <div className="col-md-6 mb-3">
                                                             <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Miqdori</Form.Label>
@@ -165,7 +205,7 @@ const Calculateadd = () => {
                                                                 let result = addOrUpdateBread(others, { name: item.name, spent: Number(e.target.value) })
 
                                                                 setOthers([...result])
-                                                            }} type="number" id="Text4" value={item.spent} />
+                                                            }} type="number" id="Text4" defaultValue={item.spent} />
                                                         </div>
                                                     </Form>
                                                 )

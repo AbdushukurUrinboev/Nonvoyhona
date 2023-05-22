@@ -32,7 +32,7 @@ const CalculateView = () => {
             .catch(err => console.log(err))
     }, [id])
 
-    
+    console.log(calculate);
 
 
 
@@ -94,6 +94,22 @@ const CalculateView = () => {
                                                 </td>
                                                 <td>
                                                     <p className="mb-0">{calculate.productPrice} so'm</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td className="p-0">
+                                                    <p className="mb-0 text-muted">Bir qop uchun to'lov: </p>
+                                                </td>
+                                                <td>
+                                                    <p className="mb-0">{calculate.birQopUchunTulov} so'm</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td className="p-0">
+                                                    <p className="mb-0 text-muted">Bir qopdan chiqadigan non soni: </p>
+                                                </td>
+                                                <td>
+                                                    <p className="mb-0">{calculate.breadPerBag} ta</p>
                                                 </td>
                                             </tr>
 

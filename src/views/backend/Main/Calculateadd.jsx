@@ -380,7 +380,7 @@ const Calculateadd = () => {
                                         <hr />
                                         <div>
                                             <div className="col-md-6 mb-3">
-                                                <p>Jami Xarajat: {productOverallExpense}</p>
+                                                <h5 style={{color:"blue", fontWeight: "900"}}>Jami Xarajat: {productOverallExpense}</h5>
                                             </div>
                                         </div>
 
