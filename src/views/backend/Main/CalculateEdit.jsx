@@ -20,7 +20,9 @@ const Calculateadd = () => {
     const [breadPerBag, setBreadPerBag] = useState('')
     const [allExpensesPerBag, setAllExpensesPerBag] = useState(0)
     const [requiredItems, setRequiredItems] = useState([])
-    const [others, setOthers] = useState([])
+    const [others, setOthers] = useState([]);
+    const [productImage, setProductImage] = useState('');
+
 
     const [error, setError] = useState(false);
 
@@ -33,30 +35,33 @@ const Calculateadd = () => {
     useEffect(() => {
         axios.get(`${base_URL}/calculation/${id}`)
             .then(res => {
-                setStaffShare(res.data.staffShare)
                 setProductName(res.data.productName);
-                setProductPrice(res.data.productPrice);
                 setBirQopUchunTulov(res.data.birQopUchunTulov);
                 setBreadPerBag(res.data.breadPerBag);
+                setProductPrice(res.data.productPrice);
+                setProductImage(res.data.productImage)
                 setAllExpensesPerBag(res.data.allExpensesPerBag);
-                setRequiredItems(res.data.requiredItems)
-                setOthers(res.data.others)
+                setStaffShare(res.data.staffShare);
+                setRequiredItems(res.data.requiredItems);
+                setOthers(res.data.others);
             })
             .catch(err => console.log(err))
     }, [id])
 
     function handleChange(e) {
         e.preventDefault();
-        
+
         const fd = new FormData()
         fd.append('productName', productName)
-        fd.append('productPrice', productPrice)
-        fd.append('allExpensesPerBag', others.reduce((acc, objt) => acc + objt.spent, 0))
-        fd.append('requiredItems', requiredItems)
-        fd.append('others', others)
-        fd.append('staffShare', staffShare)
         fd.append('birQopUchunTulov', birQopUchunTulov) //
         fd.append('breadPerBag', breadPerBag)
+        fd.append('productPrice', productPrice)
+        fd.append('productImage', productImage)
+        fd.append('allExpensesPerBag', others.reduce((acc, objt) => acc + objt.spent, 0))
+        fd.append('staffShare', staffShare)
+        fd.append('requiredItems', requiredItems)
+        fd.append('others', others)
+        console.log(staffShare);
 
         axios.put(CALCULATE_URL, fd)
             .then(res => {
@@ -121,26 +126,26 @@ const Calculateadd = () => {
                                             {
                                                 staffShare.map((elem, ind) => (
                                                     <div className="col-md-6 mb-3 mt-3" key={ind}>
-                                                        <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">{elem.type}</Form.Label>                                                    
+                                                        <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">{elem.type}</Form.Label>
                                                         <Form.Control onChange={(e) => {
-                                                                function addOrUpdateBread(arr, newBread) {
-                                                                    const index = arr.findIndex(bread => bread.type === newBread.type);
-                                                                    if (index !== -1) {
-                                                                        arr[index].share = newBread.share;
-                                                                    } else {
-                                                                        arr.push(newBread);
-                                                                    }
-                                                                    return arr;
+                                                            function addOrUpdateBread(arr, newBread) {
+                                                                const index = arr.findIndex(bread => bread.type === newBread.type);
+                                                                if (index !== -1) {
+                                                                    arr[index].share = newBread.share;
+                                                                } else {
+                                                                    arr.push(newBread);
                                                                 }
-                                                                let result = addOrUpdateBread(staffShare, { type: elem.type, share: Number(e.target.value) })
+                                                                return arr;
+                                                            }
+                                                            let result = addOrUpdateBread(staffShare, { type: elem.type, share: Number(e.target.value) })
 
-                                                                setStaffShare([...result])
-                                                            }} type="number" id="Text1" defaultValue={elem.share} />                                            
-                                                    
-                                                    
+                                                            setStaffShare([...result])
+                                                        }} type="number" id="Text1" defaultValue={elem.share} />
+
+
                                                     </div>
 
-                                                    
+
 
 
                                                 ))
