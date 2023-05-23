@@ -11,7 +11,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import './CustomerAdd.css'
 import { base_URL } from '../../../API'
 
-
+// Delete Icon
+import deleteIcon from '../../../assets/images/delete.png'
 
 
 
@@ -27,28 +28,32 @@ const XamkorEdit = () => {
     const [address, setAddress] = useState('');
     const [workPlace, setWorkPlace] = useState('');
     const [position, setPosition] = useState('');
+    const [paymentRequired, setPaymentRequired] = useState(0);
     const [error, setError] = useState(false);
-  
+
     const history = useHistory()
     const { id } = useParams();
 
     useEffect(() => {
         axios.get(`${base_URL}/xamkor/${id}`)
-            .then(res => { 
+            .then(res => {
                 setFirstName(res.data.firstName)
                 setLastName(res.data.lastName)
                 setPhone(res.data.phone.slice(8, res.data.phone.length));
-                setPhoneCode(res.data.phone.slice(0,4));
-                setPhoneCode2(res.data.phone2.slice(0,4));
-                setPhone2(res.data.phone2.slice(8,res.data.phone2.length));
-                setCategory(res.data.category)  
-                setAddress(res.data.address)   
+                setPhoneCode(res.data.phone.slice(0, 4));
+                setPhoneCode2(res.data.phone2.slice(0, 4));
+                setPhone2(res.data.phone2.slice(8, res.data.phone2.length));
+                setCategory(res.data.category)
+                setAddress(res.data.address)
                 setWorkPlace(res.data.workPlace)
-                setPosition(res.data.position) 
-            } )
+                setPosition(res.data.position)
+                setPaymentRequired(res.data.paymentRequired)
+            })
             .catch(err => console.log(err))
     }, [id])
 
+
+    
 
 
     function handleChange(e) {
@@ -81,7 +86,7 @@ const XamkorEdit = () => {
     }
 
     return (
-        <>
+        <>       
             <Container fluid>
                 <Row>
                     <Col lg="12" className='mt-5'>
@@ -119,7 +124,7 @@ const XamkorEdit = () => {
                                         <Form className="row g-3 date-icon-set-modal myStyleCustomerAdd">
                                             <div className="col-md-6 mb-3 mt-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Familiyasi</Form.Label>
-                                                <Form.Control type="text" id="Text1" value={lastName}  onChange={e => setLastName(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" value={lastName} onChange={e => setLastName(e.target.value)} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative mt-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Ismi</Form.Label>
@@ -187,13 +192,22 @@ const XamkorEdit = () => {
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Lavozimi</Form.Label>
                                                 <Form.Control type="text" id="Text3" value={position} onChange={e => setPosition(e.target.value)} />
                                             </div>
+                                            <div className="col-md-6 mb-3">
+                                                <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Qarzdorligimiz</Form.Label>                                               
+                                                <Form.Control type="number" id="Text3"  value={paymentRequired} onChange={e => setPaymentRequired(Number(e.target.value))} />
+                                                
+                                            </div>
+
+
+
+
                                         </Form>
                                         <div className="d-flex justify-content-end mt-1 ">
                                             <Button variant="btn myButtonProducts qushishProduct" onClick={handleChange}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                                 </svg>
-                                               Saqlash
+                                                Saqlash
                                             </Button>
                                         </div>
                                     </Col>

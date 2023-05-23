@@ -44,7 +44,6 @@ const Calculate = () => {
     const [addInputBonusNon, setAddInputBonusNon] = useState([]) // bonus non uchun qildim
     const [addInputJastaNon, setAddInputJastaNon] = useState([]) // jasta non uchun qildim
     const [birQopUchunTulov, setBirQopUchunTulov] = useState(0)
-    const [joined, setJoined] = useState(true)
 
     const [breadInfo, setBreadInfo] = useState({})
 
@@ -336,16 +335,6 @@ const Calculate = () => {
                                                                     </div>
                                                                 ))
                                                             }
-
-                                                            <div className="col-md-6 mb-3">
-                                                                <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Xodim Puli</Form.Label>
-                                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => setJoined(e.target.value)}>
-                                                                    <option value="no">Tanlash</option>
-                                                                    <option value={true}>Bo'lishish</option>
-                                                                    <option value={false}>Alohida to'lov</option>
-                                                                </select>
-                                                            </div>
-
 
                                                             <div className="col-md-6 mb-3">
                                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Qoplar Soni</Form.Label>

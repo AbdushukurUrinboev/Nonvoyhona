@@ -82,6 +82,7 @@ import SailAdd from '../views/backend/Main/SailAdd';
 import Xamkorlar from '../views/backend/Main/Xamkorlar';
 import XamkorlarAdd from '../views/backend/Main/XamkorAdd';
 import XamkorEdit from '../views/backend/Main/XamkorEdit';
+import XamkorView from '../views/backend/Main/XamkorView';
 
 // DataProvider - stateManagement
 import { DataProvider, DataProvider2, BreadListData, CustomerListData, StaffListData, XamkorListData, ZakazBreadListData, SotuvBreadListData, StaffTaskListData } from '../views/backend/Main/ContextProvider/DataProvider';
@@ -181,6 +182,7 @@ const Layout1Route = () => {
 
                                                 {/* Xamkorlar */}
                                                 <Route path="/xamkorlar" exact component={Xamkorlar} />
+                                                <Route path="/xamkor/:id" exact component={XamkorView} />
                                                 <Route path="/xamkorlar-add" exact component={XamkorlarAdd} />
                                                 <Route path="/xamkor-edit/:id" exact component={XamkorEdit} />
 
