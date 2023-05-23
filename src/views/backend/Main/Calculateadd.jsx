@@ -157,15 +157,11 @@ const Calculateadd = () => {
                                                 }}>
                                                     <option value="No">Vazifalar</option>
                                                     {
-                                                        // otherTasks.filter((product) => {
-                                                        //     return !addstaffTasksInput.includes(product)
-                                                        // }).map((product, ind) => {
-                                                        //     return <option key={ind} value={product}>{product}</option>
-                                                        // })
-
-                                                        otherTasks.map((product, ind) => {
+                                                        otherTasks.filter((product) => {
+                                                            return !addstaffTasksInput.includes(product)
+                                                        }).map((product, ind) => {
                                                             return <option key={ind} value={product}>{product}</option>
-                                                        })
+                                                        })                                                       
 
                                                     }
                                                     <option value="Qo'shimcha kiritish">Qo'shimcha kiritish</option>

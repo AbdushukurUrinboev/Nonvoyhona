@@ -46,10 +46,10 @@ const Productadd = () => {
 
     function handleChange(e) {
         e.preventDefault();
-        if (productName.length === 0 || description.length || productPrice.length || poductQuantity.length || umumiyNarhi.length || xamkor.length || qolganPul.length) {
+        if (productName.length === 0 || productPrice.length === 0 || poductQuantity.length === 0 || xamkor.length === 0) {
             setError(true)
         }
-        if (productName && description && productPrice && poductQuantity && umumiyNarhi && xamkor && qolganPul) {
+        if (productName && productPrice && poductQuantity && xamkor) {
 
             const fd = new FormData()
             fd.append('productName', productName)
@@ -59,7 +59,7 @@ const Productadd = () => {
             fd.append('umumiyNarhi', umumiyNarhi.length ? umumiyNarhi : productPrice * poductQuantity)
             fd.append('xamkor', xamkor)
             fd.append('berilganAvans', berilganAvans)
-            fd.append('qolganPul', qolganPul)
+            // fd.append('qolganPul', qolganPul)// backend uzi hisoblaydi qolgan pulni
             // fd.append('olinganSana', olinganSana.getDate() + "-" + month[olinganSana.getMonth()] + "," + olinganSana.getFullYear())
             // fd.append('olinganSoat', olinganSoat)
             fd.append('storageImage', storageImage);

@@ -53,15 +53,23 @@ const Calculateadd = () => {
 
         const fd = new FormData()
         fd.append('productName', productName)
+        fd.append('changingID', id)
         fd.append('birQopUchunTulov', birQopUchunTulov) //
         fd.append('breadPerBag', breadPerBag)
         fd.append('productPrice', productPrice)
         fd.append('productImage', productImage)
         fd.append('allExpensesPerBag', others.reduce((acc, objt) => acc + objt.spent, 0))
-        fd.append('staffShare', staffShare)
-        fd.append('requiredItems', requiredItems)
-        fd.append('others', others)
+        for (var i = 0; i < staffShare.length; i++) {
+            fd.append('staffShare[]', JSON.stringify(staffShare[i]));
+        }
+        for (var i = 0; i < requiredItems.length; i++) {
+            fd.append('requiredItems[]', JSON.stringify(requiredItems[i]));
+        }
 
+        
+        for (var i = 0; i < others.length; i++) {
+            fd.append('others[]', JSON.stringify(others[i]));
+        }
         axios.put(CALCULATE_URL, fd)
             .then(res => {
                 console.log("Data is updated", res)
@@ -70,7 +78,7 @@ const Calculateadd = () => {
             .catch(err => console.log(err))
     }
 
-    console.log("updated");
+
     return (
         <>
             <Container fluid>
