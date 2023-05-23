@@ -61,7 +61,6 @@ const Calculateadd = () => {
         fd.append('staffShare', staffShare)
         fd.append('requiredItems', requiredItems)
         fd.append('others', others)
-        console.log(staffShare);
 
         axios.put(CALCULATE_URL, fd)
             .then(res => {
