@@ -235,12 +235,13 @@ const Staffview = () => {
                                         <div className="p-2">
                                             <div className="container">
                                                 <div className="row align-items-center myHeaderProductStyle">
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">№</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Qopi</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Sana</div>
+                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">№</div>
+                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">Qopi</div>
+                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Non nomi</div>
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Guruh</div>
                                                     <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Smena</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-right">Olgan puli</div>
+                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Olgan puli</div>
+                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-right">Sana</div>
 
                                                 </div>
                                             </div>
@@ -251,12 +252,13 @@ const Staffview = () => {
                                                 return <div key={ind} className="p-2 border myStyleProduct ownStylePro">
                                                 <div className="container">
                                                     <div className="row align-items-center">
-                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{ind + 1}</div>
-                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{elem.qoplarSoni}</div>
-                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{elem.date}</div>
+                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{ind + 1}</div>
+                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{elem.qoplarSoni}</div>
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{elem.nonTuri}</div>
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{currentStaff.group}</div>
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{currentStaff.smena}</div>
-                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-right">{elem.tulov}</div>
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{elem.tulov}</div>
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-right">{elem.date}</div>
                                                        
                                                     </div>
                                                 </div>

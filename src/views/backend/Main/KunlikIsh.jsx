@@ -34,8 +34,8 @@ const Calculate = () => {
     const [qoplarSoni, setQoplarSoni] = useState(0);
     const [nonTuri, setNonTuri] = useState('no');
     const [nonSoni, setNonSoni] = useState(0);
-    const [jastaNonSoni, setJastaNonSoni] = useState('');
-    const [bonusNon, setBonusNon] = useState('');
+    const [jastaNonSoni, setJastaNonSoni] = useState(0);
+    const [bonusNon, setBonusNon] = useState(0);
     const [jastaNonTuri, setJastaNonTuri] = useState('');
     const [tulov, setTulov] = useState(0);
     const [bonusTulov, setBonusTulov] = useState(0);
@@ -43,9 +43,10 @@ const Calculate = () => {
     const [sana, setSana] = useState(new Date());
     const [addInputBonusNon, setAddInputBonusNon] = useState([]) // bonus non uchun qildim
     const [addInputJastaNon, setAddInputJastaNon] = useState([]) // jasta non uchun qildim
-    const [birQopUchunTulov, setBirQopUchunTulov] = useState(0) 
+    const [birQopUchunTulov, setBirQopUchunTulov] = useState(0)
+    const [joined, setJoined] = useState(true)
 
-    const [breadInfo, setBreadInfo] = useState({}) 
+    const [breadInfo, setBreadInfo] = useState({})
 
     const [choosenStaff, setChoosenStaff] = useState([])
     const [error, setError] = useState(false);
@@ -53,7 +54,7 @@ const Calculate = () => {
     const breadList = useContext(breadDataContext);
     const customerList = useContext(customersDataContext);
 
- 
+
 
     // const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
     const history = useHistory()
@@ -81,11 +82,11 @@ const Calculate = () => {
 
         e.preventDefault();
 
-        if (group.length === 0 || smena.length === 0 || choosenStaff.length === 0 || qoplarSoni.length === 0 || nonTuri.length === 0 || nonSoni.length === 0 || jastaNonSoni.length === 0 || tulov.length === 0 || jamiTulov.length === 0) {
+        if (group.length === 0 || smena.length === 0 || choosenStaff.length === 0 || qoplarSoni.length === 0 || nonTuri.length === 0 || nonSoni.length === 0 || tulov.length === 0 || jamiTulov.length === 0) {
             setError(true)
         }
 
-        if (group && smena && choosenStaff && qoplarSoni && nonTuri && nonSoni && jastaNonSoni && tulov && jamiTulov) {
+        if (group && smena && choosenStaff && qoplarSoni && nonTuri && nonSoni && tulov && jamiTulov) {
 
 
             axios.post(DAILY_TASKS_URL, {
@@ -148,7 +149,7 @@ const Calculate = () => {
             if (e.target.value === elem.productName) {
                 setBreadInfo(elem);
                 setBirQopUchunTulov(elem.birQopUchunTulov)
-                calculateOverallQuantity(elem.breadPerBag, qoplarSoni )
+                calculateOverallQuantity(elem.breadPerBag, qoplarSoni)
                 calculateQoplarUchunTulov(elem.birQopUchunTulov, qoplarSoni);
             }
         })
@@ -301,46 +302,51 @@ const Calculate = () => {
                                                                 </select>
                                                             </div>
 
-                                                               {
+                                                            {
                                                                 nonTuri != "no" && breadList.find(obj => obj.productName === nonTuri).staffShare.map((objSt, nig) => (
                                                                     <div key={nig} className="col-md-6 mb-3">
-                                                                    <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">{objSt.type}</Form.Label>
-                                                                    <Select
-                                                                        closeMenuOnSelect={false}
-                                                                        components={animatedComponents}
-                                                                        isMulti
-                                                                        options={myData}
-                                                                        onChange={(e) => {
-                                                                            const temp = e.map((obj) => {
-                                                                                return obj.value;
-                                                                            });
-                                                                            function replaceStaff(type, newStaff) {
-                                                                                let foundObj = choosenStaff.find(objtr => objtr.type === type);
-                                                                                if(foundObj){
-                                                                                    foundObj.staff = newStaff;
-                                                                                }else{
-                                                                                    choosenStaff.push({
-                                                                                        type: objSt.type,
-                                                                                        staff: newStaff,
-                                                                                        joined: true
-                                                                                    });
+                                                                        <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">{objSt.type}</Form.Label>
+                                                                        <Select
+                                                                            closeMenuOnSelect={false}
+                                                                            components={animatedComponents}
+                                                                            isMulti
+                                                                            options={myData}
+                                                                            onChange={(e) => {
+                                                                                const temp = e.map((obj) => {
+                                                                                    return obj.value;
+                                                                                });
+                                                                                function replaceStaff(type, newStaff) {
+                                                                                    let foundObj = choosenStaff.find(objtr => objtr.type === type);
+                                                                                    if (foundObj) {
+                                                                                        foundObj.staff = newStaff;
+                                                                                    } else {
+                                                                                        choosenStaff.push({
+                                                                                            type: objSt.type,
+                                                                                            staff: newStaff,
+                                                                                            joined: true
+                                                                                        });
+                                                                                    }
+                                                                                    return choosenStaff;
                                                                                 }
-                                                                                return choosenStaff;
-                                                                            }
-                                                                            const tempResult = replaceStaff(objSt.type, temp)
-                                                                            setChoosenStaff(tempResult);
-                                                                        }}
-                                                                    />
-                                                                    {/* <Form.Control type="text" id="Text5" placeholder="Xodimni kiriting..." onChange={e => setXodim(e.target.value)} /> */}
-                                                                </div>
+                                                                                const tempResult = replaceStaff(objSt.type, temp)
+                                                                                setChoosenStaff(tempResult);
+                                                                            }}
+                                                                        />
+                                                                        {/* <Form.Control type="text" id="Text5" placeholder="Xodimni kiriting..." onChange={e => setXodim(e.target.value)} /> */}
+                                                                    </div>
                                                                 ))
-                                                               }
+                                                            }
+
+                                                            <div className="col-md-6 mb-3">
+                                                                <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Xodim Puli</Form.Label>
+                                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => setJoined(e.target.value)}>
+                                                                    <option value="no">Tanlash</option>
+                                                                    <option value={true}>Bo'lishish</option>
+                                                                    <option value={false}>Alohida to'lov</option>
+                                                                </select>
+                                                            </div>
 
 
-
-
-
-                                                            
                                                             <div className="col-md-6 mb-3">
                                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Qoplar Soni</Form.Label>
                                                                 <Form.Control type="number" id="Text5" placeholder="Qoplar sonini kiriting..." onChange={e => {
@@ -362,7 +368,7 @@ const Calculate = () => {
                                             </div> */}
                                                             <div className="col-md-6 mb-3">
                                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Non Soni</Form.Label>
-                                                                <Form.Control type="number" id="Text3" placeholder="Yopilgan nonlar sonini kiriting..." required='required' value={nonSoni} onChange={e => setNonSoni(Number(e.target.value))} />
+                                                                <Form.Control type="number" id="Text3" placeholder="Yopilgan nonlar sonini kiriting..." value={nonSoni} onChange={e => setNonSoni(Number(e.target.value))} />
                                                             </div>
 
 
@@ -416,11 +422,11 @@ const Calculate = () => {
                                             </div> */}
                                                             <div className="col-md-6 mb-3">
                                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Jasta Non Soni</Form.Label>
-                                                                <Form.Control type="number" id="Text3" placeholder="Jasta non sonini kiriting..." required='required' onChange={e => setJastaNonSoni(Number(e.target.value))} />
+                                                                <Form.Control type="number" id="Text3" placeholder="Jasta non sonini kiriting..." value={jastaNonSoni} onChange={e => setJastaNonSoni(Number(e.target.value))} />
                                                             </div>
                                                             <div className="col-md-6 mb-3">
                                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">To'lov</Form.Label>
-                                                                <Form.Control type="number" id="Text3" placeholder="Tolovni kiriting..." required='required' value={tulov} onChange={e => {
+                                                                <Form.Control type="number" id="Text3" placeholder="Tolovni kiriting..." value={tulov} onChange={e => {
                                                                     setTulov(Number(e.target.value))
                                                                     calculateOverallPrice(Number(e.target.value), bonusTulov);
                                                                 }} />
@@ -444,13 +450,13 @@ const Calculate = () => {
                                                                             let result = addOrUpdateBread(allBonus, { breadName: item, quantity: Number(e.target.value) })
                                                                             setAllBonus([...result])
                                                                         }
-                                                                        } required='required' />
+                                                                        } />
                                                                     </div>
                                                                 })
                                                             }
                                                             <div className="col-md-6 mb-3">
                                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase text-primary">Bonus To'lov</Form.Label>
-                                                                <Form.Control type="number" id="Text3" placeholder="Bonus to'lovni kiriting..." required='required' onChange={e => {
+                                                                <Form.Control type="number" id="Text3" placeholder="Bonus to'lovni kiriting..." onChange={e => {
                                                                     setBonusTulov(Number(e.target.value))
                                                                     calculateOverallPrice(tulov, Number(e.target.value));
                                                                 }} />
@@ -481,7 +487,7 @@ const Calculate = () => {
                                                                     </div>
                                                                 })
                                                             }
-                                                            <div className="col-md-6 mb-3 position-relative">
+                                                            {/* <div className="col-md-6 mb-3 position-relative">
                                                                 <Form.Label htmlFor="Text2" className="font-weight-bold text-muted text-uppercase">Sana</Form.Label>
                                                                 <DatePicker className="form-control" id="Text2" name="event_date" placeholderText="Sanani kiriting" autoComplete="off" selected={sana} onChange={date => setSana(date)} />
                                                                 <span className="search-link">
@@ -489,7 +495,7 @@ const Calculate = () => {
                                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                                                     </svg>
                                                                 </span>
-                                                            </div>
+                                                            </div> */}
                                                         </Form>
                                                         <div className="d-flex justify-content-end mt-1 ">
                                                             <Button variant="btn myButtonProducts qushishProduct" onClick={handleChange}>

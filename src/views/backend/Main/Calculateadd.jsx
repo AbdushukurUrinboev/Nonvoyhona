@@ -157,11 +157,16 @@ const Calculateadd = () => {
                                                 }}>
                                                     <option value="No">Vazifalar</option>
                                                     {
-                                                        otherTasks.filter((product) => {
-                                                            return !addstaffTasksInput.includes(product)
-                                                        }).map((product, ind) => {
+                                                        // otherTasks.filter((product) => {
+                                                        //     return !addstaffTasksInput.includes(product)
+                                                        // }).map((product, ind) => {
+                                                        //     return <option key={ind} value={product}>{product}</option>
+                                                        // })
+
+                                                        otherTasks.map((product, ind) => {
                                                             return <option key={ind} value={product}>{product}</option>
                                                         })
+
                                                     }
                                                     <option value="Qo'shimcha kiritish">Qo'shimcha kiritish</option>
 
@@ -312,8 +317,8 @@ const Calculateadd = () => {
                                             {
                                                 addstaffTasksInput.map((item, index) => {
                                                     return <div className="col-md-6 mb-3" key={index}>
-                                                        <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase" style={{ color: 'red' }}>{item} pulini kiriting</Form.Label>
-                                                        <Form.Control type="number" id="Text1" placeholder="Narhni kiriting..." onChange={(e) => {
+                                                        <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase" style={{ color: 'blue' }}>{item} pulini kiriting</Form.Label>
+                                                        <Form.Control type="number" id="Text1" placeholder="Pulini kiriting..." onChange={(e) => {
                                                             function addOrUpdateBread(arr, newBread) {
                                                                 const index = arr.findIndex(bread => bread.type === newBread.type);
                                                                 if (index !== -1) {
