@@ -70,6 +70,7 @@ const Calculateadd = () => {
             .catch(err => console.log(err))
     }
 
+    console.log("updated");
     return (
         <>
             <Container fluid>
