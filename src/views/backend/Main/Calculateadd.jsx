@@ -98,7 +98,6 @@ const Calculateadd = () => {
             fd.append('staffShare[]', JSON.stringify(staffShare[i]));
         }
 
-        console.log(staffShare);
 
         fd.append('allExpensesPerBag', overallexpenses);
 
