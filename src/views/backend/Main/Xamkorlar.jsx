@@ -6,10 +6,11 @@ import { XAMKOR_URL } from '../../../API';
 import './Customer.css'
 import { FilterCustomer } from './FilterCustomer/FilterCustomer';
 import { useHistory } from "react-router";
+import { base_URL } from '../../../API'
 
 
 // Delete Icon
-import deleteIcon from '../../../assets/images/delete.png'
+import errorIcon from '../../../assets/images/error/error.png'
 
 // Loading
 import { FallingLines } from 'react-loader-spinner';
@@ -22,6 +23,9 @@ const Xamkorlar = () => {
     const [filterTextValue, updateFilterTextValue] = useState('no');
     const [searchData, setSearchData] = useState([]);
     const [filterVal, setFilterVal] = useState('');
+    const [paymentRequired, setPaymentRequired] = useState(0);
+    const [inputPaymentRequired, setInputPaymentRequired] = useState(0);
+    const [errorInput, setErrorInput] = useState(true);
 
     const history = useHistory()
 
@@ -62,10 +66,23 @@ const Xamkorlar = () => {
     // Delete
     const [modal, setModal] = useState('modal')
     const [id, setId] = useState(id);
-    
+
     function deleteFunction(id) {
         setId(id)
         setModal('')
+    }
+
+    const [modalPayment, setModalPayment] = useState('modal2')
+
+    function paymentFunction(id) {
+        axios.get(`${base_URL}/xamkor/${id}`)
+            .then(res => {
+                setPaymentRequired(res.data.paymentRequired)
+            })
+            .catch(err => console.log(err))
+
+        setId(id)
+        setModalPayment('')
     }
 
     function deleteXamkor() {
@@ -78,6 +95,32 @@ const Xamkorlar = () => {
             .catch(err => console.log(err))
         // console.log("kirish = " + id);
     }
+
+    function paymentXamkor() {
+        console.log(inputPaymentRequired);
+        console.log(paymentFunction);
+
+        if (inputPaymentRequired > paymentRequired) {            
+            setErrorInput(false)
+            
+        } else {
+            axios.put(XAMKOR_URL, {
+                id,
+                new: {
+                    paymentRequired: paymentRequired - inputPaymentRequired
+                }
+            })
+                .then(res => {
+                    setModalPayment('modal2')
+                    console.log("Data is updated!!!", res)
+
+                })
+                .catch(err => console.log(err))
+        }
+
+        // console.log("kirish = " + id);
+    }
+
 
 
     function handleFilter(e) {
@@ -100,9 +143,35 @@ const Xamkorlar = () => {
                     <div className="modalBg">
                         <div className="myModal">
                             <h4 className='mb-3'>O'chirasizmi?</h4>
-                            <img src={deleteIcon} alt="" />
+                            <img src={errorIcon} alt="" />
                             <button className='btn btn-danger' onClick={() => deleteXamkor()}>Ha</button>
                             <button className='btn btn-primary' onClick={() => setModal('modal')}>Yoq</button>
+                        </div>
+                    </div>
+                    :
+                    null
+            }
+
+            {/* payment button */}
+            {
+                modalPayment.length < 1 ?
+                    <div className="modalBg">
+                        <div className="myModal">
+                            {errorInput ? (<div>
+                                <h5 className='text-danger'>Qarzimiz: {paymentRequired}</h5>
+                                <div className="container mt-5">
+                                    <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">To'laydigan pul</Form.Label>
+                                    <Form.Control type="number" id="Text1" placeholder="Summa..." onChange={e => setInputPaymentRequired(Number(e.target.value))} required='required' />
+                                    <button className='btn btn-danger mt-5' onClick={() => paymentXamkor()}>Saqlash</button>
+                                    <button className='btn btn-primary' onClick={() => setModalPayment('modal2')}>Bekor qilish</button>
+                                </div>
+                            </div>) : <div>
+                                <img src={errorIcon} className='w-100' alt="" />
+                                <h3 style={{color: "red", fontWeight: "600"}}>Katta summa kiritdingiz</h3>
+                                <button className='btn btn-primary mt-5' onClick={() => {setModalPayment('modal2'); window.location.reload(true)}}>Bekor qilish</button>
+                            </div>}
+
+
                         </div>
                     </div>
                     :
@@ -163,13 +232,13 @@ const Xamkorlar = () => {
                                             <div className="p-2">
                                                 <div className="container">
                                                     <div className="row align-items-center myHeaderCustomerStyle">
-                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">№</div>
+                                                        <div className="col-sm-12 col-md-auto col-lg-auto col-xl-auto text-left">№</div>
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Familiya Ismi</div>
                                                         <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">Lavozimi</div>
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">Telefon</div>
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">Telefon 2</div>
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center"><FilterCustomer filterValueSelected={onFilterValueSelected}></FilterCustomer></div>
-                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">Amal</div>
+                                                        <div className="col-sm-12 col-md-auto col-lg-auto col-xl-auto text-right">Amal</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -179,7 +248,7 @@ const Xamkorlar = () => {
                                                     <div key={index} className="p-2 border myStyleCustomer ownStyleCustomer">
                                                         <div className="container">
                                                             <div className="row align-items-center">
-                                                                <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{index + 1}</div>
+                                                                <div className="col-sm-12 col-md-auto col-lg-auto col-xl-auto text-left">{index + 1}</div>
                                                                 <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ fontWeight: "500" }}>{xamkor.firstName} {xamkor.lastName}</div>
                                                                 <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{xamkor.position}</div>
                                                                 <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{xamkor.phone}</div>
@@ -189,12 +258,12 @@ const Xamkorlar = () => {
                                                                         <circle cx="12" cy="12" r="8" style={{ fill: xamkor.category === "temporary" ? '#149100' : '#EC0000' }}></circle></svg>
                                                                     </small> {xamkor.category === 'temporary' ? 'Doimiy' : "Vaqtincha"}
                                                                 </div>
-                                                                <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 customerSvgStyle">
+                                                                <div className="col-sm-12 col-md-auto col-lg-auto col-xl-auto text-right customerSvgStyle">
 
 
                                                                     <OverlayTrigger placement="top" overlay={<Tooltip>View</Tooltip>} >
 
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" className="text-secondary" width="20" fill="none" viewBox="0 0 24 24" stroke="#0A7AFF" onClick={() => history.push(`/xamkor/${xamkor._id}`)}> 
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" className="text-secondary" width="20" fill="none" viewBox="0 0 24 24" stroke="#0A7AFF" onClick={() => history.push(`/xamkor/${xamkor._id}`)}>
                                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                                         </svg>
@@ -215,6 +284,11 @@ const Xamkorlar = () => {
                                                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="none" viewBox="0 0 24 24" stroke="#EE1D00" onClick={() => deleteFunction(xamkor._id)}>
                                                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                                             </svg>
+                                                                        </Link>
+                                                                    </OverlayTrigger>
+                                                                    <OverlayTrigger placement="top" overlay={<Tooltip>Delete</Tooltip>} >
+                                                                        <Link className="badge" to="#">
+                                                                            <button className='btn btn-primary' onClick={() => paymentFunction(xamkor._id)}>To'lash</button>
                                                                         </Link>
                                                                     </OverlayTrigger>
                                                                 </div>

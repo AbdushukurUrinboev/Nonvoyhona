@@ -11,10 +11,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import './CustomerAdd.css'
 import { base_URL } from '../../../API'
 
-// Delete Icon
-import deleteIcon from '../../../assets/images/delete.png'
-
-
 
 const XamkorEdit = () => {
 
@@ -72,7 +68,8 @@ const XamkorEdit = () => {
                     address,
                     workPlace,
                     position,
-                    category
+                    category,
+                    paymentRequired
                 }
             })
                 .then(res => {
