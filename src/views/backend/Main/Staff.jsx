@@ -28,7 +28,6 @@ const Staff = () => {
 
     const history = useHistory()
 
-
     const filterStaffList = (data) => {
         return data.filter((staff) => {
             if (filterTextValue === "TepaTandir") {
@@ -250,7 +249,7 @@ const Staff = () => {
                                                                                 <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 staffSvgStyle text-right">
                                                                                     <OverlayTrigger placement="top" overlay={<Tooltip>View</Tooltip>} >
                                                                                         {/* <Link className=""> */}
-                                                                                        <svg xmlns="http://www.w3.org/2000/svg" className="text-secondary" width="20" fill="none" viewBox="0 0 24 24" stroke="#0A7AFF" onClick={() => history.push(`/staff/${staff._id}`)}> 
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg" className="text-secondary" width="20" fill="none" viewBox="0 0 24 24" stroke="#0A7AFF" onClick={() => history.push(`/staff/${staff._id}`)}>
                                                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                                                         </svg>
@@ -287,8 +286,8 @@ const Staff = () => {
                                                     <div className="container-fluid mt-5 myContainerStyleStaff">
                                                         <div className="d-grid gapStyleStaff">
                                                             <h4 className='text-center'>Tez Kunda qo'shiladi</h4>
-                                                            
-                                                            
+
+
                                                             {/* <div className="p-2">
                                                                 <div className="container">
                                                                     <div className="row align-items-center myHeaderStaffStyle">

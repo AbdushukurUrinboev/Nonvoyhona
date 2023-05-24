@@ -28,7 +28,7 @@ const Staffview = () => {
             .catch(err => console.log(err))
     }, [id])
 
-  
+
 
     // console.log(currentStaff);
 
@@ -211,6 +211,14 @@ const Staffview = () => {
                                                     <p className="mb-0 ">{currentStaff.salary}</p>
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td className="p-0">
+                                                    <p className="mb-0 text-muted">Qarzdorligi:</p>
+                                                </td>
+                                                <td>
+                                                    <p className="mb-0 ">{currentStaff.remainingDepts === 0 ? "Yo'q" : currentStaff.remainingDepts}</p>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </ListGroup.Item>
@@ -250,24 +258,24 @@ const Staffview = () => {
                                         {
                                             staffWorkHistory.map((elem, ind) => {
                                                 return <div key={ind} className="p-2 border myStyleProduct ownStylePro">
-                                                <div className="container">
-                                                    <div className="row align-items-center">
-                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{ind + 1}</div>
-                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{elem.qoplarSoni}</div>
-                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{elem.nonTuri}</div>
-                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{currentStaff.group}</div>
-                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{currentStaff.smena}</div>
-                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{elem.tulov}</div>
-                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-right">{elem.date}</div>
-                                                       
+                                                    <div className="container">
+                                                        <div className="row align-items-center">
+                                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{ind + 1}</div>
+                                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{elem.qoplarSoni}</div>
+                                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{elem.nonTuri}</div>
+                                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{currentStaff.group}</div>
+                                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{currentStaff.smena}</div>
+                                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{elem.tulov}</div>
+                                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-right">{elem.date}</div>
+
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                             })
                                         }
-                                       
 
-                                        
+
+
 
 
 
