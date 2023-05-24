@@ -44,6 +44,8 @@ const Calculate = () => {
     const [addInputBonusNon, setAddInputBonusNon] = useState([]) // bonus non uchun qildim
     const [addInputJastaNon, setAddInputJastaNon] = useState([]) // jasta non uchun qildim
     const [birQopUchunTulov, setBirQopUchunTulov] = useState(0)
+    const [joined, setJoined] = useState(true)
+    const [joinedBoolean, setjoinedBoolean] = useState(true)
 
     const [breadInfo, setBreadInfo] = useState({})
 
@@ -141,6 +143,7 @@ const Calculate = () => {
         }
     }
 
+    console.log(joined);
 
     function onChange(e) {
         setNonTuri(e.target.value)
@@ -304,37 +307,80 @@ const Calculate = () => {
                                                             {
                                                                 nonTuri != "no" && breadList.find(obj => obj.productName === nonTuri).staffShare.map((objSt, nig) => (
                                                                     <div key={nig} className="col-md-6 mb-3">
-                                                                        <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">{objSt.type}</Form.Label>
-                                                                        <Select
-                                                                            closeMenuOnSelect={false}
-                                                                            components={animatedComponents}
-                                                                            isMulti
-                                                                            options={myData}
-                                                                            onChange={(e) => {
-                                                                                const temp = e.map((obj) => {
-                                                                                    return obj.value;
-                                                                                });
-                                                                                function replaceStaff(type, newStaff) {
-                                                                                    let foundObj = choosenStaff.find(objtr => objtr.type === type);
-                                                                                    if (foundObj) {
-                                                                                        foundObj.staff = newStaff;
-                                                                                    } else {
-                                                                                        choosenStaff.push({
-                                                                                            type: objSt.type,
-                                                                                            staff: newStaff,
-                                                                                            joined: true
+                                                                        <div className="row">
+                                                                            <div className="col-9">
+                                                                                <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">{objSt.type}</Form.Label>
+                                                                                <Select
+                                                                                    closeMenuOnSelect={false}
+                                                                                    components={animatedComponents}
+                                                                                    isMulti
+                                                                                    options={myData}
+                                                                                    onChange={(e) => {
+                                                                                        const temp = e.map((obj) => {
+                                                                                            return obj.value;
                                                                                         });
-                                                                                    }
-                                                                                    return choosenStaff;
+                                                                                        function replaceStaff(type, newStaff) {
+                                                                                            let foundObj = choosenStaff.find(objtr => objtr.type === type);
+                                                                                            if (foundObj) {
+                                                                                                foundObj.staff = newStaff;
+                                                                                                setjoinedBoolean(false)
+                                                                                            } else {
+                                                                                                setjoinedBoolean(true)
+                                                                                                choosenStaff.push({
+                                                                                                    type: objSt.type,
+                                                                                                    staff: newStaff,
+                                                                                                    joined: true
+                                                                                                });
+                                                                                            }
+                                                                                            return choosenStaff;
+                                                                                        }
+                                                                                        const tempResult = replaceStaff(objSt.type, temp)
+                                                                                        setChoosenStaff(tempResult);
+                                                                                    }}
+                                                                                />
+
+
+                                                                            </div>
+                                                                            <div className="col-3">
+                                                                                <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Turi</Form.Label>
+                                                                                <select id="inputState" className="form-select form-control choicesjs" disabled={joinedBoolean} onChange={e => {
+                                                                                    let newArray = choosenStaff.map((role) => {
+                                                                                        if (role.type === objSt.type) {
+                                                                                            return {
+                                                                                                ...role,
+                                                                                                joined: JSON.parse(e.target.value)
+                                                                                            }
+                                                                                        } else {
+                                                                                            return role
+                                                                                        }
+                                                                                    })
+                                                                                    setChoosenStaff(newArray);
+                                                                                    console.log(newArray)
                                                                                 }
-                                                                                const tempResult = replaceStaff(objSt.type, temp)
-                                                                                setChoosenStaff(tempResult);
-                                                                            }}
-                                                                        />
-                                                                        {/* <Form.Control type="text" id="Text5" placeholder="Xodimni kiriting..." onChange={e => setXodim(e.target.value)} /> */}
+                                                                                }>
+                                                                                    <option value={true}>Bo'lishadi</option>
+                                                                                    <option value={false}>Bo'lishmaydi</option>
+                                                                                </select>
+
+                                                                            </div>
+
+
+
+                                                                        </div>
                                                                     </div>
                                                                 ))
                                                             }
+
+
+
+
+
+
+
+
+
+
+
 
                                                             <div className="col-md-6 mb-3">
                                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Qoplar Soni</Form.Label>

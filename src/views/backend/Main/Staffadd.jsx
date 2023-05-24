@@ -32,7 +32,7 @@ const Staffadd = () => {
     const [birthdayMonth, setBirthdayMonth] = useState('');
     const [birthdayYear, setBirthdayYear] = useState(0);
 
-  
+
     const [image, setImage] = useState();
     const [error, setError] = useState(false);
 
@@ -69,7 +69,7 @@ const Staffadd = () => {
                 })
                 .catch(err => console.log(err))
         }
-       
+
     }
 
 
@@ -157,7 +157,7 @@ const Staffadd = () => {
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text7" className="font-weight-bold text-muted text-uppercase">Tug'ilgan sanasi</Form.Label>
                                                 <div className='input-group'>
-                                                <Form.Control type="number" id="Text5" placeholder="Kun..." style={{ width: '10%', marginRight: '8px' }} onChange={e => setBirthdayDay(e.target.value)} />
+                                                    <Form.Control type="number" id="Text5" placeholder="Kun..." style={{ width: '10%', marginRight: '8px' }} onChange={e => setBirthdayDay(e.target.value)} />
                                                     <select value={birthdayMonth} id="inputState" className="form-select form-control choicesjs" onChange={e => setBirthdayMonth(e.target.value)}>
                                                         <option value="Yanvar">Yanvar</option>
                                                         <option value="Fevral">Fevral</option>
@@ -188,7 +188,7 @@ const Staffadd = () => {
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Telefon raqami (shahsiy)</Form.Label>
                                                 <div className='input-group'>
                                                     <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode(e.target.value)}>
-                                                    <option value="(90) ">(90)</option>
+                                                        <option value="(90) ">(90)</option>
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
