@@ -52,12 +52,12 @@ const Calculateadd = () => {
 
 
 
-        
+
 
     useEffect(() => {
-        let allexpenses = productExpenses.reduce((acc, objt) => acc + objt.spent, 0) + requiredItems.reduce((acc, tempobj) => acc + valueProducts2.find(objjj => objjj.productName === tempobj.itemName).productPrice * tempobj.itemQuantity, 0)
+        let allexpenses = birQopUchunTulov + productExpenses.reduce((acc, objt) => acc + objt.spent, 0) + requiredItems.reduce((acc, tempobj) => acc + valueProducts2.find(objjj => objjj.productName === tempobj.itemName).productPrice * tempobj.itemQuantity, 0)
         setProductOverallExpense(allexpenses);
-    }, [productExpenses, requiredItems]);
+    }, [productExpenses, requiredItems, birQopUchunTulov]);
 
 
 
@@ -200,12 +200,7 @@ const Calculateadd = () => {
                                                     }).map((product, ind) => {
                                                         return <option key={ind} value={product}>{product}</option>
                                                     })
-                                                }
-                                                <option value="boshqalar">Boshqalar</option>
-                                                {/* <option value="no">Maxsulotlar</option>
-                                                <option value="Sedana">Sedana</option>
-                                                <option value="Sedana">Yongoq</option>
-                                                <option value="...">...</option> */}
+                                                }  
                                             </select>
 
                                             <button disabled={productInput === "no" ? true : false} className='btn btn-primary mt-2 w-100' onClick={() => {
