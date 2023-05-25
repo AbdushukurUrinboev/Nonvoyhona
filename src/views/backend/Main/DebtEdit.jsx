@@ -52,10 +52,10 @@ const DebtEdit = () => {
 
     function handleChange(e) {
         e.preventDefault();
-        if (product.length === 0 || customer.length || productQuantity.length || overall.length || avans.length || customerType.length) {
+        if (product.length === 0 || customer.length === 0 || customerType.length === 0) {
             setError(true)
         }
-        if (product && customer && productQuantity && overall && avans && customerType) {
+        if (product && customer && customerType) {
             axios.put(NASIYA_URL, {
                 id,
                 new: {

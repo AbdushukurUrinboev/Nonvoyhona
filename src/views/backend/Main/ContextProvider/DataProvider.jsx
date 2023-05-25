@@ -118,6 +118,27 @@ export function StaffListData(props) {
     )
 }
 
+// Staff ro'yhati hammasi ketgan
+export const allstaffDataContext = createContext()
+
+export function AllStaffListData(props) {
+    const [allStaffList, setAllStaffList] = useState([]);
+
+    useEffect(() => {
+        axios.get(STAFF_URL)
+        .then(res => {     
+            let staffNames = res.data.map(elem => elem)      
+            setAllStaffList(staffNames)
+        })
+    }, [])
+
+    return (
+        <allstaffDataContext.Provider value={allStaffList}>
+            {props.children}
+        </allstaffDataContext.Provider>
+    )
+}
+
 
 
 // Xamkor

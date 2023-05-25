@@ -6,13 +6,14 @@ import axios from 'axios';
 import { NASIYA_URL } from '../../../API';
 import DatePicker from "react-datepicker";
 
-import { customersDataContext } from './ContextProvider/DataProvider';
+import { customersDataContext, allstaffDataContext } from './ContextProvider/DataProvider';
 
 
 const Debtadd = () => {
 
     const [product, setProduct] = useState(''); //
     const [customer, setCustomer] = useState(''); //
+    const [remainingDepts, setRemainingDepts] = useState(''); //
     const [productQuantity, setProductQuantity] = useState(0); //
     const [overall, setOverall] = useState(0); //
     const [avans, setAvans] = useState(0); //
@@ -20,7 +21,10 @@ const Debtadd = () => {
     // const [sana, setSana] = useState(new Date());
     const [mijozlar, setMijozlar] = useState(false)
     const [error, setError] = useState(false);
+    
     const customerList = useContext(customersDataContext);
+    const staffList = useContext(allstaffDataContext);
+
 
 
     // const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
@@ -40,7 +44,6 @@ const Debtadd = () => {
                 productQuantity,
                 overall,
                 avans,
-                // sana: sana.getDate() + "-" + month[sana.getMonth()] + "," + sana.getFullYear(),
                 customerType
             })
                 .then(res => {
@@ -105,10 +108,11 @@ const Debtadd = () => {
                                             </div> */}
                                             <div className="col-md-6 mb-3 mt-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Tur</Form.Label>
-                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => { setCustomerType(e.target.value); if (e.target.value === "temporary") setMijozlar(true); else setMijozlar(false) }}>
+                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e =>  setCustomerType(e.target.value)}>
                                                     <option value="no">Turi</option>
-                                                    <option value="temporary">Doimiy</option>
-                                                    <option value="daily">Vaqtincha</option>
+                                                    <option value="temporary">Vaqtincha Mijoz</option>
+                                                    <option value="daily">Doimiy Mijoz</option>
+                                                    <option value="staff">Xodimlar</option>
                                                 </select>
                                             </div>
                                             <div className="col-md-6 mb-3">
@@ -116,7 +120,7 @@ const Debtadd = () => {
                                                 <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." value={productQuantity} onChange={e => setProductQuantity(e.target.value)} />
                                             </div>
                                             {
-                                                mijozlar ? (<div className="col-md-6 mb-3">
+                                                customerType == "daily" ? (<div className="col-md-6 mb-3">
                                                     <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Mijozlar ro'yhati</Form.Label>
                                                     <select id="inputState" className="form-select form-control choicesjs" value={customer} onChange={e => setCustomer(e.target.value)} >
                                                         <option value="">Mijozlar ro'yxati</option>
@@ -126,10 +130,20 @@ const Debtadd = () => {
                                                             })
                                                         }
                                                     </select>
-                                                </div>) : (<div className="col-md-6 mb-3">
+                                                </div>) : customerType == "temporary" ? (<div className="col-md-6 mb-3">
                                                     <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Kimga</Form.Label>
                                                     <Form.Control type="text" id="Text5" placeholder="Kim uchunligini kiriting..." onChange={e => setCustomer(e.target.value)} />
-                                                </div>)
+                                                </div>) : customerType == "staff" ? (<div className="col-md-6 mb-3">
+                                                    <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Xodimlar ro'yhati</Form.Label>
+                                                    <select id="inputState" className="form-select form-control choicesjs" value={customer} onChange={e => setRemainingDepts(e.target.value)} >
+                                                        <option value="">Xodimlar ro'yhati</option>
+                                                        {
+                                                            staffList.map((staff, ind) => {
+                                                                return <option key={ind} value={staff.lastName + " " + staff.firstName}>{staff.lastName + " " + staff.firstName}</option>
+                                                            })
+                                                        }
+                                                    </select>
+                                                </div>) : null
                                             }
 
 

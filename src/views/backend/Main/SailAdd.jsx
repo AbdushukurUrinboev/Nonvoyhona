@@ -32,18 +32,7 @@ const SailAdd = () => {
 
     function handleChange(e) {
         e.preventDefault();
-        // console.log(
-        //     {
-        //         order,
-        //         productQuantity,
-        //         customerType,
-        //         customer,
-        //         avans,
-        //         price,
-        //         customerID
 
-        //     }
-        // );
         if (order.length === 0 || productQuantity.length === 0 || customer.length === 0 || customerType.length === 0 || price.length === 0) {
             setError(true);
             console.log("Err");
