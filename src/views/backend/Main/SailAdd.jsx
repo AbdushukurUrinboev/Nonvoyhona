@@ -210,7 +210,7 @@ const SailAdd = () => {
 
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Nonni tanlang</Form.Label>
-                                                <select id="inputState" className="form-select form-control choicesjs" value={order} onChange={onChangeHandler} >
+                                                <select id="inputState" className="form-select form-control choicesjs"  onChange={onChangeHandler} >
                                                     <option defaultValue="no">Nonlar ro'yxati</option>
                                                     {
                                                         customerType === "zakaz" ? (
@@ -251,7 +251,7 @@ const SailAdd = () => {
 
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Avans</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Mijoz bergan avansini kiriting..." value={avans} onChange={e => {
+                                                <Form.Control type="text" id="Text1" value={avans} onChange={e => {
                                                     setAvans(Number(e.target.value))
                                                     calculateOverallPrice(breadPrice, productQuantity, Number(e.target.value))
                                                 }} required='required' />

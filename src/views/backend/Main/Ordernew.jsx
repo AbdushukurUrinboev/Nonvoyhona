@@ -46,10 +46,10 @@ const Ordernew = () => {
 
     function handleChange(e) {
         e.preventDefault();
-        if (order.length === 0 || customer.length === 0 || turi.length === 0 || productQuantity.length === 0 || deadline.length === 0 || avans.length === 0 || price.length === 0) {
+        if (order.length === 0 || customer.length === 0 || turi.length === 0 || productQuantity.length === 0 || deadline.length === 0 || price.length === 0) {
             setError(true)
         }
-        if (order && customer && turi && productQuantity && deadline && avans && price && status) {
+        if (order && customer && turi && productQuantity && deadline && price) {
             axios.post(ORDERS_URL, {
                 order,
                 customer,
@@ -151,7 +151,7 @@ const Ordernew = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Avans</Form.Label>
-                                                <Form.Control type="number" id="Text4" placeholder="Avans kiriting..." value={avans} onChange={e => setAvans(e.target.value)} />
+                                                <Form.Control type="number" id="Text4" value={avans} onChange={e => setAvans (Number(e.target.value))} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Tur</Form.Label>
@@ -215,7 +215,7 @@ const Ordernew = () => {
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Mijoz telefoni</Form.Label>
                                                 <div className='input-group'>
                                                     <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode(e.target.value)}>
-                                                        <option value={phoneCode}>{phoneCode}</option>
+                                                       
                                                         <option value="(90) ">(90)</option>
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>
