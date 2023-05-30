@@ -183,10 +183,10 @@ const Customer = () => {
                                                                 <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{customer.status}</div>
                                                                 <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{customer.phone}</div>
                                                                 <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{customer.phone2}</div>
-                                                                <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ color: customer.customerType === "temporary" ? '#149100' : "#EC0000", fontWeight: '500' }}>
+                                                                <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ color: customer.customerType === "daily" ? '#149100' : "#EC0000", fontWeight: '500' }}>
                                                                     <small><svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
-                                                                        <circle cx="12" cy="12" r="8" style={{ fill: customer.customerType === "temporary" ? '#149100' : '#EC0000' }}></circle></svg>
-                                                                    </small> {customer.customerType === 'temporary' ? 'Doimiy' : "Vaqtincha"}
+                                                                        <circle cx="12" cy="12" r="8" style={{ fill: customer.customerType === "daily" ? '#149100' : '#EC0000' }}></circle></svg>
+                                                                    </small> {customer.customerType === 'daily' ? 'Doimiy' : "Vaqtincha"}
                                                                 </div>
                                                                 <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 customerSvgStyle">
                                                                     <OverlayTrigger placement="top" overlay={<Tooltip>View</Tooltip>} >

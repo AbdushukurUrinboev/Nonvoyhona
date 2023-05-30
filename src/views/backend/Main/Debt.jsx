@@ -41,6 +41,7 @@ const Debt = () => {
         })
     }
 
+    console.log(debts);
     let filteredDebtlist = filterDebtList(debts);
 
     const [loading, setLoading] = useState(true)

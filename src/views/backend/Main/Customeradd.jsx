@@ -152,8 +152,8 @@ const Customeradd = () => {
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Tur</Form.Label>
                                                 <select id="inputState" className="form-select form-control choicesjs" onChange={e => setCustomerType(e.target.value)}>
                                                     <option value="no">Turi</option>
-                                                    <option value="temporary">Doimiy</option>
-                                                    <option value="daily">Vaqtincha</option>
+                                                    <option value="daily">Doimiy</option>
+                                                    <option value="temporary">Vaqtincha</option>
                                                 </select>
                                             </div>
                                             <div className="col-md-6 mb-3">
