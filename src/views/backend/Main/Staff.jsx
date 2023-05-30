@@ -26,6 +26,7 @@ const Staff = () => {
     const [filterTextValueSmena, updateFilterTextValueSmena] = useState('no');
     const [searchData, setSearchData] = useState([]);
     const [filterVal, setFilterVal] = useState('');
+    const [hasElements, setHasElements] = useState(false)
 
     const history = useHistory()
 
@@ -127,18 +128,24 @@ const Staff = () => {
 
     // qarzdor hodimlarni ekranga chiqarish
 
-    const debtStaff = () => {
-
-        staffList.map(el => {
-            if(el.remainingDepts > 0) {
-                remainingStaffDepts.push(el)
-            } 
-        })
+    const DebtStaff = () => {
         
-       
+        useEffect(() => {
+            staffList.map(el => {
+                if (el.remainingDepts > 0) {
+                    remainingStaffDepts.push(el)
+                    
+                }
+               
+            })
+
+        },[])
+
+
+
 
     }
-
+    DebtStaff()
     console.log(remainingStaffDepts);
 
 
@@ -216,7 +223,7 @@ const Staff = () => {
                                                         <Nav.Link eventKey="staff-information">Xodimlar haqida ma'lumot</Nav.Link>
                                                     </li>
                                                     <li className="col-md-3 p-0">
-                                                        <Nav.Link eventKey="qarz-staff" onClick={() => debtStaff()}>Qarzdor xodimlar ro'yxati</Nav.Link>
+                                                        <Nav.Link eventKey="qarz-staff">Qarzdor xodimlar ro'yxati</Nav.Link>
                                                     </li>
                                                     {/* <li className="col-md-3 p-0">
                                                 <Nav.Link eventKey="emailandsms">Email and SMS</Nav.Link>
@@ -303,15 +310,20 @@ const Staff = () => {
                                             </Tab.Pane>
 
                                             {/* Qarzdor xodimlar ro'yhati oynasi */}
-                                            
+
                                             <Tab.Pane eventKey="qarz-staff" role='tabpanel'>
                                                 <Card>
                                                     <div className="container-fluid mt-5 myContainerStyleStaff">
                                                         <div className="d-grid gapStyleStaff">
 
                                                             {
+                                                               remainingStaffDepts.map((st, ind) => (
+                                                                    <h1>{st.firstName}</h1>
+                                                                    )) 
                                                                 
                                                             }
+
+
                                                             <h4 className='text-center'>Tez Kunda qo'shiladi</h4>
 
 
@@ -331,7 +343,7 @@ const Staff = () => {
                                                             </div>
 
                                                             {
-                                                                
+
 
 
 
