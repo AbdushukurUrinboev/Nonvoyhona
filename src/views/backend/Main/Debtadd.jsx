@@ -37,6 +37,7 @@ const Debtadd = () => {
         if (product.length === 0 || customer.length === 0) {
             setError(true)
         } else if (customerType === "staff") {
+           
             axios.post(NASIYA_URL + "/staff/" + customer, {
                 product,
                 customer,

@@ -23,7 +23,7 @@ const Staffview = () => {
             .then(res => {
                 setCurrentStaff(res.data)
                 setStaffWorkHistory(res.data.workHistory)
-                // console.log(res.data.workHistory);
+                
             })
             .catch(err => console.log(err))
     }, [id])

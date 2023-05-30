@@ -128,7 +128,7 @@ const Staffadd = () => {
                                         <Form className="row g-3 date-icon-set-modal">
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Ismi</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Ismini kiriting..." onChange={e => setFirstName(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" placeholder="Ismini kiriting..." onChange={e => setFirstName((e.target.value).split(" ").join(""))} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label className="font-weight-bold text-muted text-uppercase">Jinsi</Form.Label><br />
@@ -147,7 +147,7 @@ const Staffadd = () => {
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Familiya</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Familiyani kiriting..." onChange={e => setLastName(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" placeholder="Familiyani kiriting..." onChange={e => setLastName((e.target.value).split(" ").join(""))} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Lavozimi</Form.Label>

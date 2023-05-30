@@ -41,7 +41,7 @@ const Debt = () => {
         })
     }
 
-    console.log(debts);
+    // console.log(debts);
     let filteredDebtlist = filterDebtList(debts);
 
     const [loading, setLoading] = useState(true)
@@ -51,7 +51,7 @@ const Debt = () => {
             .then(res => {
                 setDebts(res.data)
                 setLoading(false)
-                console.log(res.data);
+                // console.log(res.data);
             })
             .catch(err => console.log(err))
     }, [])
@@ -71,6 +71,7 @@ const Debt = () => {
     }
 
     function deleteDebt() {
+        console.log(id);
         axios.delete(NASIYA_URL, { data: { id } })
             .then(res => {
                 setModal('modal')
@@ -78,7 +79,7 @@ const Debt = () => {
                 setDebts(debts.filter(p => p._id !== id))
             })
             .catch(err => console.log(err))
-        // console.log("kirish = " + id);
+   
     }
 
     const getData = (st, ed) => {

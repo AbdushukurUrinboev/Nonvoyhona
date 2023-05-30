@@ -28,54 +28,57 @@ const SailAdd = () => {
     const zakazBreadList = useContext(zakazBreadDataContext)
     const sotuvBreadList = useContext(sotuvBreadDataContext)
 
+    // console.log(sotuvBreadList);
+    // console.log(zakazBreadList);
 
 
     function handleChange(e) {
         e.preventDefault();
-
-        if (order.length === 0 || productQuantity.length === 0 || customer.length === 0 || customerType.length === 0 || price.length === 0) {
-            setError(true);
-            console.log("Err");
-        }
-        if (order && productQuantity && customer && customerType && price) {
-            console.log("working");
-
-            
-            
-            axios.post(SALE_URL, {
-                order,
-                productQuantity,
-                customerType,
-                customer,
-                avans,
-                price,
-                customerID
-
-            })
-                .then(res => {
-                    console.log("Data is saved", res)
-                    window.location.reload(history.push('/sale'));
-                    // history.push('/sale')
-                })
-                .catch(err => {
-                    console.log(err)
+        if (sotuvBreadList.includes(order)) {
+            if (order.length === 0 || productQuantity.length === 0 || customer.length === 0 || customerType.length === 0 || price.length === 0) {
+                setError(true);
+                console.log("Err");
+            }
+            if (order && productQuantity && customer && customerType && price) {
+                axios.post(SALE_URL, {
+                    order,
+                    productQuantity,
+                    customerType,
+                    customer,
+                    avans,
+                    price,
+                    customerID
 
                 })
+                    .then(res => {
+                        console.log("Data is saved", res)
+                        window.location.reload(history.push('/sale'));
+                        // history.push('/sale')
+                    })
+                    .catch(err => {
+                        console.log(err)
+
+                    })
+            }
+        } else {
+            alert("Mahsulot sotuv bo'limidan topilmadi")
         }
+
+
     }
 
 
 
     const onChangeHandler = (e) => {
         let currentBread = e.target.value
-        
+
         const index = e.target.selectedIndex;
         const el = e.target.childNodes[index]
         const selectedInd = e.target.options.selectedIndex;
         const customAtrribute = e.target.options[selectedInd].getAttribute('customkey');
         const option = el.getAttribute('id');
         setCustomerID(option);
-        
+
         if (customerType === 'zakaz') {
             let tempPrice = 0;
             breadList.map(elem => {
@@ -92,7 +95,7 @@ const SailAdd = () => {
                     setProductQuantity(elem.productQuantity);
                     tempQuantity = elem.productQuantity
                     setOrder(elem.order)
-                    console.log(elem.order);
+                  
 
                 }
             })
@@ -101,7 +104,7 @@ const SailAdd = () => {
             setOrder(currentBread)
             breadList.map(elem => {
                 if (elem.productName === currentBread) {
-                    setBreadPrice(elem.productPrice);                    
+                    setBreadPrice(elem.productPrice);
                 }
             })
 
@@ -211,7 +214,7 @@ const SailAdd = () => {
 
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Nonni tanlang</Form.Label>
-                                                <select id="inputState" className="form-select form-control choicesjs"  onChange={onChangeHandler} >
+                                                <select id="inputState" className="form-select form-control choicesjs" onChange={onChangeHandler} >
                                                     <option defaultValue="no">Nonlar ro'yxati</option>
                                                     {
                                                         customerType === "zakaz" ? (
@@ -246,7 +249,7 @@ const SailAdd = () => {
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Berayotgan Non soni</Form.Label>
                                                 <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." value={productQuantity} onChange={e => {
                                                     setProductQuantity(Number(e.target.value))
-                                                    calculateOverallPrice(breadPrice, Number(e.target.value), avans)
+                                                    calculateOverallPrice(breadPrice, Number(e.target.value), avans)                                                   
                                                 }} />
                                             </div>
 

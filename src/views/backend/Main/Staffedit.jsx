@@ -30,7 +30,8 @@ const StaffEdit = () => {
     const [adress, setAdress] = useState('');
     const [group, setGroup] = useState();
     const [smena, setSmena] = useState();
-    const [salary, setSalary] = useState('');
+    const [salary, setSalary] = useState(0);
+    const [remainingDepts, setRemainingDepts] = useState(0);
     const [birthday, setBirthday] = useState('');
     const [image, setImage] = useState('');
 
@@ -54,6 +55,7 @@ const StaffEdit = () => {
                 setGroup(res.data.group);
                 setSmena(res.data.smena);
                 setSalary(res.data.salary);
+                setRemainingDepts(res.data.remainingDepts);
                 setBirthday(res.data.birthday);
                 setImage(res.data.image);
             })
@@ -76,6 +78,7 @@ const StaffEdit = () => {
         fd.append('group', group)
         fd.append('smena', smena)
         fd.append('salary', salary)
+        fd.append('remainingDepts', remainingDepts)
         fd.append('birthday', birthday)
         fd.append('image', image)
 
@@ -144,7 +147,7 @@ const StaffEdit = () => {
                                         <Form className="row g-3 date-icon-set-modal">
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Ismi</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Ismini kiriting..." value={firstName} onChange={e => setFirstName(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" placeholder="Ismini kiriting..." value={firstName} onChange={e => setFirstName((e.target.value).split(" ").join(""))} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label className="font-weight-bold text-muted text-uppercase" >Jinsi</Form.Label><br />
@@ -163,7 +166,7 @@ const StaffEdit = () => {
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Familiya</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Familiyani kiriting..." value={lastName} onChange={e => setLastName(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" placeholder="Familiyani kiriting..." value={lastName} onChange={e => setLastName((e.target.value).split(" ").join(""))} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Lavozimi</Form.Label>
@@ -253,7 +256,11 @@ const StaffEdit = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text7" className="font-weight-bold text-muted text-uppercase">Oyligi</Form.Label>
-                                                <Form.Control type="text" id="Text7" value={salary} onChange={e => { setSalary(e.target.value) }} />
+                                                <Form.Control type="text" id="Text7" value={salary} onChange={e => { setSalary (Number(e.target.value)) }} />
+                                            </div>
+                                            <div className="col-md-6 mb-3">
+                                                <Form.Label htmlFor="Text7" className="font-weight-bold text-muted text-uppercase">Qarzdorligi</Form.Label>
+                                                <Form.Control type="text" id="Text7" value={remainingDepts} onChange={e => { setRemainingDepts (Number(e.target.value)) }} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <div className="text-right mt-2">
