@@ -19,6 +19,7 @@ const CalculateView = () => {
     const [reqItems, setReqItems] = useState([]);
     const [otherItems, setOtherItems] = useState([]);
 
+
     const { id } = useParams();
 
 
@@ -28,6 +29,7 @@ const CalculateView = () => {
                 setCalculate(res.data)
                 setReqItems(res.data.requiredItems)
                 setOtherItems(res.data.others)
+
             })
             .catch(err => console.log(err))
     }, [id])
@@ -173,6 +175,13 @@ const CalculateView = () => {
                                                 )
                                             })
                                         }
+
+                                        <hr />
+                                        <div>
+                                            <div className="col-md-6 mb-3 text-right">
+                                                <h5 style={{ color: "blue", fontWeight: "900" }}>Jami Xarajat: {calculate.productOverallExpense}</h5>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </Card.Body>

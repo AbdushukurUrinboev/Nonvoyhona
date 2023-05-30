@@ -206,10 +206,10 @@ const Debt = () => {
                                                         <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{debt.overall}</div>
                                                         <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{debt.avans}</div>
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left">{debt.date}</div>
-                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-left" style={{ color: debt.customerType === "temporary" ? '#149100' : "#EC0000", fontWeight: '500', padding: "0px" }}>
+                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-left" style={{ color: debt.customerType === "daily" ? '#149100' : "#EC0000", fontWeight: '500', padding: "0px" }}>
                                                             <small><svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
-                                                                <circle cx="12" cy="12" r="8" style={{ fill: debt.customerType === "temporary" ? '#149100' : '#EC0000' }}></circle></svg>
-                                                            </small>{debt.customerType === 'temporary' ? 'Doimiy' : "Vaqtincha"}
+                                                                <circle cx="12" cy="12" r="8" style={{ fill: debt.customerType === "daily" ? '#149100' : '#EC0000' }}></circle></svg>
+                                                            </small>{debt.customerType === 'daily' ? 'Doimiy' : "Vaqtincha"}
                                                         </div>
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-right">
                                                             <OverlayTrigger placement="top" overlay={<Tooltip>Edit</Tooltip>} >

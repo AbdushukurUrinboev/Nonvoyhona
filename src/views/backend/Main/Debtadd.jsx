@@ -30,7 +30,7 @@ const Debtadd = () => {
     // const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
     const history = useHistory()
 
-    const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    // const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     function handleChange(e) {
         e.preventDefault();
@@ -44,7 +44,8 @@ const Debtadd = () => {
                 productQuantity,
                 overall,
                 avans,
-                customerType
+                customerType,
+                remainingDepts
             })
                 .then(res => {
                     console.log("Data is saved", res)
@@ -95,7 +96,7 @@ const Debtadd = () => {
                                         <Form className="row g-3 date-icon-set-modal myStyleCustomerAdd">
                                             <div className="col-md-6 mb-3 mt-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Nomi</Form.Label>
-                                                <Form.Control type="text" id="Text1" placeholder="Nomini kiriting..." onChange={e => setProduct(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" placeholder="Nomini kiriting..." onChange={e => setProduct(e.target.value)} />
                                             </div>
                                             {/* <div className="col-md-6 mb-3 mt-3 position-relative">
                                                 <Form.Label htmlFor="Text2" className="font-weight-bold text-muted text-uppercase">Sana</Form.Label>
@@ -135,7 +136,7 @@ const Debtadd = () => {
                                                     <Form.Control type="text" id="Text5" placeholder="Kim uchunligini kiriting..." onChange={e => setCustomer(e.target.value)} />
                                                 </div>) : customerType == "staff" ? (<div className="col-md-6 mb-3">
                                                     <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Xodimlar ro'yhati</Form.Label>
-                                                    <select id="inputState" className="form-select form-control choicesjs" value={customer} onChange={e => setRemainingDepts(e.target.value)} >
+                                                    <select id="inputState" className="form-select form-control choicesjs" value={remainingDepts} onChange={e => setRemainingDepts(e.target.value)} >
                                                         <option value="">Xodimlar ro'yhati</option>
                                                         {
                                                             staffList.map((staff, ind) => {
