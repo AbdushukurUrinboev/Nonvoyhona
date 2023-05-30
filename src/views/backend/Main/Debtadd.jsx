@@ -12,8 +12,7 @@ import { customersDataContext, allstaffDataContext } from './ContextProvider/Dat
 const Debtadd = () => {
 
     const [product, setProduct] = useState(''); //
-    const [customer, setCustomer] = useState(''); //
-    const [remainingDepts, setRemainingDepts] = useState(''); //
+    const [customer, setCustomer] = useState(''); //    
     const [productQuantity, setProductQuantity] = useState(0); //
     const [overall, setOverall] = useState(0); //
     const [avans, setAvans] = useState(0); //
@@ -34,18 +33,32 @@ const Debtadd = () => {
 
     function handleChange(e) {
         e.preventDefault();
-        if (product.length === 0 || customer.length === 0 || customerType.length === 0) {
+       
+        if (product.length === 0 || customer.length === 0) {
             setError(true)
-        }
-        if (product && customer && customerType) {
+        } else if (customerType === "staff") {
+            axios.post(NASIYA_URL + "/staff/" + customer, {
+                product,
+                customer,
+                productQuantity,
+                overall,
+                avans
+               
+            })
+                .then(res => {
+                    console.log("Data is saved", res)
+                    history.push('/nasiya')
+                })
+                .catch(err => console.log(err))
+        } else if (product && customer) {
             axios.post(NASIYA_URL, {
                 product,
                 customer,
                 productQuantity,
                 overall,
                 avans,
-                customerType,
-                remainingDepts
+                customerType
+               
             })
                 .then(res => {
                     console.log("Data is saved", res)
@@ -118,7 +131,7 @@ const Debtadd = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Miqdori</Form.Label>
-                                                <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." value={productQuantity} onChange={e => setProductQuantity(e.target.value)} />
+                                                <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." value={productQuantity} onChange={e => setProductQuantity (Number(e.target.value))} />
                                             </div>
                                             {
                                                 customerType == "daily" ? (<div className="col-md-6 mb-3">
@@ -136,11 +149,11 @@ const Debtadd = () => {
                                                     <Form.Control type="text" id="Text5" placeholder="Kim uchunligini kiriting..." onChange={e => setCustomer(e.target.value)} />
                                                 </div>) : customerType == "staff" ? (<div className="col-md-6 mb-3">
                                                     <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Xodimlar ro'yhati</Form.Label>
-                                                    <select id="inputState" className="form-select form-control choicesjs" value={remainingDepts} onChange={e => setRemainingDepts(e.target.value)} >
+                                                    <select id="inputState" className="form-select form-control choicesjs" value={customer} onChange={e => setCustomer(e.target.value)} >
                                                         <option value="">Xodimlar ro'yhati</option>
                                                         {
                                                             staffList.map((staff, ind) => {
-                                                                return <option key={ind} value={staff.lastName + " " + staff.firstName}>{staff.lastName + " " + staff.firstName}</option>
+                                                                return <option key={ind} value={staff._id}>{staff.lastName + " " + staff.firstName}</option>
                                                             })
                                                         }
                                                     </select>
@@ -150,11 +163,11 @@ const Debtadd = () => {
 
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Narx</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." value={overall} required='required' onChange={e => setOverall(e.target.value)} />
+                                                <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." value={overall} required='required' onChange={e => setOverall (Number(e.target.value))} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Avans</Form.Label>
-                                                <Form.Control type="number" id="Text4" placeholder="Avans kiriting..." value={avans} onChange={e => setAvans(e.target.value)} />
+                                                <Form.Control type="number" id="Text4" placeholder="Avans kiriting..." value={avans} onChange={e => setAvans (Number(e.target.value))} />
                                             </div>
                                         </Form>
                                         <div className="d-flex justify-content-end mt-1 ">
