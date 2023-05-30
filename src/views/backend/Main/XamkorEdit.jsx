@@ -121,11 +121,11 @@ const XamkorEdit = () => {
                                         <Form className="row g-3 date-icon-set-modal myStyleCustomerAdd">
                                             <div className="col-md-6 mb-3 mt-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Familiyasi</Form.Label>
-                                                <Form.Control type="text" id="Text1" value={lastName} onChange={e => setLastName(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" value={lastName} onChange={e => setLastName((e.target.value).split(" ").join(""))} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative mt-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Ismi</Form.Label>
-                                                <Form.Control type="text" id="Text1" value={firstName} onChange={e => setFirstName(e.target.value)} required='required' />
+                                                <Form.Control type="text" id="Text1" value={firstName} onChange={e => setFirstName((e.target.value).split(" ").join(""))} required='required' />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Telefon raqami</Form.Label>
