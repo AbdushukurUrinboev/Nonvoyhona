@@ -128,17 +128,6 @@ const Staff = () => {
 
     // qarzdor hodimlarni ekranga chiqarish 
 
-    useEffect(() => {
-        const resultDeptStaff = staffList.filter(el => {
-            if (el.remainingDepts > 0) {
-                return true
-            } else {
-                return false
-            }
-
-        })
-        setRemainingStaffDepts(resultDeptStaff)
-    }, [])
 
     return (
         <>
@@ -325,8 +314,8 @@ const Staff = () => {
 
                                                             {
 
-                                                                remainingStaffDepts.length > 0 ? (
-                                                                    remainingStaffDepts.map((staff, index) => (
+                                                                staffList.filter(el => el.remainingDepts > 0).length > 0 ? (
+                                                                    staffList.filter(el => el.remainingDepts > 0).map((staff, index) => (
                                                                         <div key={index} className="p-2 border myStyleStaff ownStyleStaff">
                                                                             <div className="container">
                                                                                 <div className="row align-items-center">
