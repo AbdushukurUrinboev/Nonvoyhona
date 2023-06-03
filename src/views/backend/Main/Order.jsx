@@ -17,6 +17,9 @@ import { base_URL } from '../../../API';
 // Delete Icon
 import deleteIcon from '../../../assets/images/delete.png'
 
+// lineThrough icon
+import Strikethrough  from '../../../assets/images/icon/Strikethrough.svg'
+
 // Loading
 import { FallingLines } from 'react-loader-spinner';
 
@@ -27,7 +30,7 @@ const Order = () => {
     const [orders, setOrders] = useState([]);
 
     const [filterTextValue, updateFilterTextValue] = useState('no');
-    const [popsUp, setPopsUp] = useState(true);
+    const [popsUp, setPopsUp] = useState(false);
     const history = useHistory()
 
     const filterOrdersList = (data) => {
@@ -91,6 +94,21 @@ const Order = () => {
                 setOrders(receivedDT);
             })
     }
+
+    const lineThrough = (id) => {
+        const updatedOrders = orders.map(order => {
+            if (order._id === id) {
+                return { ...order, popsUp: !order.popsUp };
+            }
+            return order;
+        });
+
+        setOrders(updatedOrders);
+    };
+
+    
+
+   
 
     return (
         <>
@@ -190,10 +208,9 @@ const Order = () => {
                                                 <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Mijoz</div>
                                                 <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">Telefon</div>
                                                 <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">Muddati</div>
-                                                <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">Avans</div>
                                                 <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">Umumiy</div>
                                                 <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center"><FilterPlans filterValueSelected={onFilterValueSelected}></FilterPlans></div>
-                                                <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-right">Amal</div>
+                                                <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-right">Amal</div>
                                             </div>
                                         </div>
                                     </div>
@@ -203,22 +220,23 @@ const Order = () => {
                                             <div key={index} className="p-2 border myStyleOrder ownStyleOrder">
                                                 <div className="container">
                                                     <div className="row align-items-center">
-                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ fontWeight: "500" }}>{index + 1} &nbsp; &nbsp; {order.order}</div>
-                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{order.customer}</div>
-                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{order.phone}</div>
-                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">
-                                                            <p>{order.date}</p>
-                                                            <p style={{ lineHeight: "0px" }}>{order.time}</p>
-                                                        </div>
-                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{order.avans}</div>
-                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{order.price}</div>
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={order.popsUp ? { textDecoration: 'line-through', textDecorationColor:"red", fontWeight: "bold" } : {}}>{index + 1} &nbsp; &nbsp; {order.order}</div>
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={order.popsUp ? { textDecoration: 'line-through', textDecorationColor:"red", fontWeight: "bold" } : {}}>{order.customer}</div>
+                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1" style={order.popsUp ? { textDecoration: 'line-through', textDecorationColor:"red", fontWeight: "bold" } : {}}>{order.phone}</div>
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center" style={order.popsUp ? { textDecoration: 'line-through', textDecorationColor:"red", fontWeight: "bold" } : {}}><p>{order.date}</p> </div>
+                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center" style={order.popsUp ? { textDecoration: 'line-through', textDecorationColor:"red", fontWeight: "bold" } : {}}>{order.price}</div>
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left" style={{ color: order.status === "Bajarildi" ? '#149100' : order.status === "Bajarilmadi" ? "#EC0000" : '#EFAC00', fontWeight: '500' }}>
                                                             <small><svg className="" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
                                                                 <circle cx="12" cy="12" r="8" style={{ fill: order.status === "Bajarildi" ? '#149100' : order.status === "Bajarilmadi" ? "#EC0000" : '#EFAC00' }}></circle></svg>
                                                             </small>
                                                             {order.status}
                                                         </div>
-                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-right">
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-right">
+                                                            <OverlayTrigger placement="top" overlay={<Tooltip>ThroughLine</Tooltip>} >
+                                                                <Link className="" to="#">
+                                                                   <img src={Strikethrough} className='' width="20" viewBox="0 0 24 24"  onClick={() => lineThrough(order._id)} />                                                                   
+                                                                </Link>
+                                                            </OverlayTrigger>
                                                             <OverlayTrigger placement="top" overlay={<Tooltip>View</Tooltip>} >
                                                                 <Link className="" to="#">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" className="text-secondary" width="20" fill="none" viewBox="0 0 24 24" stroke="#0A7AFF" onClick={() => history.push(`/order/${order._id}`)}>
