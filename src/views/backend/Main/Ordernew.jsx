@@ -29,6 +29,10 @@ const Ordernew = () => {
     const [deadlineTime, setDeadlineTime] = useState(new Date().getHours() + ":" + new Date().getMinutes()); //
     const [error, setError] = useState(false);
 
+    // Deadline quyish
+    const [deadlineDay, setDeadlineDay] = useState('')
+    const [deadlineMonth, setDeadlineMonth] = useState('')
+    const [deadlineYear, setDeadlineYear] = useState('')
 
     const breadList = useContext(breadDataContext);
 
@@ -46,16 +50,16 @@ const Ordernew = () => {
 
     function handleChange(e) {
         e.preventDefault();
-        if (order.length === 0 || customer.length === 0 || turi.length === 0 || productQuantity.length === 0 || deadline.length === 0 || price.length === 0) {
+        if (order.length === 0 || customer.length === 0 || turi.length === 0 || productQuantity.length === 0 || price.length === 0) {
             setError(true)
         }
-        if (order && customer && turi && productQuantity && deadline && price) {
+        if (order && customer && turi && productQuantity && price) {
             axios.post(ORDERS_URL, {
                 order,
                 customer,
                 turi,
                 productQuantity,
-                deadline: deadline.toISOString().split('T')[0].replace('-', '/').split('T')[0].replace('-', '/'),
+                deadline: deadlineDay + " " + deadlineMonth + " " + deadlineYear + " yil",
                 deadlineTime: deadlineSoat + ":" + deadlineMinut,
                 avans,
                 price,
@@ -151,7 +155,7 @@ const Ordernew = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Avans</Form.Label>
-                                                <Form.Control type="number" id="Text4" value={avans} onChange={e => setAvans (Number(e.target.value))} />
+                                                <Form.Control type="number" id="Text4" value={avans} onChange={e => setAvans(Number(e.target.value))} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Tur</Form.Label>
@@ -202,20 +206,37 @@ const Ordernew = () => {
                                                 </span>
                                             </div> */}
 
-                                            <div className="col-md-6 mb-3 position-relative">
-                                                <Form.Label htmlFor="Text2" className="font-weight-bold text-muted text-uppercase">Zakaz Muddati </Form.Label>
-                                                <DatePicker className="form-control" id="Text2" name="event_date" placeholderText="Sanani kiriting" autoComplete="off" selected={deadline} onChange={date => setDeadline(date)} />
-                                                <span className="search-link">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className="" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                                    </svg>
-                                                </span>
+
+                                            <div className="col-md-6 mb-3">
+                                                <Form.Label htmlFor="Text7" className="font-weight-bold text-muted text-uppercase">Zakaz tayyor bo'ladigan sana</Form.Label>
+                                                <div className='input-group'>
+                                                    <Form.Control type="number" id="Text5" placeholder="Kun..." style={{ width: '10%', marginRight: '8px' }} onChange={e => setDeadlineDay(e.target.value)} />
+                                                    <select value={deadlineMonth} id="inputState" className="form-select form-control choicesjs" onChange={e => setDeadlineMonth(e.target.value)}>
+                                                        <option value="Yanvar">Yanvar</option>
+                                                        <option value="Fevral">Fevral</option>
+                                                        <option value="Mart">Mart</option>
+                                                        <option value="Aprel">Aprel</option>
+                                                        <option value="May">May</option>
+                                                        <option value="Iyun">Iyun</option>
+                                                        <option value="Iyul">Iyul</option>
+                                                        <option value="Avgust">Avgust</option>
+                                                        <option value="Sentyabr">Sentyabr</option>
+                                                        <option value="Octyabr">Oktyabr</option>
+                                                        <option value="Noyabr">Noyabr</option>
+                                                        <option value="Dekabr">Dekabr</option>
+                                                    </select>
+                                                    <Form.Control type="number" id="Text5" placeholder="Yil..." style={{ width: '10%', marginLeft: '8px' }} onChange={e => setDeadlineYear(e.target.value)} />
+                                                </div>
                                             </div>
+
+
+
+                                           
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Mijoz telefoni</Form.Label>
                                                 <div className='input-group'>
                                                     <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode(e.target.value)}>
-                                                       
+
                                                         <option value="(90) ">(90)</option>
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>
@@ -228,7 +249,7 @@ const Ordernew = () => {
                                                         <option value="(71) ">(71)</option>
                                                         <option value="(73) ">(73)</option>
                                                     </select>
-                                                    <Form.Control type="text" id="Text4" value={phone} style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} />
+                                                    <Form.Control type="text" id="Text4" placeholder='Telefonni kiriting...' style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} />
                                                 </div>
 
                                             </div>

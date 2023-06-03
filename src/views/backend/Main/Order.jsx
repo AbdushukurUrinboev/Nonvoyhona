@@ -3,7 +3,6 @@ import { Container, Row, Col, Form, Button, OverlayTrigger, Tooltip } from 'reac
 import Card from '../../../components/Card'
 import { Link } from 'react-router-dom'
 // import { formatIsoTimeString } from '@fullcalendar/react'
-//datepicker
 import Datepickers from '../../../components/Datepicker';
 import { FilterPlans } from './FilterCustomer/FilterCustomer';
 import { ORDERS_URL } from '../../../API';
@@ -232,12 +231,12 @@ const Order = () => {
                                                             {order.status}
                                                         </div>
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-right">
-                                                            <OverlayTrigger placement="top" overlay={<Tooltip>ThroughLine</Tooltip>} >
+                                                            <OverlayTrigger placement="top" overlay={<Tooltip>Ustiga chizish</Tooltip>} >
                                                                 <Link className="" to="#">
                                                                    <img src={Strikethrough} className='' width="20" viewBox="0 0 24 24"  onClick={() => lineThrough(order._id)} />                                                                   
                                                                 </Link>
                                                             </OverlayTrigger>
-                                                            <OverlayTrigger placement="top" overlay={<Tooltip>View</Tooltip>} >
+                                                            <OverlayTrigger placement="top" overlay={<Tooltip>Ko'rish</Tooltip>} >
                                                                 <Link className="" to="#">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" className="text-secondary" width="20" fill="none" viewBox="0 0 24 24" stroke="#0A7AFF" onClick={() => history.push(`/order/${order._id}`)}>
                                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -245,14 +244,14 @@ const Order = () => {
                                                                     </svg>
                                                                 </Link>
                                                             </OverlayTrigger>
-                                                            <OverlayTrigger placement="top" overlay={<Tooltip>Edit</Tooltip>} >
+                                                            <OverlayTrigger placement="top" overlay={<Tooltip>O'zgartirish</Tooltip>} >
                                                                 <Link className="" to="#">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" className="text-secondary" width="20" fill="none" viewBox="0 0 24 24" stroke="#E87129" onClick={() => history.push({ pathname: `/order-details/${order._id}` })}>
                                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                                                     </svg>
                                                                 </Link>
                                                             </OverlayTrigger>
-                                                            <OverlayTrigger placement="top" overlay={<Tooltip>Delete</Tooltip>} >
+                                                            <OverlayTrigger placement="top" overlay={<Tooltip>O'chirish</Tooltip>} >
                                                                 <Link className="badge" to="#">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="none" viewBox="0 0 24 24" stroke="#EE1D00" onClick={() => deleteFunction(order._id)}>
                                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />

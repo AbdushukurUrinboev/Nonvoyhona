@@ -126,28 +126,19 @@ const Staff = () => {
         setFilterVal(e.target.value)
     }
 
-    // qarzdor hodimlarni ekranga chiqarish
+    // qarzdor hodimlarni ekranga chiqarish 
 
-    const DebtStaff = () => {
-        
-        useEffect(() => {
-            staffList.map(el => {
-                if (el.remainingDepts > 0) {
-                    remainingStaffDepts.push(el)
-                    
-                }
-               
-            })
+    useEffect(() => {
+        const resultDeptStaff = staffList.filter(el => {
+            if (el.remainingDepts > 0) {
+                return true
+            } else {
+                return false
+            }
 
-        },[])
-
-
-
-
-    }
-    DebtStaff()
-    console.log(remainingStaffDepts);
-
+        })
+        setRemainingStaffDepts(resultDeptStaff)
+    }, [])
 
     return (
         <>
@@ -317,10 +308,10 @@ const Staff = () => {
                                                         <div className="d-grid gapStyleStaff">
 
                                                             {
-                                                               remainingStaffDepts.map((st, ind) => (
+                                                                remainingStaffDepts.map((st, ind) => (
                                                                     <h1>{st.firstName}</h1>
-                                                                    )) 
-                                                                
+                                                                ))
+
                                                             }
 
 
