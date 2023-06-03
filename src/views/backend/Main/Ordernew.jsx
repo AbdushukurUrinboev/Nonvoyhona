@@ -57,7 +57,7 @@ const Ordernew = () => {
             axios.post(ORDERS_URL, {
                 order,
                 customer,
-                turi,
+                type: turi,
                 productQuantity,
                 deadline: deadlineDay + " " + deadlineMonth + " " + deadlineYear + " yil",
                 deadlineTime: deadlineSoat + ":" + deadlineMinut,

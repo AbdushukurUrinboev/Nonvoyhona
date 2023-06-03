@@ -71,6 +71,7 @@ const Debt = () => {
     }
 
     function deleteDebt() {
+        
         axios.delete(NASIYA_URL, { data: { id } })
             .then(res => {
                 setModal('modal')
