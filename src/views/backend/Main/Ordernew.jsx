@@ -235,7 +235,7 @@ const Ordernew = () => {
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Mijoz telefoni</Form.Label>
                                                 <div className='input-group'>
-                                                    <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode(e.target.value)}>
+                                                    <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode(e.target.value)} disabled={mijozlar}>
 
                                                         <option value="(90) ">(90)</option>
                                                         <option value="(91) ">(91)</option>
@@ -249,7 +249,7 @@ const Ordernew = () => {
                                                         <option value="(71) ">(71)</option>
                                                         <option value="(73) ">(73)</option>
                                                     </select>
-                                                    <Form.Control type="text" id="Text4" placeholder='Telefonni kiriting...' style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} />
+                                                    <Form.Control type="text" id="Text4" placeholder='Telefonni kiriting...' style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} disabled={mijozlar}/>
                                                 </div>
 
                                             </div>

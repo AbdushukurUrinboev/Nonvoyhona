@@ -17,7 +17,7 @@ import { base_URL } from '../../../API';
 import deleteIcon from '../../../assets/images/delete.png'
 
 // lineThrough icon
-import Strikethrough  from '../../../assets/images/icon/Strikethrough.svg'
+import Strikethrough from '../../../assets/images/icon/Strikethrough.svg'
 
 // Loading
 import { FallingLines } from 'react-loader-spinner';
@@ -97,17 +97,45 @@ const Order = () => {
     const lineThrough = (id) => {
         const updatedOrders = orders.map(order => {
             if (order._id === id) {
+                if (order.status === "Bajarilmoqda") {
+                    axios.put(ORDERS_URL, {
+                        id,
+                        new: {
+                            status: "Bajarildi"
+                        }
+                    })
+                        .then(res => {
+                            console.log("Data is updated", res);
+                            window.location.reload()
+                        })
+                        .catch(err => console.log(err))
+                } else if(order.status === "Bajarildi") {
+                    axios.put(ORDERS_URL, {
+                        id,
+                        new: {
+                            status: "Bajarilmoqda"
+                        }
+                    })
+                        .then(res => {
+                            console.log("Data is updated", res);
+                            window.location.reload()
+                        })
+                        .catch(err => console.log(err))
+                }
                 return { ...order, popsUp: !order.popsUp };
             }
             return order;
         });
-
         setOrders(updatedOrders);
+
+
+
+
     };
 
-    
 
-   
+
+
 
     return (
         <>
@@ -219,11 +247,11 @@ const Order = () => {
                                             <div key={index} className="p-2 border myStyleOrder ownStyleOrder">
                                                 <div className="container">
                                                     <div className="row align-items-center">
-                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={order.popsUp ? { textDecoration: 'line-through', textDecorationColor:"red", fontWeight: "bold" } : {}}>{index + 1} &nbsp; &nbsp; {order.order}</div>
-                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={order.popsUp ? { textDecoration: 'line-through', textDecorationColor:"red", fontWeight: "bold" } : {}}>{order.customer}</div>
-                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1" style={order.popsUp ? { textDecoration: 'line-through', textDecorationColor:"red", fontWeight: "bold" } : {}}>{order.phone}</div>
-                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center" style={order.popsUp ? { textDecoration: 'line-through', textDecorationColor:"red", fontWeight: "bold" } : {}}><p>{order.date}</p> </div>
-                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center" style={order.popsUp ? { textDecoration: 'line-through', textDecorationColor:"red", fontWeight: "bold" } : {}}>{order.price}</div>
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ textDecoration: order.status === "Bajarildi" ? 'line-through' : 'none', textDecorationColor: "red", fontWeight: order.status === "Bajarildi" ? "bold" : "normal" }}>{index + 1} &nbsp; &nbsp; {order.order}</div>
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ textDecoration: order.status === "Bajarildi" ? 'line-through' : 'none', textDecorationColor: "red", fontWeight: order.status === "Bajarildi" ? "bold" : "normal" }}>{order.customer}</div>
+                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1" style={{ textDecoration: order.status === "Bajarildi" ? 'line-through' : 'none', textDecorationColor: "red", fontWeight: order.status === "Bajarildi" ? "bold" : "normal" }}>{order.phone}</div>
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center" style={{ textDecoration: order.status === "Bajarildi" ? 'line-through' : 'none', textDecorationColor: "red", fontWeight: order.status === "Bajarildi" ? "bold" : "normal" }} ><p>{order.date}</p> </div>
+                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center" style={{ textDecoration: order.status === "Bajarildi" ? 'line-through' : 'none', textDecorationColor: "red", fontWeight: order.status === "Bajarildi" ? "bold" : "normal" }} >{order.price}</div>
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left" style={{ color: order.status === "Bajarildi" ? '#149100' : order.status === "Bajarilmadi" ? "#EC0000" : '#EFAC00', fontWeight: '500' }}>
                                                             <small><svg className="" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
                                                                 <circle cx="12" cy="12" r="8" style={{ fill: order.status === "Bajarildi" ? '#149100' : order.status === "Bajarilmadi" ? "#EC0000" : '#EFAC00' }}></circle></svg>
@@ -233,7 +261,7 @@ const Order = () => {
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-right">
                                                             <OverlayTrigger placement="top" overlay={<Tooltip>Ustiga chizish</Tooltip>} >
                                                                 <Link className="" to="#">
-                                                                   <img src={Strikethrough} className='' width="20" viewBox="0 0 24 24"  onClick={() => lineThrough(order._id)} />                                                                   
+                                                                    <img src={Strikethrough} className='' width="20" viewBox="0 0 24 24" onClick={() => lineThrough(order._id)} />
                                                                 </Link>
                                                             </OverlayTrigger>
                                                             <OverlayTrigger placement="top" overlay={<Tooltip>Ko'rish</Tooltip>} >
