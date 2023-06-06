@@ -34,6 +34,7 @@ const Dashbord = () => {
     const [currentFoyda, setCurrentFoyda] = useState(0);
 
 
+    
 
     useEffect(() => {
         axios.get(`${base_URL}/report/nasiya`)
@@ -51,6 +52,7 @@ const Dashbord = () => {
                
                 // res.data.reduce((a,b) => a = a + b.overall, 0)
                 setOmmabopNon(res.data)
+                console.log(res.data);
             })
             .catch(err => console.log(err))
 

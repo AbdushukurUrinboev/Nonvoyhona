@@ -97,28 +97,20 @@ const Xamkorlar = () => {
     }
 
     function paymentXamkor() {
-        console.log(inputPaymentRequired);
-        console.log(paymentFunction);
-
-        if (inputPaymentRequired > paymentRequired) {            
+        if (inputPaymentRequired > paymentRequired) {
             setErrorInput(false)
-            
         } else {
-            axios.put(XAMKOR_URL, {
-                id,
-                new: {
-                    paymentRequired: paymentRequired - inputPaymentRequired
-                }
-            })
+            axios.post(XAMKOR_URL + "/pay/" + id,
+                {
+                    amount: inputPaymentRequired
+                })
                 .then(res => {
                     setModalPayment('modal2')
                     console.log("Data is updated!!!", res)
 
                 })
                 .catch(err => console.log(err))
-        }
-
-        // console.log("kirish = " + id);
+        }       
     }
 
 
@@ -167,8 +159,8 @@ const Xamkorlar = () => {
                                 </div>
                             </div>) : <div>
                                 <img src={errorIcon} className='w-100' alt="" />
-                                <h3 style={{color: "red", fontWeight: "600"}}>Katta summa kiritdingiz</h3>
-                                <button className='btn btn-primary mt-5' onClick={() => {setModalPayment('modal2'); window.location.reload(true)}}>Bekor qilish</button>
+                                <h3 style={{ color: "red", fontWeight: "600" }}>Katta summa kiritdingiz</h3>
+                                <button className='btn btn-primary mt-5' onClick={() => { setModalPayment('modal2'); window.location.reload(true) }}>Bekor qilish</button>
                             </div>}
 
 

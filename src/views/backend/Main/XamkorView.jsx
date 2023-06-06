@@ -21,11 +21,13 @@ const XamkorView = () => {
         axios.get(`${base_URL}/xamkor/${id}`)
             .then(res => {
                 setCurrentXamkor(res.data)
+                console.log(res.data);
+               
             })
             .catch(err => console.log(err))
     }, [id])
 
-  
+//   console.log(currentXamkor);
 
     return (
         <>
@@ -135,41 +137,35 @@ const XamkorView = () => {
                             </ListGroup>
                         </Card>
                     </Col>
-                    {/* <Col lg="8">
+                    <Col lg="8">
                         <Card>
                             <Card.Body className="p-0">
                                 <div className="d-flex justify-content-between align-items-center p-3">
-                                    <h5>Xodim haqida qo'shimcha ma'lumot</h5>
+                                    <h5>To'lov haqidagi ma'lumotlar</h5>
                                 </div>
                                 <div className="container-fluid mt-2 myContainerStyleProduct">
                                     <div className="d-grid gapStyleProduct">
                                         <div className="p-2">
                                             <div className="container">
                                                 <div className="row align-items-center myHeaderProductStyle">
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">№</div>
-                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">Qopi</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Non nomi</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Guruh</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Smena</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Olgan puli</div>
-                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-right">Sana</div>
+                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">№</div>
+                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Sana</div>
+                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Vaqti</div>
+                                                    <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6">Puli</div>                                                  
 
                                                 </div>
                                             </div>
                                         </div>
 
                                         {
-                                            staffWorkHistory.map((elem, ind) => {
+                                           currentXamkor.paymentHistory && currentXamkor.paymentHistory.map((elem, ind) => {
                                                 return <div key={ind} className="p-2 border myStyleProduct ownStylePro">
                                                 <div className="container">
                                                     <div className="row align-items-center">
-                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{ind + 1}</div>
-                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{elem.qoplarSoni}</div>
-                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{elem.nonTuri}</div>
-                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{currentStaff.group}</div>
-                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{currentStaff.smena}</div>
-                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{elem.tulov}</div>
-                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-right">{elem.date}</div>
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{ind + 1}</div>
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{elem.date}</div>
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{elem.time}</div>
+                                                        <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6">{elem.amount}</div>
                                                        
                                                     </div>
                                                 </div>
@@ -180,7 +176,7 @@ const XamkorView = () => {
                                 </div>
                             </Card.Body>
                         </Card>
-                    </Col> */}
+                    </Col>
                 </Row>
             </Container>
         </>
