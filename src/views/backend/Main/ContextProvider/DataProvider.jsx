@@ -233,3 +233,23 @@ export function StaffTaskListData(props) {
         </staffTaskDataContext.Provider>
     )
 }
+
+
+// Users from API
+export const userContext = createContext();
+
+export function UserProvider(props){ 
+
+    
+const USER_TYPES = {
+    PUBLIC: "Public user",
+    NORMAL_USER: "Normal User",
+    ADMIN_USER: "Admin user"
+}
+  
+    return (
+        <userContext.Provider value={USER_TYPES}>
+            {props.children}
+        </userContext.Provider>
+    )
+}

@@ -120,15 +120,15 @@ const Dashbord = () => {
     ]
     array.sort((a, b) => b.quantity - a.quantity);
     let sortedArray = array.slice(0, 4);
-    console.log(sortedArray);
+    // console.log(sortedArray);
 
     // Nomini uzini alohida arrayga olaman
     let namesArray = sortedArray.map(item => item.name);
-    console.log(namesArray);
+    // console.log(namesArray);
 
     // Qiymatini alohida arrayga olaman
     let quantitiesArray = sortedArray.map(item => item.quantity);
-    console.log(quantitiesArray);
+    // console.log(quantitiesArray);
 
     // Nondagi diagramma uchun rang berish uchun funksiya
     function getColor(index) {
@@ -471,7 +471,7 @@ const Dashbord = () => {
                             <div className="d-flex justify-content-around align-items-center">
                                 {
                                     namesArray.map((item, index) => (
-                                        <div><svg width="24" height="24" viewBox="0 0 24 24" fill={getColor(index)} xmlns="http://www.w3.org/2000/svg">
+                                        <div key={index}><svg width="24" height="24" viewBox="0 0 24 24" fill={getColor(index)} xmlns="http://www.w3.org/2000/svg">
                                             <rect x="3" y="3" width="18" height="18" rx="2" fill={getColor(index)} />
                                         </svg>
 
