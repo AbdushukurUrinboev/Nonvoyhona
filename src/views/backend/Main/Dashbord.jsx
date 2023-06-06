@@ -34,7 +34,7 @@ const Dashbord = () => {
     const [currentFoyda, setCurrentFoyda] = useState(0);
 
 
-    
+
 
     useEffect(() => {
         axios.get(`${base_URL}/report/nasiya`)
@@ -48,11 +48,11 @@ const Dashbord = () => {
             .then(res => {
                 setCurrentFoyda(res.data.reduce((a, b) => a = a + b.overallPrice, 0));
                 setFoyda(res.data);
-                
-               
+
+
                 // res.data.reduce((a,b) => a = a + b.overall, 0)
                 setOmmabopNon(res.data)
-                console.log(res.data);
+
             })
             .catch(err => console.log(err))
 
@@ -64,7 +64,7 @@ const Dashbord = () => {
             .catch(err => console.log(err))
 
 
-            
+
 
 
 
@@ -79,23 +79,66 @@ const Dashbord = () => {
             })
 
         axios.get(`${base_URL}/report/nasiya?startDate=${st}&endDate=${ed}`)
-            .then(({ data: receivedDT }) => {
+            .then(({ data: receivedDT }) => {                // 
                 let currentNasiya = receivedDT.reduce((acc, a) => a.overall + acc, 0)
                 setNasiya(currentNasiya);
             })
 
         axios.get(`${base_URL}/report/daromat?startDate=${st}&endDate=${ed}`)
             .then(({ data: receivedDT }) => {
-                setCurrentFoyda(receivedDT.reduce((acc, a) => a.overallPrice + acc, 0))                
+                console.log(receivedDT);
+                setCurrentFoyda(receivedDT.reduce((acc, a) => a.overallPrice + acc, 0))
                 setFoyda(receivedDT);
             })
 
     }
 
-    let nonArray = [15,24,78,96,32,45,68,74,11,12,369,85,11,45,20,32];
-    let sumNonArray = nonArray.reduce((acc, a) => acc + a, 0)
-    
-    // console.log(sumNonArray); // 6
+
+    // Dumaloqqa quyish uchun logika
+    let array = [
+        {
+            name: "8000 li Chimyon Patir",
+            quantity: 15,
+        },
+        {
+            name: "Kulcha",
+            quantity: 7,
+        },
+        {
+            name: "Gijda",
+            quantity: 9,
+        },
+        {
+            name: "5000-li Patir",
+            quantity: 11,
+        },
+        {
+            name: "Kulcha",
+            quantity: 23,
+        },
+
+    ]
+    array.sort((a, b) => b.quantity - a.quantity);
+    let sortedArray = array.slice(0, 4);
+    console.log(sortedArray);
+
+    // Nomini uzini alohida arrayga olaman
+    let namesArray = sortedArray.map(item => item.name);
+    console.log(namesArray);
+
+    // Qiymatini alohida arrayga olaman
+    let quantitiesArray = sortedArray.map(item => item.quantity);
+    console.log(quantitiesArray);
+
+    // Nondagi diagramma uchun rang berish uchun funksiya
+    function getColor(index) {
+        const colors = ["#ffbb33", "#04237D", "#e60000", "#8080ff"]; // An array of different colors
+        return colors[index % colors.length]; // Return a color from the array based on the index
+    }
+
+
+
+
 
 
     const chart1 = {
@@ -244,7 +287,7 @@ const Dashbord = () => {
 
             },
 
-            labels: ["Kulcha", "Chimyon Patir", "Patir", "Boshqalar"],
+            labels: sortedArray.map(item => item.name),
             colors: ['#ffbb33', '#04237D', '#e60000', '#8080ff'],
             plotOptions: {
                 pie: {
@@ -298,7 +341,7 @@ const Dashbord = () => {
                 }
             }]
         },
-        series: [43, 58, 20, 35] // Total Sum of circled diagram
+        series: sortedArray.map(item => item.quantity) // Total Sum of circled diagram
     }
     return (
         <Container fluid>
@@ -338,15 +381,15 @@ const Dashbord = () => {
                                     </svg>
                                 </span>
                             </div>
-                        <button className='btn btn-primary myButtonOutput position-relative d-flex align-items-center justify-content-between' onClick={() => {
-                            const startDate = document.getElementById("dateStart").value
-                            const endDate = document.getElementById("dateEnd").value
-                            const [smonth, sday, syear] = startDate.split('/');
-                            const [emonth, eday, eyear] = endDate.split('/');
-                            const modifiedStart = `${syear}-${smonth}-${sday}`
-                            const modifiedEnd = `${eyear}-${emonth}-${eday}`
-                            getData(modifiedStart, modifiedEnd)
-                        }}>Saralash</button>
+                            <button className='btn btn-primary myButtonOutput position-relative d-flex align-items-center justify-content-between' onClick={() => {
+                                const startDate = document.getElementById("dateStart").value
+                                const endDate = document.getElementById("dateEnd").value
+                                const [smonth, sday, syear] = startDate.split('/');
+                                const [emonth, eday, eyear] = endDate.split('/');
+                                const modifiedStart = `${syear}-${smonth}-${sday}`
+                                const modifiedEnd = `${eyear}-${emonth}-${eday}`
+                                getData(modifiedStart, modifiedEnd)
+                            }}>Saralash</button>
                         </div>
                     </div>
                 </Col>
@@ -421,38 +464,20 @@ const Dashbord = () => {
                 <Col lg="4" md="8">
                     <Card>
                         <Card.Body>
-                            <h4 className="font-weight-bold mb-3">Ommabop Sotilgan Maxsulotlar</h4>
+                            <h4 className="font-weight-bold mb-3">Ommabop Sotilgan Nonlar</h4>
                             <Chart className="custom-chart" options={chart3.options} series={chart3.series} type="donut" height="330" />
+                            
+                            
                             <div className="d-flex justify-content-around align-items-center">
-                                <div><svg width="24" height="24" viewBox="0 0 24 24" fill="#ffbb33" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="3" y="3" width="18" height="18" rx="2" fill="#ffbb33" />
-                                </svg>
+                                {
+                                    namesArray.map((item, index) => (
+                                        <div><svg width="24" height="24" viewBox="0 0 24 24" fill={getColor(index)} xmlns="http://www.w3.org/2000/svg">
+                                            <rect x="3" y="3" width="18" height="18" rx="2" fill={getColor(index)} />
+                                        </svg>
 
-                                    <span>Kulcha</span>
-                                </div>
-                                <div>
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#e60000" xmlns="http://www.w3.org/2000/svg">
-                                        <rect x="3" y="3" width="18" height="18" rx="2" fill="#e60000" />
-                                    </svg>
-
-                                    <span>Patir</span>
-                                </div>
-                            </div>
-                            <div className="d-flex justify-content-around align-items-center mt-3">
-                                <div>
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="primary" xmlns="http://www.w3.org/2000/svg">
-                                        <rect x="3" y="3" width="18" height="18" rx="2" fill="#04237D" />
-                                    </svg>
-
-                                    <span>Chimyon Patir</span>
-                                </div>
-                                <div>
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="primary" xmlns="http://www.w3.org/2000/svg">
-                                        <rect x="3" y="3" width="18" height="18" rx="2" fill="#8080ff" />
-                                    </svg>
-
-                                    <span>Boshqalar</span>
-                                </div>
+                                            <span>{item}</span>
+                                        </div>
+                                    ))}
                             </div>
                         </Card.Body>
                     </Card>
