@@ -35,8 +35,8 @@ const Calculate = () => {
     const [nonTuri, setNonTuri] = useState('no');
     const [nonSoni, setNonSoni] = useState(0);
     const [jastaNonSoni, setJastaNonSoni] = useState(0);
-    const [bonusNon, setBonusNon] = useState(0);
-    const [jastaNonTuri, setJastaNonTuri] = useState('');
+    const [bonusNon, setBonusNon] = useState("no");
+    const [jastaNonTuri, setJastaNonTuri] = useState('no');
     const [tulov, setTulov] = useState(0);
     const [bonusTulov, setBonusTulov] = useState(0);
     const [jamiTulov, setJamiTulov] = useState(0);
@@ -46,6 +46,7 @@ const Calculate = () => {
     const [birQopUchunTulov, setBirQopUchunTulov] = useState(0)
     const [joined, setJoined] = useState(true)
     const [joinedBoolean, setjoinedBoolean] = useState(true)
+    const [isSaving, setIsSaving] = useState(false);
 
     const [breadInfo, setBreadInfo] = useState({})
 
@@ -70,7 +71,7 @@ const Calculate = () => {
 
 
     function handleChange(e) {
-
+        setIsSaving(true);
         const newAllBonus = allBonus.map((b) => {
             if (!b.quantity) {
                 b.quantity = 0;
@@ -89,33 +90,39 @@ const Calculate = () => {
 
         if (group && smena && choosenStaff && qoplarSoni && nonTuri && nonSoni && tulov && jamiTulov) {
 
+            setTimeout(() => {
 
-            axios.post(DAILY_TASKS_URL, {
-                group,
-                smena,
-                xodim: choosenStaff,
-                qoplarSoni,
-                nonTuri,
-                nonSoni,
-                bonus: newAllBonus,
-                jastaNonSoni,
-                tulov,
-                bonusTulov,
-                jamiTulov
+                axios.post(DAILY_TASKS_URL, {
+                    group,
+                    smena,
+                    xodim: choosenStaff,
+                    qoplarSoni,
+                    nonTuri,
+                    nonSoni,
+                    bonus: newAllBonus,
+                    jastaNonSoni,
+                    tulov,
+                    bonusTulov,
+                    jamiTulov
 
-            })
-                .then(res => {
-                    if (res.data.status === 400) {
-                        console.log(res.data.msg);
-                        setMsg(res.data.msg)
-                    } else {
-                        console.log("Data is saved", res)
-                        // alert("Ma'lumot saqlandi")
-                        window.location.reload(history.push('/sale'));
-                        // history.push('/sale')
-                    }
                 })
-                .catch(err => console.log(err))
+                    .then(res => {
+                        if (res.data.status === 400) {
+                            console.log(res.data.msg);
+                            setMsg(res.data.msg)
+                        } else {
+                            console.log("Data is saved", res)
+                            // alert("Ma'lumot saqlandi")
+                            window.location.reload(history.push('/sale'));
+                            // history.push('/sale')
+                        }
+                    })
+                    .catch(err => console.log(err))
+
+
+                setIsSaving(false);
+            }, 4000)
+
         }
 
     }
@@ -241,7 +248,7 @@ const Calculate = () => {
                                                                         })
                                                                     }
                                                                 </select>
-                                                                <button className='btn btn-primary mt-2 w-100' onClick={(e) => {
+                                                                <button className='btn btn-primary mt-2 w-100' disabled={bonusNon === "Nonlar ro'yhati" || bonusNon === "no"} onClick={(e) => {
                                                                     e.preventDefault()
                                                                     setAddInputBonusNon([...addInputBonusNon, bonusNon])
                                                                     setBonusNon("Nonlar ro'yhati")
@@ -266,7 +273,7 @@ const Calculate = () => {
                                                                         })
                                                                     }
                                                                 </select>
-                                                                <button className='btn btn-primary mt-2 w-100' onClick={(e) => {
+                                                                <button className='btn btn-primary mt-2 w-100' disabled={jastaNonTuri === "Nonlar ro'yhati" || jastaNonTuri === "no"} onClick={(e) => {
                                                                     e.preventDefault()
                                                                     setAddInputJastaNon([...addInputJastaNon, jastaNonTuri])
                                                                     setJastaNonTuri("Nonlar ro'yhati")
@@ -533,7 +540,7 @@ const Calculate = () => {
                                                             </div> */}
                                                         </Form>
                                                         <div className="d-flex justify-content-end mt-1 ">
-                                                            <Button variant="btn myButtonProducts qushishProduct" onClick={handleChange}>
+                                                            <Button variant="btn myButtonProducts qushishProduct" onClick={handleChange} disabled={isSaving}>
                                                                 <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                                                 </svg>
