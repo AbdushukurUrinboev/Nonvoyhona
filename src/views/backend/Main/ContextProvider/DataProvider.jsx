@@ -236,20 +236,36 @@ export function StaffTaskListData(props) {
 
 
 // Users from API
-export const userContext = createContext();
+// AuthProvider.js
 
-export function UserProvider(props){ 
 
-    
-const USER_TYPES = {
-    PUBLIC: "Public user",
-    NORMAL_USER: "Normal User",
-    ADMIN_USER: "Admin user"
-}
-  
-    return (
-        <userContext.Provider value={USER_TYPES}>
-            {props.children}
-        </userContext.Provider>
-    )
+export const AuthContext = createContext();
+
+export function AuthProvider({ children }) {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const login = (username, password) => {
+    // Replace this with your actual authentication logic
+    if (username === 'admin' && password === 'password') {
+      setIsAuthenticated(true);
+    } else {
+      console.log('Invalid credentials');
+    }
+  };
+
+  const logout = () => {
+    setIsAuthenticated(false);
+  };
+
+  const authContextValue = {
+    isAuthenticated,
+    login,
+    logout,
+  };
+
+  return (
+    <AuthContext.Provider value={authContextValue}>
+      {children}
+    </AuthContext.Provider>
+  );
 }

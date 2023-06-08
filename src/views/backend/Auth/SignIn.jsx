@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import { Container, Col, Row, Button, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Card from '../../../components/Card'
@@ -9,6 +9,7 @@ import { useHistory } from 'react-router-dom'
 import logo from '../../../assets/images/login/logo.png'
 
 import './SignIn.css'
+import { AuthContext } from '../Main/ContextProvider/DataProvider';
 
 
 function mapStateToProps(state) {
@@ -21,6 +22,16 @@ function mapStateToProps(state) {
 
 const SignIn = (props) => {
    let history = useHistory()
+   const { login } = useContext(AuthContext);
+   const [username, setUsername] = useState('');
+   const [password, setPassword] = useState('');
+
+   const handleLogin = (e) => {
+      e.preventDefault();
+      login(username, password);      
+      history.push('/')
+   };
+
 
    return (
       <>
@@ -58,7 +69,12 @@ const SignIn = (props) => {
                                     <Col lg="12">
                                        <Form.Group>
                                           <Form.Label className="text-secondary">Login</Form.Label>
-                                          <Form.Control type="number" placeholder="Loginni kiriting" />
+                                          <Form.Control
+                                             type="text"
+                                             placeholder="Loginni kiriting"
+                                             value={username}
+                                             onChange={(e) => setUsername(e.target.value)}
+                                          />
                                        </Form.Group>
                                     </Col>
                                     <Col lg="12" className="mt-2">
@@ -67,11 +83,16 @@ const SignIn = (props) => {
                                              <Form.Label className="text-secondary">Parol</Form.Label>
                                              {/* <Form.Label><Link to="/auth/recoverpw">Parolni unutdingizmi?</Link></Form.Label> */}
                                           </div>
-                                          <Form.Control type="password" placeholder="Enter Password" />
+                                          <Form.Control
+                                             type="password"
+                                             placeholder="Enter Password"
+                                             value={password}
+                                             onChange={e => setPassword(e.target.value)}
+                                          />
                                        </Form.Group>
                                     </Col>
                                  </Row>
-                                 <Button type="submit" onClick={() => history.push('/')} variant="btn btn-block mt-2 loginStbt">Tizimga kirish</Button>
+                                 <Button type="submit" onClick={handleLogin} variant="btn btn-block mt-2 loginStbt">Tizimga kirish</Button>
 
                               </Form>
                            </Card.Body>
