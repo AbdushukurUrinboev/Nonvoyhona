@@ -22,6 +22,7 @@ const Productadd = () => {
     const [berilganAvans, setBerilganAvans] = useState(0);
     const [qolganPul, setQolganPul] = useState(0);
     const [otherProduct, setOtherProduct] = useState('boshqasi')
+    const [customerID, setCustomerID] = useState(0);
     // const [olinganSana, setOlinganSana] = useState(new Date()); // 
     // const [olinganSoat, setOlinganSoat] = useState(new Date().getHours() + ":" + new Date().getMinutes()); //
     const [storageImage, setStorageImage] = useState(''); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
@@ -83,6 +84,34 @@ const Productadd = () => {
             .catch(err => console.log(err))
     }, [])
 
+    const onChangeHandler = (e) => {
+
+        setProductName(e.target.value); 
+        if (e.target.value == 'boshqasi'){ 
+            setOtherProduct('boshqasi') 
+        } else (setOtherProduct(''))
+        
+        let currentBread = e.target.value
+        const index = e.target.selectedIndex;
+        const el = e.target.childNodes[index]
+        const selectedInd = e.target.options.selectedIndex;
+        const customAtrribute = e.target.options[selectedInd].getAttribute('customkey');
+        const option = el.getAttribute('id');
+        setCustomerID(option);
+
+        
+        storage.map(elem => {
+            if(elem._id === option) {
+                setDescription(elem.description)
+                setProductPrice(elem.productPrice)
+                setXamkor(elem.xamkor)               
+            } else if(e.target.value == 'boshqasi') {
+                setOtherProduct('boshqasi')
+            }
+        })        
+    }
+
+
 
     return (
         <>
@@ -141,11 +170,12 @@ const Productadd = () => {
                                         <Form className="row g-3 date-icon-set-modal">
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Nomi</Form.Label>
-                                                <select className='custom-select' onChange={e => { setProductName(e.target.value); if (e.target.value == 'boshqasi') { setOtherProduct('boshqasi') } else (setOtherProduct('')) }}>
+                                                <select className='custom-select' onChange={onChangeHandler}>
                                                     {
-                                                        storage.map(post => {
+                                                        storage.map((post, ind) => {                                                            
                                                             return (
-                                                                <option key={post._id} value={post.productName}>{post.productName}</option>
+                                                                <option key={post._id} id={post._id} value={post.productName} customkey={ind}>{post.productName}</option>
+                                                                
                                                             )
                                                         })
                                                     }
@@ -171,7 +201,7 @@ const Productadd = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-uppercase">Kategoriya</Form.Label>
-                                                <Form.Control type="text" id="Text3" placeholder="Kategoriyani kiriting..." required='required' onChange={e => setDescription(e.target.value)} />
+                                                <Form.Control type="text" id="Text3" placeholder="Kategoriyani kiriting..." value={description} onChange={e => setDescription(e.target.value)} />
                                             </div>
 
                                             <div className="col-md-6 mb-3">
@@ -191,7 +221,7 @@ const Productadd = () => {
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-uppercase">Xamkorni tanlang</Form.Label>
                                                 <select id="inputState" className="form-select form-control choicesjs" onChange={e => setXamkor(e.target.value)}>
-                                                    <option value='no'>Xamkorlar</option>
+                                                    <option value={xamkor ? xamkor : 'no'}>{xamkor}</option>
                                                     {
                                                         xamkorList.map((xamkor, index) => (
                                                             <option value={xamkor.firstName + ' ' + xamkor.lastName} key={index}>{xamkor.firstName + ' ' + xamkor.lastName}</option>
