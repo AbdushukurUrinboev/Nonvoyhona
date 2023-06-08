@@ -32,6 +32,7 @@ const Dashbord = () => {
     const [xarajat, setXarajat] = useState('');
     const [ommabopNon, setOmmabopNon] = useState([]);
     const [currentFoyda, setCurrentFoyda] = useState(0);
+    const [ommabopSotuv, setOmmabopSotuv] = useState([]);
 
 
 
@@ -86,7 +87,7 @@ const Dashbord = () => {
 
         axios.get(`${base_URL}/report/daromat?startDate=${st}&endDate=${ed}`)
             .then(({ data: receivedDT }) => {
-                console.log(receivedDT);
+                setOmmabopSotuv(receivedDT);
                 setCurrentFoyda(receivedDT.reduce((acc, a) => a.overallPrice + acc, 0))
                 setFoyda(receivedDT);
             })
@@ -118,9 +119,9 @@ const Dashbord = () => {
         },
 
     ]
-    array.sort((a, b) => b.quantity - a.quantity);
-    let sortedArray = array.slice(0, 4);
-    // console.log(sortedArray);
+    let ommabopSorted = ommabopNon.sort((a, b) => b.quantity - a.quantity);
+    let sortedArray = ommabopSorted.slice(0, 4);
+    
 
     // Nomini uzini alohida arrayga olaman
     let namesArray = sortedArray.map(item => item.name);
