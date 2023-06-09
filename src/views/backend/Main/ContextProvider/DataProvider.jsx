@@ -261,7 +261,7 @@ export function AuthProvider({ children }) {
 
     const login = (username, password) => {
         // Replace this with your actual authentication logic
-        if (username === 'as' && password === 'as') {
+        if (username === 'javdar' && password === 'akramjon') {
             setIsAuthenticated(true);
             setAuthError(false);
             localStorage.setItem('authData', JSON.stringify({ isAuthenticated: true }));
