@@ -45,17 +45,19 @@ const Dashbord = () => {
             })
             .catch(err => console.log(err));
 
-        // axios.get(`${base_URL}/report/daromat`)
-        //     .then(res => {
-        //         setCurrentFoyda(res.data.reduce((a, b) => a = a + b.overallPrice, 0));
-        //         setFoyda(res.data);
+        axios.get(`${base_URL}/report/daromat`)
+            .then(res => {
+                console.log(res.data);
+                setCurrentFoyda(res.data.reduce((a, b) => a = a + b.overallPrice, 0));
+                setFoyda(res.data);
+                
 
+                // res.data.reduce((a,b) => a = a + b.overall, 0)
+                setOmmabopNon(res.data.sort((a, b) => b.quantity - a.quantity).slice(0, 4));
+                // console.log(res.data.sort((a, b) => b.quantity - a.quantity).slice(0, 4));
 
-        //         // res.data.reduce((a,b) => a = a + b.overall, 0)
-        //         setOmmabopNon(res.data)
-
-        //     })
-        //     .catch(err => console.log(err))
+            })
+            .catch(err => console.log(err))
 
         axios.get(`${base_URL}/report/expenses`)
             .then(res => {
@@ -75,6 +77,7 @@ const Dashbord = () => {
 
         axios.get(`${base_URL}/report/expenses?startDate=${st}&endDate=${ed}`)
             .then(({ data: receivedDT }) => {
+                
                 let currentXarajat = receivedDT.reduce((acc, a) => a.overallPrice + acc, 0)
                 setXarajat(currentXarajat);
             })
@@ -94,42 +97,6 @@ const Dashbord = () => {
 
     }
 
-
-    // Dumaloqqa quyish uchun logika
-    let array = [
-        {
-            name: "8000 li Chimyon Patir",
-            quantity: 15,
-        },
-        {
-            name: "Kulcha",
-            quantity: 7,
-        },
-        {
-            name: "Gijda",
-            quantity: 9,
-        },
-        {
-            name: "5000-li Patir",
-            quantity: 11,
-        },
-        {
-            name: "Kulcha",
-            quantity: 23,
-        },
-
-    ]
-    let ommabopSorted = ommabopNon.sort((a, b) => b.quantity - a.quantity);
-    let sortedArray = ommabopSorted.slice(0, 4);
-    
-
-    // Nomini uzini alohida arrayga olaman
-    let namesArray = sortedArray.map(item => item.name);
-    // console.log(namesArray);
-
-    // Qiymatini alohida arrayga olaman
-    let quantitiesArray = sortedArray.map(item => item.quantity);
-    // console.log(quantitiesArray);
 
     // Nondagi diagramma uchun rang berish uchun funksiya
     function getColor(index) {
@@ -288,7 +255,7 @@ const Dashbord = () => {
 
             },
 
-            labels: sortedArray.map(item => item.name),
+            labels: ommabopNon.map(item => item.name),
             colors: ['#ffbb33', '#04237D', '#e60000', '#8080ff'],
             plotOptions: {
                 pie: {
@@ -342,7 +309,7 @@ const Dashbord = () => {
                 }
             }]
         },
-        series: sortedArray.map(item => item.quantity) // Total Sum of circled diagram
+        series: ommabopNon.map(item => item.quantity) // Total Sum of circled diagram
     }
     return (
         <Container fluid>
@@ -471,7 +438,7 @@ const Dashbord = () => {
                             
                             <div className="d-flex justify-content-around align-items-center">
                                 {
-                                    namesArray.map((item, index) => (
+                                   ommabopNon && ommabopNon.map(item => item.name).map((item, index) => (
                                         <div key={index}><svg width="24" height="24" viewBox="0 0 24 24" fill={getColor(index)} xmlns="http://www.w3.org/2000/svg">
                                             <rect x="3" y="3" width="18" height="18" rx="2" fill={getColor(index)} />
                                         </svg>
