@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Switch, Route, useLocation } from 'react-router-dom'
+import { Switch, Route, useLocation, Redirect } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { userContext } from '../views/backend/Main/ContextProvider/DataProvider';
 
@@ -87,8 +87,8 @@ import XamkorEdit from '../views/backend/Main/XamkorEdit';
 import XamkorView from '../views/backend/Main/XamkorView';
 
 // DataProvider - stateManagement
-import { AuthProvider, DataProvider, AllStaffListData, DataProvider2, BreadListData, CustomerListData, StaffListData, XamkorListData, ZakazBreadListData, SotuvBreadListData, StaffTaskListData } from '../views/backend/Main/ContextProvider/DataProvider';
-
+import { DataProvider, AllStaffListData, DataProvider2, BreadListData, CustomerListData, StaffListData, XamkorListData, ZakazBreadListData, SotuvBreadListData, StaffTaskListData } from '../views/backend/Main/ContextProvider/DataProvider';
+import PrivateRoute from '../views/backend/Main/PrivateRoute';
 
 
 
@@ -109,83 +109,85 @@ const Layout1Route = () => {
                     <StaffTaskListData>
                       <AllStaffListData>
                         <Switch location={location}>
-                          <Route path="/" exact component={Dashbord} />
+                          <PrivateRoute path="/" exact component={Dashbord} />
 
                           {/* App */}
-                          <Route path="/user-profile" exact component={UserProfile} />
-                          <Route path="/user-add" exact component={UserAdd} />
-                          <Route path="/user-list" exact component={UserList} />
-                          <Route path="/user-account-setting" exact component={UserAccountSettingList} />
-                          <Route path="/user-profile-edit" exact component={UserProfileEdit} />
+                          <PrivateRoute path="/user-profile" exact component={UserProfile} />
+                          <PrivateRoute path="/user-add" exact component={UserAdd} />
+                          <PrivateRoute path="/user-list" exact component={UserList} />
+                          <PrivateRoute path="/user-account-setting" exact component={UserAccountSettingList} />
+                          <PrivateRoute path="/user-profile-edit" exact component={UserProfileEdit} />
 
 
                           {/* Extrapages */}
 
-                          <Route path="/pricing-1" exact component={Pricing1} />
-                          <Route path="/pages-invoice" exact component={Invoice} />
-                          <Route path="/pages-blank-page" exact component={BlankPage} />
-                          <Route path="/terms-of-service" exact component={TermsOfUse} />
-                          <Route path="/privacy-policy" exact component={PrivacyPolicy} />
+                          <PrivateRoute path="/pricing-1" exact component={Pricing1} />
+                          <PrivateRoute path="/pages-invoice" exact component={Invoice} />
+                          <PrivateRoute path="/pages-blank-page" exact component={BlankPage} />
+                          <PrivateRoute path="/terms-of-service" exact component={TermsOfUse} />
+                          <PrivateRoute path="/privacy-policy" exact component={PrivacyPolicy} />
 
                           {/*Customer*/}
-                          <Route path="/customers" exact component={Customer} />
-                          <Route path="/customers-add" exact component={Customeradd} />
-                          <Route path='/customer/:id' exact component={Customerview} />
-                          <Route path="/customers-edit/:id" exact component={Customeredit} />
+                          <PrivateRoute path="/customers" exact component={Customer} />
+                          <PrivateRoute path="/customers-add" exact component={Customeradd} />
+                          <PrivateRoute path='/customer/:id' exact component={Customerview} />
+                          <PrivateRoute path="/customers-edit/:id" exact component={Customeredit} />
 
                           {/*STAFF*/}
-                          <Route path="/staff" exact component={Staff} />
-                          <Route path="/staff/:id" exact component={Staffview} />
-                          <Route path="/staff-add" exact component={Staffadd} />
-                          <Route path="/staff-edit/:id" exact component={StaffEdit} />
+                          <PrivateRoute path="/staff" exact component={Staff} />
+                          <PrivateRoute path="/staff/:id" exact component={Staffview} />
+                          <PrivateRoute path="/staff-add" exact component={Staffadd} />
+                          <PrivateRoute path="/staff-edit/:id" exact component={StaffEdit} />
 
 
                           {/* Storage */}
-                          <Route path="/storage" exact component={Product} />
-                          <Route path="/storage/:id" exact component={ProductView} />
-                          <Route path="/storage-add" exact component={ProductAdd} />
-                          <Route path="/storage-edit/:id" exact component={ProductEdit} />
+                          <PrivateRoute path="/storage" exact component={Product} />
+                          <PrivateRoute path="/storage/:id" exact component={ProductView} />
+                          <PrivateRoute path="/storage-add" exact component={ProductAdd} />
+                          <PrivateRoute path="/storage-edit/:id" exact component={ProductEdit} />
 
                           {/* Output */}
-                          <Route path="/output" exact component={Output} />
-                          <Route path="/output-add" exact component={Outputadd} />
-                          <Route path="/output-edit/:id" exact component={OutputEdit} />
+                          <PrivateRoute path="/output" exact component={Output} />
+                          <PrivateRoute path="/output-add" exact component={Outputadd} />
+                          <PrivateRoute path="/output-edit/:id" exact component={OutputEdit} />
 
                           {/* Debt */}
-                          <Route path="/nasiya" exact component={Debt} />
-                          <Route path="/nasiya-add" exact component={Debtadd} />
-                          <Route path="/nasiya-edit/:id" exact component={DebtEdit} />
+                          <PrivateRoute path="/nasiya" exact component={Debt} />
+                          <PrivateRoute path="/nasiya-add" exact component={Debtadd} />
+                          <PrivateRoute path="/nasiya-edit/:id" exact component={DebtEdit} />
 
                           {/* Calculate */}
-                          <Route path="/calculate" exact component={Calculate} />
-                          <Route path="/calculate-add" exact component={Calculateadd} />
-                          <Route path='/calculate/:id' exact component={CalculateView} />
-                          <Route path="/calculate-edit/:id" exact component={CalculateEdit} />
+                          <PrivateRoute path="/calculate" exact component={Calculate} />
+                          <PrivateRoute path="/calculate-add" exact component={Calculateadd} />
+                          <PrivateRoute path='/calculate/:id' exact component={CalculateView} />
+                          <PrivateRoute path="/calculate-edit/:id" exact component={CalculateEdit} />
 
                           {/* Kunlik ish */}
-                          <Route path="/kunlik-ish" exact component={KunlikIsh} />
-                          <Route path="/kunlik-ish-add" exact component={KunlikIshadd} />
+                          <PrivateRoute path="/kunlik-ish" exact component={KunlikIsh} />
+                          <PrivateRoute path="/kunlik-ish-add" exact component={KunlikIshadd} />
 
                           {/* Plans */}
-                          <Route path="/plan" exact component={Plans} />
-                          <Route path="/plan-add" exact component={Plansadd} />
-                          <Route path="/plan-edit/:id" exact component={PlansEdit} />
+                          <PrivateRoute path="/plan" exact component={Plans} />
+                          <PrivateRoute path="/plan-add" exact component={Plansadd} />
+                          <PrivateRoute path="/plan-edit/:id" exact component={PlansEdit} />
 
                           {/* Sail */}
-                          <Route path="/sale" exact component={Sail} />
-                          <Route path="/sale-add" exact component={SailAdd} />
+                          <PrivateRoute path="/sale" exact component={Sail} />
+                          <PrivateRoute path="/sale-add" exact component={SailAdd} />
 
                           {/* Order */}
-                          <Route path="/order" exact component={Order} />
-                          <Route path="/order-new" exact component={Ordernew} />
-                          <Route path="/order-details/:id" exact component={Orderdetails} />
-                          <Route path="/order/:id" exact component={OrderView} />
+                          <PrivateRoute path="/order" exact component={Order} />
+                          <PrivateRoute path="/order-new" exact component={Ordernew} />
+                          <PrivateRoute path="/order-details/:id" exact component={Orderdetails} />
+                          <PrivateRoute path="/order/:id" exact component={OrderView} />
 
                           {/* Xamkorlar */}
-                          <Route path="/xamkorlar" exact component={Xamkorlar} />
-                          <Route path="/xamkor/:id" exact component={XamkorView} />
-                          <Route path="/xamkorlar-add" exact component={XamkorlarAdd} />
-                          <Route path="/xamkor-edit/:id" exact component={XamkorEdit} />
+                          <PrivateRoute path="/xamkorlar" exact component={Xamkorlar} />
+                          <PrivateRoute path="/xamkor/:id" exact component={XamkorView} />
+                          <PrivateRoute path="/xamkorlar-add" exact component={XamkorlarAdd} />
+                          <PrivateRoute path="/xamkor-edit/:id" exact component={XamkorEdit} />
+                          {/* Redirect to login page when doesnt match any routes */}
+                          <Route render={() => <Redirect to="/auth/sign-in" />} />
 
                         </Switch>
                       </AllStaffListData>

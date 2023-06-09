@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
+import { AuthProvider } from './views/backend/Main/ContextProvider/DataProvider';
 
 //store
 
@@ -12,11 +13,13 @@ import Store from './store'
 
 ReactDOM.render(
   <React.Fragment>
-     <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <AuthProvider>
         <Provider store={Store}>
-            <App />
+          <App />
         </Provider>
-      </BrowserRouter>
+      </AuthProvider>
+    </BrowserRouter>
   </React.Fragment>,
   document.getElementById('root')
 );

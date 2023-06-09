@@ -23,7 +23,7 @@ const Orderdetails = () => {
     const [avans, setAvans] = useState(0);
     const [price, setPrice] = useState(0);
     const [umumiyPrice, setUmumiyPrice] = useState(0);
-    const [qolganPul, setQolganPul] = useState();    
+    const [qolganPul, setQolganPul] = useState();
     const [phone, setPhone] = useState('');
     const [status, setStatus] = useState();
     const [error, setError] = useState(false);
@@ -39,13 +39,13 @@ const Orderdetails = () => {
 
     useEffect(() => {
         axios.get(`${base_URL}/order/${id}`)
-            .then(res => {               
+            .then(res => {
                 setOrder(res.data.order);
                 setCustomer(res.data.customer);
                 setProductQuantity(res.data.productQuantity);
                 setDate(res.data.date); //                          
                 setDeadline(res.data.deadline)
-                setDeadlineTime(res.data.deadlineTime);                
+                setDeadlineTime(res.data.deadlineTime);
                 setPhone(res.data.phone);
                 setAvans(res.data.avans);
                 setPrice(res.data.price);
@@ -199,7 +199,7 @@ const Orderdetails = () => {
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Zakaz tayyor bo'ladigan sana</Form.Label>
                                                 <Form.Control type="text" id="Text4" value={deadline} onChange={e => setDeadline(e.target.value)} />
                                             </div>
-                                            
+
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Zakaz tayyor bo'ladigan soat</Form.Label>
                                                 <Form.Control type="text" id="Text4" value={deadlineTime} onChange={e => setDeadlineTime(e.target.value)} />

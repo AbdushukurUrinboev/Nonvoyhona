@@ -1,25 +1,25 @@
-import React, {useState, createContext, useEffect} from "react";
+import React, { useState, createContext, useEffect } from "react";
 import axios from "axios";
 // import STORAGE_URL
 import { STORAGE_URL, CALCULATE_URL, CUSTOMERS_URL, STAFF_URL, XAMKOR_URL, ORDERS_URL, SALE_URL } from '../../../../API';
-
+import { useHistory } from 'react-router-dom'
 // Mahsulotlar datasi (masalan un, yog va hokazo)
 export const dataContext = createContext();
 
-export function DataProvider(props){ 
+export function DataProvider(props) {
     const [all, setAll] = useState([]);
 
 
     useEffect(() => {
         axios.get(STORAGE_URL)
-        .then(res => {
-            // console.log(res.data);
-            let productNames = res.data.map((elem) => elem.productName)
-            setAll(productNames)
-        })
+            .then(res => {
+                // console.log(res.data);
+                let productNames = res.data.map((elem) => elem.productName)
+                setAll(productNames)
+            })
     }, [])
 
-   
+
     return (
         <dataContext.Provider value={all}>
             {props.children}
@@ -33,20 +33,20 @@ export function DataProvider(props){
 // Mahsulotlar datasi2 (masalan un, yog va hokazo)
 export const dataContext2 = createContext();
 
-export function DataProvider2(props){ 
+export function DataProvider2(props) {
     const [all2, setAll2] = useState([]);
 
 
     useEffect(() => {
         axios.get(STORAGE_URL)
-        .then(res => {
-            // console.log(res.data);
-            let productNames = res.data.map((elem) => elem)
-            setAll2(productNames)
-        })
+            .then(res => {
+                // console.log(res.data);
+                let productNames = res.data.map((elem) => elem)
+                setAll2(productNames)
+            })
     }, [])
 
-   
+
     return (
         <dataContext2.Provider value={all2}>
             {props.children}
@@ -62,10 +62,10 @@ export function BreadListData(props) {
 
     useEffect(() => {
         axios.get(CALCULATE_URL)
-        .then(res => {
-            let breadNames = res.data.map(elem => elem)
-            setBreadList(breadNames)
-        })
+            .then(res => {
+                let breadNames = res.data.map(elem => elem)
+                setBreadList(breadNames)
+            })
     }, [])
 
     return (
@@ -84,9 +84,9 @@ export function CustomerListData(props) {
 
     useEffect(() => {
         axios.get(CUSTOMERS_URL)
-        .then(res => {           
-            setCustomerList(res.data)
-        })
+            .then(res => {
+                setCustomerList(res.data)
+            })
     }, [])
 
     return (
@@ -105,10 +105,10 @@ export function StaffListData(props) {
 
     useEffect(() => {
         axios.get(STAFF_URL)
-        .then(res => {     
-            let staffNames = res.data.map(elem => elem.lastName + " " + elem.firstName)      
-            setStaffList(staffNames)
-        })
+            .then(res => {
+                let staffNames = res.data.map(elem => elem.lastName + " " + elem.firstName)
+                setStaffList(staffNames)
+            })
     }, [])
 
     return (
@@ -126,10 +126,10 @@ export function AllStaffListData(props) {
 
     useEffect(() => {
         axios.get(STAFF_URL)
-        .then(res => {     
-            let staffNames = res.data.map(elem => elem)      
-            setAllStaffList(staffNames)
-        })
+            .then(res => {
+                let staffNames = res.data.map(elem => elem)
+                setAllStaffList(staffNames)
+            })
     }, [])
 
     return (
@@ -150,9 +150,9 @@ export function XamkorListData(props) {
 
     useEffect(() => {
         axios.get(XAMKOR_URL)
-        .then(res => {
-            setXamkorList(res.data)
-        })
+            .then(res => {
+                setXamkorList(res.data)
+            })
     }, [])
 
     return (
@@ -172,10 +172,10 @@ export function ZakazBreadListData(props) {
 
     useEffect(() => {
         axios.get(ORDERS_URL)
-        .then(res => {
-            // let breadNames = res.data.map(elem => elem.order)   
-            setZakazBreadList(res.data)
-        })
+            .then(res => {
+                // let breadNames = res.data.map(elem => elem.order)   
+                setZakazBreadList(res.data)
+            })
     }, [])
 
     return (
@@ -196,10 +196,10 @@ export function SotuvBreadListData(props) {
 
     useEffect(() => {
         axios.get(SALE_URL)
-        .then(res => {
-            let breadNames = res.data.map(elem => elem.breadName)   
-            setSotuvBreadList(breadNames)
-        })
+            .then(res => {
+                let breadNames = res.data.map(elem => elem.breadName)
+                setSotuvBreadList(breadNames)
+            })
     }, [])
 
     return (
@@ -221,10 +221,10 @@ export function StaffTaskListData(props) {
 
     useEffect(() => {
         axios.get(CALCULATE_URL)
-        .then(res => {
-            let taskNames = res.data.map(elem => elem.staffShare) // type - turi, share-puli   
-            setTasksList(taskNames)
-        })
+            .then(res => {
+                let taskNames = res.data.map(elem => elem.staffShare) // type - turi, share-puli   
+                setTasksList(taskNames)
+            })
     }, [])
 
     return (
@@ -242,30 +242,53 @@ export function StaffTaskListData(props) {
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+    let history = useHistory()
+    const storedAuthData = localStorage.getItem('authData');
+    let currAuth = JSON.parse(storedAuthData);
+    const [isAuthenticated, setIsAuthenticated] = useState(currAuth ? currAuth.isAuthenticated : false);
+    const [authError, setAuthError] = useState(false);
 
-  const login = (username, password) => {
-    // Replace this with your actual authentication logic
-    if (username === 'admin' && password === 'password') {
-      setIsAuthenticated(true);
-    } else {
-      console.log('Invalid credentials');
-    }
-  };
 
-  const logout = () => {
-    setIsAuthenticated(false);
-  };
+    // useEffect(() => {
+    //     // Check if authentication data exists in local storage
+        
+    //     if (storedAuthData) {
+    //         const { isAuthenticated } = JSON.parse(storedAuthData);
+    //         setIsAuthenticated(isAuthenticated);
+    //     }
+    // }, []);
 
-  const authContextValue = {
-    isAuthenticated,
-    login,
-    logout,
-  };
 
-  return (
-    <AuthContext.Provider value={authContextValue}>
-      {children}
-    </AuthContext.Provider>
-  );
+    const login = (username, password) => {
+        // Replace this with your actual authentication logic
+        if (username === 'as' && password === 'as') {
+            setIsAuthenticated(true);
+            setAuthError(false);
+            localStorage.setItem('authData', JSON.stringify({ isAuthenticated: true }));
+            history.push('/')
+        } else {
+            setIsAuthenticated(false);
+            setAuthError(true);
+        }
+    };
+
+    const logout = () => {
+        setIsAuthenticated(false);
+        setAuthError(false);
+        localStorage.removeItem('authData');
+        history.push('/auth/sign-in');
+    };
+
+    const authContextValue = {
+        isAuthenticated,
+        authError,
+        login,
+        logout,
+    };
+
+    return (
+        <AuthContext.Provider value={authContextValue}>
+            {children}
+        </AuthContext.Provider>
+    );
 }

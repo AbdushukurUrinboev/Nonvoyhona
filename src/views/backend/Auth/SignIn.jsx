@@ -20,18 +20,17 @@ function mapStateToProps(state) {
 
 
 
-const SignIn = (props) => {
+const SignIn = () => {
    let history = useHistory()
-   const { login } = useContext(AuthContext);
+   const { login, authError } = useContext(AuthContext);
    const [username, setUsername] = useState('');
    const [password, setPassword] = useState('');
 
    const handleLogin = (e) => {
       e.preventDefault();
-      login(username, password);      
-      history.push('/')
-   };
+      login(username, password);
 
+   };
 
    return (
       <>
@@ -67,6 +66,7 @@ const SignIn = (props) => {
                               <Form>
                                  <Row>
                                     <Col lg="12">
+                                       {authError && <p className='line-around-1 line-st'>Login yoki parolni hato kiritdingiz. Qaytadan harakat qiling ...</p>}
                                        <Form.Group>
                                           <Form.Label className="text-secondary">Login</Form.Label>
                                           <Form.Control
