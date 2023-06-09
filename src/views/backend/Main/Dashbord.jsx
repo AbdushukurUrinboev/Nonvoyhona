@@ -45,17 +45,17 @@ const Dashbord = () => {
             })
             .catch(err => console.log(err));
 
-        axios.get(`${base_URL}/report/daromat`)
-            .then(res => {
-                setCurrentFoyda(res.data.reduce((a, b) => a = a + b.overallPrice, 0));
-                setFoyda(res.data);
+        // axios.get(`${base_URL}/report/daromat`)
+        //     .then(res => {
+        //         setCurrentFoyda(res.data.reduce((a, b) => a = a + b.overallPrice, 0));
+        //         setFoyda(res.data);
 
 
-                // res.data.reduce((a,b) => a = a + b.overall, 0)
-                setOmmabopNon(res.data)
+        //         // res.data.reduce((a,b) => a = a + b.overall, 0)
+        //         setOmmabopNon(res.data)
 
-            })
-            .catch(err => console.log(err))
+        //     })
+        //     .catch(err => console.log(err))
 
         axios.get(`${base_URL}/report/expenses`)
             .then(res => {
