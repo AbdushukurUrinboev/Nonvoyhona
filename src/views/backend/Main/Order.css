@@ -51,7 +51,7 @@
 }
 
 .myButtonOrder {
-    margin-left: 15px !important; 
+    margin-left: 15px !important;
     border-radius: 10px !important;
 }
 
@@ -101,11 +101,13 @@
     text-align: center;
     border-radius: 20px;
 }
-.myModal img{
+
+.myModal img {
     width: 40%;
     margin: 0 auto;
     display: block;
 }
+
 .myModal button {
     width: 60%;
     display: block;
@@ -113,8 +115,19 @@
     margin-top: 5%;
 }
 
+.button-group-order {
+    display: flex;
+    justify-content: space-between;
+}
+.order-button-first{
+    margin-right: 20px;
+}
+.order-button {
+    width: 100%;
+}
+
 @media only screen and (max-width: 992px) {
-    .myModal{
+    .myModal {
         position: relative;
         left: 15%;
         width: 70%;

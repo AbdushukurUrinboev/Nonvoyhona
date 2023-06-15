@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { Link, useHistory } from 'react-router-dom'
@@ -6,33 +6,40 @@ import axios from 'axios';
 import { ORDERS_URL } from '../../../API';
 import DatePicker from "react-datepicker";
 import { breadDataContext, customersDataContext } from './ContextProvider/DataProvider';
+// SVG ICON
+import addOrderLogo from '../../../assets/images/icon/additemaddButonLogo.svg'
+
 
 
 
 
 const Ordernew = () => {
     const [order, setOrder] = useState('');
+    const [addInputOrder, setAddInputOrder] = useState([{order: '', productQuantity: '', price: ''}]);
+
     const [customer, setCustomer] = useState('');
     const [productQuantity, setProductQuantity] = useState(0);
     const [turi, setTuri] = useState('');
     const [mijozlar, setMijozlar] = useState(false)
     const [deadline, setDeadline] = useState()
     const [avans, setAvans] = useState(0);
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState([]);
     const [phoneCode, setPhoneCode] = useState(0);
     const [phone, setPhone] = useState(0);
     const [status, setStatus] = useState('Bajarilmoqda');
     const [umumiyPrice, setUmumiyPrice] = useState(0);
 
     const [deadlineSoat, setDeadlineSoat] = useState(); // bu backendga ketmaydi deadlineTimega qushdim 
-    const [deadlineMinut, setDeadlineMinut] = useState(); // bu backendga ketmaydi deadlineTimega qushdim 
+    const [deadlineMinut, setDeadlineMinut] = useState(0); // bu backendga ketmaydi deadlineTimega qushdim 
     const [deadlineTime, setDeadlineTime] = useState(new Date().getHours() + ":" + new Date().getMinutes()); //
     const [error, setError] = useState(false);
 
     // Deadline quyish
     const [deadlineDay, setDeadlineDay] = useState('')
     const [deadlineMonth, setDeadlineMonth] = useState('')
-    const [deadlineYear, setDeadlineYear] = useState('')
+    const [deadlineYear, setDeadlineYear] = useState(2023)
+
+
 
     const breadList = useContext(breadDataContext);
 
@@ -43,29 +50,34 @@ const Ordernew = () => {
     // const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     // Getting price of Bread and sending to priceInput
-    const calculateOverallPrice = (productPriceInput, poductQuantityInput) => {
-        setUmumiyPrice(poductQuantityInput * productPriceInput);
+    const calculateOverallPrice = () => {
+        const overallPr = addInputOrder.reduce((acc, curOrder) => {
+            return acc + curOrder.price * curOrder.productQuantity
+        }, 0);
+        setUmumiyPrice(overallPr);
     }
 
 
     function handleChange(e) {
         e.preventDefault();
-        if (order.length === 0 || customer.length === 0 || turi.length === 0 || productQuantity.length === 0 || price.length === 0) {
+        if (order.length === 0 || customer.length === 0 || turi.length === 0 || productQuantity.length === 0) {
             setError(true)
         }
-        if (order && customer && turi && productQuantity && price) {
+        if (order && customer && turi && productQuantity) {
+            const newArrForPost = addInputOrder.map((elem) => {
+                return {...elem, 
+                    customer, 
+                    type: turi, 
+                    deadline: deadlineDay + " " + deadlineMonth + " " + deadlineYear + " yil", 
+                    deadlineTime: deadlineSoat + ":" + deadlineMinut,
+                    phone: phoneCode + ' - ' + phone,
+                    status
+                }
+            });
             axios.post(ORDERS_URL, {
-                order,
-                customer,
-                type: turi,
-                productQuantity,
-                deadline: deadlineDay + " " + deadlineMonth + " " + deadlineYear + " yil",
-                deadlineTime: deadlineSoat + ":" + deadlineMinut,
+                orders: newArrForPost,                
                 avans,
-                price,
-                umumiyPrice,
-                phone: phoneCode + ' - ' + phone,
-                status
+                neededPayment: umumiyPrice
             })
                 .then(res => {
                     console.log("Data is saved", res)
@@ -76,16 +88,32 @@ const Ordernew = () => {
         }
     }
 
-    function onChangeHandler(e) {
-        setOrder(e.target.value)
+    function onChangeHandler(indx, field, val) {
+        setOrder(val)
+        let newArr = [...addInputOrder]
+        newArr[indx][field] = val;
+        if(field === "order"){
+            breadList.map(elem => {
+                if (elem.productName === val) {
+                    // setPrice(elem.productPrice);
+                    newArr[indx].price = elem.productPrice;
 
-        breadList.map(elem => {
-            if (elem.productName === e.target.value) {
-                setPrice(elem.productPrice);
-            }
-        })
+                }
+            })
+        }
+        console.log(newArr);
+        setAddInputOrder(newArr);
 
     }
+
+    const deleteInputs = () => {
+        if(addInputOrder.length > 1){
+            let newArray = [...addInputOrder]
+            newArray.pop();
+            setAddInputOrder(newArray)
+        }
+    }
+
     return (
         <>
             <Container fluid>
@@ -121,44 +149,103 @@ const Ordernew = () => {
                                 {error ? <p className='text-danger text-center font-weight-bold'>Ushbu qatorlarning barchasini to'ldirishingiz shart</p> : ''}
                                 <Row>
 
-                                    <Col md="12">
+                                    <Col md="6">
                                         <Form className="row g-3 date-icon-set-modal myStyleCustomerAdd">
-                                            <div className="col-md-6 mb-3">
-                                                <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Nonni tanlang</Form.Label>
-                                                <select id="Text1" className="form-select form-control choicesjs" value={order} onChange={onChangeHandler}>
-                                                    {/* console.log(e.target.value) */}
-                                                    <option value="no">Nonlar ro'yxati</option>
-                                                    {
-                                                        breadList.map((bread, ind) => {
-                                                            return <option key={ind} value={bread.productName}>{bread.productName}</option>
-                                                        })
-                                                    }
-                                                </select>
+                                            {/* <div className="col-md-12 mb-3">
+                                                <div className="row g-3">
+                                                    <div className="col-md-4 mb-3">
+                                                        <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Nonni tanlang</Form.Label>
+                                                        <select id="Text1" className="form-select form-control choicesjs" onChange={onChangeHandler}>
+                                                           
+                                                            <option value="no">Nonlar ro'yxati</option>
+                                                            {
+                                                                breadList.map((bread, ind) => {
+                                                                    return <option key={ind} value={bread.productName}>{bread.productName}</option>
+                                                                })
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div className="col-md-4 mb-3">
+                                                        <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Soni</Form.Label>
+                                                        <Form.Control type="number" id="Text3" placeholder="Sonini kiriting..." onChange={e => {
+                                                            setProductQuantity(e.target.value)
+                                                            calculateOverallPrice(price, e.target.value)
+                                                        }} />
+                                                    </div>
+                                                    <div className="col-md-4 mb-3">
+                                                        <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Narxi</Form.Label>
+                                                        <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." value={price} onChange={e => {
+                                                            setPrice(e.target.value)
+                                                            calculateOverallPrice(e.target.value, productQuantity)
+                                                        }} />
+                                                    </div>
+                                                </div>
+                                            </div> */}
+
+                                            {
+                                                addInputOrder.map((item, index) => {
+                                                    return <div className="col-md-12 mb-3" key={index}>
+                                                        <div className="row g-3">
+                                                            <div className="col-md-4 mb-3">
+                                                                <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Nonni tanlang</Form.Label>
+                                                                <select id="Text1" className="form-select form-control choicesjs" value={item.order} onChange={(e) => {onChangeHandler(index, 'order', e.target.value)}}>
+                                                                   <option value="no">Nonlar ro'yxati</option>
+                                                                    {
+                                                                        breadList.map((bread, ind) => {
+                                                                            return <option key={ind} value={bread.productName}>{bread.productName}</option>
+                                                                        })
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                            <div className="col-md-4 mb-3">
+                                                                <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Soni</Form.Label>
+                                                                <Form.Control type="number" id="Text3" placeholder="Sonini kiriting..." value={item.productQuantity} onChange={e => {
+                                                                    onChangeHandler(index, 'productQuantity', e.target.value);
+                                                                    setProductQuantity(e.target.value)
+                                                                    calculateOverallPrice(price, e.target.value)
+                                                                }} />
+                                                            </div>
+                                                            
+                                                            <div className="col-md-4 mb-3">
+                                                                <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Narxi</Form.Label>
+                                                                <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." value={item.price} onChange={e => {
+                                                                    onChangeHandler(index, 'price', e.target.value);
+                                                                    setPrice(e.target.value)
+                                                                    calculateOverallPrice(e.target.value, productQuantity)
+                                                                }} />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                })
+                                            }
+                                            <div className="col-md-12 mb-5">
+                                                <div className="button-group-order">
+                                                    <button className='btn btn-primary order-button order-button-first' onClick={(e) => {
+                                                        e.preventDefault()
+                                                        setAddInputOrder([...addInputOrder, {order: '', productQuantity: '', price: ''}])
+                                                        setOrder('no')
+                                                    }}>
+                                                        <img src={addOrderLogo} className='mr-2' />
+                                                        Non qo'shish
+                                                    </button>
+                                                    <button className='btn btn-danger order-button' onClick={deleteInputs}>
+                                                        <img src={addOrderLogo} className='mr-2' />
+                                                        Nonni o'chirish
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <div className="col-md-6 mb-3">
-                                                <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Bitta non narxi</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." required='required' value={price} onChange={e => {
-                                                    setPrice(e.target.value)
-                                                    calculateOverallPrice(e.target.value, productQuantity)
-                                                }} />
-                                            </div>
-                                            <div className="col-md-6 mb-3">
-                                                <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Zakaz berilgan mahsulot soni</Form.Label>
-                                                <Form.Control type="number" id="Text3" placeholder="Sonini kiriting..." required='required' onChange={e => {
-                                                    setProductQuantity(e.target.value)
-                                                    calculateOverallPrice(price, e.target.value)
-                                                }} />
-                                            </div>
-                                            <div className="col-md-6 mb-3">
+                                            <div className="col-md-12 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Jami non narxi</Form.Label>
                                                 <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." required='required' value={umumiyPrice} onChange={e => setUmumiyPrice(e.target.value)} />
                                             </div>
-                                            <div className="col-md-6 mb-3">
-                                                <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Avans</Form.Label>
-                                                <Form.Control type="number" id="Text4" value={avans} onChange={e => setAvans(Number(e.target.value))} />
-                                            </div>
-                                            <div className="col-md-6 mb-3">
-                                                <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Tur</Form.Label>
+                                        </Form>
+                                    </Col>
+                                    <Col md="6">
+                                        <Form className="row g-3 date-icon-set-modal myStyleCustomerAdd">
+
+
+                                            <div className="col-md-12 mb-3">
+                                                <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Mijoz turi</Form.Label>
                                                 <select id="inputState" className="form-select form-control choicesjs" onChange={e => { setPhone(''); setTuri(e.target.value); if (e.target.value === "daily") setMijozlar(true); else setMijozlar(false) }}>
                                                     <option value="no">Turi</option>
                                                     <option value="daily">Doimiy</option>
@@ -166,7 +253,7 @@ const Ordernew = () => {
                                                 </select>
                                             </div>
                                             {
-                                                mijozlar ? (<div className="col-md-6 mb-3">
+                                                mijozlar ? (<div className="col-md-12 mb-3">
                                                     <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Mijozlar ro'yhati</Form.Label>
                                                     <select id="inputState" className="form-select form-control choicesjs" value={customer} onChange={e => {
                                                         setCustomer(e.target.value);
@@ -191,11 +278,39 @@ const Ordernew = () => {
                                                             })
                                                         }
                                                     </select>
-                                                </div>) : (<div className="col-md-6 mb-3">
+                                                </div>) : (<div className="col-md-12 mb-3">
                                                     <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Kimga</Form.Label>
                                                     <Form.Control type="text" id="Text5" placeholder="Kim uchunligini kiriting..." onChange={e => setCustomer(e.target.value)} />
                                                 </div>)
                                             }
+                                            <div className="col-md-12 mb-3">
+                                                <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Mijoz telefoni</Form.Label>
+                                                <div className='input-group'>
+                                                    <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode(e.target.value)} disabled={mijozlar}>
+
+                                                        <option value="(90) ">(90)</option>
+                                                        <option value="(91) ">(91)</option>
+                                                        <option value="(93) ">(93)</option>
+                                                        <option value="(94) ">(94)</option>
+                                                        <option value="(99) ">(99)</option>
+                                                        <option value="(33) ">(33)</option>
+                                                        <option value="(98) ">(98)</option>
+                                                        <option value="(97) ">(97)</option>
+                                                        <option value="(92) ">(92)</option>
+                                                        <option value="(71) ">(71)</option>
+                                                        <option value="(73) ">(73)</option>
+                                                    </select>
+                                                    <Form.Control type="text" id="Text4" placeholder='Telefonni kiriting...' style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} disabled={mijozlar} />
+                                                </div>
+
+                                            </div>
+                                            <div className="col-md-12 mb-3">
+                                                <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Avans</Form.Label>
+                                                <Form.Control type="number" id="Text4" value={avans} onChange={e => setAvans(Number(e.target.value))} />
+                                            </div>
+
+
+
                                             {/* <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text2" className="font-weight-bold text-muted text-uppercase">Zakaz olingan Sana </Form.Label>
                                                 <DatePicker className="form-control" id="Text2" name="event_date" placeholderText="Sanani kiriting" autoComplete="off" selected={date} onChange={date => setDate(date)} />
@@ -207,7 +322,7 @@ const Ordernew = () => {
                                             </div> */}
 
 
-                                            <div className="col-md-6 mb-3">
+                                            <div className="col-md-12 mb-3">
                                                 <Form.Label htmlFor="Text7" className="font-weight-bold text-muted text-uppercase">Zakaz tayyor bo'ladigan sana</Form.Label>
                                                 <div className='input-group'>
                                                     <Form.Control type="number" id="Text5" placeholder="Kun..." style={{ width: '10%', marginRight: '8px' }} onChange={e => setDeadlineDay(e.target.value)} />
@@ -225,39 +340,19 @@ const Ordernew = () => {
                                                         <option value="Noyabr">Noyabr</option>
                                                         <option value="Dekabr">Dekabr</option>
                                                     </select>
-                                                    <Form.Control type="number" id="Text5" placeholder="Yil..." style={{ width: '10%', marginLeft: '8px' }} onChange={e => setDeadlineYear(e.target.value)} />
+                                                    <Form.Control type="number" id="Text5" value={deadlineYear} style={{ width: '10%', marginLeft: '8px' }} onChange={e => setDeadlineYear(e.target.value)} />
                                                 </div>
                                             </div>
 
 
 
-                                           
-                                            <div className="col-md-6 mb-3">
-                                                <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Mijoz telefoni</Form.Label>
-                                                <div className='input-group'>
-                                                    <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode(e.target.value)} disabled={mijozlar}>
 
-                                                        <option value="(90) ">(90)</option>
-                                                        <option value="(91) ">(91)</option>
-                                                        <option value="(93) ">(93)</option>
-                                                        <option value="(94) ">(94)</option>
-                                                        <option value="(99) ">(99)</option>
-                                                        <option value="(33) ">(33)</option>
-                                                        <option value="(98) ">(98)</option>
-                                                        <option value="(97) ">(97)</option>
-                                                        <option value="(92) ">(92)</option>
-                                                        <option value="(71) ">(71)</option>
-                                                        <option value="(73) ">(73)</option>
-                                                    </select>
-                                                    <Form.Control type="text" id="Text4" placeholder='Telefonni kiriting...' style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} disabled={mijozlar}/>
-                                                </div>
 
-                                            </div>
-                                            <div className="col-md-6 mb-3">
+                                            <div className="col-md-12 mb-3">
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Zakaz tayyor bo'ladigan soat</Form.Label>
                                                 <div className='input-group'>
                                                     <Form.Control type="text" id="Text4" placeholder={'Soatni kiriting'} onChange={e => setDeadlineSoat(e.target.value)} style={{ width: 'auto', marginLeft: '8px' }} />
-                                                    <Form.Control type="text" id="Text4" placeholder={'Minutni kiriting'} onChange={e => setDeadlineMinut(e.target.value)} style={{ width: '50%', marginLeft: '8px' }} />
+                                                    <Form.Control type="text" id="Text4" value={deadlineMinut} onChange={e => setDeadlineMinut(e.target.value)} style={{ width: '50%', marginLeft: '8px' }} />
 
                                                 </div>
                                             </div>
@@ -271,6 +366,7 @@ const Ordernew = () => {
                                             </Button>
                                         </div>
                                     </Col>
+
                                 </Row>
                             </Card.Body>
                         </Card>

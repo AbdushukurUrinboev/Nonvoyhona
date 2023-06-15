@@ -19,8 +19,7 @@ const Orderdetails = () => {
     const [productQuantity, setProductQuantity] = useState(0);
     const [date, setDate] = useState('');
     const [deadline, setDeadline] = useState('')
-    const [deadlineTime, setDeadlineTime] = useState(''); //
-    const [avans, setAvans] = useState(0);
+    const [deadlineTime, setDeadlineTime] = useState(''); //   
     const [price, setPrice] = useState(0);
     const [umumiyPrice, setUmumiyPrice] = useState(0);
     const [qolganPul, setQolganPul] = useState();
@@ -46,8 +45,7 @@ const Orderdetails = () => {
                 setDate(res.data.date); //                          
                 setDeadline(res.data.deadline)
                 setDeadlineTime(res.data.deadlineTime);
-                setPhone(res.data.phone);
-                setAvans(res.data.avans);
+                setPhone(res.data.phone);               
                 setPrice(res.data.price);
                 setStatus(res.data.status);
                 setTuri(res.data.turi);
@@ -69,8 +67,7 @@ const Orderdetails = () => {
                 customer,
                 productQuantity,
                 deadline,
-                deadlineTime,
-                avans,
+                deadlineTime,               
                 price,
                 umumiyPrice,
                 qolganPul,
@@ -149,13 +146,13 @@ const Orderdetails = () => {
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Jami non narxi</Form.Label>
                                                 <Form.Control type="number" id="Text3" value={price * productQuantity} onChange={e => setUmumiyPrice(e.target.value)} />
                                             </div>
-                                            <div className="col-md-6 mb-3">
+                                            {/* <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Avans</Form.Label>
                                                 <Form.Control type="number" id="Text4" value={avans} onChange={e => setAvans(e.target.value)} />
-                                            </div>
+                                            </div> */}
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Qolgan Pul</Form.Label>
-                                                <Form.Control type="number" id="Text3" value={umumiyPrice - avans} onChange={e => setQolganPul(e.target.value)} />
+                                                <Form.Control type="number" id="Text3" value={umumiyPrice} onChange={e => setQolganPul(e.target.value)} />
                                             </div>
                                             {/* <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Tur</Form.Label>
