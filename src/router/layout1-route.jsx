@@ -86,6 +86,9 @@ import XamkorlarAdd from '../views/backend/Main/XamkorAdd';
 import XamkorEdit from '../views/backend/Main/XamkorEdit';
 import XamkorView from '../views/backend/Main/XamkorView';
 
+// Attendance Pages
+import Attendance from '../views/backend/Main/attendance';
+
 // DataProvider - stateManagement
 import { DataProvider, AllStaffListData, DataProvider2, BreadListData, CustomerListData, StaffListData, XamkorListData, ZakazBreadListData, SotuvBreadListData, StaffTaskListData } from '../views/backend/Main/ContextProvider/DataProvider';
 import PrivateRoute from '../views/backend/Main/PrivateRoute';
@@ -186,6 +189,9 @@ const Layout1Route = () => {
                           <PrivateRoute path="/xamkor/:id" exact component={XamkorView} />
                           <PrivateRoute path="/xamkorlar-add" exact component={XamkorlarAdd} />
                           <PrivateRoute path="/xamkor-edit/:id" exact component={XamkorEdit} />
+
+                          {/* Attendance */}
+                          <PrivateRoute path="/attendance/" exact component={Attendance} />
                           {/* Redirect to login page when doesnt match any routes */}
                           <Route render={() => <Redirect to="/auth/sign-in" />} />
 

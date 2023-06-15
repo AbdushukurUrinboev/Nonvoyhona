@@ -8,6 +8,8 @@ import { getDarkMode } from '../../../../store/mode'
 //img
 import logoDash from '../../../../../src/assets/images/bread/logoDash.png'
 
+import userAttendance from '../../../../../src/assets/images/icon/useAttended.svg'
+
 function mapStateToProps(state) {
     return {
         darkMode: getDarkMode(state)
@@ -192,6 +194,15 @@ const SidebarStyle = (props) => {
                                         </svg>
                                     </i>
                                     <span className="ml-2">Xamkorlar</span>
+                                </Link>
+                            </li>
+
+                            <li className={`${location.pathname === '/attendance' ? 'active' : ''}  sidebar-layout`} >
+                                <Link to="/attendance" className="svg-icon">
+                                    <i className="">                                        
+                                        <img src={userAttendance} />
+                                    </i>
+                                    <span className="ml-2">Davomat</span>
                                 </Link>
                             </li>
 
