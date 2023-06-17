@@ -193,6 +193,7 @@ const Staffadd = () => {
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
                                                         <option value="(99) ">(99)</option>
+                                                        <option value="(88) ">(88)</option>
                                                         <option value="(33) ">(33)</option>
                                                         <option value="(98) ">(98)</option>
                                                         <option value="(97) ">(97)</option>
@@ -211,11 +212,12 @@ const Staffadd = () => {
                                                 <Form.Label htmlFor="Text7" className="font-weight-bold text-muted text-uppercase">Telefon raqami (uy)</Form.Label>
                                                 <div className='input-group'>
                                                     <select value={phoneCode2} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode2(e.target.value)}>
-                                                        <option value="(90) ">(90)</option>
+                                                    <option value="(90) ">(90)</option>
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>
                                                         <option value="(94) ">(94)</option>
                                                         <option value="(99) ">(99)</option>
+                                                        <option value="(88) ">(88)</option>
                                                         <option value="(33) ">(33)</option>
                                                         <option value="(98) ">(98)</option>
                                                         <option value="(97) ">(97)</option>
