@@ -90,6 +90,7 @@ const Calculate = () => {
 
         if (group && smena && choosenStaff && qoplarSoni && nonTuri && nonSoni && tulov && jamiTulov) {
 
+       
             setTimeout(() => {
 
                 axios.post(DAILY_TASKS_URL, {

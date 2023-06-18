@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Container, Row, Col, Form } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import { Link, useHistory, useParams } from 'react-router-dom'
@@ -9,9 +9,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './ProductAdd.css';
 import { base_URL } from '../../../API';
+import { xamkorDataContext } from './ContextProvider/DataProvider';
 
 
-const ProductEdit = () => {    
+const ProductEdit = () => {
     const [productName, setProductName] = useState(''); //
     const [description, setDescription] = useState(''); //
     const [productPrice, setProductPrice] = useState(0); //
@@ -20,20 +21,20 @@ const ProductEdit = () => {
     const [xamkor, setXamkor] = useState(""); //
     const [berilganAvans, setBerilganAvans] = useState(0);
     const [qolganPul, setQolganPul] = useState(0);
-    const [olinganSana, setOlinganSana] = useState(new Date()); // 
+    const [olinganSana, setOlinganSana] = useState(''); // 
     const [olinganSoat, setOlinganSoat] = useState(new Date().getHours() + ":" + new Date().getMinutes()); //
     const [storageImage, setStorageImage] = useState(''); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
-    const[error, setError] = useState(false);
+    const [error, setError] = useState(false);
 
     const history = useHistory()
-
+    const xamkorList = useContext(xamkorDataContext);
     const { id } = useParams();
     const month = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
 
 
     useEffect(() => {
         axios.get(`${base_URL}/storage/${id}`)
-            .then(res => {              
+            .then(res => {
                 // setReceivedData(res.data)  
                 setProductName(res.data.productName); //
                 setDescription(res.data.description); //
@@ -44,10 +45,10 @@ const ProductEdit = () => {
                 setBerilganAvans(res.data.berilganAvans);
                 setQolganPul(res.data.umumiyNarhi - res.data.berilganAvans);
                 const [day, month, year] = res.data.olinganSana.split("/").map(Number);
-                setOlinganSana(new Date(year, month - 1, day)); //
+                setOlinganSana(res.data.olinganSana); //
                 setOlinganSoat(res.data.olinganSoat); //
                 setStorageImage(res.data.storageImage) //
-            } )
+            })
             .catch(err => console.log(err))
     }, [id])
 
@@ -61,32 +62,32 @@ const ProductEdit = () => {
 
     function handleChange(e) {
         e.preventDefault();
-        if(productName.length === 0 || description.length|| productPrice.length || poductQuantity.length || umumiyNarhi.length || xamkor.length || berilganAvans.length || qolganPul.length) {
+        if (productName.length === 0 || description.length === 0 || productPrice.length === 0 || poductQuantity.length === 0 || umumiyNarhi.length === 0 || xamkor.length === 0 || qolganPul.length === 0) {
             setError(true)
         }
-        if(productName && description && productPrice && poductQuantity && umumiyNarhi && xamkor && berilganAvans && qolganPul) {
-        
-        const fd = new FormData()
-        // fd.append('productName', productName) // buni o'zgartirmaslikni o'zim qildim
-        fd.append('changingID', id)
-        fd.append('description', description)
-        fd.append('productPrice', productPrice)
-        fd.append('poductQuantity', poductQuantity)
-        fd.append('umumiyNarhi', umumiyNarhi.length ? umumiyNarhi : productPrice * poductQuantity)
-        fd.append('xamkor', xamkor)
-        fd.append('berilganAvans', berilganAvans)
-        fd.append('qolganPul', qolganPul)
-        fd.append('olinganSana', olinganSana.getDate() + "/" + (olinganSana.getMonth() + 1) + "/" + olinganSana.getFullYear())
-        fd.append('olinganSoat', olinganSoat)
-        fd.append('storageImage', storageImage)
+        if (productName && description && productPrice && poductQuantity && umumiyNarhi && xamkor && qolganPul) {
+
+            const fd = new FormData()
+            // fd.append('productName', productName) // buni o'zgartirmaslikni o'zim qildim
+            fd.append('changingID', id)
+            fd.append('description', description)
+            fd.append('productPrice', productPrice)
+            fd.append('poductQuantity', poductQuantity)
+            fd.append('umumiyNarhi', umumiyNarhi.length ? umumiyNarhi : productPrice * poductQuantity)
+            fd.append('xamkor', xamkor)
+            fd.append('berilganAvans', berilganAvans)
+            fd.append('qolganPul', qolganPul)
+            fd.append('olinganSana', olinganSana)
+            fd.append('olinganSoat', olinganSoat)
+            fd.append('storageImage', storageImage)
 
 
-        axios.put(STORAGE_URL, fd)
-            .then(res => {
-                console.log("Data is updated", res)
-                history.push('/storage')
-            })
-            .catch(err => console.log(err))
+            axios.put(STORAGE_URL, fd)
+                .then(res => {
+                    console.log("Data is updated", res)
+                    history.push('/storage')
+                })
+                .catch(err => console.log(err))
         }
 
     }
@@ -122,7 +123,7 @@ const ProductEdit = () => {
                     <Col lg="12">
                         <Card>
                             <Card.Body>
-                            { error ? <p className='text-danger text-center font-weight-bold'>Ushbu qatorlarning barchasini to'ldirishingiz shart</p> : ''}
+                                {error ? <p className='text-danger text-center font-weight-bold'>Ushbu qatorlarning barchasini to'ldirishingiz shart</p> : ''}
                                 <Row>
                                     <Col md="3" className="mb-3">
                                         <Card.Body className="productAddStyleCardBody mt-3 mx-auto">
@@ -145,7 +146,7 @@ const ProductEdit = () => {
                                                 <p className="mb-0 text-muted font-weight-bold">Rasm yuklash</p>
                                             </div>
                                         </Card.Body>
-                                    </Col>                                    
+                                    </Col>
                                     <Col md="9">
                                         <Form className="row g-3 date-icon-set-modal">
                                             <div className="col-md-6 mb-3">
@@ -169,7 +170,7 @@ const ProductEdit = () => {
                                                 <Form.Control type="number" id="Text3" placeholder="Miqdorini kiriting..." value={poductQuantity} required='required' onChange={e => {
                                                     setPoductQuantity(e.target.value);
                                                     calculateOverallPrice(productPrice, e.target.value);
-                                                    }} />
+                                                }} />
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Umumiy narxi</Form.Label>
@@ -177,10 +178,15 @@ const ProductEdit = () => {
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-uppercase">Xamkorni tanlang</Form.Label>
-                                                <select id="inputState" className="form-select form-control choicesjs" value={xamkor} onChange={e => setXamkor(e.target.value)}>
-                                                    <option value="Bajarildi">Xamkorlar</option>
-                                                    <option value="Bajarilmoqda">Sherov Abdurashid</option>
-                                                    <option value="Bajarilmadi">Karimov Komil</option>
+                                                <select id="inputState" className="form-select form-control choicesjs" onChange={e => setXamkor(e.target.value)}>
+                                                    <option value={xamkor ? xamkor : 'no'}>{xamkor}</option>
+                                                    {
+                                                        xamkorList.map((xamkor, index) => (
+                                                            <option value={xamkor.firstName + ' ' + xamkor.lastName} key={index}>{xamkor.firstName + ' ' + xamkor.lastName}</option>
+
+                                                        ))
+                                                    }
+
                                                 </select>
                                             </div>
                                             <div className="col-md-6 mb-3 position-relative">
@@ -191,21 +197,15 @@ const ProductEdit = () => {
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Qolgan pul</Form.Label>
                                                 <Form.Control type="number" id="Text1" placeholder="Qolgan pul..." value={qolganPul} onChange={e => setQolganPul(e.target.value)} required='required' />
                                             </div>
+
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text2" className="font-weight-bold text-uppercase">Mahsulot olingan sana</Form.Label>
-                                                <DatePicker className="form-control" id="Text2" name="event_date" placeholderText="Sanani kiriting" autoComplete="off" selected={olinganSana} onChange={date => setOlinganSana(date)} />
-                                                <span className="search-link">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className="" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                                    </svg>
-                                                </span>
-                                            </div>
+                                                <Form.Control type="text" id="Text2" value={olinganSana} onChange={e => setOlinganSana(e.target.value)} />
+                                            </div>                                           
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Maxsulot olingan soat</Form.Label>
                                                 <Form.Control type="text" id="Text1" placeholder={olinganSoat} onChange={e => setOlinganSoat(e.target.value)} required='required' value={olinganSoat} />
                                             </div>
-
-
                                         </Form>
                                         <div className="text-right mt-4">
                                             <Link to="/storage" className='btn myButtonProducts qushishProduct' type="button" onClick={handleChange}>
