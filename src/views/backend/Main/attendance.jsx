@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Container, Tab, Nav, Row, Col, Form, OverlayTrigger, Tooltip, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
+//datepicker
+import Datepickers from '../../../components/Datepicker';
 
 
 
@@ -41,11 +43,16 @@ const Attendance = () => {
             if (elem._id === id) {
                 setAttended(!attended)
                 if (attended) {
+
                     elem.attendance.keldi = 1;
                 } else {
                     elem.attendance.keldi = 0;
                 }
+
+
             }
+
+
 
         })
         setActiveClass((prevActiveClass) => ({
@@ -54,7 +61,13 @@ const Attendance = () => {
         }));
     };
 
-    console.log(attendance);
+    const handleChange = () => {
+
+        // axios.post('http://localhost:3004/staff')
+        console.log("Hello");
+    }
+
+
 
     return (
         <Container fluid>
@@ -122,6 +135,34 @@ const Attendance = () => {
                                 <Tab.Pane eventKey="staff-attendance" role="tabpanel">
                                     <Card>
                                         <div className="container-fluid mt-5 myContainerStyleStaff">
+                                            <div className="date-icon-set" style={{ width: "15%", marginLeft: "auto" }}>
+                                                <Datepickers
+                                                    className="vanila-datepicker"
+                                                    givenID="dateStart"
+                                                    names="start"
+                                                    placeholder="sana"
+
+
+                                                />
+
+                                                <span className="search-link">
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        className=""
+                                                        width="20"
+                                                        fill="none"
+                                                        viewBox="0 0 24 24"
+                                                        stroke="currentColor"
+                                                    >
+                                                        <path
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            strokeWidth="2"
+                                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                                        />
+                                                    </svg>
+                                                </span>
+                                            </div>
                                             <div className="d-grid gapStyleStaff">
                                                 <div className="p-2">
                                                     <div className="container">
@@ -129,7 +170,6 @@ const Attendance = () => {
                                                             <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-center">№</div>
                                                             <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-left">Familiya Ismi</div>
                                                             <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3">Ishga kelgani</div>
-                                                            <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-left">Sana</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -154,16 +194,23 @@ const Attendance = () => {
 
                                                                         </button>
                                                                     </div>
-                                                                    {elem.attendance.map((att, index) => (
-                                                                        <div key={index} className="col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                                                                            {att.sana}
-                                                                        </div>
-                                                                    ))}
+                                                                    <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+
+                                                                    </div>
+
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     ))
                                                 }
+
+                                                <div className="text-right mt-4">
+                                                    <Link to="/attendance" className='btn myButtonCalculates qushishCalculate' type="button" onClick={handleChange}>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                                        </svg> Saqlash
+                                                    </Link>
+                                                </div>
                                             </div>
                                         </div>
                                     </Card>
@@ -200,8 +247,8 @@ const Attendance = () => {
                                                                         <div key={index} className="col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                                                             {att.keldi === 1 ? "+" : "-"}
                                                                         </div>
-                                                                    ))}                                                                    
-                                                                   
+                                                                    ))}
+
                                                                     {elem.attendance.map((att, index) => (
                                                                         <div key={index} className="col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                                                             {att.sana}
