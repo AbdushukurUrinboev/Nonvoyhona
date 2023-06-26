@@ -12,3 +12,4 @@ export const EXPENSES_URL = `${base_URL}/expenses`; // tugri - tugirladim output
 export const DAROMAT_URL = `${base_URL}/daromat`; // tugri - tugirladim
 export const XAMKOR_URL = `${base_URL}/xamkor`;  // tugirladim
 export const PLANS_URL = `${base_URL}/plans`;
+export const ATTANDANCE_URL = `${base_URL}/attandance`;

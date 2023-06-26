@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 //datepicker
 import Datepickers from '../../../components/Datepicker';
 
+import { ATTANDANCE_URL } from '../../../API';
+
 
 
 const Attendance = () => {
@@ -14,6 +16,8 @@ const Attendance = () => {
     const [activeClass, setActiveClass] = useState({});
     const [attended, setAttended] = useState(false);
     const [searchData, setSearchData] = useState([]);
+    const [soat, setSoat] = useState([]);
+    const [minut, setMinut] = useState([]);
 
 
     useEffect(() => {
@@ -43,17 +47,12 @@ const Attendance = () => {
             if (elem._id === id) {
                 setAttended(!attended)
                 if (attended) {
-
-                    elem.attendance.keldi = 1;
+                    elem.attendance.keldi = true;
                 } else {
-                    elem.attendance.keldi = 0;
+                    elem.attendance.keldi = false;
                 }
-
-
             }
-
-
-
+            console.log(attendance);
         })
         setActiveClass((prevActiveClass) => ({
             ...prevActiveClass,
@@ -61,13 +60,32 @@ const Attendance = () => {
         }));
     };
 
-    const handleChange = () => {
+    // getting different values from hour
+    const handleInputChangeHour = (valueHour, index) => {
+        const updatedInputs = [...soat]; // Create a copy of the inputs array
+        updatedInputs[index] = valueHour; // Update the value at the specific index
+        setSoat(updatedInputs); // Update the state with the modified array
+    };
 
-        // axios.post('http://localhost:3004/staff')
-        console.log("Hello");
+    // getting different values from minut
+    const handleInputChangeMinut = (valueMinut, ind) => {
+        const updatedInputs = [...minut]; // Create a copy of the inputs array
+        updatedInputs[ind] = valueMinut; // Update the value at the specific index
+        setMinut(updatedInputs); // Update the state with the modified array
+    };
+
+    const handleChange = () => {
+        axios.post(ATTANDANCE_URL, {
+            present: true,
+            staffId: 23,// hodim ID
+            timeOfArrival: "23:23" // string
+            
+        })
+        
     }
 
 
+    
 
     return (
         <Container fluid>
@@ -170,6 +188,7 @@ const Attendance = () => {
                                                             <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-center">№</div>
                                                             <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-left">Familiya Ismi</div>
                                                             <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3">Ishga kelgani</div>
+                                                            <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-center">Ishga kelgan vaqti</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -195,7 +214,24 @@ const Attendance = () => {
                                                                         </button>
                                                                     </div>
                                                                     <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                                                        <div className="input-group">
+                                                                            <input
+                                                                                key={elem._id}
+                                                                                type="number"
+                                                                                className="form-control"
+                                                                                placeholder="soat"
+                                                                                style={{ marginRight: '10px' }}
+                                                                                onChange={e => handleInputChangeHour(e.target.value, elem._id)}
+                                                                            />
+                                                                            <input
+                                                                                key={ind}
+                                                                                type="number"
+                                                                                className="form-control"
+                                                                                // defaultValue={0}
+                                                                                onChange={e => handleInputChangeMinut(e.target.value, elem._id)}
+                                                                            />
 
+                                                                        </div>
                                                                     </div>
 
                                                                 </div>

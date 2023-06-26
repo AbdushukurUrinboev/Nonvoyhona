@@ -50,10 +50,20 @@ const Dashbord = () => {
                 console.log(res.data);
                 setCurrentFoyda(res.data.reduce((a, b) => a = a + b.overallPrice, 0));
                 setFoyda(res.data);
-                
 
+                const mergedObjects = {};
+
+                for (const obj of res.data) {
+                    if (obj.name in mergedObjects) {
+                        mergedObjects[obj.name].quantity += obj.quantity;
+                    } else {
+                        mergedObjects[obj.name] = { name: obj.name, quantity: obj.quantity };
+                    }
+                }
+                const newArr = Object.values(mergedObjects);
+
+                setOmmabopNon(newArr.sort((a, b) => b.quantity - a.quantity).slice(0, 4))
                 // res.data.reduce((a,b) => a = a + b.overall, 0)
-                setOmmabopNon(res.data.sort((a, b) => b.quantity - a.quantity).slice(0, 4));
                 // console.log(res.data.sort((a, b) => b.quantity - a.quantity).slice(0, 4));
 
             })
@@ -77,7 +87,7 @@ const Dashbord = () => {
 
         axios.get(`${base_URL}/report/expenses?startDate=${st}&endDate=${ed}`)
             .then(({ data: receivedDT }) => {
-                
+
                 let currentXarajat = receivedDT.reduce((acc, a) => a.overallPrice + acc, 0)
                 setXarajat(currentXarajat);
             })
@@ -90,6 +100,19 @@ const Dashbord = () => {
 
         axios.get(`${base_URL}/report/daromat?startDate=${st}&endDate=${ed}`)
             .then(({ data: receivedDT }) => {
+                const mergedObjects = {};
+
+                for (const obj of receivedDT) {
+                    if (obj.name in mergedObjects) {
+                        mergedObjects[obj.name].quantity += obj.quantity;
+                    } else {
+                        mergedObjects[obj.name] = { name: obj.name, quantity: obj.quantity };
+                    }
+                }
+                const newArr = Object.values(mergedObjects);
+
+                setOmmabopNon(newArr.sort((a, b) => b.quantity - a.quantity).slice(0, 4))
+               
                 setOmmabopSotuv(receivedDT);
                 setCurrentFoyda(receivedDT.reduce((acc, a) => a.overallPrice + acc, 0))
                 setFoyda(receivedDT);
@@ -434,11 +457,11 @@ const Dashbord = () => {
                         <Card.Body>
                             <h4 className="font-weight-bold mb-3">Ommabop Sotilgan Nonlar</h4>
                             <Chart className="custom-chart" options={chart3.options} series={chart3.series} type="donut" height="330" />
-                            
-                            
+
+
                             <div className="d-flex justify-content-around align-items-center">
                                 {
-                                   ommabopNon && ommabopNon.map(item => item.name).map((item, index) => (
+                                    ommabopNon && ommabopNon.map(item => item.name).map((item, index) => (
                                         <div key={index}><svg width="24" height="24" viewBox="0 0 24 24" fill={getColor(index)} xmlns="http://www.w3.org/2000/svg">
                                             <rect x="3" y="3" width="18" height="18" rx="2" fill={getColor(index)} />
                                         </svg>
