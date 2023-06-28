@@ -1,12 +1,20 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Container, Tab, Nav, Row, Col, Form, OverlayTrigger, Tooltip, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 //datepicker
 import Datepickers from '../../../components/Datepicker';
 
+// Data Context Staff
+import { allstaffDataContext } from './ContextProvider/DataProvider';
+
+// API for attandance 
 import { ATTANDANCE_URL } from '../../../API';
+
+// davomatOlish icon
+import DavomatOlish from '../../../assets/images/icon/tick-circle.png'
+import DavomatKurish from '../../../assets/images/icon/eye.png'
 
 
 
@@ -14,78 +22,77 @@ const Attendance = () => {
     const [attendance, setAttendance] = useState([]);
     const [filterVal, setFilterVal] = useState('');
     const [activeClass, setActiveClass] = useState({});
-    const [attended, setAttended] = useState(false);
+    const [attanded, setAttanded] = useState(false);
     const [searchData, setSearchData] = useState([]);
-    const [soat, setSoat] = useState([]);
-    const [minut, setMinut] = useState([]);
+    const [soat, setSoat] = useState('');
+    const [errorMessagesHour, setErrorMessagesHour] = useState({});
+    const [minut, setMinut] = useState('');
+    const [errorMessagesMinute, setErrorMessagesMinute] = useState({});
+    const staffList = useContext(allstaffDataContext);
+
+
+    // Bugungi sanani olish
+    const attDate = new Date().getDate();
+    const attMonth = new Date().getMonth() + 1;
+    const attYear = new Date().getFullYear();
+    const todayDate = attDate + "/" + attMonth + "/" + attYear // Bugungi sana
+
+
+
 
 
     useEffect(() => {
-        axios.get('http://localhost:3004/staff')
+        axios.get(ATTANDANCE_URL)
             .then(res => {
-                setAttendance(res.data)
+                console.log(res.data);
                 setSearchData(res.data)
+                setAttendance(res.data)
             })
             .catch(err => console.log(err))
-
-
     }, [])
 
-    // Search
-    function handleFilter(e) {
-        if (e.target.value == '') {
-            setAttendance(searchData)
-        } else {
-            const filterResult = searchData.filter(item => item.firstName.toLowerCase().includes(e.target.value.toLowerCase()) || item.lastName.toLowerCase().includes(e.target.value.toLowerCase()))
-            setAttendance(filterResult)
-        }
-        setFilterVal(e.target.value)
-    }
+    // // Search
+    // function handleFilter(e) {
+    //     if (e.target.value == '') {
+    //         setAttendance(searchData)
+    //     } else {
+    //         const filterResult = searchData.filter(item => item.firstName.toLowerCase().includes(e.target.value.toLowerCase()) || item.lastName.toLowerCase().includes(e.target.value.toLowerCase()))
+    //         setAttendance(filterResult)
+    //     }
+    //     setFilterVal(e.target.value)
+    // }
 
     const handleButtonClick = (id) => {
-        attendance.map(elem => {
-            if (elem._id === id) {
-                setAttended(!attended)
-                if (attended) {
-                    elem.attendance.keldi = true;
-                } else {
-                    elem.attendance.keldi = false;
-                }
-            }
-            console.log(attendance);
-        })
+
+        console.log(
+            !attanded,
+            id,
+            soat[id] + ":" + minut[id]
+        );
+
+        // if (attendance.date === todayDate) {
+        //     axios.put(ATTANDANCE_URL, {
+        //         present: !attanded,
+        //         staffId: id, // hodim ID
+        //         timeOfArrival: soat[id] + ":" + minut[id] // string
+        //     })
+        // } else {
+        //     axios.post(ATTANDANCE_URL, {
+        //         present: !attanded,
+        //         staffId: id, // hodim ID
+        //         timeOfArrival: soat + ":" + minut // string
+        //     })
+        // }
+
         setActiveClass((prevActiveClass) => ({
             ...prevActiveClass,
             [id]: !prevActiveClass[id], // toggle the class
         }));
     };
 
-    // getting different values from hour
-    const handleInputChangeHour = (valueHour, index) => {
-        const updatedInputs = [...soat]; // Create a copy of the inputs array
-        updatedInputs[index] = valueHour; // Update the value at the specific index
-        setSoat(updatedInputs); // Update the state with the modified array
-    };
-
-    // getting different values from minut
-    const handleInputChangeMinut = (valueMinut, ind) => {
-        const updatedInputs = [...minut]; // Create a copy of the inputs array
-        updatedInputs[ind] = valueMinut; // Update the value at the specific index
-        setMinut(updatedInputs); // Update the state with the modified array
-    };
-
-    const handleChange = () => {
-        axios.post(ATTANDANCE_URL, {
-            present: true,
-            staffId: 23,// hodim ID
-            timeOfArrival: "23:23" // string
-            
-        })
-        
-    }
 
 
-    
+
 
     return (
         <Container fluid>
@@ -96,7 +103,7 @@ const Attendance = () => {
                             <div className="d-flex align-items-center justify-content-between">
                                 <h4 className="font-weight-bold"></h4>
                             </div>
-                            <div className="create-workform">
+                            {/* <div className="create-workform">
                                 <div className="d-flex flex-wrap align-items-center justify-content-between">
                                     <div className="modal-product-search d-flex">
                                         <Form className="mr-3 position-relative">
@@ -105,8 +112,8 @@ const Attendance = () => {
                                                     className="form-control"
                                                     id="exampleInputText"
                                                     placeholder="Qidirish..."
-                                                    value={filterVal}
-                                                    onInput={e => handleFilter(e)}
+                                                value={filterVal}
+                                                onInput={e => handleFilter(e)}
                                                 />
 
                                                 <Link to="#" className="search-link">
@@ -115,32 +122,27 @@ const Attendance = () => {
                                                     </svg>
                                                 </Link>
                                             </Form.Group>
-                                        </Form>
-                                        <Link to="/staff-add" className="btn myButtonStaff qushishStaff position-relative d-flex align-items-center justify-content-between">
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                            </svg>Qo'shish
-                                        </Link>
+                                        </Form>                                        
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                         <Card>
                             <Card.Body className="p-0">
                                 <div className="mm-edit-list usr-edit">
                                     <Nav variant="pills" className="mm-edit-profile d-flex">
                                         <li className="col-md-3 p-0">
-                                            <Nav.Link eventKey="staff-attendance">Xodimlar Davomatini olish</Nav.Link>
+                                            <Nav.Link eventKey="staff-attendance" style={{ fontSize: "22px", fontWeight: "bold", paddingLeft: "32px" }}>
+                                                Davomat olish
+                                                <img src={DavomatOlish} style={{ marginLeft: "12px" }} alt="" />
+                                            </Nav.Link>
                                         </li>
                                         <li className="col-md-3 p-0">
-                                            <Nav.Link eventKey="staff-attendance-view">Xodimlar davomatini ko'rish</Nav.Link>
+                                            <Nav.Link eventKey="staff-attendance-view" style={{ fontSize: "22px", fontWeight: "bold", paddingLeft: "32px", color: "black" }}>
+                                                Davomat ko'rish
+                                                <img src={DavomatKurish} style={{ marginLeft: "12px" }} alt="" />
+                                            </Nav.Link>
                                         </li>
-                                        {/* <li className="col-md-3 p-0">
-                                                <Nav.Link eventKey="emailandsms">Email and SMS</Nav.Link>
-                                            </li>
-                                            <li className="col-md-3 p-0">
-                                                <Nav.Link eventKey="manage-contact">Manage Contact</Nav.Link>
-                                            </li> */}
                                     </Nav>
                                 </div>
                             </Card.Body>
@@ -158,9 +160,8 @@ const Attendance = () => {
                                                     className="vanila-datepicker"
                                                     givenID="dateStart"
                                                     names="start"
-                                                    placeholder="sana"
-
-
+                                                    placeholder={todayDate}
+                                                    disabled={true}
                                                 />
 
                                                 <span className="search-link">
@@ -187,66 +188,110 @@ const Attendance = () => {
                                                         <div className="row align-items-center myHeaderStaffStyle">
                                                             <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-center">№</div>
                                                             <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-left">Familiya Ismi</div>
-                                                            <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3">Ishga kelgani</div>
                                                             <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-center">Ishga kelgan vaqti</div>
+                                                            <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3">Ishga kelgani</div>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 {
-                                                    attendance.map((elem, ind) => (
-                                                        <div key={ind} className="p-2 border myStyleStaff ownStyleStaff">
-                                                            <div className="container">
-                                                                <div className="row align-items-center">
-                                                                    <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-center">{ind + 1}</div>
-                                                                    <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-left" style={{ fontWeight: "500" }}>{elem.firstName} {elem.lastName}</div>
-                                                                    <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                                                                        <button
-                                                                            key={elem._id}
-                                                                            className={activeClass[elem._id] ? 'btn btn-success' : 'btn btn-danger'}
+                                                    staffList
+                                                        .sort((a, b) => a.lastName.localeCompare(b.lastName))
+                                                        .map((staff, ind) => (
+                                                            <div key={ind} className="p-2 border myStyleStaff ownStyleStaff">
+                                                                <div className="container">
+                                                                    <div className="row align-items-center">
+                                                                        <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-center">{ind + 1}</div>
+                                                                        <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-left" style={{ fontWeight: "500" }}>{staff.lastName + " " + staff.firstName}</div>
+                                                                        <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                                                            <div className="input-group">
+                                                                                <input
+                                                                                    key={staff._id}
+                                                                                    type="number"
+                                                                                    className="form-control"
+                                                                                    placeholder="soat"
+                                                                                    style={{ marginRight: '10px' }}
+                                                                                    // onChange={e => handleInputChangeHour(e.target.value, staff._id)}
+                                                                                    onChange={e => {
+                                                                                        const inputValue = parseInt(e.target.value);
+                                                                                        const staffId = staff._id;
+                                                                                        if (inputValue > 24 || inputValue < 0) {
+                                                                                            setErrorMessagesHour(prevState => ({
+                                                                                                ...prevState,
+                                                                                                [staffId]: "Kiritilgan raqam 24 dan oshmasligi kerak"
+                                                                                            }));
+                                                                                        } else {
+                                                                                            setErrorMessagesHour(prevState => ({
+                                                                                                ...prevState,
+                                                                                                [staffId]: ''
+                                                                                            }));
+                                                                                            setSoat(prevState => ({
+                                                                                                ...prevState,
+                                                                                                [staffId]: inputValue
+                                                                                            }));
+                                                                                        }
+                                                                                    }}
+                                                                                    value={soat[staff._id] || ''}
+                                                                                    required
+                                                                                />
+                                                                                {errorMessagesHour[staff._id] && (
+                                                                                    <div style={{ color: 'red' }}>{errorMessagesHour[staff._id]}</div>
+                                                                                )}
+                                                                                <input
+                                                                                    key={ind}
+                                                                                    type="number"
+                                                                                    className="form-control"
+                                                                                    placeholder="minut"
+                                                                                    // onChange={e => handleInputChangeMinut(e.target.value, staff._id)}
+                                                                                    onChange={e => {
+                                                                                        const inputValue = parseInt(e.target.value);
+                                                                                        const staffId = staff._id;
+                                                                                        if (inputValue > 59 || inputValue < 0) {
+                                                                                            setErrorMessagesMinute(prevState => ({
+                                                                                                ...prevState,
+                                                                                                [staffId]: "Kiritilgan raqam 60 dan oshmasligi kerak"
+                                                                                            }));
+                                                                                        } else {
+                                                                                            setErrorMessagesMinute(prevState => ({
+                                                                                                ...prevState,
+                                                                                                [staffId]: ''
+                                                                                            }));
+                                                                                            setMinut(prevState => ({
+                                                                                                ...prevState,
+                                                                                                [staffId]: inputValue
+                                                                                            }));
+                                                                                        }
+                                                                                    }}
+                                                                                    value={minut[staff._id] || ''}
+                                                                                />
+                                                                                {errorMessagesMinute[staff._id] && (
+                                                                                    <div style={{ color: 'red' }}>{errorMessagesMinute[staff._id]}</div>
+                                                                                )}
 
-                                                                            onClick={() => handleButtonClick(elem._id)}>
-                                                                            {
-                                                                                activeClass[elem._id] ? "Keldi" : "Kelmadi"
-                                                                            }
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                                                            <button
+                                                                                key={staff._id}
+                                                                                className={activeClass[staff._id] ? 'btn btn-success' : 'btn btn-danger'}
+
+                                                                                onClick={() => handleButtonClick(staff._id)}>
+                                                                                {
+                                                                                    activeClass[staff._id] ? "Keldi" : "Kelmadi"
+                                                                                }
 
 
-                                                                        </button>
-                                                                    </div>
-                                                                    <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                                                                        <div className="input-group">
-                                                                            <input
-                                                                                key={elem._id}
-                                                                                type="number"
-                                                                                className="form-control"
-                                                                                placeholder="soat"
-                                                                                style={{ marginRight: '10px' }}
-                                                                                onChange={e => handleInputChangeHour(e.target.value, elem._id)}
-                                                                            />
-                                                                            <input
-                                                                                key={ind}
-                                                                                type="number"
-                                                                                className="form-control"
-                                                                                // defaultValue={0}
-                                                                                onChange={e => handleInputChangeMinut(e.target.value, elem._id)}
-                                                                            />
+                                                                            </button>
+
 
                                                                         </div>
-                                                                    </div>
 
+
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    ))
+                                                        ))
                                                 }
-
-                                                <div className="text-right mt-4">
-                                                    <Link to="/attendance" className='btn myButtonCalculates qushishCalculate' type="button" onClick={handleChange}>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                                        </svg> Saqlash
-                                                    </Link>
-                                                </div>
                                             </div>
                                         </div>
                                     </Card>

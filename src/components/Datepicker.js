@@ -26,7 +26,7 @@ const Datepickers = (props) => {
   
     return (
         <>
-         <input type="text" id={props.givenID} onChange={props.onCustomChange} name={props.names} className={`form-control ${props.className}`} placeholder={props.placeholder}/>
+         <input type="text" id={props.givenID} onChange={props.onCustomChange} name={props.names} className={`form-control ${props.className}`} placeholder={props.placeholder} disabled={props.disabled}/>
         </>
     )
 }
