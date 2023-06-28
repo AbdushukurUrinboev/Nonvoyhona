@@ -17,6 +17,9 @@ import deleteIcon from '../../../assets/images/delete.png'
 // Loading
 import { FallingLines } from 'react-loader-spinner';
 
+// Pagination
+import ReactPaginate from 'react-paginate';
+
 
 const Product = () => {
     const [postProducts, setPostProducts] = useState([]);
@@ -66,6 +69,22 @@ const Product = () => {
         }
         setFilterVal(e.target.value)
     }
+
+    // Pagination 
+    const [itemOffset, setItemOffset] = useState(0);
+    const itemsPerPage = 10;
+    const endOffset = itemOffset + itemsPerPage;
+    const currentItems = postProducts.slice(itemOffset, endOffset);
+    const pageCount = Math.ceil(postProducts.length / itemsPerPage);
+
+    const handlePageClick = (event) => {
+        const newOffset = (event.selected * itemsPerPage) % postProducts.length;
+        console.log(
+            `User requested page number ${event.selected}, which is offset ${newOffset}`
+        );
+        setItemOffset(newOffset);
+    };
+
 
     return (
         <>
@@ -134,7 +153,7 @@ const Product = () => {
                         <Card>
 
                             <div className="container-fluid mt-5 myContainerStyleProduct">
-                                <div className="d-grid gapStyleProduct">
+                                <div className="d-grid gapStyleProduct mb-5">
                                     <div className="p-2">
                                         <div className="container">
                                             <div className="row align-items-center myHeaderProductStyle">
@@ -151,7 +170,7 @@ const Product = () => {
                                     </div>
 
                                     {
-                                        postProducts && postProducts.map((product, index) => (
+                                        currentItems && currentItems.map((product, index) => (
                                             <div key={index} className="p-2 border myStyleProduct ownStylePro">
                                                 <div className="container">
                                                     <div className="row align-items-center">
@@ -198,14 +217,21 @@ const Product = () => {
 
                                 </div>
 
-                                {/* <div className="text-right mt-4">
-                        <Link to="/product-add" className='btn myButtonProducts qushishProduct' type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                            </svg>
-                            Qo'shish
-                        </Link>
-                    </div> */}
+                                {/* Pagination Page */}
+                                <ReactPaginate
+                                    breakLabel="..."
+                                    nextLabel="keyingisi >"
+                                    onPageChange={handlePageClick}
+                                    pageRangeDisplayed={5}
+                                    pageCount={pageCount}
+                                    previousLabel="< avvalgisi"
+                                    renderOnZeroPageCount={null}
+                                    containerClassName="pagination"
+                                    pageLinkClassName="page-num-pagination"
+                                    previousLinkClassName="page-num-pagination"
+                                    nextLinkClassName="page-num-pagination"
+                                    activeLinkClassName="active"
+                                />
 
                             </div>
                         </Card>

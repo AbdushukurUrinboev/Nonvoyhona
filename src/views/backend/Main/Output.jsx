@@ -19,6 +19,12 @@ import { FallingLines } from 'react-loader-spinner';
 
 import { base_URL } from '../../../API';
 
+// Pagination
+import ReactPaginate from 'react-paginate';
+
+
+
+
 
 const Output = () => {
 
@@ -31,7 +37,8 @@ const Output = () => {
     useEffect(() => {
         axios.get(EXPENSES_URL)
             .then(res => {
-                setOutputs(res.data)
+                const sortedData = res.data.reverse();
+                setOutputs(sortedData)
                 // console.log(res.data);
                 setLoading(false)
             })
@@ -64,6 +71,23 @@ const Output = () => {
                 setOutputs(receivedDT);
             })
     }
+
+    // Pagination 
+    const [itemOffset, setItemOffset] = useState(0);
+    const itemsPerPage = 10;
+    const endOffset = itemOffset + itemsPerPage;
+    const currentItems = outputs.slice(itemOffset, endOffset);
+    const pageCount = Math.ceil(outputs.length / itemsPerPage);
+
+    const handlePageClick = (event) => {
+        const newOffset = (event.selected * itemsPerPage) % outputs.length;
+        console.log(
+            `User requested page number ${event.selected}, which is offset ${newOffset}`
+        );
+        setItemOffset(newOffset);
+    };
+
+
 
     return (
         <>
@@ -154,7 +178,7 @@ const Output = () => {
                         <Card>
 
                             <div className="container-fluid mt-5 myContainerStyleOutput">
-                                <div className="d-grid gapStyleOutput">
+                                <div className="d-grid gapStyleOutput mb-5">
                                     <div className="p-2">
                                         <div className="container">
                                             <div className="row align-items-center myHeaderOutputStyle">
@@ -168,7 +192,7 @@ const Output = () => {
                                     </div>
 
                                     {
-                                        outputs.map((output, index) => (
+                                        currentItems.map((output, index) => (
                                             <div key={index} className="p-2 border myStyleOutput ownStyleOutput">
                                                 <div className="container">
                                                     <div className="row align-items-center">
@@ -199,11 +223,25 @@ const Output = () => {
                                     }
 
                                 </div>
-
+                                {/* Pagination Page */}
+                                <ReactPaginate
+                                    breakLabel="..."
+                                    nextLabel="keyingisi >"
+                                    onPageChange={handlePageClick}
+                                    pageRangeDisplayed={5}
+                                    pageCount={pageCount}
+                                    previousLabel="< avvalgisi"
+                                    renderOnZeroPageCount={null}
+                                    containerClassName="pagination"
+                                    pageLinkClassName="page-num-pagination"
+                                    previousLinkClassName="page-num-pagination"
+                                    nextLinkClassName="page-num-pagination"
+                                    activeLinkClassName="active"
+                                />
                             </div>
                         </Card>
                         <div className='container text-center mt-5'>
-                            {outputs && outputs.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
+                            {currentItems && currentItems.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
                         </div>
                     </Container>
             }

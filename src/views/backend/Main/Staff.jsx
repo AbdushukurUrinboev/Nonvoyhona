@@ -18,6 +18,9 @@ import deleteIcon from '../../../assets/images/delete.png'
 // Loading
 import { FallingLines } from 'react-loader-spinner';
 
+// Pagination
+import ReactPaginate from 'react-paginate';
+
 
 const Staff = () => {
     const [staffList, setStaffList] = useState([]);
@@ -126,6 +129,24 @@ const Staff = () => {
         setFilterVal(e.target.value)
     }
 
+
+    // Pagination 
+    const [itemOffset, setItemOffset] = useState(0);
+    const itemsPerPage = 10;
+    const endOffset = itemOffset + itemsPerPage;
+    const currentItems = doneFilter.slice(itemOffset, endOffset);
+    const pageCount = Math.ceil(doneFilter.length / itemsPerPage);
+
+    const handlePageClick = (event) => {
+        const newOffset = (event.selected * itemsPerPage) % doneFilter.length;
+        console.log(
+            `User requested page number ${event.selected}, which is offset ${newOffset}`
+        );
+        setItemOffset(newOffset);
+    };
+
+
+
     // qarzdor hodimlarni ekranga chiqarish 
 
 
@@ -223,7 +244,7 @@ const Staff = () => {
                                             <Tab.Pane eventKey="staff-information" role="tabpanel">
                                                 <Card>
                                                     <div className="container-fluid mt-5 myContainerStyleStaff">
-                                                        <div className="d-grid gapStyleStaff">
+                                                        <div className="d-grid gapStyleStaff mb-5">
                                                             <div className="p-2">
                                                                 <div className="container">
                                                                     <div className="row align-items-center myHeaderStaffStyle">
@@ -240,7 +261,7 @@ const Staff = () => {
                                                             </div>
 
                                                             {
-                                                                doneFilter.map((staff, index) => (
+                                                                currentItems.map((staff, index) => (
                                                                     <div key={index} className="p-2 border myStyleStaff ownStyleStaff">
                                                                         <div className="container">
                                                                             <div className="row align-items-center">
@@ -285,6 +306,21 @@ const Staff = () => {
                                                                 ))
                                                             }
                                                         </div>
+                                                        {/* Pagination Page */}
+                                                        <ReactPaginate
+                                                            breakLabel="..."
+                                                            nextLabel="keyingisi >"
+                                                            onPageChange={handlePageClick}
+                                                            pageRangeDisplayed={5}
+                                                            pageCount={pageCount}
+                                                            previousLabel="< avvalgisi"
+                                                            renderOnZeroPageCount={null}
+                                                            containerClassName="pagination"
+                                                            pageLinkClassName="page-num-pagination"
+                                                            previousLinkClassName="page-num-pagination"
+                                                            nextLinkClassName="page-num-pagination"
+                                                            activeLinkClassName="active"
+                                                        />
                                                     </div>
                                                 </Card>
                                             </Tab.Pane>
@@ -294,7 +330,7 @@ const Staff = () => {
                                             <Tab.Pane eventKey="qarz-staff" role='tabpanel'>
                                                 <Card>
                                                     <div className="container-fluid mt-5 myContainerStyleStaff">
-                                                        <div className="d-grid gapStyleStaff">           
+                                                        <div className="d-grid gapStyleStaff">
 
 
                                                             <div className="p-2">
@@ -356,10 +392,11 @@ const Staff = () => {
                                                                             </div>
                                                                         </div>
                                                                     ))
-                                                                ) : (<p className='text-center' style={{color: "blue", fontWeight: "bold"}}>Qarzdor Xodimlar topilmadi</p>)
+                                                                ) : (<p className='text-center' style={{ color: "blue", fontWeight: "bold" }}>Qarzdor Xodimlar topilmadi</p>)
 
 
                                                             }
+
                                                         </div>
                                                     </div>
                                                 </Card>

@@ -19,6 +19,10 @@ import deleteIcon from '../../../assets/images/delete.png'
 // Loading
 import { FallingLines } from 'react-loader-spinner';
 
+// Pagination
+import ReactPaginate from 'react-paginate';
+
+
 
 
 const Debt = () => {
@@ -49,7 +53,8 @@ const Debt = () => {
     useEffect(() => {
         axios.get(NASIYA_URL)
             .then(res => {
-                setDebts(res.data)
+                const sortedData = res.data.reverse();
+                setDebts(sortedData)
                 setLoading(false)
                 // console.log(res.data);
             })
@@ -72,7 +77,7 @@ const Debt = () => {
 
     function deleteDebt() {
         console.log(id);
-        
+
         axios.delete(NASIYA_URL, { data: { id } })
             .then(res => {
                 setModal('modal')
@@ -80,7 +85,7 @@ const Debt = () => {
                 setDebts(debts.filter(p => p._id !== id))
             })
             .catch(err => console.log(err))
-   
+
     }
 
     const getData = (st, ed) => {
@@ -90,6 +95,22 @@ const Debt = () => {
                 setDebts(receivedDT);
             })
     }
+
+    // Pagination 
+    const [itemOffset, setItemOffset] = useState(0);
+    const itemsPerPage = 10;
+    const endOffset = itemOffset + itemsPerPage;
+    const currentItems = filteredDebtlist.slice(itemOffset, endOffset);
+    const pageCount = Math.ceil(filteredDebtlist.length / itemsPerPage);
+
+    const handlePageClick = (event) => {
+        const newOffset = (event.selected * itemsPerPage) % filteredDebtlist.length;
+        console.log(
+            `User requested page number ${event.selected}, which is offset ${newOffset}`
+        );
+        setItemOffset(newOffset);
+    };
+
 
 
     return (
@@ -180,7 +201,7 @@ const Debt = () => {
                         <Card>
 
                             <div className="container-fluid mt-5 myContainerStyleDebt">
-                                <div className="d-grid gapStyleDebt">
+                                <div className="d-grid gapStyleDebt mb-5">
                                     <div className="p-2">
                                         <div className="container">
                                             <div className="row align-items-center myHeaderDebtStyle">
@@ -198,7 +219,7 @@ const Debt = () => {
                                     </div>
 
                                     {
-                                        filteredDebtlist.map((debt, index) => (
+                                        currentItems.map((debt, index) => (
                                             <div key={index} className="p-2 border myStyleDebt ownStyleDebt">
                                                 <div className="container">
                                                     <div className="row align-items-center">
@@ -237,11 +258,26 @@ const Debt = () => {
                                     }
 
                                 </div>
+                                {/* Pagination Page */}
+                                <ReactPaginate
+                                    breakLabel="..."
+                                    nextLabel="keyingisi >"
+                                    onPageChange={handlePageClick}
+                                    pageRangeDisplayed={5}
+                                    pageCount={pageCount}
+                                    previousLabel="< avvalgisi"
+                                    renderOnZeroPageCount={null}
+                                    containerClassName="pagination"
+                                    pageLinkClassName="page-num-pagination"
+                                    previousLinkClassName="page-num-pagination"
+                                    nextLinkClassName="page-num-pagination"
+                                    activeLinkClassName="active"
+                                />
 
                             </div>
                         </Card>
                         <div className='container text-center mt-5'>
-                            {filteredDebtlist && filteredDebtlist.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
+                            {currentItems && currentItems.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
                         </div>
                     </Container>
             }

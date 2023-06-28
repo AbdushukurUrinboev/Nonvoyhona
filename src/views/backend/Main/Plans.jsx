@@ -20,6 +20,11 @@ import deleteIcon from '../../../assets/images/delete.png'
 import { FallingLines } from 'react-loader-spinner';
 
 
+// Pagination
+import ReactPaginate from 'react-paginate';
+
+
+
 
 
 const Plans = () => {
@@ -52,7 +57,8 @@ const Plans = () => {
     useEffect(() => {
         axios.get(PLANS_URL)
             .then(res => {
-                setPlans(res.data)
+                const sortedData = res.data.reverse();
+                setPlans(sortedData)
                 setLoading(false)
                 // console.log(res.data);
             })
@@ -91,6 +97,21 @@ const Plans = () => {
                 setPlans(receivedDT);
             })
     }
+
+    // Pagination 
+    const [itemOffset, setItemOffset] = useState(0);
+    const itemsPerPage = 10;
+    const endOffset = itemOffset + itemsPerPage;
+    const currentItems = filteredPlanstlist.slice(itemOffset, endOffset);
+    const pageCount = Math.ceil(filteredPlanstlist.length / itemsPerPage);
+
+    const handlePageClick = (event) => {
+        const newOffset = (event.selected * itemsPerPage) % filteredPlanstlist.length;
+        console.log(
+            `User requested page number ${event.selected}, which is offset ${newOffset}`
+        );
+        setItemOffset(newOffset);
+    };
 
     return (
         <>
@@ -181,7 +202,7 @@ const Plans = () => {
 
                         <Card>
                             <div className="container-fluid mt-5 myContainerStylePlan">
-                                <div className="d-grid gapStylePlan">
+                                <div className="d-grid gapStylePlan mb-5">
                                     <div className="p-2">
                                         <div className="container">
                                             <div className="row align-items-center myHeaderPlanStyle">
@@ -196,7 +217,7 @@ const Plans = () => {
                                     </div>
 
                                     {
-                                        filteredPlanstlist.map((plan, index) => (
+                                        currentItems.map((plan, index) => (
                                             <div key={index} className="p-2 border myStylePlan ownStylePlan">
                                                 <div className="container">
                                                     <div className="row align-items-center">
@@ -233,11 +254,26 @@ const Plans = () => {
                                     }
 
                                 </div>
+                                {/* Pagination Page */}
+                                <ReactPaginate
+                                    breakLabel="..."
+                                    nextLabel="keyingisi >"
+                                    onPageChange={handlePageClick}
+                                    pageRangeDisplayed={5}
+                                    pageCount={pageCount}
+                                    previousLabel="< avvalgisi"
+                                    renderOnZeroPageCount={null}
+                                    containerClassName="pagination"
+                                    pageLinkClassName="page-num-pagination"
+                                    previousLinkClassName="page-num-pagination"
+                                    nextLinkClassName="page-num-pagination"
+                                    activeLinkClassName="active"
+                                />
 
                             </div>
                         </Card>
                         <div className='container text-center mt-5'>
-                            {filteredPlanstlist && filteredPlanstlist.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
+                            {currentItems && currentItems.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
                         </div>
                     </Container>
             }

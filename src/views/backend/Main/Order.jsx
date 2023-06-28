@@ -22,6 +22,9 @@ import Strikethrough from '../../../assets/images/icon/Strikethrough.svg'
 // Loading
 import { FallingLines } from 'react-loader-spinner';
 
+// Pagination
+import ReactPaginate from 'react-paginate';
+
 
 
 const Order = () => {
@@ -54,7 +57,8 @@ const Order = () => {
     useEffect(() => {
         axios.get(ORDERS_URL)
             .then(res => {
-                setOrders(res.data)
+                const sortedData = res.data.reverse();
+                setOrders(sortedData)
                 setLoading(false)
                 // console.log(res.data.phone);
             })
@@ -109,7 +113,7 @@ const Order = () => {
                             window.location.reload()
                         })
                         .catch(err => console.log(err))
-                } else if(order.status === "Bajarildi") {
+                } else if (order.status === "Bajarildi") {
                     axios.put(ORDERS_URL, {
                         id,
                         new: {
@@ -134,6 +138,20 @@ const Order = () => {
     };
 
 
+    // Pagination 
+    const [itemOffset, setItemOffset] = useState(0);
+    const itemsPerPage = 10;
+    const endOffset = itemOffset + itemsPerPage;
+    const currentItems = filteredOrderslist.slice(itemOffset, endOffset);
+    const pageCount = Math.ceil(filteredOrderslist.length / itemsPerPage);
+
+    const handlePageClick = (event) => {
+        const newOffset = (event.selected * itemsPerPage) % filteredOrderslist.length;
+        console.log(
+            `User requested page number ${event.selected}, which is offset ${newOffset}`
+        );
+        setItemOffset(newOffset);
+    };
 
 
 
@@ -227,7 +245,7 @@ const Order = () => {
                         <Card>
 
                             <div className="container-fluid mt-5 myContainerStyleOrder">
-                                <div className="d-grid gapStyleOrder">
+                                <div className="d-grid gapStyleOrder mb-5">
                                     <div className="p-2">
                                         <div className="container">
                                             <div className="row align-items-center myHeaderOrderStyle">
@@ -243,7 +261,7 @@ const Order = () => {
                                     </div>
 
                                     {
-                                        filteredOrderslist.map((order, index) => (
+                                        currentItems.map((order, index) => (
                                             <div key={index} className="p-2 border myStyleOrder ownStyleOrder">
                                                 <div className="container">
                                                     <div className="row align-items-center">
@@ -295,10 +313,26 @@ const Order = () => {
 
                                 </div>
 
+                                {/* Pagination Page */}
+                                <ReactPaginate
+                                    breakLabel="..."
+                                    nextLabel="keyingisi >"
+                                    onPageChange={handlePageClick}
+                                    pageRangeDisplayed={5}
+                                    pageCount={pageCount}
+                                    previousLabel="< avvalgisi"
+                                    renderOnZeroPageCount={null}
+                                    containerClassName="pagination"
+                                    pageLinkClassName="page-num-pagination"
+                                    previousLinkClassName="page-num-pagination"
+                                    nextLinkClassName="page-num-pagination"
+                                    activeLinkClassName="active"
+                                />
+
                             </div>
                         </Card>
                         <div className='container text-center mt-5'>
-                            {filteredOrderslist && filteredOrderslist.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
+                            {currentItems && currentItems.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
                         </div>
                     </Container>
             }

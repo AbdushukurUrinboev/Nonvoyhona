@@ -16,6 +16,13 @@ import { ATTANDANCE_URL } from '../../../API';
 import DavomatOlish from '../../../assets/images/icon/tick-circle.png'
 import DavomatKurish from '../../../assets/images/icon/eye.png'
 
+// Pagination
+import ReactPaginate from 'react-paginate';
+
+// css
+import './attandance.css'
+
+
 
 
 const Attendance = () => {
@@ -36,6 +43,23 @@ const Attendance = () => {
     const attMonth = new Date().getMonth() + 1;
     const attYear = new Date().getFullYear();
     const todayDate = attDate + "/" + attMonth + "/" + attYear // Bugungi sana
+
+
+    // Pagination 
+    const [itemOffset, setItemOffset] = useState(0);
+    const itemsPerPage = 10;
+    const endOffset = itemOffset + itemsPerPage;
+    const currentItems = staffList.slice(itemOffset, endOffset);
+    const pageCount = Math.ceil(staffList.length / itemsPerPage);
+
+    const handlePageClick = (event) => {
+        const newOffset = (event.selected * itemsPerPage) % staffList.length;
+        console.log(
+            `User requested page number ${event.selected}, which is offset ${newOffset}`
+        );
+        setItemOffset(newOffset);
+    };
+
 
 
 
@@ -91,7 +115,16 @@ const Attendance = () => {
     };
 
 
-
+    // Samandar backendidan keyin tugirlayman
+    function handleFilter(e) {      
+        if (e.target.value == '') {
+            staffList(searchData)
+        } else {
+            const filterResult = searchData.filter(item => item.lastName.toLowerCase().includes(e.target.value.toLowerCase()) || item.firstName.toLowerCase().includes(e.target.value.toLowerCase()))
+            staffList(filterResult)
+        }
+        setFilterVal(e.target.value)
+    }
 
 
     return (
@@ -103,7 +136,7 @@ const Attendance = () => {
                             <div className="d-flex align-items-center justify-content-between">
                                 <h4 className="font-weight-bold"></h4>
                             </div>
-                            {/* <div className="create-workform">
+                            <div className="create-workform">
                                 <div className="d-flex flex-wrap align-items-center justify-content-between">
                                     <div className="modal-product-search d-flex">
                                         <Form className="mr-3 position-relative">
@@ -112,8 +145,8 @@ const Attendance = () => {
                                                     className="form-control"
                                                     id="exampleInputText"
                                                     placeholder="Qidirish..."
-                                                value={filterVal}
-                                                onInput={e => handleFilter(e)}
+                                                    value={filterVal}
+                                                    onInput={e => handleFilter(e)}
                                                 />
 
                                                 <Link to="#" className="search-link">
@@ -122,10 +155,10 @@ const Attendance = () => {
                                                     </svg>
                                                 </Link>
                                             </Form.Group>
-                                        </Form>                                        
+                                        </Form>
                                     </div>
                                 </div>
-                            </div> */}
+                            </div>
                         </div>
                         <Card>
                             <Card.Body className="p-0">
@@ -182,7 +215,7 @@ const Attendance = () => {
                                                     </svg>
                                                 </span>
                                             </div>
-                                            <div className="d-grid gapStyleStaff">
+                                            <div className="d-grid gapStyleStaff mb-5">
                                                 <div className="p-2">
                                                     <div className="container">
                                                         <div className="row align-items-center myHeaderStaffStyle">
@@ -195,7 +228,7 @@ const Attendance = () => {
                                                 </div>
 
                                                 {
-                                                    staffList
+                                                    currentItems
                                                         .sort((a, b) => a.lastName.localeCompare(b.lastName))
                                                         .map((staff, ind) => (
                                                             <div key={ind} className="p-2 border myStyleStaff ownStyleStaff">
@@ -293,6 +326,21 @@ const Attendance = () => {
                                                         ))
                                                 }
                                             </div>
+                                            {/* Pagination Page */}
+                                            <ReactPaginate
+                                                breakLabel="..."
+                                                nextLabel="keyingisi >"
+                                                onPageChange={handlePageClick}
+                                                pageRangeDisplayed={5}
+                                                pageCount={pageCount}
+                                                previousLabel="< avvalgisi"
+                                                renderOnZeroPageCount={null}
+                                                containerClassName="pagination"
+                                                pageLinkClassName="page-num-pagination"
+                                                previousLinkClassName="page-num-pagination"
+                                                nextLinkClassName="page-num-pagination"
+                                                activeLinkClassName="active"
+                                            />
                                         </div>
                                     </Card>
                                 </Tab.Pane>

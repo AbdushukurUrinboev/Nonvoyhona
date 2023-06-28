@@ -15,6 +15,9 @@ import errorIcon from '../../../assets/images/error/error.png'
 // Loading
 import { FallingLines } from 'react-loader-spinner';
 
+// Pagination
+import ReactPaginate from 'react-paginate';
+
 
 
 const Xamkorlar = () => {
@@ -56,6 +59,24 @@ const Xamkorlar = () => {
             })
             .catch(err => console.log(err))
     }, [])
+
+    // Pagination 
+    const [itemOffset, setItemOffset] = useState(0);
+    const itemsPerPage = 10;
+    const endOffset = itemOffset + itemsPerPage;
+    const currentItems = filteredXamkorlist.slice(itemOffset, endOffset);
+    const pageCount = Math.ceil(filteredXamkorlist.length / itemsPerPage);
+
+    const handlePageClick = (event) => {
+        const newOffset = (event.selected * itemsPerPage) % filteredXamkorlist.length;
+        console.log(
+            `User requested page number ${event.selected}, which is offset ${newOffset}`
+        );
+        setItemOffset(newOffset);
+    };
+
+
+
 
     function onFilterValueSelected(filterValue) {
         // console.log(filterValue);
@@ -110,7 +131,7 @@ const Xamkorlar = () => {
 
                 })
                 .catch(err => console.log(err))
-        }       
+        }
     }
 
 
@@ -220,7 +241,7 @@ const Xamkorlar = () => {
 
                                 <Card>
                                     <div className="container-fluid mt-5 myContainerStyleCustomer">
-                                        <div className="d-grid gapStyleCustomer">
+                                        <div className="d-grid gapStyleCustomer mb-5">
                                             <div className="p-2">
                                                 <div className="container">
                                                     <div className="row align-items-center myHeaderCustomerStyle">
@@ -236,7 +257,7 @@ const Xamkorlar = () => {
                                             </div>
 
                                             {
-                                                filteredXamkorlist.map((xamkor, index) => (
+                                                currentItems.map((xamkor, index) => (
                                                     <div key={index} className="p-2 border myStyleCustomer ownStyleCustomer">
                                                         <div className="container">
                                                             <div className="row align-items-center">
@@ -289,8 +310,22 @@ const Xamkorlar = () => {
                                                     </div>
                                                 ))
                                             }
-
                                         </div>
+                                        {/* Pagination Page */}
+                                        <ReactPaginate
+                                            breakLabel="..."
+                                            nextLabel="keyingisi >"
+                                            onPageChange={handlePageClick}
+                                            pageRangeDisplayed={5}
+                                            pageCount={pageCount}
+                                            previousLabel="< avvalgisi"
+                                            renderOnZeroPageCount={null}
+                                            containerClassName="pagination"
+                                            pageLinkClassName="page-num-pagination"
+                                            previousLinkClassName="page-num-pagination"
+                                            nextLinkClassName="page-num-pagination"
+                                            activeLinkClassName="active"
+                                        />
                                     </div>
                                 </Card>
                             </Col>

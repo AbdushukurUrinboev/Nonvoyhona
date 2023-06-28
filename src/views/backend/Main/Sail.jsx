@@ -17,6 +17,9 @@ import deleteIcon from '../../../assets/images/delete.png'
 // Loading
 import { FallingLines } from 'react-loader-spinner';
 
+// Pagination
+import ReactPaginate from 'react-paginate';
+
 
 
 const Sail = () => {
@@ -32,7 +35,8 @@ const Sail = () => {
     useEffect(() => {
         axios.get(SALE_URL)
             .then(res => {
-                setpostsSail(res.data);
+                const sortedData = res.data.reverse();
+                setpostsSail(sortedData);
                 // console.log(res.data);
                 setLoading(false)
             })
@@ -59,6 +63,23 @@ const Sail = () => {
             .catch(err => console.log(err))
         // console.log("kirish = " + id);
     }
+
+    // Pagination 
+    const [itemOffset, setItemOffset] = useState(0);
+    const itemsPerPage = 10;
+    const endOffset = itemOffset + itemsPerPage;
+    const currentItems = postsSail.slice(itemOffset, endOffset);
+    const pageCount = Math.ceil(postsSail.length / itemsPerPage);
+
+    const handlePageClick = (event) => {
+        const newOffset = (event.selected * itemsPerPage) % postsSail.length;
+        console.log(
+            `User requested page number ${event.selected}, which is offset ${newOffset}`
+        );
+        setItemOffset(newOffset);
+    };
+
+
 
 
     return (
@@ -123,7 +144,7 @@ const Sail = () => {
 
                                 <Card>
                                     <div className="container-fluid mt-5 myContainerStyleSail">
-                                        <div className="d-grid gapStyleSail">
+                                        <div className="d-grid gapStyleSail mb-5">
                                             <div className="p-2">
                                                 <div className="container">
                                                     <div className="row align-items-center myHeaderSailStyle">
@@ -137,7 +158,7 @@ const Sail = () => {
                                             </div>
 
                                             {
-                                                postsSail.map((sail, index) => (
+                                                currentItems.map((sail, index) => (
                                                     <div key={index} className="p-2 border myStyleSail ownStyleSail">
                                                         <div className="container">
                                                             <div className="row align-items-center">
@@ -174,13 +195,28 @@ const Sail = () => {
                                             }
 
                                         </div>
+                                        {/* Pagination Page */}
+                                        <ReactPaginate
+                                            breakLabel="..."
+                                            nextLabel="keyingisi >"
+                                            onPageChange={handlePageClick}
+                                            pageRangeDisplayed={5}
+                                            pageCount={pageCount}
+                                            previousLabel="< avvalgisi"
+                                            renderOnZeroPageCount={null}
+                                            containerClassName="pagination"
+                                            pageLinkClassName="page-num-pagination"
+                                            previousLinkClassName="page-num-pagination"
+                                            nextLinkClassName="page-num-pagination"
+                                            activeLinkClassName="active"
+                                        />
                                     </div>
                                 </Card>
 
                             </Col>
                         </Row>
                         <div className='container text-center mt-5'>
-                            {postsSail && postsSail.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
+                            {currentItems && currentItems.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
                         </div>
                     </Container>
             }
