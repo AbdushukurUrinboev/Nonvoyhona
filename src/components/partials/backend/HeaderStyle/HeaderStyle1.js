@@ -53,7 +53,7 @@ const  HeaderStyle1 =(props) =>{
                 </Navbar.Toggle>
                 <Navbar.Collapse  id="navbarSupportedContent">
                     <Nav as="ul" className="ml-auto navbar-list align-items-center">                                              
-                        <Dropdown as="li" className="nav-item nav-icon">
+                        {/* <Dropdown as="li" className="nav-item nav-icon">
                             <Dropdown.Toggle  as={Button} href="#" variant=" search-toggle" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img src={flag1} className="img-fluid rounded-circle" alt="user" style={{height: "48px", minWidth: "60px", width: "60px"}}/>
                             <span className="bg-primary"></span>
@@ -69,7 +69,7 @@ const  HeaderStyle1 =(props) =>{
                                     </div>
                                 </Card>
                             </Dropdown.Menu>
-                        </Dropdown>
+                        </Dropdown> */}
                         <Dropdown as="li" bsPrefix="nav-item nav-icon search-content">
                             <Dropdown.Toggle as={Button} href="#" variant=" search-toggle rounded" id="dropdownSearch" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <svg className="svg-icon text-secondary" id="h-suns" height="25" width="25" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
