@@ -29,7 +29,8 @@ const XamkorAdd = () => {
     const [position, setPosition] = useState('');
     const [category, setCategory] = useState('');
     const [error, setError] = useState(false);
-
+    const [phonecodeBoshqa, setPhonecodeBoshqa] = useState(false);
+    const [phonecodeBoshqa2, setPhonecodeBoshqa2] = useState(false);
 
 
 
@@ -62,6 +63,27 @@ const XamkorAdd = () => {
                 .catch(err => console.log(err))
         }
 
+
+    }
+
+
+    const handleChangeSelectCode = (e) => {
+        setPhoneCode(e.target.value);
+        if (e.target.value === "other") {
+            setPhonecodeBoshqa(true)
+        } else {
+            setPhonecodeBoshqa(false)
+        }
+
+    }
+
+    const handleChangeSelectCode2 = (e) => {
+        setPhoneCode2(e.target.value);
+        if (e.target.value === "other") {
+            setPhonecodeBoshqa2(true)
+        } else {
+            setPhonecodeBoshqa2(false)
+        }
 
     }
 
@@ -113,38 +135,45 @@ const XamkorAdd = () => {
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Telefon raqami</Form.Label>
                                                 <div className='input-group'>
-                                                    <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode(e.target.value)}>
-                                                        <option value="(90) ">(90)</option>
-                                                        <option value="(91) ">(91)</option>
-                                                        <option value="(93) ">(93)</option>
-                                                        <option value="(94) ">(94)</option>
-                                                        <option value="(99) ">(99)</option>
-                                                        <option value="(33) ">(33)</option>
-                                                        <option value="(98) ">(98)</option>
-                                                        <option value="(97) ">(97)</option>
-                                                        <option value="(92) ">(92)</option>
-                                                        <option value="(71) ">(71)</option>
-                                                        <option value="(73) ">(73)</option>
-                                                    </select>
+                                                    {
+                                                        phonecodeBoshqa ? (
+                                                            <Form.Control type="text" id="Text5" placeholder="Kodni kiriting..." onChange={e => setPhoneCode(e.target.value)} />
+
+                                                        ) : (
+                                                            <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={handleChangeSelectCode}>
+                                                                <option value="(90) ">(90)</option>
+                                                                <option value="(91) ">(91)</option>
+                                                                <option value="(93) ">(93)</option>
+                                                                <option value="(94) ">(94)</option>
+                                                                <option value="(99) ">(99)</option>
+                                                                <option value="(98) ">(98)</option>
+                                                                <option value="other">Boshqa</option>
+                                                            </select>
+                                                        )
+                                                    }
+
                                                     <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone(e.target.value)} />
                                                 </div>
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Telefon raqami 2</Form.Label>
                                                 <div className='input-group'>
-                                                    <select value={phoneCode2} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode2(e.target.value)}>
-                                                        <option value="(90) ">(90)</option>
-                                                        <option value="(91) ">(91)</option>
-                                                        <option value="(93) ">(93)</option>
-                                                        <option value="(94) ">(94)</option>
-                                                        <option value="(99) ">(99)</option>
-                                                        <option value="(33) ">(33)</option>
-                                                        <option value="(98) ">(98)</option>
-                                                        <option value="(97) ">(97)</option>
-                                                        <option value="(92) ">(92)</option>
-                                                        <option value="(71) ">(71)</option>
-                                                        <option value="(73) ">(73)</option>
-                                                    </select>
+                                                    {
+                                                        phonecodeBoshqa2 ? (
+                                                            <Form.Control type="text" id="Text5" placeholder="Kodni kiriting..." onChange={e => setPhoneCode2(e.target.value)} />
+                                                        ) : (
+                                                            <select value={phoneCode2} id="inputState" className="form-select form-control choicesjs" onChange={handleChangeSelectCode2}>
+                                                                <option value="(90) ">(90)</option>
+                                                                <option value="(91) ">(91)</option>
+                                                                <option value="(93) ">(93)</option>
+                                                                <option value="(94) ">(94)</option>
+                                                                <option value="(99) ">(99)</option>
+                                                                <option value="(98) ">(98)</option>
+                                                                <option value="other">Boshqa</option>
+                                                            </select>
+                                                        )
+                                                    }
+
                                                     <Form.Control type="text" id="Text5" placeholder="Telefon raqamini kiriting..." style={{ width: '70%', marginLeft: '8px' }} onChange={e => setPhone2(e.target.value)} />
                                                 </div>
                                             </div>
