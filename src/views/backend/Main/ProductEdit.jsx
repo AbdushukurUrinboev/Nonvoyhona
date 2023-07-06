@@ -62,11 +62,6 @@ const ProductEdit = () => {
 
     function handleChange(e) {
         e.preventDefault();
-        if (productName.length === 0 || description.length === 0 || productPrice.length === 0 || poductQuantity.length === 0 || umumiyNarhi.length === 0 || xamkor.length === 0 || qolganPul.length === 0) {
-            setError(true)
-        }
-        if (productName && description && productPrice && poductQuantity && umumiyNarhi && xamkor && qolganPul) {
-
             const fd = new FormData()
             // fd.append('productName', productName) // buni o'zgartirmaslikni o'zim qildim
             fd.append('changingID', id)
@@ -88,7 +83,6 @@ const ProductEdit = () => {
                     history.push('/storage')
                 })
                 .catch(err => console.log(err))
-        }
 
     }
 

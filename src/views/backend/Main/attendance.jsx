@@ -49,11 +49,11 @@ const Attendance = () => {
     const [itemOffset, setItemOffset] = useState(0);
     const itemsPerPage = 10;
     const endOffset = itemOffset + itemsPerPage;
-    const currentItems = staffList.slice(itemOffset, endOffset);
-    const pageCount = Math.ceil(staffList.length / itemsPerPage);
+    const currentItems = attendance.slice(itemOffset, endOffset);
+    const pageCount = Math.ceil(attendance.length / itemsPerPage);
 
     const handlePageClick = (event) => {
-        const newOffset = (event.selected * itemsPerPage) % staffList.length;
+        const newOffset = (event.selected * itemsPerPage) % attendance.length;
         console.log(
             `User requested page number ${event.selected}, which is offset ${newOffset}`
         );
@@ -68,9 +68,9 @@ const Attendance = () => {
     useEffect(() => {
         axios.get(ATTANDANCE_URL)
             .then(res => {
-                console.log(res.data);
                 setSearchData(res.data)
                 setAttendance(res.data)
+                console.log(res.data);
             })
             .catch(err => console.log(err))
     }, [])
@@ -86,27 +86,22 @@ const Attendance = () => {
     //     setFilterVal(e.target.value)
     // }
 
-    const handleButtonClick = (id) => {
 
+    const handleButtonClick = (id, name) => {
         console.log(
-            !attanded,
             id,
-            soat[id] + ":" + minut[id]
-        );
+            !attanded,
+            soat[id] + ":" + minut[id],            
+        )
 
-        // if (attendance.date === todayDate) {
-        //     axios.put(ATTANDANCE_URL, {
-        //         present: !attanded,
-        //         staffId: id, // hodim ID
-        //         timeOfArrival: soat[id] + ":" + minut[id] // string
-        //     })
-        // } else {
-        //     axios.post(ATTANDANCE_URL, {
-        //         present: !attanded,
-        //         staffId: id, // hodim ID
-        //         timeOfArrival: soat + ":" + minut // string
-        //     })
-        // }
+        axios.put(ATTANDANCE_URL, {
+            id, 
+            new: {
+                present: !attanded,                
+                timeOfArrival: soat[id] + ":" + minut[id] // string
+            }
+        })
+
 
         setActiveClass((prevActiveClass) => ({
             ...prevActiveClass,
@@ -116,7 +111,7 @@ const Attendance = () => {
 
 
     // Samandar backendidan keyin tugirlayman
-    function handleFilter(e) {      
+    function handleFilter(e) {
         if (e.target.value == '') {
             staffList(searchData)
         } else {
@@ -125,6 +120,11 @@ const Attendance = () => {
         }
         setFilterVal(e.target.value)
     }
+
+
+
+
+
 
 
     return (
@@ -308,7 +308,7 @@ const Attendance = () => {
                                                                                 key={staff._id}
                                                                                 className={activeClass[staff._id] ? 'btn btn-success' : 'btn btn-danger'}
 
-                                                                                onClick={() => handleButtonClick(staff._id)}>
+                                                                                onClick={() => handleButtonClick(staff._id, staff.firstName)}>
                                                                                 {
                                                                                     activeClass[staff._id] ? "Keldi" : "Kelmadi"
                                                                                 }
@@ -372,17 +372,8 @@ const Attendance = () => {
                                                                 <div className="row align-items-center">
                                                                     <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-center">{ind + 1}</div>
                                                                     <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-left" style={{ fontWeight: "500" }}>{elem.firstName} {elem.lastName}</div>
-                                                                    {elem.attendance.map((att, index) => (
-                                                                        <div key={index} className="col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                                                                            {att.keldi === 1 ? "+" : "-"}
-                                                                        </div>
-                                                                    ))}
-
-                                                                    {elem.attendance.map((att, index) => (
-                                                                        <div key={index} className="col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                                                                            {att.sana}
-                                                                        </div>
-                                                                    ))}
+                                                                    <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3"> {elem.present ? "+" : "-"} </div>
+                                                                    <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3"> {elem.date} </div>
                                                                 </div>
                                                             </div>
                                                         </div>
