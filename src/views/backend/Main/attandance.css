@@ -25,3 +25,9 @@
 .pagination .active {
     background-color: #5AB188;
 }
+
+.my-attendance-style {
+    word-wrap: normal !important;
+    margin-left: auto;
+    margin-right: auto;
+}

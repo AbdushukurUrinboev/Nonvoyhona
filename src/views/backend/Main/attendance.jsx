@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { Container, Tab, Nav, Row, Col, Form, OverlayTrigger, Tooltip, Card } from 'react-bootstrap'
+import { Container, Tab, Nav, Row, Col, Form, OverlayTrigger, Tooltip, Card, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 //datepicker
 import Datepickers from '../../../components/Datepicker';
@@ -15,6 +15,8 @@ import { ATTANDANCE_URL } from '../../../API';
 // davomatOlish icon
 import DavomatOlish from '../../../assets/images/icon/tick-circle.png'
 import DavomatKurish from '../../../assets/images/icon/eye.png'
+import CheckMark from '../../../assets/images/icon/checkmark.png'
+import XMark from '../../../assets/images/icon/xMark.png'
 
 // Pagination
 import ReactPaginate from 'react-paginate';
@@ -91,13 +93,13 @@ const Attendance = () => {
         console.log(
             id,
             !attanded,
-            soat[id] + ":" + minut[id],            
+            soat[id] + ":" + minut[id],
         )
 
         axios.put(ATTANDANCE_URL, {
-            id, 
+            id,
             new: {
-                present: !attanded,                
+                present: !attanded,
                 timeOfArrival: soat[id] + ":" + minut[id] // string
             }
         })
@@ -349,37 +351,78 @@ const Attendance = () => {
 
                                 <Tab.Pane eventKey="staff-attendance-view" role='tabpanel'>
                                     <Card>
+                                        <h5 style={{paddingLeft:"60px", paddingTop:"20px", fontWeight:"bold", color:"blue"}}>&lt;&lt;&lt; Avvalgi oy </h5>
                                         <div className="container-fluid mt-5 myContainerStyleStaff">
-                                            <div className="d-grid gapStyleStaff">
-
-
+                                            <div className="d-grid gapStyleStaff mb-5">
                                                 <div className="p-2">
-                                                    <div className="container">
-                                                        <div className="row align-items-center myHeaderStaffStyle">
-                                                            <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-center">№</div>
-                                                            <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-left">Familiya Ismi</div>
-                                                            <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3">Ishga kelgani</div>
-                                                            <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-left">Sana</div>
+                                                    <div className="container-fluid">
+                                                        <div className="row align-items-center myHeaderStaffStyle my-attendance-style">
+                                                            <div className="col-2 text-left">Familiya Ismi</div>
+                                                            <div className="col text-left">1</div>
+                                                            <div className="col text-left">2</div>
+                                                            <div className="col text-left">3</div>
+                                                            <div className="col text-left">4</div>
+                                                            <div className="col text-left">5</div>
+                                                            <div className="col text-left">6</div>
+                                                            <div className="col text-left">7</div>
+                                                            <div className="col text-left">8</div>
+                                                            <div className="col text-left">9</div>
+                                                            <div className="col text-left">10</div>
+                                                            <div className="col text-left">11</div>
+                                                            <div className="col text-left">12</div>
+                                                            <div className="col text-left">13</div>
+                                                            <div className="col text-left">14</div>
+                                                            <div className="col text-left">15</div>
+                                                            <div className="col text-left">16</div>
+                                                            <div className="col text-left">17</div>
+                                                            <div className="col text-left">18</div>
+                                                            <div className="col text-left">19</div>
+                                                            <div className="col text-left">20</div>
+                                                            <div className="col text-left">21</div>
+                                                            <div className="col text-left">22</div>
+                                                            <div className="col text-left">23</div>
+                                                            <div className="col text-left">24</div>
+                                                            <div className="col text-left">25</div>
+                                                            <div className="col text-left">26</div>
+                                                            <div className="col text-left">27</div>
+                                                            <div className="col text-left">28</div>
+                                                            <div className="col text-left">29</div>
+                                                            <div className="col text-left">30</div>
+                                                            <div className="col text-left">31</div>
+                                                            <div className="col text-left">Jami</div>
+
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 {
-
-                                                    attendance.map((elem, ind) => (
+                                                    currentItems.map((elem, ind) => (
                                                         <div key={ind} className="p-2 border myStyleStaff ownStyleStaff">
-                                                            <div className="container">
+                                                            <div className="container-fluid">
                                                                 <div className="row align-items-center">
-                                                                    <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-center">{ind + 1}</div>
-                                                                    <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-left" style={{ fontWeight: "500" }}>{elem.firstName} {elem.lastName}</div>
-                                                                    <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3"> {elem.present ? "+" : "-"} </div>
-                                                                    <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3"> {elem.date} </div>
+                                                                    <div className="col-2 text-left" style={{ fontWeight: "500" }}>{elem.firstName} {elem.lastName}</div>
+                                                                    <div className="col"> {elem.present ? <img src={CheckMark} style={{ width: "18px" }} alt="+" /> : <img src={XMark} style={{ width: "18px" }} alt="-" />} <br /> 12:12</div>
+                                                                    {/* <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3"> {elem.date} </div> */}
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     ))
                                                 }
                                             </div>
+                                            {/* Pagination Page */}
+                                            <ReactPaginate
+                                                breakLabel="..."
+                                                nextLabel="keyingisi >"
+                                                onPageChange={handlePageClick}
+                                                pageRangeDisplayed={5}
+                                                pageCount={pageCount}
+                                                previousLabel="< avvalgisi"
+                                                renderOnZeroPageCount={null}
+                                                containerClassName="pagination"
+                                                pageLinkClassName="page-num-pagination"
+                                                previousLinkClassName="page-num-pagination"
+                                                nextLinkClassName="page-num-pagination"
+                                                activeLinkClassName="active"
+                                            />
                                         </div>
                                     </Card>
 
