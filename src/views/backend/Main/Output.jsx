@@ -68,6 +68,7 @@ const Output = () => {
     const getData = (st, ed) => {
         axios.get(`${base_URL}/report/expenses?startDate=${st}&endDate=${ed}`)
             .then(({ data: receivedDT }) => {
+                console.log(st);
                 setOutputs(receivedDT);
             })
     }

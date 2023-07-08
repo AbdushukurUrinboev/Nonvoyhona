@@ -10,7 +10,7 @@ import Datepickers from '../../../components/Datepicker';
 import { allstaffDataContext } from './ContextProvider/DataProvider';
 
 // API for attandance 
-import { ATTANDANCE_URL } from '../../../API';
+import { base_URL, ATTANDANCE_URL } from '../../../API';
 
 // davomatOlish icon
 import DavomatOlish from '../../../assets/images/icon/tick-circle.png'
@@ -29,9 +29,11 @@ import './attandance.css'
 
 const Attendance = () => {
     const [attendance, setAttendance] = useState([]);
+    const [attendanceGet, setAttendanceGet] = useState([]);
     const [filterVal, setFilterVal] = useState('');
     const [activeClass, setActiveClass] = useState({});
     const [attanded, setAttanded] = useState(false);
+    const [timeOfDeparture, setTimeOfDeparture] = useState(false);
     const [searchData, setSearchData] = useState([]);
     const [soat, setSoat] = useState('');
     const [errorMessagesHour, setErrorMessagesHour] = useState({});
@@ -63,6 +65,11 @@ const Attendance = () => {
     };
 
 
+    const allTime = new Date()
+    const year = allTime.getFullYear();
+    const month = allTime.getMonth();
+    const day = allTime.getDate();
+    
 
 
 
@@ -70,12 +77,37 @@ const Attendance = () => {
     useEffect(() => {
         axios.get(ATTANDANCE_URL)
             .then(res => {
-                setSearchData(res.data)
-                setAttendance(res.data)
-                console.log(res.data);
+                setAttendanceGet(res.data)
+                setSearchData(res.data);
+                
             })
             .catch(err => console.log(err))
+
+        axios.get(`${base_URL}/attandance?startDate=${year + "-" + month + "-" + day}&endDate=${year + "-" + (month + 1) + "-" + day}`)
+
+            .then(({ data: receivedDT }) => {
+                console.log(year + "-" + month + "-" + day);
+                const mergedData = receivedDT.reduce((result, obj) => {
+                    const name = `${obj.firstName} ${obj.lastName}`;
+                    const existingObj = result.find(item => item.name === name);
+
+                    if (existingObj) {
+                        existingObj.dates.push({ date: obj.date, present: obj.present, timeOfArrival: obj.timeOfArrival, timeOfDeparture: obj.timeOfDeparture });
+                    } else {
+                        result.push({
+                            name: name,
+                            dates: [{ date: obj.date, present: obj.present, timeOfArrival: obj.timeOfArrival, timeOfDeparture: obj.timeOfDeparture }]
+                        });
+                    }
+
+                    return result;
+                }, []);
+                console.log(mergedData)
+                setAttendance(mergedData);
+            })
     }, [])
+
+
 
     // // Search
     // function handleFilter(e) {
@@ -93,6 +125,7 @@ const Attendance = () => {
         console.log(
             id,
             !attanded,
+            timeOfDeparture,
             soat[id] + ":" + minut[id],
         )
 
@@ -100,6 +133,7 @@ const Attendance = () => {
             id,
             new: {
                 present: !attanded,
+                timeOfDeparture,
                 timeOfArrival: soat[id] + ":" + minut[id] // string
             }
         })
@@ -230,7 +264,7 @@ const Attendance = () => {
                                                 </div>
 
                                                 {
-                                                    currentItems
+                                                    attendanceGet
                                                         .sort((a, b) => a.lastName.localeCompare(b.lastName))
                                                         .map((staff, ind) => (
                                                             <div key={ind} className="p-2 border myStyleStaff ownStyleStaff">
@@ -351,15 +385,18 @@ const Attendance = () => {
 
                                 <Tab.Pane eventKey="staff-attendance-view" role='tabpanel'>
                                     <Card>
-                                        <h5 style={{paddingLeft:"60px", paddingTop:"20px", fontWeight:"bold", color:"blue"}}>&lt;&lt;&lt; Avvalgi oy </h5>
+                                        <h5 style={{ paddingLeft: "60px", paddingTop: "20px", fontWeight: "bold", color: "blue" }}>&lt;&lt;&lt; Avvalgi oy </h5>
                                         <div className="container-fluid mt-5 myContainerStyleStaff">
                                             <div className="d-grid gapStyleStaff mb-5">
                                                 <div className="p-2">
                                                     <div className="container-fluid">
                                                         <div className="row align-items-center myHeaderStaffStyle my-attendance-style">
                                                             <div className="col-2 text-left">Familiya Ismi</div>
-                                                            <div className="col text-left">1</div>
-                                                            <div className="col text-left">2</div>
+
+                                                            {currentItems.length > 0 && currentItems[0].dates.map((date, ind) => (
+                                                                <div key={ind} className="col text-left">{new Date(date.date).getDate()}</div>
+                                                            ))}
+                                                            {/* <div className="col text-left">2</div>
                                                             <div className="col text-left">3</div>
                                                             <div className="col text-left">4</div>
                                                             <div className="col text-left">5</div>
@@ -388,20 +425,24 @@ const Attendance = () => {
                                                             <div className="col text-left">28</div>
                                                             <div className="col text-left">29</div>
                                                             <div className="col text-left">30</div>
-                                                            <div className="col text-left">31</div>
-                                                            <div className="col text-left">Jami</div>
+                                                            <div className="col text-left">31</div> */}
+                                                            {/* <div className="col text-left">Jami</div> */}
 
                                                         </div>
                                                     </div>
                                                 </div>
                                                 {
-                                                    currentItems.map((elem, ind) => (
+                                                    currentItems.length > 0 && currentItems.map((elem, ind) => (
                                                         <div key={ind} className="p-2 border myStyleStaff ownStyleStaff">
                                                             <div className="container-fluid">
                                                                 <div className="row align-items-center">
-                                                                    <div className="col-2 text-left" style={{ fontWeight: "500" }}>{elem.firstName} {elem.lastName}</div>
-                                                                    <div className="col"> {elem.present ? <img src={CheckMark} style={{ width: "18px" }} alt="+" /> : <img src={XMark} style={{ width: "18px" }} alt="-" />} <br /> 12:12</div>
-                                                                    {/* <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3"> {elem.date} </div> */}
+                                                                    <div className="col-2 text-left" style={{ fontWeight: "500" }}>{elem.name}</div>
+                                                                    {elem.dates.map((date, index) => (
+                                                                        <div key={index} className="col"> {date.present ? <img src={CheckMark} style={{ width: "18px" }} alt="+" /> : <img src={XMark} style={{ width: "18px" }} alt="-" />} <br /> <span style={{ fontSize: "10px" }}>{date.timeOfArrival}</span></div>
+                                                                    ))}
+
+
+
                                                                 </div>
                                                             </div>
                                                         </div>
