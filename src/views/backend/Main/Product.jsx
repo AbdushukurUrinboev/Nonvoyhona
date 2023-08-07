@@ -179,7 +179,7 @@ const Product = () => {
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ fontWeight: "500" }}>{product.productName}</div>
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{product.description}</div>
                                                         <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{product.productPrice} - so'm</div>
-                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{product.poductQuantity}</div>
+                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{Math.round(product.poductQuantity)}</div>
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ color: product.poductQuantity > 10 ? '#149100' : product.poductQuantity <= 0 ? "#EC0000" : '#EFAC00', fontWeight: '500' }}>
                                                             <small><svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
                                                                 <circle cx="12" cy="12" r="8" style={{ fill: product.poductQuantity > 10 ? '#149100' : product.poductQuantity <= 0 ? "#EC0000" : '#EFAC00' }}></circle></svg>
