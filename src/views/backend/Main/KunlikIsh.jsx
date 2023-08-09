@@ -69,6 +69,10 @@ const Calculate = () => {
         setJamiTulov(tulovInput + bonusTulovInput);
     }
 
+    const calculateOverallQuantityBread = (bonusSoniInput, jastaSoniInput) => {
+        setNonSoni(nonSoni - bonusSoniInput - jastaSoniInput)
+    }
+
 
     function handleChange(e) {
         setIsSaving(true);
@@ -492,6 +496,8 @@ const Calculate = () => {
                                                                             }
                                                                             let result = addOrUpdateBread(allBonus, { breadName: item, quantity: Number(e.target.value) })
                                                                             setAllBonus([...result])
+
+                                                                            calculateOverallQuantityBread(Number(e.target.value), jastaNonSoni) ////// shuni ko'raman chala qoldi
                                                                         }
                                                                         } />
                                                                     </div>
@@ -526,6 +532,8 @@ const Calculate = () => {
                                                                             }
                                                                             let result = addOrUpdateBread(allBonus, { breadName: item, jastaQuantity: Number(e.target.value) })
                                                                             setAllBonus([...result])
+
+                                                                            calculateOverallQuantityBread()
                                                                         }} placeholder="Jasta non sonini kiriting..." required='required' />
                                                                     </div>
                                                                 })

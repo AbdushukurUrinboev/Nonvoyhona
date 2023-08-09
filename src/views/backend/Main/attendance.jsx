@@ -71,12 +71,21 @@ const Attendance = () => {
     const day = allTime.getDate();
     
 
-
+ // Search
+ function handleFilter(e) {          
+    if (e.target.value == '') {
+        setAttendanceGet(searchData)
+    } else {
+        const filterResult = searchData.filter(item => item.lastName.toLowerCase().includes(e.target.value.toLowerCase()) || item.firstName.toLowerCase().includes(e.target.value.toLowerCase()))
+        setAttendanceGet(filterResult)
+    }
+    setFilterVal(e.target.value)
+}
 
 
     useEffect(() => {
         axios.get(ATTANDANCE_URL)
-            .then(res => {
+            .then(res => {               
                 setAttendanceGet(res.data)
                 setSearchData(res.data);
                 
@@ -86,9 +95,9 @@ const Attendance = () => {
         axios.get(`${base_URL}/attandance?startDate=${year + "-" + month + "-" + day}&endDate=${year + "-" + (month + 1) + "-" + day}`)
 
             .then(({ data: receivedDT }) => {
-                console.log(year + "-" + month + "-" + day);
+                // console.log(year + "-" + month + "-" + day);
                 const mergedData = receivedDT.reduce((result, obj) => {
-                    const name = `${obj.firstName} ${obj.lastName}`;
+                    const name = `${obj.lastName} ${obj.firstName}`;
                     const existingObj = result.find(item => item.name === name);
 
                     if (existingObj) {
@@ -102,23 +111,13 @@ const Attendance = () => {
 
                     return result;
                 }, []);
-                console.log(mergedData)
                 setAttendance(mergedData);
             })
     }, [])
 
 
 
-    // // Search
-    // function handleFilter(e) {
-    //     if (e.target.value == '') {
-    //         setAttendance(searchData)
-    //     } else {
-    //         const filterResult = searchData.filter(item => item.firstName.toLowerCase().includes(e.target.value.toLowerCase()) || item.lastName.toLowerCase().includes(e.target.value.toLowerCase()))
-    //         setAttendance(filterResult)
-    //     }
-    //     setFilterVal(e.target.value)
-    // }
+   
 
 
     const handleButtonClick = (id, name) => {
@@ -145,19 +144,7 @@ const Attendance = () => {
         }));
     };
 
-
-    // Samandar backendidan keyin tugirlayman
-    function handleFilter(e) {
-        if (e.target.value == '') {
-            staffList(searchData)
-        } else {
-            const filterResult = searchData.filter(item => item.lastName.toLowerCase().includes(e.target.value.toLowerCase()) || item.firstName.toLowerCase().includes(e.target.value.toLowerCase()))
-            staffList(filterResult)
-        }
-        setFilterVal(e.target.value)
-    }
-
-
+   
 
 
 
@@ -392,41 +379,9 @@ const Attendance = () => {
                                                     <div className="container-fluid">
                                                         <div className="row align-items-center myHeaderStaffStyle my-attendance-style">
                                                             <div className="col-2 text-left">Familiya Ismi</div>
-
                                                             {currentItems.length > 0 && currentItems[0].dates.map((date, ind) => (
                                                                 <div key={ind} className="col text-left">{new Date(date.date).getDate()}</div>
-                                                            ))}
-                                                            {/* <div className="col text-left">2</div>
-                                                            <div className="col text-left">3</div>
-                                                            <div className="col text-left">4</div>
-                                                            <div className="col text-left">5</div>
-                                                            <div className="col text-left">6</div>
-                                                            <div className="col text-left">7</div>
-                                                            <div className="col text-left">8</div>
-                                                            <div className="col text-left">9</div>
-                                                            <div className="col text-left">10</div>
-                                                            <div className="col text-left">11</div>
-                                                            <div className="col text-left">12</div>
-                                                            <div className="col text-left">13</div>
-                                                            <div className="col text-left">14</div>
-                                                            <div className="col text-left">15</div>
-                                                            <div className="col text-left">16</div>
-                                                            <div className="col text-left">17</div>
-                                                            <div className="col text-left">18</div>
-                                                            <div className="col text-left">19</div>
-                                                            <div className="col text-left">20</div>
-                                                            <div className="col text-left">21</div>
-                                                            <div className="col text-left">22</div>
-                                                            <div className="col text-left">23</div>
-                                                            <div className="col text-left">24</div>
-                                                            <div className="col text-left">25</div>
-                                                            <div className="col text-left">26</div>
-                                                            <div className="col text-left">27</div>
-                                                            <div className="col text-left">28</div>
-                                                            <div className="col text-left">29</div>
-                                                            <div className="col text-left">30</div>
-                                                            <div className="col text-left">31</div> */}
-                                                            {/* <div className="col text-left">Jami</div> */}
+                                                            ))}                                                           
 
                                                         </div>
                                                     </div>
