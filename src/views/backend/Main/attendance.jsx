@@ -134,12 +134,16 @@ const Attendance = () => {
         let changingObj = {
             present: !attanded,
         };
-        if (kelganSoat[id] && kelganMinut[id]) {
-            changingObj.timeOfArrival = kelganSoat[id] + ":" + kelganMinut[id];
+        if (kelganSoat[id] !== undefined && kelganMinut[id] !== undefined) {
+            const kelganMinutStr = kelganMinut[id] === 0 ? '00' : kelganMinut[id].toString();
+            changingObj.timeOfArrival = kelganSoat[id] + ":" + kelganMinutStr;
         }
-        if (ketganSoat[id] && ketganMinut[id]) {
-            changingObj.timeOfDeparture = ketganSoat[id] + ":" + ketganMinut[id];
+        
+        if (ketganSoat[id] !== undefined && ketganMinut[id] !== undefined) {
+            const ketganMinutStr = ketganMinut[id] === 0 ? '00' : ketganMinut[id].toString();
+            changingObj.timeOfDeparture = ketganSoat[id] + ":" + ketganMinutStr;
         }
+        
 
         axios.put(ATTANDANCE_URL, {
             id,
