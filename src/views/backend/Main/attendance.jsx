@@ -96,7 +96,7 @@ const Attendance = () => {
             })
             .catch(err => console.log(err))
 
-        axios.get(`${base_URL}/attandance?startDate=${year + "-" + month + "-" + day}&endDate=${year + "-" + (month + 1) + "-" + day}`)
+        axios.get(`${base_URL}/attandance?startDate=${year + "-" + month + "-" + day}&endDate=${year + "-" + (month + 1) + "-" + (day * 1 + 1)}`)
 
             .then(({ data: receivedDT }) => {
                 // console.log(year + "-" + month + "-" + day);
@@ -114,7 +114,7 @@ const Attendance = () => {
                     }
 
                     return result;
-                }, []);
+                }, []).sort((a, b) => a.name > b.name ? 1 : -1);
                 setAttendance(mergedData);
             })
     }, [])
@@ -130,15 +130,20 @@ const Attendance = () => {
             !attanded,
             kelganSoat[id] + ":" + kelganMinut[id],
             ketganSoat[id] + ":" + ketganMinut[id],
-        )
+        );
+        let changingObj = {
+            present: !attanded,
+        };
+        if (kelganSoat[id] && kelganMinut[id]) {
+            changingObj.timeOfArrival = kelganSoat[id] + ":" + kelganMinut[id];
+        }
+        if (ketganSoat[id] && ketganMinut[id]) {
+            changingObj.timeOfDeparture = ketganSoat[id] + ":" + ketganMinut[id];
+        }
 
         axios.put(ATTANDANCE_URL, {
             id,
-            new: {
-                present: !attanded,
-                timeOfArrival: kelganSoat[id] + ":" + kelganMinut[id], // string
-                timeOfDeparture: ketganSoat[id] + ":" + ketganMinut[id]
-            }
+            new: changingObj            
         })
 
 
@@ -322,7 +327,8 @@ const Attendance = () => {
                                                                                             }));
                                                                                         }
                                                                                     }}
-                                                                                    value={kelganMinut[staff._id] || ''}
+                                                                                    value={kelganMinut[staff._id] !== undefined ? kelganMinut[staff._id] : ''}
+                                                                                    // value={kelganMinut[staff._id] || ''}
                                                                                 />
                                                                                 {errorMessagesKelganMinute[staff._id] && (
                                                                                     <div style={{ color: 'red' }}>{errorMessagesKelganMinute[staff._id]}</div>
@@ -389,7 +395,8 @@ const Attendance = () => {
                                                                                             }));
                                                                                         }
                                                                                     }}
-                                                                                    value={ketganMinut[staff._id] || ''}
+                                                                                    value={ketganMinut[staff._id] !== undefined ? ketganMinut[staff._id] : ''}
+                                                                                    // value={ketganMinut[staff._id] || ''}
                                                                                 />
                                                                                 {errorMessagesKetganMinute[staff._id] && (
                                                                                     <div style={{ color: 'red' }}>{errorMessagesKetganMinute[staff._id]}</div>
@@ -437,7 +444,7 @@ const Attendance = () => {
 
                                 <Tab.Pane eventKey="staff-attendance-view" role='tabpanel'>
                                     <Card>
-                                        <h5 style={{ paddingLeft: "60px", paddingTop: "20px", fontWeight: "bold", color: "blue" }}>&lt;&lt;&lt; Avvalgi oy </h5>
+                                        {/* <h5 style={{ paddingLeft: "60px", paddingTop: "20px", fontWeight: "bold", color: "blue" }}>&lt;&lt;&lt; Avvalgi oy </h5> */}
                                         <div className="container-fluid mt-5 myContainerStyleStaff">
                                             <div className="d-grid gapStyleStaff mb-5">
                                                 <div className="p-2">
