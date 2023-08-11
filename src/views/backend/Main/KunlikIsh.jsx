@@ -28,6 +28,7 @@ const Calculate = () => {
 
 
 
+   
     const [allBonus, setAllBonus] = useState([]);
     const [group, setGroup] = useState('');
     const [smena, setSmena] = useState('');
@@ -138,6 +139,7 @@ const Calculate = () => {
     useEffect(() => {
         axios.get(STAFF_URL)
             .then(res => {
+                console.log(res.data);
                 setStaff(res.data)
                 setLoading(false)
             })
@@ -147,7 +149,7 @@ const Calculate = () => {
 
     const myData = [];
 
-    if (group.length > 0 && smena.length > 0) {
+    if ( group.length > 0 && smena.length > 0) {        
         const staffs = staff.filter(staff => staff.group.toLowerCase().includes(group.toLowerCase()) && staff.smena.toLowerCase().includes(smena.toLowerCase()))
 
         for (let i = 0; i < staffs.length; i++) {
@@ -155,7 +157,6 @@ const Calculate = () => {
         }
     }
 
-    console.log(joined);
 
     function onChange(e) {
         setNonTuri(e.target.value)

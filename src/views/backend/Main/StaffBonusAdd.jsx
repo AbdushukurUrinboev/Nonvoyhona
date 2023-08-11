@@ -1,19 +1,27 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Form } from 'react-bootstrap'
 import axios from 'axios';
-import { staffDataContext } from './ContextProvider/DataProvider';
+import { STAFF_URL } from '../../../API';
 
 const StaffBonusAdd = () => {
+    const [staffList, setStaffList] = useState([]);
     const [recipient, setRecipient] = useState('tanlanmagan');
-    const [showModal, setShowModal] = useState(false);
-    const [staff, setStaff] = useState('');
+    const [showModal, setShowModal] = useState(false);     
     const [info, setInfo] = useState('');
     const [sanaKun, setSanaKun] = useState('');
     const [sanaOy, setSanaOy] = useState('');
     const [sanaYil, setSanaYil] = useState(new Date().getFullYear());
     const [selectedColor, setSelectedColor] = useState(null);
+    const [idSelectedStaff, setIdSelectedStaff] = useState('');
 
-    const staffList = useContext(staffDataContext);
+    
+    useEffect(() => {
+        axios.get(STAFF_URL)
+            .then(res => {
+                setStaffList(res.data)               
+            })
+            .catch(err => console.log(err))
+    }, [])
 
     const handleShowModal = () => {
         setShowModal(true);
@@ -23,9 +31,10 @@ const StaffBonusAdd = () => {
         setShowModal(false);
     };
 
-    const handleRecipientChange = (event) => {
-        setRecipient(event.target.value);
-        setStaff(event.target.value)
+    const handleRecipientChange = (event) => {  
+        setIdSelectedStaff(event.target.value)
+        const selectedStaff = staffList.find((staff) => staff._id === event.target.value)         
+        setRecipient(selectedStaff.firstName + " " + selectedStaff.lastName);       
     };
 
     const handleClickSpan = (color) => {
@@ -34,29 +43,24 @@ const StaffBonusAdd = () => {
 
     function handleSave(e) {
         e.preventDefault();
-        console.log(
-            staff,
-            sanaKun + " " + sanaOy + " " + sanaYil,
-            info,
-            selectedColor
+        if (idSelectedStaff && sanaKun && sanaOy && sanaYil && selectedColor) {            
+            // const newObj = {
+            //     fine: selectedColor,
+            //     date: sanaKun + " " + sanaOy + " " + sanaYil,
+            //     description: info
+            // }
+            // axios.post(STAFF_URL, {
+            //     id: idSelectedStaff,
+            //     fines:newObj  
+            // })
+            //     .then(res => {
+            //         console.log("Data is saved", res);
+            //         setShowModal(false);
 
-        );
-        // if (plan && person && status) {
-        //     axios.post(PLANS_URL, {
-        //         plan,
-        //         deadline: deadline.getDate() + "/" + (deadline.getMonth() + 1) + "/" + deadline.getFullYear(),
-        //         person,
-        //         status
-        //     })
-        //         .then(res => {
-        //             console.log("Data is saved", res);
-        //             history.push('/staff')
-
-        //         })
-        //         .catch(err => console.log(err))
-        // }
+            //     })
+            //     .catch(err => console.log(err))
+        }
     }
-
 
     return (
         <>
@@ -80,10 +84,10 @@ const StaffBonusAdd = () => {
                                     <div className="col-md-12 mb-3">
                                         <Form.Label htmlFor="Text2" className="form-label font-weight-bold text-muted text-uppercase">Mas'ul shahs</Form.Label>
                                         <select id="Text2" className="form-select form-control choicesjs" onChange={handleRecipientChange}>
-                                            <option value="Bajarildi">Xodimlar</option>
+                                            <option value="">Xodimlar</option>
                                             {
-                                                staffList.map((staff, ind) => {
-                                                    return <option key={ind} value={staff}>{staff}</option>
+                                                staffList.map((staff, id) => {                                                    
+                                                    return <option key={id} value={staff._id}>{staff.firstName} {staff.lastName}</option>
                                                 })
                                             }
                                         </select>
@@ -93,6 +97,7 @@ const StaffBonusAdd = () => {
                                         <div className='input-group'>
                                             <Form.Control type="number" id="Text5" placeholder="Kun..." style={{ width: '10%', marginRight: '8px' }} onChange={e => setSanaKun(e.target.value)} />
                                             <select value={sanaOy} id="inputState" className="form-select form-control choicesjs" onChange={e => setSanaOy(e.target.value)}>
+                                                <option value="" disabled selected>Oy...</option>
                                                 <option value="Yanvar">Yanvar</option>
                                                 <option value="Fevral">Fevral</option>
                                                 <option value="Mart">Mart</option>
