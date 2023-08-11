@@ -430,7 +430,6 @@ const Staff = () => {
                                                             </div>
 
                                                             {
-
                                                                 staffList.filter(el => el.remainingDepts > 0).length > 0 ? (
                                                                     staffList.filter(el => el.remainingDepts > 0).map((staff, index) => (
                                                                         <div key={index} className="p-2 border myStyleStaff ownStyleStaff">
