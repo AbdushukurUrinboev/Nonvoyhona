@@ -412,7 +412,9 @@ const Staff = () => {
 
                                             <Tab.Pane eventKey="jarima-ragbat" role='tabpanel'>
                                                 <Card>
-                                                    <StaffBonusAdd/>
+                                                    <div style={{marginTop: "15px", marginRight: "15px"}}>
+                                                        <StaffBonusAdd />
+                                                    </div>
                                                     <div className="container-fluid mt-5 myContainerStyleStaff">
                                                         <div className="d-grid gapStyleStaff">
                                                             <div className="p-2">
@@ -422,7 +424,7 @@ const Staff = () => {
                                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left">Familiya Ismi</div>
                                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">Jarima/Ragbat</div>
                                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">Sana</div>
-                                                                        <div className="col-sm-12 col-md-5 col-lg-5 col-xl-5 text-center">Ilova</div>
+                                                                        <div className="col-sm-12 col-md-5 col-lg-5 col-xl-5 text-center">Izoh</div>
                                                                     </div>
                                                                 </div>
                                                             </div>

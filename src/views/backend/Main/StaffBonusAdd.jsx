@@ -61,7 +61,7 @@ const StaffBonusAdd = () => {
     return (
         <>
             <div style={{ textAlign: "right" }}>
-                <button type="button" className="btn btn-primary" style={{ width: "25%" }} onClick={handleShowModal}>
+                <button type="button" className="btn btn-primary" onClick={handleShowModal}>
                     Jarima / Rag'bat berish
                 </button>
             </div>
@@ -158,7 +158,7 @@ const StaffBonusAdd = () => {
 
                                     <div className="form-group">
                                         <label htmlFor="message-text" className="col-form-label">
-                                            Ilova:
+                                            Izoh:
                                         </label>
                                         <textarea className="form-control" id="message-text" onChange={e => setInfo(e.target.value)}></textarea>
                                     </div>
