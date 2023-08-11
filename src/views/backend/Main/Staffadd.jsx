@@ -33,6 +33,7 @@ const Staffadd = () => {
     const [birthdayYear, setBirthdayYear] = useState(0);
     const [phonecodeBoshqa, setPhonecodeBoshqa] = useState(false);
     const [phonecodeBoshqa2, setPhonecodeBoshqa2] = useState(false);
+    const [responsibility, setResponsibility] = useState('');
 
 
     const [image, setImage] = useState();
@@ -61,6 +62,7 @@ const Staffadd = () => {
             fd.append('smena', smena)
             fd.append('salary', salary)
             fd.append('birthday', birthdayDay + " " + birthdayMonth + " " + birthdayYear + " yil")
+            fd.append('responsibility', responsibility)
             fd.append('image', image)
 
             axios.post(STAFF_URL, fd)
@@ -280,7 +282,13 @@ const Staffadd = () => {
                                                 <Form.Label htmlFor="Text7" className="font-weight-bold text-muted text-uppercase">Oyligi</Form.Label>
                                                 <Form.Control type="text" id="Text7" placeholder="Xodimning qancha oylik olishini kiriting..." onChange={e => { setSalary(e.target.value) }} />
                                             </div>
-                                            <div className="col-md-6 mb-3">
+
+                                            <div className="col-md-6 mb-3 form-group">                                               
+                                                <Form.Label htmlFor="TextArea" className="font-weight-bold text-muted text-uppercase">Vazifasi</Form.Label>
+                                                <textarea class="form-control" id="TextArea" placeholder="Xodimning vazifasini kiriting..." rows="3" onChange={e => { setResponsibility(e.target.value) }} />
+                                            </div>
+
+                                            <div className="col-md-12 mb-3">
                                                 <div className="text-right mt-2">
                                                     <Link to="/staff" className='btn myButtonStaff qushishStaff' type="button" onClick={handleChange}>
                                                         <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -289,10 +297,11 @@ const Staffadd = () => {
                                                     </Link>
                                                 </div>
                                             </div>
-
                                         </Form>
 
+
                                     </Col>
+
                                 </Row>
                             </Card.Body>
                         </Card>

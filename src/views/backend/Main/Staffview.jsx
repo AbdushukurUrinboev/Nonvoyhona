@@ -13,7 +13,8 @@ import Avatar from '../../../assets/images/avatar.png'
 const Staffview = () => {
 
     const [currentStaff, setCurrentStaff] = useState({});
-    const [staffWorkHistory, setStaffWorkHistory] = useState([])
+    const [staffWorkHistory, setStaffWorkHistory] = useState([])   
+
 
     const { id } = useParams();
     // console.log(id);
@@ -23,83 +24,21 @@ const Staffview = () => {
             .then(res => {
                 setCurrentStaff(res.data)
                 setStaffWorkHistory(res.data.workHistory)
-                
+
             })
             .catch(err => console.log(err))
     }, [id])
 
 
 
-    // console.log(currentStaff);
+    const renderTextLines = () => {
+        const lines = currentStaff.responsibility.split('\n');
 
-    const chart1 = {
-        series: [{
-            data: [91, 82, 90, 88, 105, 99]
-        }],
-        options: {
-            chart: {
-                //   height: 265,
-                //   type: 'bar',
-                toolbar: {
-                    show: false,
-                },
-                events: {
-                    click: function (chart, w, e) {
-                        // console.log(chart, w, e)
-                    }
-                }
-            },
-            plotOptions: {
-                bar: {
-                    columnWidth: '35%',
-                    distributed: true,
-                }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            grid: {
-                xaxis: {
-                    lines: {
-                        show: false
-                    }
-                },
-                yaxis: {
-                    lines: {
-                        show: true
-                    }
-                }
-            },
-            legend: {
-                show: false
-            },
-            yaxis: {
-                labels: {
-                    offsetY: 0,
-                    minWidth: 20,
-                    maxWidth: 20
-                },
-            },
-            xaxis: {
-                categories: [
-                    'Jan',
-                    'Feb',
-                    'Mar',
-                    'Apr',
-                    'May',
-                    'June',
-                ],
-                labels: {
-                    minHeight: 22,
-                    maxHeight: 22,
-                    style: {
-                        fontSize: '12px'
-                    }
-                }
-            }
-        }
+        return lines.map((line, index) => (
+            <p key={index}>{line}</p>
+        ));
+    };
 
-    }
 
     return (
         <>
@@ -221,6 +160,13 @@ const Staffview = () => {
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <p className="mb-0 ">{currentStaff.responsibility === undefined ? (<h4 className="mb-0 text-muted"> Vazifalari: Yo'q</h4>) : (
+                                        <>
+                                            <h4 className="mb-0 text-muted">Vazifalari: </h4>
+                                            <p className="mb-0 ">{renderTextLines()}</p>
+                                        </>
+
+                                    )}</p>
                                 </ListGroup.Item>
                                 {/* <ListGroup.Item as="li" >
                                     <h6 className="font-weight-bold mt-2">Umumiy Statistika</h6>

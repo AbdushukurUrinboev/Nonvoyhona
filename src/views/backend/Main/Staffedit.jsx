@@ -33,6 +33,7 @@ const StaffEdit = () => {
     const [salary, setSalary] = useState(0);
     const [remainingDepts, setRemainingDepts] = useState(0);
     const [birthday, setBirthday] = useState('');
+    const [responsibility, setResponsibility] = useState('');
     const [image, setImage] = useState('');
 
 
@@ -57,6 +58,7 @@ const StaffEdit = () => {
                 setSalary(res.data.salary);
                 setRemainingDepts(res.data.remainingDepts);
                 setBirthday(res.data.birthday);
+                setResponsibility(res.data.responsibility ? res.data.responsibility : "Yo'q");
                 setImage(res.data.image);
             })
             .catch(err => console.log(err))
@@ -80,6 +82,7 @@ const StaffEdit = () => {
         fd.append('salary', salary)
         fd.append('remainingDepts', remainingDepts)
         fd.append('birthday', birthday)
+        fd.append('responsibility', responsibility)
         fd.append('image', image)
 
         axios.put(STAFF_URL, fd)
@@ -261,6 +264,10 @@ const StaffEdit = () => {
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text7" className="font-weight-bold text-muted text-uppercase">Qarzdorligi</Form.Label>
                                                 <Form.Control type="text" id="Text7" value={remainingDepts} onChange={e => { setRemainingDepts (Number(e.target.value)) }} />
+                                            </div>
+                                            <div className="col-md-12 mb-3">
+                                                <Form.Label htmlFor="TextArea" className="font-weight-bold text-muted text-uppercase">Vazifasi</Form.Label>
+                                                <textarea class="form-control" id="TextArea" rows="3" value={responsibility} onChange={e => { setResponsibility(e.target.value) }} />
                                             </div>
                                             <div className="col-md-6 mb-3">
                                                 <div className="text-right mt-2">
