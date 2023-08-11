@@ -35,10 +35,14 @@ const Attendance = () => {
     const [attanded, setAttanded] = useState(false);
     const [timeOfDeparture, setTimeOfDeparture] = useState(false);
     const [searchData, setSearchData] = useState([]);
-    const [soat, setSoat] = useState('');
-    const [errorMessagesHour, setErrorMessagesHour] = useState({});
-    const [minut, setMinut] = useState('');
-    const [errorMessagesMinute, setErrorMessagesMinute] = useState({});
+    const [kelganSoat, setKelganSoat] = useState('');
+    const [ketganSoat, setKetganSoat] = useState('');
+    const [errorMessagesKelganHour, setErrorMessagesKelganHour] = useState({});
+    const [errorMessagesKetganHour, setErrorMessagesKetganHour] = useState({});
+    const [kelganMinut, setKelganMinut] = useState('');
+    const [ketganMinut, setKetganMinut] = useState('');
+    const [errorMessagesKelganMinute, setErrorMessagesKelganMinute] = useState({});
+    const [errorMessagesKetganMinute, setErrorMessagesKetganMinute] = useState({});
     const staffList = useContext(allstaffDataContext);
 
 
@@ -69,26 +73,26 @@ const Attendance = () => {
     const year = allTime.getFullYear();
     const month = allTime.getMonth();
     const day = allTime.getDate();
-    
 
- // Search
- function handleFilter(e) {          
-    if (e.target.value == '') {
-        setAttendanceGet(searchData)
-    } else {
-        const filterResult = searchData.filter(item => item.lastName.toLowerCase().includes(e.target.value.toLowerCase()) || item.firstName.toLowerCase().includes(e.target.value.toLowerCase()))
-        setAttendanceGet(filterResult)
+
+    // Search
+    function handleFilter(e) {
+        if (e.target.value == '') {
+            setAttendanceGet(searchData)
+        } else {
+            const filterResult = searchData.filter(item => item.lastName.toLowerCase().includes(e.target.value.toLowerCase()) || item.firstName.toLowerCase().includes(e.target.value.toLowerCase()))
+            setAttendanceGet(filterResult)
+        }
+        setFilterVal(e.target.value)
     }
-    setFilterVal(e.target.value)
-}
 
 
     useEffect(() => {
         axios.get(ATTANDANCE_URL)
-            .then(res => {               
+            .then(res => {
                 setAttendanceGet(res.data)
                 setSearchData(res.data);
-                
+
             })
             .catch(err => console.log(err))
 
@@ -117,23 +121,23 @@ const Attendance = () => {
 
 
 
-   
+
 
 
     const handleButtonClick = (id, name) => {
         console.log(
             id,
             !attanded,
-            timeOfDeparture,
-            soat[id] + ":" + minut[id],
+            kelganSoat[id] + ":" + kelganMinut[id],
+            ketganSoat[id] + ":" + ketganMinut[id],
         )
 
         axios.put(ATTANDANCE_URL, {
             id,
             new: {
                 present: !attanded,
-                timeOfDeparture,
-                timeOfArrival: soat[id] + ":" + minut[id] // string
+                timeOfArrival: kelganSoat[id] + ":" + kelganMinut[id], // string
+                timeOfDeparture: ketganSoat[id] + ":" + ketganMinut[id]
             }
         })
 
@@ -144,7 +148,7 @@ const Attendance = () => {
         }));
     };
 
-   
+
 
 
 
@@ -242,14 +246,14 @@ const Attendance = () => {
                                                 <div className="p-2">
                                                     <div className="container">
                                                         <div className="row align-items-center myHeaderStaffStyle">
-                                                            <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-center">№</div>
+                                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">№</div>
                                                             <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-left">Familiya Ismi</div>
                                                             <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-center">Ishga kelgan vaqti</div>
-                                                            <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3">Ishga kelgani</div>
+                                                            <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-center">Ishdan ketgan vaqti</div>
+                                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Ishga kelgani</div>
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 {
                                                     attendanceGet
                                                         .sort((a, b) => a.lastName.localeCompare(b.lastName))
@@ -257,7 +261,7 @@ const Attendance = () => {
                                                             <div key={ind} className="p-2 border myStyleStaff ownStyleStaff">
                                                                 <div className="container">
                                                                     <div className="row align-items-center">
-                                                                        <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-center">{ind + 1}</div>
+                                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{ind + 1}</div>
                                                                         <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 text-left" style={{ fontWeight: "500" }}>{staff.lastName + " " + staff.firstName}</div>
                                                                         <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3">
                                                                             <div className="input-group">
@@ -272,26 +276,26 @@ const Attendance = () => {
                                                                                         const inputValue = parseInt(e.target.value);
                                                                                         const staffId = staff._id;
                                                                                         if (inputValue > 24 || inputValue < 0) {
-                                                                                            setErrorMessagesHour(prevState => ({
+                                                                                            setErrorMessagesKelganHour(prevState => ({
                                                                                                 ...prevState,
                                                                                                 [staffId]: "Kiritilgan raqam 24 dan oshmasligi kerak"
                                                                                             }));
                                                                                         } else {
-                                                                                            setErrorMessagesHour(prevState => ({
+                                                                                            setErrorMessagesKelganHour(prevState => ({
                                                                                                 ...prevState,
                                                                                                 [staffId]: ''
                                                                                             }));
-                                                                                            setSoat(prevState => ({
+                                                                                            setKelganSoat(prevState => ({
                                                                                                 ...prevState,
                                                                                                 [staffId]: inputValue
                                                                                             }));
                                                                                         }
                                                                                     }}
-                                                                                    value={soat[staff._id] || ''}
+                                                                                    value={kelganSoat[staff._id] || ''}
                                                                                     required
                                                                                 />
-                                                                                {errorMessagesHour[staff._id] && (
-                                                                                    <div style={{ color: 'red' }}>{errorMessagesHour[staff._id]}</div>
+                                                                                {errorMessagesKelganHour[staff._id] && (
+                                                                                    <div style={{ color: 'red' }}>{errorMessagesKelganHour[staff._id]}</div>
                                                                                 )}
                                                                                 <input
                                                                                     key={ind}
@@ -303,30 +307,97 @@ const Attendance = () => {
                                                                                         const inputValue = parseInt(e.target.value);
                                                                                         const staffId = staff._id;
                                                                                         if (inputValue > 59 || inputValue < 0) {
-                                                                                            setErrorMessagesMinute(prevState => ({
+                                                                                            setErrorMessagesKelganMinute(prevState => ({
                                                                                                 ...prevState,
                                                                                                 [staffId]: "Kiritilgan raqam 60 dan oshmasligi kerak"
                                                                                             }));
                                                                                         } else {
-                                                                                            setErrorMessagesMinute(prevState => ({
+                                                                                            setErrorMessagesKelganMinute(prevState => ({
                                                                                                 ...prevState,
                                                                                                 [staffId]: ''
                                                                                             }));
-                                                                                            setMinut(prevState => ({
+                                                                                            setKelganMinut(prevState => ({
                                                                                                 ...prevState,
                                                                                                 [staffId]: inputValue
                                                                                             }));
                                                                                         }
                                                                                     }}
-                                                                                    value={minut[staff._id] || ''}
+                                                                                    value={kelganMinut[staff._id] || ''}
                                                                                 />
-                                                                                {errorMessagesMinute[staff._id] && (
-                                                                                    <div style={{ color: 'red' }}>{errorMessagesMinute[staff._id]}</div>
+                                                                                {errorMessagesKelganMinute[staff._id] && (
+                                                                                    <div style={{ color: 'red' }}>{errorMessagesKelganMinute[staff._id]}</div>
                                                                                 )}
 
                                                                             </div>
                                                                         </div>
                                                                         <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                                                            <div className="input-group">
+                                                                                <input
+                                                                                    key={staff._id}
+                                                                                    type="number"
+                                                                                    className="form-control"
+                                                                                    placeholder="soat"
+                                                                                    style={{ marginRight: '10px' }}
+                                                                                    // onChange={e => handleInputChangeHour(e.target.value, staff._id)}
+                                                                                    onChange={e => {
+                                                                                        const inputValue = parseInt(e.target.value);
+                                                                                        const staffId = staff._id;
+                                                                                        if (inputValue > 24 || inputValue < 0) {
+                                                                                            setErrorMessagesKetganHour(prevState => ({
+                                                                                                ...prevState,
+                                                                                                [staffId]: "Kiritilgan raqam 24 dan oshmasligi kerak"
+                                                                                            }));
+                                                                                        } else {
+                                                                                            setErrorMessagesKetganHour(prevState => ({
+                                                                                                ...prevState,
+                                                                                                [staffId]: ''
+                                                                                            }));
+                                                                                            setKetganSoat(prevState => ({
+                                                                                                ...prevState,
+                                                                                                [staffId]: inputValue
+                                                                                            }));
+                                                                                        }
+                                                                                    }}
+                                                                                    value={ketganSoat[staff._id] || ''}
+                                                                                    required
+                                                                                />
+                                                                                {errorMessagesKetganHour[staff._id] && (
+                                                                                    <div style={{ color: 'red' }}>{errorMessagesKetganHour[staff._id]}</div>
+                                                                                )}
+                                                                                <input
+                                                                                    key={ind}
+                                                                                    type="number"
+                                                                                    className="form-control"
+                                                                                    placeholder="minut"
+                                                                                    // onChange={e => handleInputChangeMinut(e.target.value, staff._id)}
+                                                                                    onChange={e => {
+                                                                                        const inputValue = parseInt(e.target.value);
+                                                                                        const staffId = staff._id;
+                                                                                        if (inputValue > 59 || inputValue < 0) {
+                                                                                            setErrorMessagesKetganMinute(prevState => ({
+                                                                                                ...prevState,
+                                                                                                [staffId]: "Kiritilgan raqam 60 dan oshmasligi kerak"
+                                                                                            }));
+                                                                                        } else {
+                                                                                            setErrorMessagesKetganMinute(prevState => ({
+                                                                                                ...prevState,
+                                                                                                [staffId]: ''
+                                                                                            }));
+                                                                                            setKetganMinut(prevState => ({
+                                                                                                ...prevState,
+                                                                                                [staffId]: inputValue
+                                                                                            }));
+                                                                                        }
+                                                                                    }}
+                                                                                    value={ketganMinut[staff._id] || ''}
+                                                                                />
+                                                                                {errorMessagesKetganMinute[staff._id] && (
+                                                                                    <div style={{ color: 'red' }}>{errorMessagesKetganMinute[staff._id]}</div>
+                                                                                )}
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">
                                                                             <button
                                                                                 key={staff._id}
                                                                                 className={activeClass[staff._id] ? 'btn btn-success' : 'btn btn-danger'}
@@ -335,14 +406,8 @@ const Attendance = () => {
                                                                                 {
                                                                                     activeClass[staff._id] ? "Keldi" : "Kelmadi"
                                                                                 }
-
-
                                                                             </button>
-
-
                                                                         </div>
-
-
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -381,7 +446,7 @@ const Attendance = () => {
                                                             <div className="col-2 text-left">Familiya Ismi</div>
                                                             {currentItems.length > 0 && currentItems[0].dates.map((date, ind) => (
                                                                 <div key={ind} className="col text-left">{new Date(date.date).getDate()}</div>
-                                                            ))}                                                           
+                                                            ))}
 
                                                         </div>
                                                     </div>
@@ -393,11 +458,8 @@ const Attendance = () => {
                                                                 <div className="row align-items-center">
                                                                     <div className="col-2 text-left" style={{ fontWeight: "500" }}>{elem.name}</div>
                                                                     {elem.dates.map((date, index) => (
-                                                                        <div key={index} className="col"> {date.present ? <img src={CheckMark} style={{ width: "18px" }} alt="+" /> : <img src={XMark} style={{ width: "18px" }} alt="-" />} <br /> <span style={{ fontSize: "10px" }}>{date.timeOfArrival}</span></div>
+                                                                        <div key={index} className="col"> {date.present ? <img src={CheckMark} style={{ width: "18px" }} alt="+" /> : <img src={XMark} style={{ width: "18px" }} alt="-" />} <br /> <span style={{ fontSize: "10px" }}>{date.timeOfArrival}</span> <br /> <span style={{ fontSize: "10px" }}>{date.timeOfDeparture}</span></div>
                                                                     ))}
-
-
-
                                                                 </div>
                                                             </div>
                                                         </div>
