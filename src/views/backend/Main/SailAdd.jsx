@@ -6,18 +6,20 @@ import axios from 'axios';
 import { SALE_URL } from '../../../API';
 import "react-datepicker/dist/react-datepicker.css";
 import './ProductAdd.css'
+import addOrderLogo from '../../../assets/images/icon/additemaddButonLogo.svg'
 
 import { breadDataContext, customersDataContext, zakazBreadDataContext, sotuvBreadDataContext } from './ContextProvider/DataProvider';
 
 const SailAdd = () => {
     const [order, setOrder] = useState(''); // 
+    const [addInputOrder, setAddInputOrder] = useState([{ order: '', productQuantity: '', price: '' }]);
     const [productQuantity, setProductQuantity] = useState(0);
     const [customerType, setCustomerType] = useState('no'); // 
     const [customer, setCustomer] = useState(''); // 
     const [avans, setAvans] = useState(0);
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState([]);
     const [customerID, setCustomerID] = useState(0);
-    const [breadPrice, setBreadPrice] = useState(0);
+    const [breadPrice, setBreadPrice] = useState([]);
 
     // const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
     const [error, setError] = useState(false);
@@ -25,95 +27,84 @@ const SailAdd = () => {
 
     const breadList = useContext(breadDataContext);
     const customerList = useContext(customersDataContext);
-    const zakazBreadList = useContext(zakazBreadDataContext)
-    const sotuvBreadList = useContext(sotuvBreadDataContext)
-
-    // console.log(sotuvBreadList);
-    // console.log(zakazBreadList);
+    const zakazBreadList = useContext(zakazBreadDataContext);
+    const sotuvBreadList = useContext(sotuvBreadDataContext);
 
 
     function handleChange(e) {
         e.preventDefault();
-        if (sotuvBreadList.includes(order)) {
-            if (order.length === 0 || productQuantity.length === 0 || customer.length === 0 || customerType.length === 0 || price.length === 0) {
-                setError(true);
-                console.log("Err");
+        const newArrForPost = addInputOrder.map((elem) => {
+            return {
+                // ...elem,
+                name: elem.order,
+                quantity: elem.productQuantity,
+                price: elem.price
             }
-            if (order && productQuantity && customer && customerType && price) {
-                axios.post(SALE_URL, {
-                    order,
-                    productQuantity,
-                    customerType,
-                    customer,
-                    avans,
-                    price,
-                    customerID
+        });
 
-                })
-                    .then(res => {
-                        console.log("Data is saved", res)
-                        window.location.reload(history.push('/sale'));
-                        // history.push('/sale')
-                    })
-                    .catch(err => {
-                        console.log(err)
+        axios.post(SALE_URL, {
+            order: newArrForPost,
+            // productQuantity,
+            customerType,
+            customer,
+            avans,
+            price,
+            // customerID
+        })
+            .then(res => {
+                console.log("Data is saved", res)
+                window.location.reload(history.push('/sale'));
+                // history.push('/sale')
+            })
+            .catch(err => {
+                console.log(err)
 
-                    })
-            }
-        } else {
-            alert("Mahsulot sotuv bo'limidan topilmadi")
-        }
-
+            })
 
     }
 
 
 
-    const onChangeHandler = (e) => {
-        let currentBread = e.target.value
+    const onChangeHandler = (indx, field, val) => {
+        setOrder(val.target.value);
+        let currentBread = val.target.value
 
-        const index = e.target.selectedIndex;
-        const el = e.target.childNodes[index]
-        const selectedInd = e.target.options.selectedIndex;
-        const customAtrribute = e.target.options[selectedInd].getAttribute('customkey');
-        const option = el.getAttribute('id');
-        setCustomerID(option);
 
-        if (customerType === 'zakaz') {
-            let tempPrice = 0;
-            breadList.map(elem => {
-                if (elem.productName + customAtrribute === currentBread) {
-                    setBreadPrice(elem.productPrice);
-                    tempPrice = elem.productPrice
-                }
-            })
 
-            let tempQuantity = 0;
-
-            zakazBreadList.map(elem => {
-                if (elem._id === option) {
-                    setProductQuantity(elem.productQuantity);
-                    tempQuantity = elem.productQuantity
-                    setOrder(elem.order)
-                  
-
-                }
-            })
-            calculateOverallPrice(tempPrice, tempQuantity, avans)
-        } else {
-            setOrder(currentBread)
+        let newArr = [...addInputOrder]
+        newArr[indx][field] = currentBread;
+        if (field === "order") {
             breadList.map(elem => {
                 if (elem.productName === currentBread) {
+                    // setPrice(elem.productPrice);
+                    newArr[indx].price = elem.productPrice;
                     setBreadPrice(elem.productPrice);
+                    calculateOverallPrice(elem.productPrice, productQuantity, avans);
                 }
             })
-
         }
+        setAddInputOrder(newArr);
+
+
     }
 
-    const calculateOverallPrice = (productPriceInput, poductQuantityInput, productAvans) => {
-        setPrice((poductQuantityInput * productPriceInput) - productAvans);
+    const deleteInputs = (e) => {
+        e.preventDefault();
+        if (addInputOrder.length > 1) {
+            let newArray = [...addInputOrder];
+            newArray.pop();
+            setAddInputOrder(newArray);
+        }
+    };
+
+
+    const calculateOverallPrice = () => {
+        const overallPr = addInputOrder.reduce((acc, curOrder) => {
+            return acc + curOrder.price * curOrder.productQuantity
+        }, 0);
+        setPrice(overallPr);
     }
+
 
 
 
@@ -148,28 +139,76 @@ const SailAdd = () => {
                             <Card.Body>
                                 {error ? <p className='text-danger text-center font-weight-bold'>Ushbu qatorlarning barchasini to'ldirishingiz shart</p> : ''}
                                 <Row>
-                                    {/* <Col md="3" className="mb-3">
-                                        <Card.Body className="sailAddStyleCardBody mt-3 mx-auto">
-                                            <input type="file" className='sailAddStyleInput ' accept='image/png, image/jpg, image/jpeg' onChange={e => setUploadImage(e.target.files[0])} />
-                                            <div className="d-flex justify-content-center mt-4">
-                                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="50px" x="0px" y="0px" viewBox="0 0 419.2 419.2" style={{ enableBackground: "new 0 0 419.2 419.2" }} stroke="currentColor">
-                                                    <g>
-                                                        <g>
-                                                            <g>
-                                                                <circle cx="158" cy="144.4" r="28.8" />
-                                                                <path d="M394.4,250.4c-13.6-12.8-30.8-21.2-49.6-23.6V80.4c0-15.6-6.4-29.6-16.4-40C318,30,304,24,288.4,24h-232     c-15.6,0-29.6,6.4-40,16.4C6,50.8,0,64.8,0,80.4v184.4V282v37.2c0,15.6,6.4,29.6,16.4,40c10.4,10.4,24.4,16.4,40,16.4h224.4     c14.8,12,33.2,19.6,53.6,19.6c23.6,0,44.8-9.6,60-24.8c15.2-15.2,24.8-36.4,24.8-60C419.2,286.8,409.6,265.6,394.4,250.4z      M21.2,80.4c0-9.6,4-18.4,10.4-24.4c6.4-6.4,15.2-10.4,24.8-10.4h232c9.6,0,18.4,4,24.8,10.4c6.4,6.4,10.4,15.2,10.4,24.8v124.8     l-59.2-59.2c-4-4-10.8-4.4-15.2,0L160,236l-60.4-60.8c-4-4-10.8-4.4-15.2,0l-63.2,64V80.4z M56,355.2v-0.8     c-9.6,0-18.4-4-24.8-10.4c-6-6.4-10-15.2-10-24.8V282v-12.4L92,198.4l60.4,60.4c4,4,10.8,4,15.2,0l89.2-89.6l58.4,58.8     c-1.2,0.4-2.4,0.8-3.6,1.2c-1.6,0.4-3.2,0.8-5.2,1.6c-1.6,0.4-3.2,1.2-4.8,1.6c-1.2,0.4-2,0.8-3.2,1.6c-1.6,0.8-2.8,1.2-4,2     c-2,1.2-4,2.4-6,3.6c-1.2,0.8-2,1.2-3.2,2c-0.8,0.4-1.2,0.8-2,1.2c-3.6,2.4-6.8,5.2-9.6,8.4c-15.2,15.2-24.8,36.4-24.8,60     c0,6,0.8,11.6,2,17.6c0.4,1.6,0.8,2.8,1.2,4.4c1.2,4,2.4,8,4,12v0.4c1.6,3.2,3.2,6.8,5.2,9.6H56z M378.8,355.2     c-11.6,11.6-27.2,18.4-44.8,18.4c-16.8,0-32.4-6.8-43.6-17.6c-1.6-1.6-3.2-3.6-4.8-5.2c-1.2-1.2-2.4-2.8-3.6-4     c-1.6-2-2.8-4.4-4-6.8c-0.8-1.6-1.6-2.8-2.4-4.4c-0.8-2-1.6-4.4-2-6.8c-0.4-1.6-1.2-3.6-1.6-5.2c-0.8-4-1.2-8.4-1.2-12.8     c0-17.6,7.2-33.2,18.4-44.8c11.2-11.6,27.2-18.4,44.8-18.4s33.2,7.2,44.8,18.4c11.6,11.6,18.4,27.2,18.4,44.8     C397.2,328,390,343.6,378.8,355.2z" />
-                                                                <path d="M341.6,267.6c-0.8-0.8-2-1.6-3.6-2.4c-1.2-0.4-2.4-0.8-3.6-0.8c-0.4,0-0.4,0-0.4,0c-0.4,0-0.4,0-0.4,0     c-1.2,0-2.4,0.4-3.6,0.8c-1.2,0.4-2.4,1.2-3.6,2.4l-24.8,24.8c-4,4-4,10.8,0,15.2c4,4,10.8,4,15.2,0l6.4-6.4v44     c0,6,4.8,10.8,10.8,10.8s10.8-4.8,10.8-10.8v-44l6.4,6.4c4,4,10.8,4,15.2,0c4-4,4-10.8,0-15.2L341.6,267.6z" />
-                                                            </g>
-                                                        </g>
-                                                    </g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g>
-                                                </svg>
+                                    <Col md="6">
+                                        <Form className="row g-3 date-icon-set-modal">
+                                            {
+                                                addInputOrder.map((item, index) => {
+                                                    return <div className="col-md-12 mb-3" key={index}>
+                                                        <div className="row g-3">
+                                                            <div className="col-md-4 mb-3">
+                                                                <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Nonni tanlang</Form.Label>
+                                                                <select id="inputState" className="form-select form-control choicesjs" value={item.order} onChange={(e) => { onChangeHandler(index, 'order', e) }} >
+                                                                    <option defaultValue="no">Nonlar ro'yxati</option>
+                                                                    {
+                                                                        customerType === "zakaz" ? (
+                                                                            zakazBreadList.map((bread, ind) => {
+                                                                                // console.log(bread)
+                                                                                return bread.customer === customer && <option id={bread._id} key={ind} value={bread.order}>{bread.order}</option>
+                                                                            })
+
+                                                                        ) : customerType !== "no" ? (
+                                                                            sotuvBreadList.map((bread, ind) => {
+                                                                                return <option key={ind} value={bread}>{bread}</option>
+                                                                            })
+                                                                        ) : null
+                                                                    }
+                                                                </select>
+                                                            </div>
+
+                                                            <div className="col-md-4 mb-3">
+                                                                <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Soni</Form.Label>
+                                                                <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." value={item.productQuantity} onChange={e => {
+                                                                    onChangeHandler(index, 'productQuantity', e);
+                                                                    setProductQuantity(Number(e.target.value))
+                                                                    calculateOverallPrice(breadPrice, Number(e.target.value), avans)
+                                                                }} />
+                                                            </div>
+
+                                                            <div className="col-md-4 mb-3">
+                                                                <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Narhi</Form.Label>
+                                                                <Form.Control type="number" id="Text5" placeholder="Non narhi..." value={item.price} onChange={e => {
+                                                                    onChangeHandler(index, 'price', e);
+                                                                    setBreadPrice(Number(e.target.value))
+                                                                    calculateOverallPrice(Number(e.target.value), productQuantity, avans)
+                                                                }} />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                })
+                                            }
+
+                                            <div className="col-md-12 mb-5">
+                                                <div className="button-group-order">
+                                                    <button className='btn btn-primary order-button order-button-first' onClick={(e) => {
+                                                        e.preventDefault()
+                                                        setAddInputOrder([...addInputOrder, { order: '', productQuantity: '', price: '' }])
+                                                        setOrder('no')
+                                                    }}>
+                                                        <img src={addOrderLogo} className='mr-2' />
+                                                        Non qo'shish
+                                                    </button>
+                                                    <button className='btn btn-danger order-button' onClick={deleteInputs}>
+                                                        <img src={addOrderLogo} className='mr-2' />
+                                                        Nonni o'chirish
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <div className="d-flex justify-content-center mt-2 mb-5">
-                                                <p className="mb-0 text-muted font-weight-bold">Rasm yuklash</p>
-                                            </div>
-                                        </Card.Body>
-                                    </Col> */}
-                                    <Col md="12">
+
+                                        </Form>
+
+                                    </Col>
+
+                                    <Col md="6">
                                         <Form className="row g-3 date-icon-set-modal">
                                             <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Mijozni tanlang</Form.Label>
@@ -213,72 +252,28 @@ const SailAdd = () => {
                                             }
 
                                             <div className="col-md-6 mb-3">
-                                                <Form.Label htmlFor="inputState" className="form-label font-weight-bold text-muted text-uppercase">Nonni tanlang</Form.Label>
-                                                <select id="inputState" className="form-select form-control choicesjs" onChange={onChangeHandler} >
-                                                    <option defaultValue="no">Nonlar ro'yxati</option>
-                                                    {
-                                                        customerType === "zakaz" ? (
-                                                            zakazBreadList.map((bread, ind) => {
-                                                                // console.log(bread)
-                                                                return bread.customer === customer && <option id={bread._id} key={ind} customkey={ind} value={bread.order + ind}>{bread.order}</option>
-                                                            })
-
-                                                        ) : customerType !== "no" ? (
-                                                            sotuvBreadList.map((bread, ind) => {
-                                                                return <option key={ind} value={bread}>{bread}</option>
-                                                            })
-                                                        ) : null
-                                                    }
-                                                    {/* {
-                                                       breadList && breadList.map((bread, ind) => {
-                                                            return <option key={ind} value={bread.productName}>{bread.productName}</option>
-                                                        })
-                                                    } */}
-                                                </select>
-                                            </div>
-
-                                            <div className="col-md-6 mb-3">
-                                                <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Berayotgan Non narhi</Form.Label>
-                                                <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." value={breadPrice} onChange={e => {
-                                                    setBreadPrice(Number(e.target.value))
-                                                    calculateOverallPrice(Number(e.target.value), productQuantity, avans)
-                                                }} />
-                                            </div>
-
-                                            <div className="col-md-6 mb-3">
-                                                <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Berayotgan Non soni</Form.Label>
-                                                <Form.Control type="number" id="Text5" placeholder="Nechta non berdingiz..." value={productQuantity} onChange={e => {
-                                                    setProductQuantity(Number(e.target.value))
-                                                    calculateOverallPrice(breadPrice, Number(e.target.value), avans)                                                   
-                                                }} />
-                                            </div>
-
-                                            <div className="col-md-6 mb-3">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Avans</Form.Label>
                                                 <Form.Control type="text" id="Text1" value={avans} onChange={e => {
                                                     setAvans(Number(e.target.value))
                                                     calculateOverallPrice(breadPrice, productQuantity, Number(e.target.value))
                                                 }} required='required' />
                                             </div>
-                                            <div className="col-md-6 mb-3 position-relative">
-                                                <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Jami</Form.Label>
+                                            <div className="col-md-12 mb-3 position-relative">
+                                                <Form.Label htmlFor="Text1" className="font-weight-bold text-uppercase">Jami Non narhi</Form.Label>
                                                 <Form.Control type="text" id="Text1" placeholder="Jami pul..." value={price} onChange={e => setPrice(Number(e.target.value))} required='required' />
                                             </div>
 
-
-
                                         </Form>
-                                        <div className="text-right mt-4">
-                                            <Link to="/sail" className='btn myButtonSails qushishSail' type="button" onClick={handleChange}>
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                                </svg>
-                                                Taqsimlash
-                                            </Link>
-                                        </div>
-
                                     </Col>
                                 </Row>
+                                <div className="mt-4" style={{ textAlign: "right" }}>
+                                    <Link to="/sail" className='btn myButtonSails qushishSail' type="button" onClick={handleChange}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                        </svg>
+                                        Taqsimlash
+                                    </Link>
+                                </div>
                             </Card.Body>
                         </Card>
                     </Col>

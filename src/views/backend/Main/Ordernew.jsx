@@ -88,7 +88,7 @@ const Ordernew = () => {
         }
     }
 
-    function onChangeHandler(indx, field, val) {
+    function onChangeHandler(indx, field, val) {      
         setOrder(val)
         let newArr = [...addInputOrder]
         newArr[indx][field] = val;
@@ -101,7 +101,6 @@ const Ordernew = () => {
                 }
             })
         }
-        console.log(newArr);
         setAddInputOrder(newArr);
 
     }
@@ -150,38 +149,7 @@ const Ordernew = () => {
                                 <Row>
 
                                     <Col md="6">
-                                        <Form className="row g-3 date-icon-set-modal myStyleCustomerAdd">
-                                            {/* <div className="col-md-12 mb-3">
-                                                <div className="row g-3">
-                                                    <div className="col-md-4 mb-3">
-                                                        <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Nonni tanlang</Form.Label>
-                                                        <select id="Text1" className="form-select form-control choicesjs" onChange={onChangeHandler}>
-                                                           
-                                                            <option value="no">Nonlar ro'yxati</option>
-                                                            {
-                                                                breadList.map((bread, ind) => {
-                                                                    return <option key={ind} value={bread.productName}>{bread.productName}</option>
-                                                                })
-                                                            }
-                                                        </select>
-                                                    </div>
-                                                    <div className="col-md-4 mb-3">
-                                                        <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Soni</Form.Label>
-                                                        <Form.Control type="number" id="Text3" placeholder="Sonini kiriting..." onChange={e => {
-                                                            setProductQuantity(e.target.value)
-                                                            calculateOverallPrice(price, e.target.value)
-                                                        }} />
-                                                    </div>
-                                                    <div className="col-md-4 mb-3">
-                                                        <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Narxi</Form.Label>
-                                                        <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." value={price} onChange={e => {
-                                                            setPrice(e.target.value)
-                                                            calculateOverallPrice(e.target.value, productQuantity)
-                                                        }} />
-                                                    </div>
-                                                </div>
-                                            </div> */}
-
+                                        <Form className="row g-3 date-icon-set-modal myStyleCustomerAdd">    
                                             {
                                                 addInputOrder.map((item, index) => {
                                                     return <div className="col-md-12 mb-3" key={index}>
