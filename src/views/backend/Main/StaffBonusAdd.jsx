@@ -43,22 +43,18 @@ const StaffBonusAdd = () => {
 
     function handleSave(e) {
         e.preventDefault();
-        if (idSelectedStaff && sanaKun && sanaOy && sanaYil && selectedColor) {            
-            // const newObj = {
-            //     fine: selectedColor,
-            //     date: sanaKun + " " + sanaOy + " " + sanaYil,
-            //     description: info
-            // }
-            // axios.post(STAFF_URL, {
-            //     id: idSelectedStaff,
-            //     fines:newObj  
-            // })
-            //     .then(res => {
-            //         console.log("Data is saved", res);
-            //         setShowModal(false);
+        if (idSelectedStaff && sanaKun && sanaOy && sanaYil && selectedColor) {          
+            axios.post(`${STAFF_URL}/fines/${idSelectedStaff}`, {
+                fine: selectedColor,
+                date: sanaYil + "-" + sanaOy + "-" + sanaKun,
+                description: info
+            })
+                .then(res => {
+                    console.log("Data is saved", res);
+                    setShowModal(false);
 
-            //     })
-            //     .catch(err => console.log(err))
+                })
+                .catch(err => console.log(err))
         }
     }
 
@@ -98,18 +94,18 @@ const StaffBonusAdd = () => {
                                             <Form.Control type="number" id="Text5" placeholder="Kun..." style={{ width: '10%', marginRight: '8px' }} onChange={e => setSanaKun(e.target.value)} />
                                             <select value={sanaOy} id="inputState" className="form-select form-control choicesjs" onChange={e => setSanaOy(e.target.value)}>
                                                 <option value="" disabled selected>Oy...</option>
-                                                <option value="Yanvar">Yanvar</option>
-                                                <option value="Fevral">Fevral</option>
-                                                <option value="Mart">Mart</option>
-                                                <option value="Aprel">Aprel</option>
-                                                <option value="May">May</option>
-                                                <option value="Iyun">Iyun</option>
-                                                <option value="Iyul">Iyul</option>
-                                                <option value="Avgust">Avgust</option>
-                                                <option value="Sentyabr">Sentyabr</option>
-                                                <option value="Octyabr">Octyabr</option>
-                                                <option value="Noyabr">Noyabr</option>
-                                                <option value="Dekabr">Dekabr</option>
+                                                <option value="1">Yanvar</option>
+                                                <option value="2">Fevral</option>
+                                                <option value="3">Mart</option>
+                                                <option value="4">Aprel</option>
+                                                <option value="5">May</option>
+                                                <option value="6">Iyun</option>
+                                                <option value="7">Iyul</option>
+                                                <option value="8">Avgust</option>
+                                                <option value="9">Sentyabr</option>
+                                                <option value="10">Octyabr</option>
+                                                <option value="11">Noyabr</option>
+                                                <option value="12">Dekabr</option>
                                             </select>
                                             <Form.Control type="number" id="Text5" placeholder="Yil..." style={{ width: '10%', marginLeft: '8px' }} value={sanaYil} onChange={e => setSanaYil(e.target.value)} />
                                         </div>
