@@ -12,17 +12,18 @@ import { breadDataContext, customersDataContext, zakazBreadDataContext, sotuvBre
 
 const SailAdd = () => {
     const [order, setOrder] = useState(''); // 
-    const [addInputOrder, setAddInputOrder] = useState([{ order: '', productQuantity: '', price: '' }]);
+    const [addInputOrder, setAddInputOrder] = useState([{ order: '', productQuantity: '', price: '', customerID: ""}]);
     const [productQuantity, setProductQuantity] = useState(0);
     const [customerType, setCustomerType] = useState('no'); // 
     const [customer, setCustomer] = useState(''); // 
     const [avans, setAvans] = useState(0);
     const [price, setPrice] = useState([]);
-    const [customerID, setCustomerID] = useState(0);
+    // const [customerID, setCustomerID] = useState(0);
     const [breadPrice, setBreadPrice] = useState([]);
 
     // const [uploadImage, setUploadImage] = useState(); // Manashu rasm console logga kelyabdi uni endi saqlashim kerak!!!!
     const [error, setError] = useState(false);
+    const [breadNotIncluded, setBreadNotIncluded] = useState(false);
     const history = useHistory()
 
     const breadList = useContext(breadDataContext);
@@ -30,36 +31,56 @@ const SailAdd = () => {
     const zakazBreadList = useContext(zakazBreadDataContext);
     const sotuvBreadList = useContext(sotuvBreadDataContext);
 
+    
 
     function handleChange(e) {
         e.preventDefault();
-        const newArrForPost = addInputOrder.map((elem) => {
+        
+        
+        const newArrForPost = addInputOrder.map((elem) => {            
+            // Check if the order is included in sotuvBreadList
+            const isOrderIncluded = sotuvBreadList.some(bread =>bread === elem.order);
+            if (!isOrderIncluded) {
+                setBreadNotIncluded(true); // Set the error state to true
+                return null; // Return null for this element, indicating it's invalid
+            }
+        
             return {
-                // ...elem,
                 name: elem.order,
                 quantity: elem.productQuantity,
-                price: elem.price
-            }
-        });
-
-        axios.post(SALE_URL, {
-            order: newArrForPost,
-            // productQuantity,
-            customerType,
-            customer,
-            avans,
-            price,
-            // customerID
-        })
-            .then(res => {
-                console.log("Data is saved", res)
-                window.location.reload(history.push('/sale'));
-                // history.push('/sale')
+                price: elem.price,
+                customerID: elem.customerID
+            };
+        }).filter(elem => elem !== null); // Filter out the null elements
+    
+        if (newArrForPost.length === 0) {
+            console.log("Order not included in sotuvBreadList");
+            return; // Don't proceed if no valid elements
+        } else {
+            axios.post(SALE_URL, {
+                order: newArrForPost,
+                customerType,
+                customer,
+                avans,
+                price
             })
-            .catch(err => {
-                console.log(err)
+                .then(res => {
+                    console.log("Data is saved", res)
+                    window.location.reload(history.push('/sale'));
+                    // history.push('/sale')
+                })
+                .catch(err => {
+                    console.log(err)
+    
+                })
+        }
+        
+        
 
-            })
+
+        
+        
+        
 
     }
 
@@ -74,14 +95,23 @@ const SailAdd = () => {
         let newArr = [...addInputOrder]
         newArr[indx][field] = currentBread;
         if (field === "order") {
+            
             breadList.map(elem => {
                 if (elem.productName === currentBread) {
                     // setPrice(elem.productPrice);
-                    newArr[indx].price = elem.productPrice;
+                    newArr[indx].price = elem.productPrice;                   
                     setBreadPrice(elem.productPrice);
                     calculateOverallPrice(elem.productPrice, productQuantity, avans);
                 }
             })
+
+            if(customerType === "zakaz") {
+                zakazBreadList.map(elem => {
+                    if(elem.order === currentBread) {
+                        newArr[indx].customerID = elem._id;                                           
+                    }
+                })
+            }
         }
         setAddInputOrder(newArr);
 
@@ -137,7 +167,7 @@ const SailAdd = () => {
                     <Col lg="12">
                         <Card>
                             <Card.Body>
-                                {error ? <p className='text-danger text-center font-weight-bold'>Ushbu qatorlarning barchasini to'ldirishingiz shart</p> : ''}
+                                {breadNotIncluded ? <p className='text-danger text-center font-weight-bold'>Sotuv bo'limidan Non topilmadi</p> : ''}
                                 <Row>
                                     <Col md="6">
                                         <Form className="row g-3 date-icon-set-modal">
