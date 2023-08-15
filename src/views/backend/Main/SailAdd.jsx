@@ -37,43 +37,84 @@ const SailAdd = () => {
         e.preventDefault();
         
         
-        const newArrForPost = addInputOrder.map((elem) => {            
-            // Check if the order is included in sotuvBreadList
-            const isOrderIncluded = sotuvBreadList.some(bread =>bread === elem.order);
-            if (!isOrderIncluded) {
-                setBreadNotIncluded(true); // Set the error state to true
-                return null; // Return null for this element, indicating it's invalid
-            }
-        
+        const isValid = addInputOrder.every(elem => {
+            const isOrderIncluded = sotuvBreadList.some(bread => bread === elem.order);
+            return isOrderIncluded;
+        });
+
+        if (!isValid) {
+            console.log("At least one order is not included in sotuvBreadList");
+            setBreadNotIncluded(true);
+            return;
+        }
+
+        const newArrForPost = addInputOrder.map((elem) => {
             return {
                 name: elem.order,
                 quantity: elem.productQuantity,
                 price: elem.price,
                 customerID: elem.customerID
             };
-        }).filter(elem => elem !== null); // Filter out the null elements
-    
-        if (newArrForPost.length === 0) {
-            console.log("Order not included in sotuvBreadList");
-            return; // Don't proceed if no valid elements
-        } else {
-            axios.post(SALE_URL, {
-                order: newArrForPost,
-                customerType,
-                customer,
-                avans,
-                price
+        });
+
+
+      
+
+
+        axios.post(SALE_URL, {
+            order: newArrForPost,
+            customerType,
+            customer,
+            avans,
+            price
+        })
+            .then(res => {
+                console.log("Data is saved", res)
+                window.location.reload(history.push('/sale'));
+                // history.push('/sale')
             })
-                .then(res => {
-                    console.log("Data is saved", res)
-                    window.location.reload(history.push('/sale'));
-                    // history.push('/sale')
-                })
-                .catch(err => {
-                    console.log(err)
+            .catch(err => {
+                console.log(err)
+
+            })
+
+        // const newArrForPost = addInputOrder.map((elem) => {            
+        //     // Check if the order is included in sotuvBreadList
+        //     const isOrderIncluded = sotuvBreadList.some(bread =>bread === elem.order);
+        //     if (!isOrderIncluded) {
+        //         setBreadNotIncluded(true); // Set the error state to true
+        //         return null; // Return null for this element, indicating it's invalid
+        //     }
+        
+        //     return {
+        //         name: elem.order,
+        //         quantity: elem.productQuantity,
+        //         price: elem.price,
+        //         customerID: elem.customerID
+        //     };
+        // }).filter(elem => elem !== null); // Filter out the null elements
     
-                })
-        }
+        // if (newArrForPost.length === 0) {
+        //     console.log("Order not included in sotuvBreadList");
+        //     return; // Don't proceed if no valid elements
+        // } else {
+        //     axios.post(SALE_URL, {
+        //         order: newArrForPost,
+        //         customerType,
+        //         customer,
+        //         avans,
+        //         price
+        //     })
+        //         .then(res => {
+        //             console.log("Data is saved", res)
+        //             window.location.reload(history.push('/sale'));
+        //             // history.push('/sale')
+        //         })
+        //         .catch(err => {
+        //             console.log(err)
+    
+        //         })
+        // }
         
         
 
