@@ -51,7 +51,7 @@ const SailAdd = () => {
         const newArrForPost = addInputOrder.map((elem) => {
             return {
                 name: elem.order,
-                quantity: elem.productQuantity,
+                quantity: Number(elem.productQuantity),
                 price: elem.price,
                 customerID: elem.customerID
             };
@@ -63,7 +63,7 @@ const SailAdd = () => {
 
         axios.post(SALE_URL, {
             order: newArrForPost,
-            customerType,
+            customerType: customerType,
             customer,
             avans,
             price
