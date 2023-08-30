@@ -99,7 +99,6 @@ const Attendance = () => {
         axios.get(`${base_URL}/attandance?startDate=${year + "-" + month + "-" + day}&endDate=${year + "-" + (month + 1) + "-" + (day * 1 + 1)}`)
 
             .then(({ data: receivedDT }) => {
-                // console.log(year + "-" + month + "-" + day);
                 const mergedData = receivedDT.reduce((result, obj) => {
                     const name = `${obj.lastName} ${obj.firstName}`;
                     const existingObj = result.find(item => item.name === name);

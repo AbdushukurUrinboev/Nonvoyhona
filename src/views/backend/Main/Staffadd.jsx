@@ -32,6 +32,7 @@ const Staffadd = () => {
     const [birthdayMonth, setBirthdayMonth] = useState('');
     const [birthdayYear, setBirthdayYear] = useState(0);
     const [phonecodeBoshqa, setPhonecodeBoshqa] = useState(false);
+    const [typeOfWorkerBoshqa, setTypeOfWorkerBoshqa] = useState(false);
     const [phonecodeBoshqa2, setPhonecodeBoshqa2] = useState(false);
     const [responsibility, setResponsibility] = useState('');
 
@@ -41,7 +42,7 @@ const Staffadd = () => {
 
     const history = useHistory()
 
-    console.log(gender);
+
 
 
     function handleChange(e) {
@@ -82,6 +83,16 @@ const Staffadd = () => {
             setPhonecodeBoshqa(true)
         } else {
             setPhonecodeBoshqa(false)
+        }
+
+    }
+
+    const handleTypeOfWorker = (e) => {
+        setTypeOfWorker(e.target.value);
+        if (e.target.value === "other") {
+            setTypeOfWorkerBoshqa(true)
+        } else {
+            setTypeOfWorkerBoshqa(false)
         }
 
     }
@@ -171,10 +182,33 @@ const Staffadd = () => {
                                             <div className="col-md-6 mb-3 position-relative">
                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Familiya</Form.Label>
                                                 <Form.Control type="text" id="Text1" placeholder="Familiyani kiriting..." onChange={e => setLastName((e.target.value).split(" ").join(""))} required='required' />
-                                            </div>
+                                            </div>      
                                             <div className="col-md-6 mb-3">
-                                                <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Lavozimi</Form.Label>
-                                                <Form.Control type="text" id="Text3" placeholder="Lavozimini kiriting..." required='required' onChange={e => setTypeOfWorker(e.target.value)} />
+                                                <Form.Label htmlFor="Text5" className="font-weight-bold text-muted text-uppercase">Lavozimi</Form.Label>
+                                                <div className='input-group'>
+                                                    {
+                                                        typeOfWorkerBoshqa ? (
+                                                            <Form.Control type="text" id="Text5"  onChange={e => setTypeOfWorker(e.target.value)} />
+
+                                                        ) : (
+                                                            <select value={typeOfWorker} id="inputState" className="form-select form-control choicesjs" onChange={handleTypeOfWorker}>
+                                                                <option value="Sotuvchi">Sotuvchi</option>
+                                                                <option value="Smena boshligi">Smena boshlig'i</option>
+                                                                <option value="Shogird">Shogird</option>
+                                                                <option value="Xamirkash">Xamirkash</option>
+                                                                <option value="Parkash">Parkash</option>
+                                                                <option value="Rahbar">Rahbar</option>
+                                                                <option value="Xodim">Xodim</option>
+                                                                <option value="Nonpaz">Nonpaz</option>
+                                                                <option value="Taminotchi">Ta'minotchi</option>
+                                                                <option value="Ish boshqaruvchi">Ish boshqaruvchi</option>
+                                                                <option value="Kompyuterchi">Kompyuterchi</option>
+                                                                <option value="Buhgalter">Buhgalter</option>
+                                                                <option value="other">Boshqa</option>
+                                                            </select>
+                                                        )
+                                                    }                                                    
+                                                </div>
                                             </div>
 
                                             <div className="col-md-6 mb-3">
@@ -283,9 +317,9 @@ const Staffadd = () => {
                                                 <Form.Control type="text" id="Text7" placeholder="Xodimning qancha oylik olishini kiriting..." onChange={e => { setSalary(e.target.value) }} />
                                             </div>
 
-                                            <div className="col-md-6 mb-3 form-group">                                               
+                                            <div className="col-md-6 mb-3 form-group">
                                                 <Form.Label htmlFor="TextArea" className="font-weight-bold text-muted text-uppercase">Vazifasi</Form.Label>
-                                                <textarea class="form-control" id="TextArea" placeholder="Xodimning vazifasini kiriting..." rows="3" onChange={e => { setResponsibility(e.target.value) }} />
+                                                <textarea className="form-control" id="TextArea" placeholder="Xodimning vazifasini kiriting..." rows="3" onChange={e => { setResponsibility(e.target.value) }} />
                                             </div>
 
                                             <div className="col-md-12 mb-3">
