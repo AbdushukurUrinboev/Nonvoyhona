@@ -47,10 +47,10 @@ const Staffadd = () => {
 
     function handleChange(e) {
         e.preventDefault();
-        if (firstName.length === 0 || lastName.length === 0 || gender.length === 0 || phone.length === 0 || phone2.length === 0 || typeOfWorker.length === 0 || adress.length === 0 || group.length === 0 || smena.length === 0 || salary.length === 0 || birthdayDay.length === 0 || birthdayMonth.length === 0 || birthdayYear.length === 0) {
+        if (firstName.length === 0 || lastName.length === 0 || gender.length === 0 || phone.length === 0 || phone2.length === 0 || adress.length === 0 || group.length === 0 || smena.length === 0 || salary.length === 0 || birthdayDay.length === 0 || birthdayMonth.length === 0 || birthdayYear.length === 0) {
             setError(true)
         }
-        if (firstName && lastName && gender && phone && phone2 && typeOfWorker && adress && group && smena && salary && birthdayDay && birthdayMonth && birthdayYear) {
+        if (firstName && lastName && gender && phone && phone2 && adress && group && smena && salary && birthdayDay && birthdayMonth && birthdayYear) {
             const fd = new FormData()
             fd.append('firstName', firstName)
             fd.append('lastName', lastName)
