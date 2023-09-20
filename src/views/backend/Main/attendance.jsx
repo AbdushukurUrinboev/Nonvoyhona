@@ -29,6 +29,7 @@ import './attandance.css'
 
 const Attendance = () => {
     const [attendance, setAttendance] = useState([]);
+    const [allFetchedDates, setAllFetchedDates] = useState([]);
     const [attendanceGet, setAttendanceGet] = useState([]);
     const [filterVal, setFilterVal] = useState('');
     const [activeClass, setActiveClass] = useState({});
@@ -113,8 +114,11 @@ const Attendance = () => {
                     }
 
                     return result;
-                }, []).sort((a, b) => a.name > b.name ? 1 : -1);
-                setAttendance(mergedData);
+                }, []);
+                // ;
+                setAllFetchedDates(mergedData[0]);
+                console.log(mergedData[1]);
+                setAttendance(mergedData.sort((a, b) => a.name > b.name ? 1 : -1));
             })
     }, [])
 
@@ -454,26 +458,32 @@ const Attendance = () => {
                                                     <div className="container-fluid">
                                                         <div className="row align-items-center myHeaderStaffStyle my-attendance-style">
                                                             <div className="col-2 text-left">Familiya Ismi</div>
-                                                            {currentItems.length > 0 && currentItems[0].dates.map((date, ind) => (
-                                                                <div key={ind} className="col text-left">{new Date(date.date).getDate()}</div>
+                                                            {currentItems.length > 0 && allFetchedDates.dates.map((date, ind) => (
+                                                                <div key={ind} className="col text-left">{new Date(date.date).getUTCDate()}</div>
                                                             ))}
 
                                                         </div>
                                                     </div>
                                                 </div>
                                                 {
-                                                    currentItems.length > 0 && currentItems.map((elem, ind) => (
+                                                    currentItems.length > 0 && currentItems.map((elem, ind) => {
+                                                        const xArray = Array.from(Array(allFetchedDates.dates.length - elem.dates.length).keys());
+                                                        return (
                                                         <div key={ind} className="p-2 border myStyleStaff ownStyleStaff">
                                                             <div className="container-fluid">
                                                                 <div className="row align-items-center">
                                                                     <div className="col-2 text-left" style={{ fontWeight: "500" }}>{elem.name}</div>
+                                                                    {xArray.map((date, index) => (
+                                                                        <div key={index} className="col"> <img src={XMark} style={{ width: "18px" }} alt="+" /> <br /> <span style={{ fontSize: "10px" }}>{date.timeOfArrival}</span> <br /> <span style={{ fontSize: "10px" }}>{date.timeOfDeparture}</span></div>
+                                                                    ))}
                                                                     {elem.dates.map((date, index) => (
                                                                         <div key={index} className="col"> {date.present ? <img src={CheckMark} style={{ width: "18px" }} alt="+" /> : <img src={XMark} style={{ width: "18px" }} alt="-" />} <br /> <span style={{ fontSize: "10px" }}>{date.timeOfArrival}</span> <br /> <span style={{ fontSize: "10px" }}>{date.timeOfDeparture}</span></div>
                                                                     ))}
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    ))
+                                                        )
+                                                    })
                                                 }
                                             </div>
                                             {/* Pagination Page */}
