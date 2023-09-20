@@ -6,9 +6,14 @@ import { connect } from "react-redux";
 import { getDarkMode } from '../../../../store/mode'
 
 //img
-import logoDash from '../../../../../src/assets/images/bread/logoDash.png'
+import logoDash from '../../../../../src/assets/images/bread/logoDash.png';
 
-import userAttendance from '../../../../../src/assets/images/icon/useAttended.svg'
+import userAttendance from '../../../../../src/assets/images/icon/useAttended.svg';
+import queue from '../../../../../src/assets/images/icon/queue.svg';
+
+
+
+
 
 function mapStateToProps(state) {
     return {
@@ -203,6 +208,15 @@ const SidebarStyle = (props) => {
                                         <img src={userAttendance} />
                                     </i>
                                     <span className="ml-2">Davomat</span>
+                                </Link>
+                            </li>
+
+                            <li className={`${location.pathname === '/navbatchilik' ? 'active' : ''}  sidebar-layout`} >
+                                <Link to="/navbatchilik" className="svg-icon">
+                                    <i className="">                                        
+                                        <img src={queue} />
+                                    </i>
+                                    <span className="ml-2">Navbatchilik</span>
                                 </Link>
                             </li>
 

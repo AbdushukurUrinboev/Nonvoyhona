@@ -58,6 +58,11 @@ import CalculateEdit from '../views/backend/Main/CalculateEdit';
 import KunlikIsh from '../views/backend/Main/KunlikIsh';
 import KunlikIshadd from '../views/backend/Main/KunlikIshadd';
 
+//Navbatchilik
+import Navbatchilik from '../views/backend/Main/Navbatchilik';
+
+
+
 
 //App
 import UserProfile from '../views/backend/App/UserManagement/UserProfile'
@@ -189,6 +194,9 @@ const Layout1Route = () => {
                           <PrivateRoute path="/xamkor/:id" exact component={XamkorView} />
                           <PrivateRoute path="/xamkorlar-add" exact component={XamkorlarAdd} />
                           <PrivateRoute path="/xamkor-edit/:id" exact component={XamkorEdit} />
+                          
+                          {/* Navbatchilik */}
+                          <PrivateRoute path="/navbatchilik" exact component={Navbatchilik} />
 
                           {/* Attendance */}
                           <PrivateRoute path="/attendance/" exact component={Attendance} />
