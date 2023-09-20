@@ -122,11 +122,11 @@ const Calculate = () => {
                             window.location.reload(history.push('/sale'));
                             // history.push('/sale')
                         }
+                        setIsSaving(false);
                     })
                     .catch(err => console.log(err))
 
 
-                setIsSaving(false);
             }, 4000)
 
         }

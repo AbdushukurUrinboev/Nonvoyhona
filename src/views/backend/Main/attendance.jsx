@@ -117,7 +117,6 @@ const Attendance = () => {
                 }, []);
                 // ;
                 setAllFetchedDates(mergedData[0]);
-                console.log(mergedData[1]);
                 setAttendance(mergedData.sort((a, b) => a.name > b.name ? 1 : -1));
             })
     }, [])
