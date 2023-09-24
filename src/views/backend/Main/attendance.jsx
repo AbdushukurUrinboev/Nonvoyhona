@@ -117,7 +117,7 @@ const Attendance = () => {
                 }, []);
                 // ;
                 setAllFetchedDates(mergedData[0]);
-                setAttendance(mergedData.sort((a, b) => a.name > b.name ? 1 : -1));
+                setAttendance(mergedData);
             })
     }, [])
 
@@ -266,9 +266,7 @@ const Attendance = () => {
                                                     </div>
                                                 </div>
                                                 {
-                                                    attendanceGet
-                                                        .sort((a, b) => a.lastName.localeCompare(b.lastName))
-                                                        .map((staff, ind) => (
+                                                    attendanceGet.map((staff, ind) => (
                                                             <div key={ind} className="p-2 border myStyleStaff ownStyleStaff">
                                                                 <div className="container">
                                                                     <div className="row align-items-center">
