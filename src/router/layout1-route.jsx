@@ -200,6 +200,10 @@ const Layout1Route = () => {
 
                           {/* Attendance */}
                           <PrivateRoute path="/attendance/" exact component={Attendance} />
+
+                          {/* Calendar */}
+                          <PrivateRoute path="/calendar/" exact component={Calendar} />
+
                           {/* Redirect to login page when doesnt match any routes */}
                           <Route render={() => <Redirect to="/auth/sign-in" />} />
 

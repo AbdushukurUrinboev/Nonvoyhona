@@ -41,16 +41,23 @@ const Calendar =()=>{
                             <FullCalendar plugins={[ dayGridPlugin ]} initialView="dayGridMonth"
                             
                             events={[
-                                { title: '5:30a Birthday Party', date: '2021-08-01' },
-                                { title: '5:30a Birthday Party', date: '2021-08-04' },
-                                {title:'5:30a Doctor Meeting',date: '2021-08-06'},
-                                {title:'5:30a Meeting',date: '2021-08-06'},
-                                {title:'6:30a Click for Google',date: '2021-08-06'},
-                                {title:'7:30a Repeating Event',date: '2021-08-06'},
-                                {title:'8:30a Birthday Party',date: '2021-08-06'},
-                                {title:'5:30a Repeating Event',date: '2021-08-16'},
-                                {title:'5:30a All Day Event',date: '2021-08-7'},
-                                {title:'5:30a Repeating Event',date: '2021-08-14'}
+                                { title: '5:30a Birthday Party', date: '2023-09-01' },
+                                { title: '5:30a Birthday Party', date: '2023-09-04' },
+                                {title:'5:30a Doctor Meeting',date: '2023-09-06'},
+                                {title:'5:30a Meeting',date: '2024-09-06'},
+                                {title:'6:30a Click for Google',date: '2023-09-06'},
+                                {title:'7:30a Repeating Event',date: '2023-09-06'},
+                                {title:'8:30a Birthday Party',date: '2023-09-06'},
+                                {title:'8:30a Birthday Party',date: '2023-09-06'},
+                                {title:'8:30a Birthday Party',date: '2023-09-06'},
+                                {title:'8:30a Birthday Party',date: '2023-09-06'},
+                                {title:'8:30a Birthday Party',date: '2023-09-06'},
+                                {title:'8:30a Birthday Party',date: '2023-09-06'},
+                                {title:'8:30a Birthday Party',date: '2023-09-06'},
+                                {title:'8:30a Birthday Party',date: '2023-09-06'},
+                                {title:'5:30a Repeating Event',date: '2023-09-16'},
+                                {title:'5:30a All Day Event',date: '2023-09-7'},
+                                {title:'5:30a Repeating Event',date: '2023-09-14'}
                         
                               ]}
                             />
