@@ -52,7 +52,7 @@ const Calculate = () => {
     const [breadInfo, setBreadInfo] = useState({})
 
     const [choosenStaff, setChoosenStaff] = useState([])
-    const [error, setError] = useState(false);
+    const [error, setError] = useState(true);
 
     const breadList = useContext(breadDataContext);
     const customerList = useContext(customersDataContext);
@@ -89,11 +89,7 @@ const Calculate = () => {
 
         e.preventDefault();
 
-        if (group.length === 0 || smena.length === 0 || choosenStaff.length === 0 || qoplarSoni.length === 0 || nonTuri.length === 0 || nonSoni.length === 0 || tulov.length === 0 || jamiTulov.length === 0) {
-            setError(true)
-        }
-
-        if (group && smena && choosenStaff && qoplarSoni && nonTuri && nonSoni && tulov && jamiTulov) {
+       
 
        
             setTimeout(() => {
@@ -129,7 +125,7 @@ const Calculate = () => {
 
             }, 4000)
 
-        }
+        
 
     }
 
@@ -225,7 +221,7 @@ const Calculate = () => {
                                     <Col lg="12">
                                         <Card>
                                             <Card.Body>
-                                                {error ? <p className='text-danger text-center font-weight-bold'>Ushbu qatorlarning barchasini to'ldirishingiz shart</p> : ''}
+                                                
                                                 <Row>
                                                     <Col md="12" className='mt-4 '>
                                                         <Form className="row g-3 date-icon-set-modal myStyleCustomerAdd text-center">
