@@ -211,7 +211,7 @@ const SidebarStyle = (props) => {
                                 </Link>
                             </li>
 
-                            <li className={`${location.pathname === '/navbatchilik' ? 'active' : ''}  sidebar-layout`} >
+                            {/* <li className={`${location.pathname === '/navbatchilik' ? 'active' : ''}  sidebar-layout`} >
                                 <Link to="/navbatchilik" className="svg-icon">
                                     <i className="">
                                         <img src={queue} />
@@ -230,7 +230,7 @@ const SidebarStyle = (props) => {
                                     <span className="ml-2">Kalendar</span>
                                     <p className="mb-0 px-2 badge badge-pill badge-success">New</p>
                                 </Link>
-                            </li>
+                            </li> */}
 
                             {/* <li className={`${location.pathname === '/user-profile-edit' ? 'active' : ''}  sidebar-layout`}>
                                 <Link to="/user-profile" className="svg-icon">
