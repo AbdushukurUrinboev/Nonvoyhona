@@ -58,6 +58,9 @@ import CalculateEdit from '../views/backend/Main/CalculateEdit';
 import KunlikIsh from '../views/backend/Main/KunlikIsh';
 import KunlikIshadd from '../views/backend/Main/KunlikIshadd';
 
+// Xisobot
+import Xisobot from '../views/backend/Main/Xisobot';
+
 //Navbatchilik
 // import Navbatchilik from '../views/backend/Main/Navbatchilik';
 
@@ -201,8 +204,8 @@ const Layout1Route = () => {
                           {/* Attendance */}
                           <PrivateRoute path="/attendance/" exact component={Attendance} />
 
-                          {/* Calendar */}
-                          {/* <PrivateRoute path="/calendar/" exact component={Calendar} /> */}
+                          {/* Xisobot */}
+                          <PrivateRoute path="/xisobot/" exact component={Xisobot} />
 
                           {/* Redirect to login page when doesnt match any routes */}
                           <Route render={() => <Redirect to="/auth/sign-in" />} />

@@ -210,6 +210,14 @@ const SidebarStyle = (props) => {
                                     <span className="ml-2">Davomat</span>
                                 </Link>
                             </li>
+                            <li className={`${location.pathname === '/xisobot' ? 'active' : ''}  sidebar-layout`} >
+                                <Link to="/xisobot" className="svg-icon">
+                                    <i className="">
+                                        <img src={queue} />
+                                    </i>
+                                    <span className="ml-2">Xisobot</span>
+                                </Link>
+                            </li>
 
                             {/* <li className={`${location.pathname === '/navbatchilik' ? 'active' : ''}  sidebar-layout`} >
                                 <Link to="/navbatchilik" className="svg-icon">
