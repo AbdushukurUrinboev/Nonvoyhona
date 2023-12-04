@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import axios from 'axios';
 // import { Link } from 'react-router-dom'
 import Chart from "react-apexcharts";
@@ -24,7 +24,8 @@ import logoBread from '../../../assets/images/bread/logoBread.png'
 import { color } from 'highcharts';
 import { base_URL } from '../../../API';
 
-
+// Global states
+import { breadDataContext, customersDataContext, xamkorDataContext, staffDataContext, allstaffDataContext } from './ContextProvider/DataProvider';
 
 const Dashbord = () => {
     const [nasiya, setNasiya] = useState('');
@@ -34,6 +35,15 @@ const Dashbord = () => {
     const [currentFoyda, setCurrentFoyda] = useState(0);
     const [ommabopSotuv, setOmmabopSotuv] = useState([]);
 
+    const breadList = useContext(breadDataContext);
+    const customerList = useContext(customersDataContext);
+    const xamkorList = useContext(xamkorDataContext);
+    const staffList = useContext(staffDataContext);
+    const allStaffList = useContext(allstaffDataContext);
+
+
+    const noGroupWorkers = allStaffList.filter(worker => worker.group === 'No');
+    console.log(noGroupWorkers.length);
 
 
 
@@ -112,7 +122,7 @@ const Dashbord = () => {
                 const newArr = Object.values(mergedObjects);
 
                 setOmmabopNon(newArr.sort((a, b) => b.quantity - a.quantity).slice(0, 4))
-               
+
                 setOmmabopSotuv(receivedDT);
                 setCurrentFoyda(receivedDT.reduce((acc, a) => a.overallPrice + acc, 0))
                 setFoyda(receivedDT);
@@ -428,25 +438,95 @@ const Dashbord = () => {
                                 </Card.Body>
                             </Card>
                         </Col>
-                        <Col md="12">
+                        <Col md="4" style={{ marginTop: "80px" }}>
                             <Card>
                                 <Card.Body>
-                                    <div className="d-flex justify-content-between align-items-center flex-wrap">
-                                        <h4 className="font-weight-bold">Sotuv Xisoboti</h4>
-                                        <div className="d-flex justify-content-between align-items-center">
-                                            <div><svg width="24" height="24" viewBox="0 0 24 24" fill="primary" xmlns="http://www.w3.org/2000/svg">
-                                                <rect x="3" y="3" width="18" height="18" rx="2" fill="#3378FF" />
-                                            </svg>
-                                                <span>Daromadlar</span>
-                                            </div>
-                                            <div className="ml-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <rect x="3" y="3" width="18" height="18" rx="2" fill="#19b3b3" />
-                                            </svg>
-                                                <span>Xarajatlar</span>
+                                    <div className="align-items-center">
+                                        <div className="">
+                                            <p className="mb-2 text-secondary" style={{ color: '#0000FF', fontSize: '18px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>Xodimlar soni</p>
+                                            <div className="justify-content-center align-items-center">
+                                                <h5 className="mb-0 font-weight-bold" style={{ fontSize: '22px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>{staffList.length} nafar</h5>
                                             </div>
                                         </div>
                                     </div>
-                                    <Chart className="custom-chart" options={chart1.options} series={chart1.series} type="area" height="265" />
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                        <Col md="4" style={{ marginTop: "80px" }}>
+                            <Card>
+                                <Card.Body>
+                                    <div className="align-items-center">
+                                        <div className="">
+                                            <p className="mb-2 text-secondary" style={{ color: '#0000FF', fontSize: '18px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>Ma'muriyatdagi xodimlar soni</p>
+                                            <div className="justify-content-center align-items-center">
+                                                <h5 className="mb-0 font-weight-bold" style={{ fontSize: '22px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>
+                                                    {
+                                                        (() => {
+                                                            const noGroupWorkers = allStaffList.filter(worker => worker.group === 'No');
+                                                            return `${noGroupWorkers.length} nafar`;
+                                                        })()
+                                                    }
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+
+                        <Col md="4" style={{ marginTop: "80px" }}>
+                            <Card>
+                                <Card.Body>
+                                    <div className="align-items-center">
+                                        <div className="">
+                                            <p className="mb-2 text-secondary" style={{ color: '#0000FF', fontSize: '18px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>Mijozlar soni</p>
+                                            <div className="justify-content-center align-items-center">
+                                                <h5 className="mb-0 font-weight-bold" style={{ fontSize: '22px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>{customerList.length} nafar</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                        <Col md="4">
+                            <Card>
+                                <Card.Body>
+                                    <div className="align-items-center">
+                                        <div className="">
+                                            <p className="mb-2 text-secondary" style={{ color: '#0000FF', fontSize: '18px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>Xamkorlar soni</p>
+                                            <div className="justify-content-center align-items-center">
+                                                <h5 className="mb-0 font-weight-bold" style={{ fontSize: '22px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>{xamkorList.length} nafar</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                        <Col md="4">
+                            <Card>
+                                <Card.Body>
+                                    <div className="align-items-center">
+                                        <div className="">
+                                            <p className="mb-2 text-secondary" style={{ color: '#0000FF', fontSize: '18px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>Non turi</p>
+                                            <div className="justify-content-center align-items-center">
+                                                <h5 className="mb-0 font-weight-bold" style={{ fontSize: '22px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>{breadList.length} xil</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                        <Col md="4">
+                            <Card>
+                                <Card.Body>
+                                    <div className="align-items-center">
+                                        <div className="">
+                                            <p className="mb-2 text-secondary" style={{ color: '#0000FF', fontSize: '18px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>Yopilgan qoplar soni</p>
+                                            <div className="justify-content-center align-items-center">
+                                                <h5 className="mb-0 font-weight-bold" style={{ fontSize: '22px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>{xarajat} qop</h5>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </Card.Body>
                             </Card>
                         </Col>
