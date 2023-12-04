@@ -228,10 +228,10 @@ const Ordernew = () => {
                                                         // console.log(e.target.value);
                                                         if (turi === "daily") {
 
-                                                            setPhoneCode(customerList.find(evv => e.target.value === (evv.lastName + ' ' + evv.firstName)).phone.slice(0, 4));
+                                                            setPhoneCode(customerList.find(evv => e.target.value === (evv.firstName + ' ' + evv.lastName)).phone.slice(0, 4));
                                                             let currentPhoneNumber = 0
                                                             customerList.find(evv => {
-                                                                if (e.target.value === (evv.lastName + ' ' + evv.firstName)) {
+                                                                if (e.target.value === (evv.firstName + ' ' + evv.lastName)) {
                                                                     // console.log(evv.phone.slice(7, evv.phone.length));
                                                                     currentPhoneNumber = evv.phone.slice(7, evv.phone.length)
                                                                 }
@@ -242,7 +242,7 @@ const Ordernew = () => {
                                                         <option value="">Mijozlar ro'yxati</option>
                                                         {
                                                             customerList.map((cust, ind) => {
-                                                                return <option key={ind} value={cust.lastName + " " + cust.firstName}>{cust.lastName + " " + cust.firstName}</option>
+                                                                return <option key={ind} value={cust.firstName + " " + cust.lastName}>{cust.lastName + " " + cust.firstName}</option>
                                                             })
                                                         }
                                                     </select>
@@ -255,7 +255,6 @@ const Ordernew = () => {
                                                 <Form.Label htmlFor="Text4" className="font-weight-bold text-muted text-uppercase">Mijoz telefoni</Form.Label>
                                                 <div className='input-group'>
                                                     <select value={phoneCode} id="inputState" className="form-select form-control choicesjs" onChange={e => setPhoneCode(e.target.value)} disabled={mijozlar}>
-
                                                         <option value="(90) ">(90)</option>
                                                         <option value="(91) ">(91)</option>
                                                         <option value="(93) ">(93)</option>

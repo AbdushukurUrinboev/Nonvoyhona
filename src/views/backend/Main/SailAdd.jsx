@@ -32,7 +32,7 @@ const SailAdd = () => {
     const zakazBreadList = useContext(zakazBreadDataContext);
     const sotuvBreadList = useContext(sotuvBreadDataContext);
 
-
+    console.log(zakazBreadList);
 
     function handleChange(e) {
         e.preventDefault();
@@ -60,7 +60,15 @@ const SailAdd = () => {
 
 
 
-
+        console.log(
+            {
+                order: newArrForPost,
+                customerType: customerType,
+                customer,
+                avans,
+                price
+            }
+        );
 
         axios.post(SALE_URL, {
             order: newArrForPost,
