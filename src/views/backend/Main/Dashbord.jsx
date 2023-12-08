@@ -523,7 +523,7 @@ const Dashbord = () => {
                                         <div className="">
                                             <p className="mb-2 text-secondary" style={{ color: '#0000FF', fontSize: '18px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>Yopilgan qoplar soni</p>
                                             <div className="justify-content-center align-items-center">
-                                                <h5 className="mb-0 font-weight-bold" style={{ fontSize: '22px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>{xarajat} qop</h5>
+                                                <h5 className="mb-0 font-weight-bold" style={{ fontSize: '22px', fontWeight: '600', lineHeight: '21px', textAlign: 'center' }}>0 qop</h5>
                                             </div>
                                         </div>
                                     </div>
