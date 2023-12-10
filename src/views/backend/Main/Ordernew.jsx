@@ -8,6 +8,7 @@ import DatePicker from "react-datepicker";
 import { breadDataContext, customersDataContext } from './ContextProvider/DataProvider';
 // SVG ICON
 import addOrderLogo from '../../../assets/images/icon/additemaddButonLogo.svg'
+import deliveryIcon from '../../../assets/images/icon/deliveryIcon.gif'
 
 
 
@@ -15,7 +16,7 @@ import addOrderLogo from '../../../assets/images/icon/additemaddButonLogo.svg'
 
 const Ordernew = () => {
     const [order, setOrder] = useState('');
-    const [addInputOrder, setAddInputOrder] = useState([{order: '', productQuantity: '', price: ''}]);
+    const [addInputOrder, setAddInputOrder] = useState([{ order: '', productQuantity: '', price: '' }]);
 
     const [customer, setCustomer] = useState('');
     const [productQuantity, setProductQuantity] = useState(0);
@@ -39,6 +40,8 @@ const Ordernew = () => {
     const [deadlineMonth, setDeadlineMonth] = useState('')
     const [deadlineYear, setDeadlineYear] = useState(2023)
 
+    // delivery
+    const [delivery, setDelivery] = useState(false)
 
 
     const breadList = useContext(breadDataContext);
@@ -65,17 +68,19 @@ const Ordernew = () => {
         }
         if (order && customer && turi && productQuantity) {
             const newArrForPost = addInputOrder.map((elem) => {
-                return {...elem, 
-                    customer, 
-                    type: turi, 
-                    deadline: deadlineDay + " " + deadlineMonth + " " + deadlineYear + "y", 
+                return {
+                    ...elem,
+                    customer,
+                    type: turi,
+                    deadline: deadlineDay + " " + deadlineMonth + " " + deadlineYear + "y",
                     deadlineTime: deadlineSoat + ":" + deadlineMinut,
                     phone: phoneCode + ' - ' + phone,
-                    status
+                    status,
+                    delivery
                 }
             });
             axios.post(ORDERS_URL, {
-                orders: newArrForPost,                
+                orders: newArrForPost,
                 avans,
                 neededPayment: umumiyPrice
             })
@@ -88,11 +93,11 @@ const Ordernew = () => {
         }
     }
 
-    function onChangeHandler(indx, field, val) {      
+    function onChangeHandler(indx, field, val) {
         setOrder(val)
         let newArr = [...addInputOrder]
         newArr[indx][field] = val;
-        if(field === "order"){
+        if (field === "order") {
             breadList.map(elem => {
                 if (elem.productName === val) {
                     // setPrice(elem.productPrice);
@@ -106,11 +111,15 @@ const Ordernew = () => {
     }
 
     const deleteInputs = () => {
-        if(addInputOrder.length > 1){
+        if (addInputOrder.length > 1) {
             let newArray = [...addInputOrder]
             newArray.pop();
             setAddInputOrder(newArray)
         }
+    }
+
+    const handleDelivery = () => {
+        setDelivery(!delivery)
     }
 
     return (
@@ -149,15 +158,15 @@ const Ordernew = () => {
                                 <Row>
 
                                     <Col md="6">
-                                        <Form className="row g-3 date-icon-set-modal myStyleCustomerAdd">    
+                                        <Form className="row g-3 date-icon-set-modal myStyleCustomerAdd">
                                             {
                                                 addInputOrder.map((item, index) => {
                                                     return <div className="col-md-12 mb-3" key={index}>
                                                         <div className="row g-3">
                                                             <div className="col-md-4 mb-3">
                                                                 <Form.Label htmlFor="Text1" className="font-weight-bold text-muted text-uppercase">Nonni tanlang</Form.Label>
-                                                                <select id="Text1" className="form-select form-control choicesjs" value={item.order} onChange={(e) => {onChangeHandler(index, 'order', e.target.value)}}>
-                                                                   <option value="no">Nonlar ro'yxati</option>
+                                                                <select id="Text1" className="form-select form-control choicesjs" value={item.order} onChange={(e) => { onChangeHandler(index, 'order', e.target.value) }}>
+                                                                    <option value="no">Nonlar ro'yxati</option>
                                                                     {
                                                                         breadList.map((bread, ind) => {
                                                                             return <option key={ind} value={bread.productName}>{bread.productName}</option>
@@ -173,7 +182,7 @@ const Ordernew = () => {
                                                                     calculateOverallPrice(price, e.target.value)
                                                                 }} />
                                                             </div>
-                                                            
+
                                                             <div className="col-md-4 mb-3">
                                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Narxi</Form.Label>
                                                                 <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." value={item.price} onChange={e => {
@@ -190,7 +199,7 @@ const Ordernew = () => {
                                                 <div className="button-group-order">
                                                     <button className='btn btn-primary order-button order-button-first' onClick={(e) => {
                                                         e.preventDefault()
-                                                        setAddInputOrder([...addInputOrder, {order: '', productQuantity: '', price: ''}])
+                                                        setAddInputOrder([...addInputOrder, { order: '', productQuantity: '', price: '' }])
                                                         setOrder('no')
                                                     }}>
                                                         <img src={addOrderLogo} className='mr-2' />
@@ -206,6 +215,7 @@ const Ordernew = () => {
                                                 <Form.Label htmlFor="Text3" className="font-weight-bold text-muted text-uppercase">Jami non narxi</Form.Label>
                                                 <Form.Control type="number" id="Text3" placeholder="Jami narxini kiriting..." required='required' value={umumiyPrice} onChange={e => setUmumiyPrice(e.target.value)} />
                                             </div>
+
                                         </Form>
                                     </Col>
                                     <Col md="6">
@@ -325,6 +335,14 @@ const Ordernew = () => {
                                             </div>
                                         </Form>
                                         <div className="d-flex justify-content-end mt-1 ">
+                                            <div>
+                                                <img
+                                                    src={deliveryIcon}
+                                                    alt="Dostavka"
+                                                    onClick={handleDelivery}
+                                                    style={{ cursor: 'pointer', width: "55px", border: delivery ? '4px solid blue' : 'none' }}
+                                                />
+                                            </div>
                                             <Button variant="btn myButtonProducts qushishProduct" onClick={handleChange}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />

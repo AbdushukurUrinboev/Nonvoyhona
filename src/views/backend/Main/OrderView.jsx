@@ -23,7 +23,7 @@ const OrderView = () => {
         axios.get(`${base_URL}/order/${id}`)
             .then(res => {
                 setOrder(res.data)
-                // console.log(res.data);
+                console.log(res.data);
             })
             .catch(err => console.log(err))
     }, [id])

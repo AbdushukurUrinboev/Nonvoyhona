@@ -10,6 +10,7 @@ import axios from 'axios';
 import "./Order.css"
 import { useHistory } from "react-router";
 import { base_URL } from '../../../API';
+import deliveryIcon from '../../../assets/images/icon/deliveryIcon.gif'
 
 
 
@@ -266,7 +267,8 @@ const Order = () => {
                                             <div key={index} className="p-2 border myStyleOrder ownStyleOrder">
                                                 <div className="container">
                                                     <div className="row align-items-center">
-                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ textDecoration: order.status === "Bajarildi" ? 'line-through' : 'none', textDecorationColor: "red", fontWeight: order.status === "Bajarildi" ? "bold" : "normal" }}>{index + 1} &nbsp; &nbsp; {order.order}</div>
+                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ textDecoration: order.status === "Bajarildi" ? 'line-through' : 'none', textDecorationColor: "red", fontWeight: order.status === "Bajarildi" ? "bold" : "normal" }}>{index + 1} &nbsp; &nbsp; {order.delivery ?  
+                                                        <img src={deliveryIcon} alt="Dostavka" style={{ width: "55px"}} /> : null} {order.delivery ? <br /> : null} {order.order}</div>
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ textDecoration: order.status === "Bajarildi" ? 'line-through' : 'none', textDecorationColor: "red", fontWeight: order.status === "Bajarildi" ? "bold" : "normal" }}>{order.customer}</div>
                                                         <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1" style={{ textDecoration: order.status === "Bajarildi" ? 'line-through' : 'none', textDecorationColor: "red", fontWeight: order.status === "Bajarildi" ? "bold" : "normal" }}>{order.phone}</div>
                                                         <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center" style={{ textDecoration: order.status === "Bajarildi" ? 'line-through' : 'none', textDecorationColor: "red", fontWeight: order.status === "Bajarildi" ? "bold" : "normal" }} ><p>{order.deadline}</p> </div>
