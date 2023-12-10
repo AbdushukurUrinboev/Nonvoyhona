@@ -60,7 +60,7 @@ const Order = () => {
                 const sortedData = res.data.reverse();
                 setOrders(sortedData)
                 setLoading(false)
-                // console.log(res.data.phone);
+                // console.log(res.data);
             })
             .catch(err => console.log(err))
     }, [])
@@ -252,8 +252,9 @@ const Order = () => {
                                                 <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">№ &nbsp; &nbsp; &nbsp; Zakaz nomi</div>
                                                 <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Mijoz</div>
                                                 <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">Telefon</div>
-                                                <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">Muddati</div>
-                                                <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">Umumiy</div>
+                                                <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">Muddati</div>
+                                                <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">Soati</div>
+                                                <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">Soni</div>
                                                 <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center"><FilterPlans filterValueSelected={onFilterValueSelected}></FilterPlans></div>
                                                 <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-right">Amal</div>
                                             </div>
@@ -268,8 +269,9 @@ const Order = () => {
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ textDecoration: order.status === "Bajarildi" ? 'line-through' : 'none', textDecorationColor: "red", fontWeight: order.status === "Bajarildi" ? "bold" : "normal" }}>{index + 1} &nbsp; &nbsp; {order.order}</div>
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ textDecoration: order.status === "Bajarildi" ? 'line-through' : 'none', textDecorationColor: "red", fontWeight: order.status === "Bajarildi" ? "bold" : "normal" }}>{order.customer}</div>
                                                         <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1" style={{ textDecoration: order.status === "Bajarildi" ? 'line-through' : 'none', textDecorationColor: "red", fontWeight: order.status === "Bajarildi" ? "bold" : "normal" }}>{order.phone}</div>
-                                                        <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center" style={{ textDecoration: order.status === "Bajarildi" ? 'line-through' : 'none', textDecorationColor: "red", fontWeight: order.status === "Bajarildi" ? "bold" : "normal" }} ><p>{order.date}</p> </div>
-                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center" style={{ textDecoration: order.status === "Bajarildi" ? 'line-through' : 'none', textDecorationColor: "red", fontWeight: order.status === "Bajarildi" ? "bold" : "normal" }} >{order.price}</div>
+                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center" style={{ textDecoration: order.status === "Bajarildi" ? 'line-through' : 'none', textDecorationColor: "red", fontWeight: order.status === "Bajarildi" ? "bold" : "normal" }} ><p>{order.deadline}</p> </div>
+                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center" style={{ textDecoration: order.status === "Bajarildi" ? 'line-through' : 'none', textDecorationColor: "red", fontWeight: order.status === "Bajarildi" ? "bold" : "normal" }} ><p>{order.time}</p> </div>
+                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center" style={{ textDecoration: order.status === "Bajarildi" ? 'line-through' : 'none', textDecorationColor: "red", fontWeight: order.status === "Bajarildi" ? "bold" : "normal" }} >{order.productQuantity} ta</div>
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left" style={{ color: order.status === "Bajarildi" ? '#149100' : order.status === "Bajarilmadi" ? "#EC0000" : '#EFAC00', fontWeight: '500' }}>
                                                             <small><svg className="" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
                                                                 <circle cx="12" cy="12" r="8" style={{ fill: order.status === "Bajarildi" ? '#149100' : order.status === "Bajarilmadi" ? "#EC0000" : '#EFAC00' }}></circle></svg>

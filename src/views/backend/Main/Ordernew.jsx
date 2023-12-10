@@ -68,7 +68,7 @@ const Ordernew = () => {
                 return {...elem, 
                     customer, 
                     type: turi, 
-                    deadline: deadlineDay + " " + deadlineMonth + " " + deadlineYear + " yil", 
+                    deadline: deadlineDay + " " + deadlineMonth + " " + deadlineYear + "y", 
                     deadlineTime: deadlineSoat + ":" + deadlineMinut,
                     phone: phoneCode + ' - ' + phone,
                     status
