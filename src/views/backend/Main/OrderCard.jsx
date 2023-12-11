@@ -16,7 +16,6 @@ import tableIcon from '../../../assets/images/icon/table.png'
 import Card from 'react-bootstrap/Card'
 
 
-
 // Delete Icon
 import deleteIcon from '../../../assets/images/delete.png'
 
@@ -179,19 +178,19 @@ const OrderCard = ({ isTable, setIsTable }) => {
 
 
     // Pagination 
-    const [itemOffset, setItemOffset] = useState(0);
-    const itemsPerPage = 10;
-    const endOffset = itemOffset + itemsPerPage;
-    const currentItems = filteredOrderslist.slice(itemOffset, endOffset);
-    const pageCount = Math.ceil(filteredOrderslist.length / itemsPerPage);
+    // const [itemOffset, setItemOffset] = useState(0);
+    // const itemsPerPage = 100;
+    // const endOffset = itemOffset + itemsPerPage;
+    // const currentItems = filteredOrderslist.slice(itemOffset, endOffset);
+    // const pageCount = Math.ceil(filteredOrderslist.length / itemsPerPage);
 
-    const handlePageClick = (event) => {
-        const newOffset = (event.selected * itemsPerPage) % filteredOrderslist.length;
-        console.log(
-            `User requested page number ${event.selected}, which is offset ${newOffset}`
-        );
-        setItemOffset(newOffset);
-    };
+    // const handlePageClick = (event) => {
+    //     const newOffset = (event.selected * itemsPerPage) % filteredOrderslist.length;
+    //     console.log(
+    //         `User requested page number ${event.selected}, which is offset ${newOffset}`
+    //     );
+    //     setItemOffset(newOffset);
+    // };
 
 
 
@@ -279,6 +278,8 @@ const OrderCard = ({ isTable, setIsTable }) => {
 
 
                         <div className='container-fluid'>
+
+
                             <div className='row justify-content-end align-items-center'>
                                 <div className='col-auto'>
                                     <Form className="mr-3 d-flex align-items-center position-relative">
@@ -295,6 +296,9 @@ const OrderCard = ({ isTable, setIsTable }) => {
                                             </svg>
                                         </Link>
                                     </Form>
+                                </div>
+                                <div className='col-auto'>
+                                <FilterPlans filterValueSelected={onFilterValueSelected}></FilterPlans>                                   
                                 </div>
                                 <div className='col-auto'>
                                     <img
@@ -328,7 +332,7 @@ const OrderCard = ({ isTable, setIsTable }) => {
                         </div>
                         <Row>
                             {
-                                currentItems.map((order, index) => (
+                                filteredOrderslist.map((order, index) => (
                                     <Col lg="3" key={index} className="mb-3 d-flex justify-content-between">
                                         <Card
                                             border="primary"
@@ -397,7 +401,7 @@ const OrderCard = ({ isTable, setIsTable }) => {
 
 
                         <div className='container text-center mt-5'>
-                            {currentItems && currentItems.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
+                            {filteredOrderslist && filteredOrderslist.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
                         </div>
                     </Container >
             }
