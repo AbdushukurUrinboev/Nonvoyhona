@@ -264,7 +264,6 @@ const Xisobot = () => {
                                                                 </div>
 
                                                                 <h4>Tez Kunda</h4>
-                                                                <h1>Boshladik</h1>
 
                                                             </div>
 
