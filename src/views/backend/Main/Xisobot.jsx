@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 import './Staff.css'
 import { base_URL } from '../../../API';
 import { CUSTOMERS_URL } from '../../../API';
+import UserAdding from './UserAdding';
 
 
 
@@ -203,7 +204,7 @@ const Xisobot = () => {
                                                         <Nav.Link eventKey="yopilgan-qoplar">Yopilgan qoplar</Nav.Link>
                                                     </li>
                                                     <li className="col-md-3 p-0">
-                                                        <Nav.Link eventKey="boshqa">Boshqa</Nav.Link>
+                                                        <Nav.Link eventKey="newUser">Xodim qo'shish</Nav.Link>
                                                     </li>
 
                                                 </Nav>
@@ -247,27 +248,10 @@ const Xisobot = () => {
                                                     </Card>
                                                 </Tab.Pane>
 
-                                                {/* Qarzdor mijozlar */}
-                                                <Tab.Pane eventKey="boshqa" role='tabpanel'>
+                                                {/* Yangi User qo'shish */}
+                                                <Tab.Pane eventKey="newUser" role='tabpanel'>
                                                     <Card>
-
-                                                        <div className="container-fluid mt-5 myContainerStyleCustomer">
-                                                            <div className="d-grid gapStyleCustomer mb-5">
-                                                                <div className="p-2">
-                                                                    <div className="container">
-                                                                        <div className="row align-items-center myHeaderCustomerStyle">
-                                                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">№</div>
-                                                                            <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3">Familiya Ismi</div>
-                                                                            <div className="col-sm-12 col-md-8 col-lg-8 col-xl-8">Boshqa</div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <h4>Tez Kunda</h4>
-
-                                                            </div>
-
-                                                        </div>
+                                                        <UserAdding />
                                                     </Card>
                                                 </Tab.Pane>
                                             </Tab.Content>
