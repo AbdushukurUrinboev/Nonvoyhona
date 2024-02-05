@@ -78,7 +78,9 @@ const UserAdding = () => {
                                     placeholder="Parolni kiriting..."
                                     value={password}
                                     required='required'
-                                    onChange={e => setPassword(e.target.value)} />
+                                    onChange={e => setPassword(e.target.value)} 
+                                    autoComplete="new-password"
+                                    />
                                 <div className="form-check mt-1">
                                     <input
                                         type="checkbox"
