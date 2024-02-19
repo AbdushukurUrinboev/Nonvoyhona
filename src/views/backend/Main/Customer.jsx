@@ -208,13 +208,13 @@ const Customer = () => {
                                                                 <div className="p-2">
                                                                     <div className="container">
                                                                         <div className="row align-items-center myHeaderCustomerStyle">
-                                                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">№</div>
-                                                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">Familiya Ismi</div>
-                                                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">Lavozimi</div>
-                                                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">Telefon</div>
-                                                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">Telefon 2</div>
-                                                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center"><FilterCustomer filterValueSelected={onFilterValueSelected}></FilterCustomer></div>
-                                                                            <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">Amal</div>
+                                                                            <div className="col-sm-1 col-md-1 col-lg-1 col-xl-1 text-center">№</div>
+                                                                            <div className="col-sm-2 col-md-2 col-lg-2 col-xl-2">Familiya Ismi</div>
+                                                                            <div className="col-sm-1 col-md-1 col-lg-1 col-xl-1">Lavozimi</div>
+                                                                            <div className="col-sm-2 col-md-2 col-lg-2 col-xl-2 text-center">Telefon</div>
+                                                                            <div className="col-sm-2 col-md-2 col-lg-2 col-xl-2 text-center">Telefon 2</div>
+                                                                            <div className="col-sm-2 col-md-2 col-lg-2 col-xl-2 text-center"><FilterCustomer filterValueSelected={onFilterValueSelected}></FilterCustomer></div>
+                                                                            <div className="col-sm-2 col-md-2 col-lg-2 col-xl-2 text-center">Amal</div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -224,12 +224,12 @@ const Customer = () => {
                                                                         <div key={index} className="p-2 border myStyleCustomer ownStyleCustomer">
                                                                             <div className="container">
                                                                                 <div className="row align-items-center">
-                                                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{index + 1}</div>
-                                                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ fontWeight: "500" }}>{customer.lastName} {customer.firstName}</div>
-                                                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1">{customer.status}</div>
-                                                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{customer.phone}</div>
-                                                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center">{customer.phone2}</div>
-                                                                                    <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ color: customer.customerType === "daily" ? '#149100' : "#EC0000", fontWeight: '500' }}>
+                                                                                    <div className="col-sm-1 col-md-1 col-lg-1 col-xl-1 text-center">{index + 1}</div>
+                                                                                    <div className="col-sm-2 col-md-2 col-lg-2 col-xl-2" style={{ fontWeight: "500" }}>{customer.lastName} {customer.firstName}</div>
+                                                                                    <div className="col-sm-1 col-md-1 col-lg-1 col-xl-1">{customer.status}</div>
+                                                                                    <div className="col-sm-2 col-md-2 col-lg-2 col-xl-2 text-center">{customer.phone}</div>
+                                                                                    <div className="col-sm-2 col-md-2 col-lg-2 col-xl-2 text-center">{customer.phone2}</div>
+                                                                                    <div className="col-sm-2 col-md-2 col-lg-2 col-xl-2" style={{ color: customer.customerType === "daily" ? '#149100' : "#EC0000", fontWeight: '500' }}>
                                                                                         <small><svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
                                                                                             <circle cx="12" cy="12" r="8" style={{ fill: customer.customerType === "daily" ? '#149100' : '#EC0000' }}></circle></svg>
                                                                                         </small> {customer.customerType === 'daily' ? 'Doimiy' : "Vaqtincha"}
@@ -294,9 +294,9 @@ const Customer = () => {
                                                                 <div className="p-2">
                                                                     <div className="container">
                                                                         <div className="row align-items-center myHeaderCustomerStyle">
-                                                                            <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">№</div>
-                                                                            <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3">Familiya Ismi</div>
-                                                                            <div className="col-sm-12 col-md-8 col-lg-8 col-xl-8">Jami qarzi</div>
+                                                                            <div className="col-sm-1 col-md-1 col-lg-1 col-xl-1 text-center">№</div>
+                                                                            <div className="col-sm-3 col-md-3 col-lg-3 col-xl-3">Familiya Ismi</div>
+                                                                            <div className="col-sm-8 col-md-8 col-lg-8 col-xl-8">Jami qarzi</div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -309,9 +309,9 @@ const Customer = () => {
 
                                                                             <div className="container">
                                                                                 <div className="row align-items-center">
-                                                                                    <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{index + 1}</div>
-                                                                                    <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3" style={{ fontWeight: "500" }}>{customer.lastName} {customer.firstName}</div>
-                                                                                    <div className="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                                                                                    <div className="col-sm-1 col-md-1 col-lg-1 col-xl-1 text-center">{index + 1}</div>
+                                                                                    <div className="col-sm-3 col-md-3 col-lg-3 col-xl-3" style={{ fontWeight: "500" }}>{customer.lastName} {customer.firstName}</div>
+                                                                                    <div className="col-sm-8 col-md-8 col-lg-8 col-xl-8">
                                                                                         {(() => {
                                                                                             const totalOverall = customer.history.reduce((sum, entry) => sum + entry.overall, 0);
                                                                                             return totalOverall;
