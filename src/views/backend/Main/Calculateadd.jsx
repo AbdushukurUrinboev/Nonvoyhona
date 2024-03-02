@@ -11,7 +11,7 @@ import './Calculate.css'
 import { dataContext, dataContext2 } from './ContextProvider/DataProvider';
 
 const Calculateadd = () => {
-
+    const [isSaving, setIsSaving] = React.useState(true);
     const [requiredItems, setRequiredItems] = useState([])
     const [productExpenses, setProductExpenses] = useState([])
 
@@ -104,6 +104,7 @@ const Calculateadd = () => {
         axios.post(CALCULATE_URL, fd)
             .then(res => {
                 console.log("Data is saved", res)
+                setIsSaving(false);
                 window.location.reload(history.push('/calculate'));
                 // history.push('/calculate')
             })
@@ -382,7 +383,7 @@ const Calculateadd = () => {
                                     </Col>
                                 </Row>
                                 <div className="text-right mt-4">
-                                    <Link to="/calculate" className='btn myButtonCalculates qushishCalculate' type="button" onClick={handleChange}>
+                                    <Link to="/calculate" className='btn myButtonCalculates qushishCalculate' type="button" onClick={handleChange} disabled={isSaving}>
                                         <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                         </svg> Qo'shish
