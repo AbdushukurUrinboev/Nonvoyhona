@@ -9,8 +9,11 @@ import DatePicker from "react-datepicker";
 import { customersDataContext } from './ContextProvider/DataProvider';
 import { base_URL } from '../../../API';
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
-const DebtEdit = () => {
+
+const DebtEdit = withAllRouterGuard(() => {
 
     const [product, setProduct] = useState(''); //
     const [customer, setCustomer] = useState(''); //
@@ -185,5 +188,5 @@ const DebtEdit = () => {
 
         </>
     )
-}
+})
 export default DebtEdit;

@@ -12,7 +12,10 @@ import { dataContext } from './ContextProvider/DataProvider';
 import { useEffect } from 'react';
 import { base_URL } from '../../../API';
 
-const Calculateadd = () => {
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
+
+const Calculateadd = withAllRouterGuard(() => {
     const [staffShare, setStaffShare] = useState([])
     const [productName, setProductName] = useState('')
     const [productPrice, setProductPrice] = useState('')
@@ -245,5 +248,5 @@ const Calculateadd = () => {
 
         </>
     )
-}
+})
 export default Calculateadd;

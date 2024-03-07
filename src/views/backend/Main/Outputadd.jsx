@@ -8,7 +8,11 @@ import DatePicker from "react-datepicker";
 import './Output.css'
 
 
-const Outputadd = () => {
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
+
+
+const Outputadd = withAllRouterGuard(() => {
 
     const [name, setName] = useState('');
     const [sana, setSana] = useState(new Date());
@@ -98,5 +102,5 @@ const Outputadd = () => {
             </Container>
         </>
     )
-}
+})
 export default Outputadd;

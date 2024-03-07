@@ -11,12 +11,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import './CustomerAdd.css'
 
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
 
 
 
-
-const XamkorAdd = () => {
+const XamkorAdd = withAllRouterGuard(() => {
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -218,6 +219,6 @@ const XamkorAdd = () => {
 
         </>
     )
-}
+})
 
 export default XamkorAdd;

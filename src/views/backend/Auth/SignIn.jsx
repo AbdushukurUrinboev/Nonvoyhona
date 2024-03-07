@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import Card from '../../../components/Card'
 import { connect } from "react-redux";
 import { getDarkMode } from '../../../store/mode'
-import { useHistory } from 'react-router-dom'
 //img
 import logo from '../../../assets/images/login/logo.png'
 
@@ -21,7 +20,6 @@ function mapStateToProps(state) {
 
 
 const SignIn = () => {
-   let history = useHistory()
    const { login, authError } = useContext(AuthContext);
    const [username, setUsername] = useState('');
    const [password, setPassword] = useState('');

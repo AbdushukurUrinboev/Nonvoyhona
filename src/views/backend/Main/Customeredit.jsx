@@ -11,11 +11,12 @@ import "react-datepicker/dist/react-datepicker.css";
 import './CustomerAdd.css'
 import { base_URL } from '../../../API'
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
 
 
-
-const Customeredit = () => {    
+const Customeredit = withAllRouterGuard(() => {    
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [status, setStatus] = useState('');
@@ -201,6 +202,6 @@ const Customeredit = () => {
 
         </>
     )
-}
+})
 
 export default Customeredit;

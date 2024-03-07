@@ -16,9 +16,10 @@ import UserAdding from './UserAdding';
 import { FallingLines } from 'react-loader-spinner';
 
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
-
-const Xisobot = () => {
+const Xisobot = withAllRouterGuard(() => {
 
     const [qoplarSoni, setQoplarSoni] = useState({})
     const [qoplarSoniJami, setQoplarSoniJami] = useState(0)
@@ -269,5 +270,5 @@ const Xisobot = () => {
         </>
 
     )
-}
+})
 export default Xisobot;

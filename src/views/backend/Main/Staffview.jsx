@@ -9,8 +9,10 @@ import { base_URL } from '../../../API';
 //img
 import Avatar from '../../../assets/images/avatar.png'
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
-const Staffview = () => {
+const Staffview = withAllRouterGuard(() => {
 
     const [currentStaff, setCurrentStaff] = useState({});
     const [staffWorkHistory, setStaffWorkHistory] = useState([])   
@@ -423,5 +425,5 @@ const Staffview = () => {
             </Container>
         </>
     )
-}
+})
 export default Staffview;

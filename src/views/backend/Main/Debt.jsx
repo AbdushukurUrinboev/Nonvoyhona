@@ -22,10 +22,11 @@ import { FallingLines } from 'react-loader-spinner';
 // Pagination
 import ReactPaginate from 'react-paginate';
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
 
-
-const Debt = () => {
+const Debt = withAllRouterGuard(() => {
 
     const [debts, setDebts] = useState([]);
     const [filterTextValue, updateFilterTextValue] = useState('no');;
@@ -283,6 +284,6 @@ const Debt = () => {
             }
         </>
     )
-}
+})
 
 export default Debt;

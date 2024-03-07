@@ -21,8 +21,11 @@ import { FallingLines } from 'react-loader-spinner';
 // Pagination
 import ReactPaginate from 'react-paginate';
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
-const Calculate = () => {
+
+const Calculate = withAllRouterGuard(() => {
 
     const [postBread, setPostBread] = useState([]);
     const [searchData, setSearchData] = useState([]);
@@ -235,6 +238,6 @@ const Calculate = () => {
             }
         </>
     )
-}
+})
 
 export default Calculate;

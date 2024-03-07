@@ -14,10 +14,11 @@ import { base_URL } from '../../../API';
 
 
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
 
-
-const StaffEdit = () => {
+const StaffEdit = withAllRouterGuard(() => {
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -291,7 +292,7 @@ const StaffEdit = () => {
 
         </>
     )
-}
+})
 
 export default StaffEdit;
 

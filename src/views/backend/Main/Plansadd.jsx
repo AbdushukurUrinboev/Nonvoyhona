@@ -9,7 +9,10 @@ import './Plans.css'
 
 import { staffDataContext } from './ContextProvider/DataProvider';
 
-const Plansadd = () => {
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
+
+const Plansadd = withAllRouterGuard(() => {
 
     const [plan, setPlan] = useState('');
     const [person, setPerson] = useState('');
@@ -117,5 +120,5 @@ const Plansadd = () => {
             </Container>
         </>
     )
-}
+})
 export default Plansadd;

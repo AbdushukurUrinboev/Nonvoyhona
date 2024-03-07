@@ -10,7 +10,10 @@ import { base_URL } from '../../../API';
 
 import { staffDataContext } from './ContextProvider/DataProvider';
 
-const PlansEdit = () => {
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
+
+const PlansEdit = withAllRouterGuard(() => {
     const [plan, setPlan] = useState('');
     const [person, setPerson] = useState('');
     const [deadline, setDeadline] = useState();
@@ -140,5 +143,5 @@ const PlansEdit = () => {
             </Container>
         </>
     )
-}
+})
 export default PlansEdit;

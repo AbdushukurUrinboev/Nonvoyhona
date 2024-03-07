@@ -11,10 +11,11 @@ import addOrderLogo from '../../../assets/images/icon/additemaddButonLogo.svg'
 import deliveryIcon from '../../../assets/images/icon/deliveryIcon.gif'
 
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
 
-
-const Ordernew = () => {
+const Ordernew = withAllRouterGuard(() => {
     const [order, setOrder] = useState('');
     const [addInputOrder, setAddInputOrder] = useState([{ order: '', productQuantity: '', price: '' }]);
 
@@ -361,6 +362,6 @@ const Ordernew = () => {
 
         </>
     )
-}
+})
 
 export default Ordernew;

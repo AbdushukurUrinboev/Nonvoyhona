@@ -27,9 +27,10 @@ import { FallingLines } from 'react-loader-spinner';
 // Pagination
 import ReactPaginate from 'react-paginate';
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
-
-const OrderTable = ({ isTable, setIsTable }) => {
+const OrderTable = withAllRouterGuard(({ isTable, setIsTable }) => {
     const [isShownCard, setIsShownCard] = useState(false);
     const [isShownTable, setIsShownTable] = useState(false);
     const [orders, setOrders] = useState([]);
@@ -422,5 +423,5 @@ const OrderTable = ({ isTable, setIsTable }) => {
             }
         </>
     )
-}
+})
 export default OrderTable;

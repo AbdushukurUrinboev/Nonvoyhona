@@ -11,8 +11,10 @@ import './ProductAdd.css';
 import { base_URL } from '../../../API';
 import { xamkorDataContext } from './ContextProvider/DataProvider';
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
-const ProductEdit = () => {
+const ProductEdit = withAllRouterGuard(() => {
     const [productName, setProductName] = useState(''); //
     const [description, setDescription] = useState(''); //
     const [productPrice, setProductPrice] = useState(0); //
@@ -220,5 +222,5 @@ const ProductEdit = () => {
 
         </>
     )
-}
+})
 export default ProductEdit;

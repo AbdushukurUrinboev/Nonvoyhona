@@ -11,7 +11,10 @@ import addOrderLogo from '../../../assets/images/icon/additemaddButonLogo.svg'
 import { breadDataContext, customersDataContext, zakazBreadDataContext, sotuvBreadDataContext } from './ContextProvider/DataProvider';
 import { logDOM } from '@testing-library/react';
 
-const SailAdd = () => {
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
+
+const SailAdd = withAllRouterGuard(() => {
     const [order, setOrder] = useState(''); // 
     const [addInputOrder, setAddInputOrder] = useState([{ order: '', productQuantity: '', price: '', customerID: "" }]);
     const [productQuantity, setProductQuantity] = useState(0);
@@ -363,5 +366,5 @@ const SailAdd = () => {
 
         </>
     )
-}
+})
 export default SailAdd;

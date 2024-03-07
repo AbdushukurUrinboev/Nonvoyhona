@@ -24,10 +24,13 @@ import ReactPaginate from 'react-paginate';
 // css
 import './attandance.css'
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
 
 
-const Attendance = () => {
+
+const Attendance = withAllRouterGuard(() => {
     const [attendance, setAttendance] = useState([]);
     const [allFetchedDates, setAllFetchedDates] = useState([]);
     const [attendanceGet, setAttendanceGet] = useState([]);
@@ -511,6 +514,6 @@ const Attendance = () => {
             </Tab.Container>
         </Container>
     )
-}
+})
 
 export default Attendance;

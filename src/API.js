@@ -13,3 +13,4 @@ export const DAROMAT_URL = `${base_URL}/daromat`;
 export const XAMKOR_URL = `${base_URL}/xamkor`;  
 export const PLANS_URL = `${base_URL}/plans`;
 export const ATTANDANCE_URL = `${base_URL}/attandance`;
+export const USERS_URL = `${base_URL}/users`;

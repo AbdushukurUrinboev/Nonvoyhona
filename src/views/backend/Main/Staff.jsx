@@ -23,8 +23,11 @@ import ReactPaginate from 'react-paginate';
 
 import StaffBonusAdd from './StaffBonusAdd';
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
-const Staff = () => {
+
+const Staff = withAllRouterGuard(() => {
     const [staffList, setStaffList] = useState([]);
     const [remainingStaffDepts, setRemainingStaffDepts] = useState([]);
     const [filterTextValue, updateFilterTextValue] = useState('no');
@@ -556,5 +559,5 @@ const Staff = () => {
         </>
 
     )
-}
+})
 export default Staff;

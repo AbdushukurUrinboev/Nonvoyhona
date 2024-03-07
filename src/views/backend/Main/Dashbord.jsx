@@ -27,7 +27,11 @@ import { base_URL } from '../../../API';
 // Global states
 import { breadDataContext, customersDataContext, xamkorDataContext, staffDataContext, allstaffDataContext } from './ContextProvider/DataProvider';
 
-const Dashbord = () => {
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
+
+
+const Dashbord = withAllRouterGuard(() => {
     const [nasiya, setNasiya] = useState('');
     const [foyda, setFoyda] = useState('');
     const [xarajat, setXarajat] = useState('');
@@ -43,7 +47,7 @@ const Dashbord = () => {
 
 
     const noGroupWorkers = allStaffList.filter(worker => worker.group === 'No');
-    console.log(noGroupWorkers.length);
+    // console.log(noGroupWorkers.length);
 
 
 
@@ -57,7 +61,7 @@ const Dashbord = () => {
 
         axios.get(`${base_URL}/report/daromat`)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 setCurrentFoyda(res.data.reduce((a, b) => a = a + b.overallPrice, 0));
                 setFoyda(res.data);
 
@@ -556,6 +560,6 @@ const Dashbord = () => {
             </Row>
         </Container>
     )
-}
+})
 
 export default Dashbord;

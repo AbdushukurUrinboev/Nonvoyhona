@@ -9,9 +9,10 @@ import { breadDataContext, customersDataContext } from './ContextProvider/DataPr
 import { base_URL } from '../../../API';
 
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
-
-const Orderdetails = () => {
+const Orderdetails = withAllRouterGuard(() => {
     const [order, setOrder] = useState('');
     const [customer, setCustomer] = useState('');
     const [turi, setTuri] = useState('');
@@ -229,6 +230,6 @@ const Orderdetails = () => {
 
         </>
     )
-}
+})
 
 export default Orderdetails;

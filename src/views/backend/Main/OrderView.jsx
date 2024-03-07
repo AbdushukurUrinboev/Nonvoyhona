@@ -11,8 +11,10 @@ import { base_URL } from '../../../API';
 //img
 import BreadImage from '../../../assets/images/bread/logoBread.png'
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
-const OrderView = () => {
+const OrderView = withAllRouterGuard(() => {
     const [order, setOrder] = useState({});
 
     const { id } = useParams();
@@ -187,5 +189,5 @@ const OrderView = () => {
             </Container>
         </>
     )
-}
+})
 export default OrderView;

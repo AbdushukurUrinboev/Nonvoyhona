@@ -10,7 +10,10 @@ import './Calculate.css'
 // DataProvider
 import { dataContext, dataContext2 } from './ContextProvider/DataProvider';
 
-const Calculateadd = () => {
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
+
+const Calculateadd = withAllRouterGuard(() => {
     const [isSaving, setIsSaving] = React.useState(true);
     const [requiredItems, setRequiredItems] = useState([])
     const [productExpenses, setProductExpenses] = useState([])
@@ -397,5 +400,5 @@ const Calculateadd = () => {
 
         </>
     )
-}
+})
 export default Calculateadd;

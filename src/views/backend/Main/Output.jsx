@@ -23,10 +23,11 @@ import { base_URL } from '../../../API';
 import ReactPaginate from 'react-paginate';
 
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
 
-
-const Output = () => {
+const Output = withAllRouterGuard(() => {
 
     const [outputs, setOutputs] = useState([])
 
@@ -248,6 +249,6 @@ const Output = () => {
             }
         </>
     )
-}
+})
 
 export default Output;

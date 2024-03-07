@@ -1,7 +1,7 @@
 import React, { useState, createContext, useEffect } from "react";
 import axios from "axios";
 // import STORAGE_URL
-import { STORAGE_URL, CALCULATE_URL, CUSTOMERS_URL, STAFF_URL, XAMKOR_URL, ORDERS_URL, SALE_URL } from '../../../../API';
+import { USERS_URL, STORAGE_URL, CALCULATE_URL, CUSTOMERS_URL, STAFF_URL, XAMKOR_URL, ORDERS_URL, SALE_URL } from '../../../../API';
 import { useHistory } from 'react-router-dom'
 // Mahsulotlar datasi (masalan un, yog va hokazo)
 export const dataContext = createContext();
@@ -244,33 +244,30 @@ export const AuthContext = createContext();
 export function AuthProvider({ children }) {
     let history = useHistory()
     const storedAuthData = localStorage.getItem('authData');
+    const sessionUser = localStorage.getItem('user');
     let currAuth = JSON.parse(storedAuthData);
+    const [currentUser, setCurrentUser] = useState(sessionUser ? JSON.parse(sessionUser) : { role: '', fullName: '' });
     const [isAuthenticated, setIsAuthenticated] = useState(currAuth ? currAuth.isAuthenticated : false);
     const [authError, setAuthError] = useState(false);
 
 
-    // useEffect(() => {
-    //     // Check if authentication data exists in local storage
-        
-    //     if (storedAuthData) {
-    //         const { isAuthenticated } = JSON.parse(storedAuthData);
-    //         setIsAuthenticated(isAuthenticated);
-    //     }
-    // }, []);
-
-
-    const login = (username, password) => {
+    const login = async (username, password) => {
         // Replace this with your actual authentication logic
-        if (username === 'javdar' && password === 'akramjon') {
+        try {
+            const { data } = await axios.post(USERS_URL + "/login", { login: username, password });
+            localStorage.setItem("user", JSON.stringify(data));
+            setCurrentUser(data)
             setIsAuthenticated(true);
             setAuthError(false);
             localStorage.setItem('authData', JSON.stringify({ isAuthenticated: true }));
             history.push('/')
-        } else {
+        } catch (err) {
+            console.log("use unauth")
             setIsAuthenticated(false);
             setAuthError(true);
         }
     };
+    
 
     const logout = () => {
         setIsAuthenticated(false);
@@ -280,6 +277,7 @@ export function AuthProvider({ children }) {
     };
 
     const authContextValue = {
+        currentUser,
         isAuthenticated,
         authError,
         login,

@@ -2,11 +2,11 @@ import React, { useEffect, useState, useContext } from 'react'
 import { Container, Tab, Nav, Row, Col, Card, Form, Button } from 'react-bootstrap'
 import axios from 'axios';
 import { FilterStaff, FilterStaffSmena } from './FilterProduct/FilterStaff';
-import { useHistory } from "react-router";
+
 import Datepickers from '../../../components/Datepicker';
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import './Staff.css'
-import { base_URL } from '../../../API';
+import { USERS_URL, base_URL } from '../../../API';
 import { CUSTOMERS_URL } from '../../../API';
 import { customersDataContext, allstaffDataContext } from './ContextProvider/DataProvider';
 
@@ -16,9 +16,10 @@ import { customersDataContext, allstaffDataContext } from './ContextProvider/Dat
 import { FallingLines } from 'react-loader-spinner';
 
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
-
-const UserAdding = () => {
+const UserAdding = withAllRouterGuard(() => {
     const [staffFullName, setStaffFullName] = useState(''); //    
     const [login, setLogin] = useState(''); //    
     const [password, setPassword] = useState(''); //    
@@ -27,21 +28,31 @@ const UserAdding = () => {
     const [showPassword, setShowPassword] = useState(false);
 
 
-
+    const history = useHistory()
     const customerList = useContext(customersDataContext);
     const staffList = useContext(allstaffDataContext);
 
 
     const handleChange = () => {
 
-        console.log(
-            {
-                staffFullName,
-                login,
-                password,
-                role
-            }
-        );
+        axios.post(USERS_URL, {
+            fullName: staffFullName,
+            login,
+            password,
+            role
+        })
+        .then(res => {
+            console.log("Data is saved", res)
+            setLogin("");
+            setPassword("");
+            history.push('/');
+            // history.push('/storage')
+        })
+        .catch(err => console.log(err))
+        
+       
+
+
     }
 
 
@@ -78,9 +89,9 @@ const UserAdding = () => {
                                     placeholder="Parolni kiriting..."
                                     value={password}
                                     required='required'
-                                    onChange={e => setPassword(e.target.value)} 
+                                    onChange={e => setPassword(e.target.value)}
                                     autoComplete="new-password"
-                                    />
+                                />
                                 <div className="form-check mt-1">
                                     <input
                                         type="checkbox"
@@ -99,14 +110,18 @@ const UserAdding = () => {
                                     <option value="no">Rol</option>
                                     <option value="rahbar">Rahbar</option>
                                     <option value="menejer">Menejer</option>
-                                    <option value="taminotchi">Ta'minotchi</option>
                                     <option value="buhgalter">Buhgalter</option>
+                                    <option value="taminotchi">Ta'minotchi</option>
+                                    <option value="yopuvchi">Yopuvchi</option>
+                                    <option value="parkash">Parkash</option>
+                                    <option value="xamirkash">Xamirkash</option>
+                                    <option value="sotuvchi">Sotuvchi</option>
                                 </select>
                             </div>
 
                             <div className="col-md-12 mt-3 mb-4 w-50 mx-auto">
                                 <div className="d-flex justify-content-end">
-                                    <Button variant="btn myButtonProducts qushishProduct" onClick={handleChange}>
+                                    <Button variant="btn myButtonProducts qushishProduct" onClick={handleChange} disabled>
                                         <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                         </svg>
@@ -125,5 +140,5 @@ const UserAdding = () => {
         </>
 
     )
-}
+})
 export default UserAdding;

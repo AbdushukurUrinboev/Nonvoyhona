@@ -10,8 +10,11 @@ import './CustomerView.css'
 import axios from 'axios';
 import { base_URL } from '../../../API';
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
-const Customerview = () => {
+
+const Customerview = withAllRouterGuard(() => {
     const [customer, setCustomer] = useState({});
     const [customerHistory, setCustomerHistory] = useState([]);
 
@@ -244,5 +247,5 @@ const Customerview = () => {
             </Container>
         </>
     )
-}
+})
 export default Customerview;

@@ -5,8 +5,10 @@ import {Link, useHistory} from 'react-router-dom'
 import axios from 'axios';
 import { DAILY_TASKS_URL } from '../../../API';
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
-const Calculateadd =()=>{
+const Calculateadd =withAllRouterGuard(()=>{
 
     const [productName, setproductName] = useState(''); 
     const [productDes, setProductDes] = useState('');
@@ -169,5 +171,5 @@ const Calculateadd =()=>{
     </Container>
         </>
     )
-}
+})
 export default Calculateadd;

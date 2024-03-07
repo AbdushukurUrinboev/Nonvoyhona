@@ -30,9 +30,10 @@ import { FallingLines } from 'react-loader-spinner';
 // Pagination
 import ReactPaginate from 'react-paginate';
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
-
-const OrderCard = ({ isTable, setIsTable }) => {
+const OrderCard = withAllRouterGuard(({ isTable, setIsTable }) => {
     const [isShownCard, setIsShownCard] = useState(false);
     const [isShownTable, setIsShownTable] = useState(false);
     const [orders, setOrders] = useState([]);
@@ -407,5 +408,5 @@ const OrderCard = ({ isTable, setIsTable }) => {
             }
         </>
     )
-}
+})
 export default OrderCard;

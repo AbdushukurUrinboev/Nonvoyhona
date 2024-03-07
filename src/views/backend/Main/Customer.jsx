@@ -19,9 +19,10 @@ import { FallingLines } from 'react-loader-spinner';
 // Pagination
 import ReactPaginate from 'react-paginate';
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
-
-const Customer = () => {
+const Customer = withAllRouterGuard(() => {
 
     const [postsCustomer, setpostsCustomer] = useState([])
     const [filterTextValue, updateFilterTextValue] = useState('no');
@@ -360,5 +361,5 @@ const Customer = () => {
         </>
 
     )
-}
+})
 export default Customer;

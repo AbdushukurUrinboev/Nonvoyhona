@@ -10,11 +10,12 @@ import "react-datepicker/dist/react-datepicker.css";
 import './StaffAdd.css'
 
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
 
 
-
-const Staffadd = () => {
+const Staffadd = withAllRouterGuard(() => {
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -346,6 +347,6 @@ const Staffadd = () => {
 
         </>
     )
-}
+})
 
 export default Staffadd;

@@ -22,9 +22,10 @@ import { FallingLines } from 'react-loader-spinner';
 import ReactPaginate from 'react-paginate';
 
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
-
-const Navbatchilik = () => {
+const Navbatchilik = withAllRouterGuard(() => {
 
     const [debts, setDebts] = useState([]);
     const [filterTextValue, updateFilterTextValue] = useState('no');;
@@ -219,6 +220,6 @@ const Navbatchilik = () => {
             }
         </>
     )
-}
+})
 
 export default Navbatchilik;

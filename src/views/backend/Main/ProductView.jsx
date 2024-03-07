@@ -11,8 +11,10 @@ import { base_URL } from '../../../API';
 //img
 import BreadImage from '../../../assets/images/bread/logoBread.png'
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
-const ProductView = () => {
+const ProductView = withAllRouterGuard(() => {
     const [product, setProduct] = useState({});
 
     const { id } = useParams();
@@ -377,5 +379,5 @@ const ProductView = () => {
             </Container>
         </>
     )
-}
+})
 export default ProductView;

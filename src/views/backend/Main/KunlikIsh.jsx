@@ -22,9 +22,13 @@ import makeAnimated from 'react-select/animated';
 // Loading
 import { FallingLines } from 'react-loader-spinner';
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
+
+
 const animatedComponents = makeAnimated();
 
-const Calculate = () => {
+const Calculate = withAllRouterGuard(() => {
 
 
 
@@ -135,7 +139,7 @@ const Calculate = () => {
     useEffect(() => {
         axios.get(STAFF_URL)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 setStaff(res.data)
                 setLoading(false)
             })
@@ -566,6 +570,6 @@ const Calculate = () => {
 
         </>
     )
-}
+})
 
 export default Calculate;

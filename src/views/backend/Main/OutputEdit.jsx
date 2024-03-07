@@ -8,8 +8,11 @@ import DatePicker from "react-datepicker";
 import './Output.css'
 import { base_URL } from '../../../API';
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
-const OutputEdit = () => {
+
+const OutputEdit = withAllRouterGuard(() => {
 
     const [name, setName] = useState('');
     const [sana, setSana] = useState();
@@ -119,5 +122,5 @@ const OutputEdit = () => {
             </Container>
         </>
     )
-}
+})
 export default OutputEdit;

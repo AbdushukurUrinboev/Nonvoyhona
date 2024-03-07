@@ -8,7 +8,6 @@ const LayoutsRoute = props => {
             <Route path="/auth" component={BlankLayout} />
             <Route path="/extra-pages" component={BlankLayout} />
             <Route path="/" component={Layout1} />
-             
         </Switch>
     )
 }

@@ -7,9 +7,10 @@ import './Staff.css'
 import { base_URL } from '../../../API';
 
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
-
-const XamkorView = () => {
+const XamkorView = withAllRouterGuard(() => {
 
     const [currentXamkor, setCurrentXamkor] = useState({});
  
@@ -181,5 +182,5 @@ const XamkorView = () => {
             </Container>
         </>
     )
-}
+})
 export default XamkorView;

@@ -3,7 +3,11 @@ import { Form } from 'react-bootstrap'
 import axios from 'axios';
 import { STAFF_URL } from '../../../API';
 
-const StaffBonusAdd = () => {
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
+
+
+const StaffBonusAdd = withAllRouterGuard(() => {
     const [staffList, setStaffList] = useState([]);
     const [recipient, setRecipient] = useState('tanlanmagan');
     const [showModal, setShowModal] = useState(false);     
@@ -179,6 +183,6 @@ const StaffBonusAdd = () => {
             )}
         </>
     );
-};
+});
 
 export default StaffBonusAdd;

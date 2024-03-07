@@ -11,6 +11,12 @@ import logoDash from '../../../../../src/assets/images/bread/logoDash.png';
 import userAttendance from '../../../../../src/assets/images/icon/useAttended.svg';
 import queue from '../../../../../src/assets/images/icon/queue.svg';
 
+// [
+//     {
+//         label: "Hisobot",
+//         goto: "/hisobot",
+//     }
+// ]
 
 
 

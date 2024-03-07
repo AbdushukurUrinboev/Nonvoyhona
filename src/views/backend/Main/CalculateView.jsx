@@ -13,8 +13,11 @@ import axios from 'axios';
 //img
 import BreadImage from '../../../assets/images/bread/logoBread.png'
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
-const CalculateView = () => {
+
+const CalculateView = withAllRouterGuard(() => {
     const [calculate, setCalculate] = useState({});
     const [reqItems, setReqItems] = useState([]);
     const [otherItems, setOtherItems] = useState([]);
@@ -191,5 +194,5 @@ const CalculateView = () => {
             </Container>
         </>
     )
-}
+})
 export default CalculateView;

@@ -18,9 +18,11 @@ import { FallingLines } from 'react-loader-spinner';
 // Pagination
 import ReactPaginate from 'react-paginate';
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
 
-const Xamkorlar = () => {
+const Xamkorlar = withAllRouterGuard(() => {
 
     const [postsXamkor, setpostsXamkor] = useState([])
     const [filterTextValue, updateFilterTextValue] = useState('no');
@@ -338,5 +340,5 @@ const Xamkorlar = () => {
         </>
 
     )
-}
+})
 export default Xamkorlar;

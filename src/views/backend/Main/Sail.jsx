@@ -20,9 +20,10 @@ import { FallingLines } from 'react-loader-spinner';
 // Pagination
 import ReactPaginate from 'react-paginate';
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
-
-const Sail = () => {
+const Sail = withAllRouterGuard(() => {
 
     const [postsSail, setpostsSail] = useState([]);
 
@@ -223,5 +224,5 @@ const Sail = () => {
         </>
 
     )
-}
+})
 export default Sail;

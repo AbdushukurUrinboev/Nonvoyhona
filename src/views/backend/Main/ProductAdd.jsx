@@ -12,7 +12,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import './ProductAdd.css'
 import { xamkorDataContext } from './ContextProvider/DataProvider';
 
-const Productadd = () => {
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
+
+const Productadd = withAllRouterGuard(() => {
     const [productName, setProductName] = useState(''); //
     const [description, setDescription] = useState(''); //
     const [productPrice, setProductPrice] = useState(0); //
@@ -277,5 +280,5 @@ const Productadd = () => {
 
         </>
     )
-}
+})
 export default Productadd;

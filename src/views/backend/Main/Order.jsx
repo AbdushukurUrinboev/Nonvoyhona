@@ -11,13 +11,14 @@ import cardIcon from '../../../assets/images/icon/card.png'
 import tableIcon from '../../../assets/images/icon/table.png'
 
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
 
-
-const Order = () => {
+const Order = withAllRouterGuard(() => {
 const [isTable, setIsTable] = useState(true)
 
-console.log(isTable);
+// console.log(isTable);
     return (
         <>
         {
@@ -25,5 +26,5 @@ console.log(isTable);
         }
         </>
     )
-}
+})
 export default Order;

@@ -20,8 +20,10 @@ import { FallingLines } from 'react-loader-spinner';
 // Pagination
 import ReactPaginate from 'react-paginate';
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
-const Product = () => {
+const Product = withAllRouterGuard(() => {
     const [postProducts, setPostProducts] = useState([]);
     const [searchData, setSearchData] = useState([]);
     const [filterVal, setFilterVal] = useState('');
@@ -242,6 +244,6 @@ const Product = () => {
             }
         </>
     )
-}
+})
 
 export default Product;

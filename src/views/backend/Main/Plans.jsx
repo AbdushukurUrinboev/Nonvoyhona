@@ -24,10 +24,11 @@ import { FallingLines } from 'react-loader-spinner';
 import ReactPaginate from 'react-paginate';
 
 
+// WithAuthGuard
+import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
 
-
-const Plans = () => {
+const Plans = withAllRouterGuard(() => {
 
     const [plans, setPlans] = useState([]);
 
@@ -279,6 +280,6 @@ const Plans = () => {
             }
         </>
     )
-}
+})
 
 export default Plans;
