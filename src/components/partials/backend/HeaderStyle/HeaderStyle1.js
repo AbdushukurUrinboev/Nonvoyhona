@@ -76,14 +76,14 @@ const HeaderStyle1 = (props) => {
                                     <Dropdown as="li" className="nav-item nav-icon">
                                         <Dropdown.Toggle as={Button} href="#" variant="nav-item nav-icon pr-0 search-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                                             <img src={Admin} className="img-fluid avatar-rounded" alt="user" style={{ width: '48px', height: '48px' }} />
-                                            <span className="mb-0 ml-2 user-name" style={{ fontSize: '20px', fontWeight: '400', lineHeight: '23px', color: '#000000' }}>{currentUser.fullName}</span>
+                                            <span className="mb-0 ml-2 user-name" style={{ fontSize: '20px', fontWeight: '400', lineHeight: '23px', color: '#000000' }}>{currentUser.fullName} / {currentUser.role}</span>
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu as="ul" className="dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                                             <Dropdown.Item as="li" className="d-flex svg-icon border-top">
                                                 <svg className="svg-icon mr-0 text-secondary" id="h-05-p" width="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                                                 </svg>
-                                                <button onClick={logout}>Chiqish</button>
+                                                <button className='btn border-0' onClick={logout}>Chiqish</button>
                                             </Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>

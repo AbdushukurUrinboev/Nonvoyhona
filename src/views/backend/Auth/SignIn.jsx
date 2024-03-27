@@ -35,7 +35,7 @@ const SignIn = () => {
          <section className="login-content p-5">
             <Container className="h-100">
                <Row className="align-items-center justify-content-center h-100">
-                  <Col md="6" className='LogPadSt'>
+                  <Col md="6" className='LogPadSt d-none d-md-block'>
                      <Card className="p-3 myBg">
                         <Card.Body className="m-5">
                            <div className="bgFilter">
