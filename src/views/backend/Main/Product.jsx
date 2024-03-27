@@ -124,11 +124,13 @@ const Product = withAllRouterGuard(() => {
                                 <h4 className="font-weight-bold ">Maxsulotlar</h4>
                             </div>
                             <div className="create-workform ">
-                                <div className="d-flex flex-wrap align-items-center justify-content-between ">
-                                    <div className="modal-product-search d-flex ">
+                                <div className="d-flex flex-wrap align-items-center justify-content-between">
+                                    <div className="modal-product-search d-flex flex-wrap">
                                         <Form className="mr-3 position-relative">
                                             <div className="form-group mb-0">
-                                                <Form.Control type="text" className="form-control"
+                                                <Form.Control
+                                                    type="text"
+                                                    className="form-control"
                                                     id="exampleInputText"
                                                     placeholder="Qidirish..."
                                                     style={{ borderRadius: "10px" }}
@@ -142,7 +144,8 @@ const Product = withAllRouterGuard(() => {
                                                 </Link>
                                             </div>
                                         </Form>
-                                        <Link to="/storage-add" className="btn myButtonCustomer qushishCustomer position-relative d-flex align-items-center justify-content-between">
+                                        <Link to="/storage-add"
+                                            className="btn myButtonCustomer qushishCustomer position-relative d-flex align-items-center justify-content-between">
                                             <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                             </svg>Qo'shish
@@ -153,10 +156,9 @@ const Product = withAllRouterGuard(() => {
                         </div>
 
                         <Card>
-
                             <div className="container-fluid mt-5 myContainerStyleProduct">
                                 <div className="d-grid gapStyleProduct mb-5">
-                                    <div className="p-2">
+                                    <div className="p-2 hide-on-mobile">
                                         <div className="container">
                                             <div className="row align-items-center myHeaderProductStyle">
                                                 <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">№</div>
@@ -180,7 +182,7 @@ const Product = withAllRouterGuard(() => {
                                                         <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1"><img className="avatar myProductAvatar" src={product.storageImage === 'none' ? LogoProducts : `${base_URL}/${product.storageImage}`} alt="Rasm" style={{ width: "35px" }} /></div>
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ fontWeight: "500" }}>{product.productName}</div>
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2">{product.description}</div>
-                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{product.productPrice} - so'm</div>
+                                                        <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-sm-center">{product.productPrice} - so'm</div>
                                                         <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">{Math.round(product.poductQuantity)}</div>
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2" style={{ color: product.poductQuantity > 10 ? '#149100' : product.poductQuantity <= 0 ? "#EC0000" : '#EFAC00', fontWeight: '500' }}>
                                                             <small><svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="18" viewBox="0 0 24 24" fill="none">
