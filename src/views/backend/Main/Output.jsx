@@ -128,7 +128,7 @@ const Output = withAllRouterGuard(() => {
                             </div>
                             <div className="create-workform">
                                 <div className="d-flex flex-wrap align-items-center justify-content-between">
-                                    <div className="d-flex">
+                                    <div className="d-flex flex-wrap">
                                         <div className="form-group mb-0 vanila-daterangepicker d-flex flex-row">
                                             <div className="date-icon-set">
                                                 <Datepickers className="vanila-datepicker" givenID="dateStart" names="start" placeholder="...dan" />
@@ -181,7 +181,7 @@ const Output = withAllRouterGuard(() => {
 
                             <div className="container-fluid mt-5 myContainerStyleOutput">
                                 <div className="d-grid gapStyleOutput mb-5">
-                                    <div className="p-2">
+                                    <div className="p-2 hide-on-mobile-output">
                                         <div className="container">
                                             <div className="row align-items-center myHeaderOutputStyle">
                                                 <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-left">№</div>

@@ -122,7 +122,7 @@ const Sail = withAllRouterGuard(() => {
                                     </div>
                                     <div className="create-workform">
                                         <div className="d-flex flex-wrap align-items-center justify-content-between">
-                                            <div className="modal-product-search d-flex">
+                                            <div className="modal-product-search d-flex flex-wrap">
                                                 <Form className="mr-3 position-relative">
                                                     <Form.Group className="mb-0">
                                                         <Form.Control type="text" className="form-control" id="exampleInputText" placeholder="Qidiruv..." />
@@ -146,7 +146,7 @@ const Sail = withAllRouterGuard(() => {
                                 <Card>
                                     <div className="container-fluid mt-5 myContainerStyleSail">
                                         <div className="d-grid gapStyleSail mb-5">
-                                            <div className="p-2">
+                                            <div className="p-2 hide-on-mobile-sale">
                                                 <div className="container">
                                                     <div className="row align-items-center myHeaderSailStyle">
                                                         <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-left">№</div>

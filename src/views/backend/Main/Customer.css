@@ -112,3 +112,15 @@
         width: 70%;
     }
 }
+
+@media (max-width: 576px) {
+    .hide-on-mobile-customer {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .hide-on-mobile-xamkor {
+        display: none;
+    }
+}

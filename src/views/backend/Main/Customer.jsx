@@ -155,7 +155,7 @@ const Customer = withAllRouterGuard(() => {
                                         </div>
                                         <div className="create-workform">
                                             <div className="d-flex flex-wrap align-items-center justify-content-between">
-                                                <div className="modal-product-search d-flex">
+                                                <div className="modal-product-search d-flex flex-wrap">
                                                     <Form className="mr-3 position-relative">
                                                         <Form.Group className="mb-0">
                                                             <Form.Control type="search"
@@ -206,7 +206,7 @@ const Customer = withAllRouterGuard(() => {
                                                     <Card>
                                                         <div className="container-fluid mt-5 myContainerStyleCustomer">
                                                             <div className="d-grid gapStyleCustomer mb-5">
-                                                                <div className="p-2">
+                                                                <div className="p-2 hide-on-mobile-customer">
                                                                     <div className="container">
                                                                         <div className="row align-items-center myHeaderCustomerStyle">
                                                                             <div className="col-sm-1 col-md-1 col-lg-1 col-xl-1 text-center">№</div>

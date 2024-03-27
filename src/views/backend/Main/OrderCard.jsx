@@ -232,7 +232,7 @@ const OrderCard = withAllRouterGuard(({ isTable, setIsTable }) => {
                             </div>
                             <div className="create-workform">
                                 <div className="d-flex flex-wrap align-items-center justify-content-between">
-                                    <div className="d-flex">
+                                    <div className="d-flex flex-wrap">
                                         <div className="form-group mb-0 vanila-daterangepicker d-flex flex-row">
                                             <div className="date-icon-set">
                                                 <Datepickers className="vanila-datepicker" givenID="dateStart" names="start" placeholder="...dan" />
@@ -282,7 +282,7 @@ const OrderCard = withAllRouterGuard(({ isTable, setIsTable }) => {
 
 
                             <div className='row justify-content-end align-items-center'>
-                                <div className='col-auto'>
+                                <div className='col-12 col-md-auto'>
                                     <Form className="mr-3 d-flex align-items-center position-relative">
                                         <Form.Control type="text" className="form-control"
                                             id="exampleInputText"
@@ -298,10 +298,10 @@ const OrderCard = withAllRouterGuard(({ isTable, setIsTable }) => {
                                         </Link>
                                     </Form>
                                 </div>
-                                <div className='col-auto'>
+                                <div className='col-12 col-md-auto'>
                                 <FilterPlans filterValueSelected={onFilterValueSelected}></FilterPlans>                                   
                                 </div>
-                                <div className='col-auto'>
+                                <div className='col-6 col-md-auto'>
                                     <img
                                         src={tableIcon}
                                         width={50}
@@ -315,7 +315,7 @@ const OrderCard = withAllRouterGuard(({ isTable, setIsTable }) => {
                                         onClick={() => setIsTable(true)}
                                     />
                                 </div>
-                                <div className='col-auto'>
+                                <div className='col-6 col-md-auto'>
                                     <img
                                         src={cardIcon}
                                         width={60}

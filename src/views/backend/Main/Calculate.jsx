@@ -132,7 +132,7 @@ const Calculate = withAllRouterGuard(() => {
                             </div>
                             <div className="create-workform">
                                 <div className="d-flex flex-wrap align-items-center justify-content-between">
-                                    <div className="modal-product-search d-flex ">
+                                    <div className="modal-product-search d-flex flex-wrap">
                                         <Form className="mr-3 position-relative">
                                             <div className="form-group mb-0">
                                                 <Form.Control type="text"

@@ -214,7 +214,7 @@ const Xamkorlar = withAllRouterGuard(() => {
                                     </div>
                                     <div className="create-workform">
                                         <div className="d-flex flex-wrap align-items-center justify-content-between">
-                                            <div className="modal-product-search d-flex">
+                                            <div className="modal-product-search d-flex flex-wrap">
                                                 <Form className="mr-3 position-relative">
                                                     <Form.Group className="mb-0">
                                                         <Form.Control type="text"
@@ -244,7 +244,7 @@ const Xamkorlar = withAllRouterGuard(() => {
                                 <Card>
                                     <div className="container-fluid mt-5 myContainerStyleCustomer">
                                         <div className="d-grid gapStyleCustomer mb-5">
-                                            <div className="p-2">
+                                            <div className="p-2 hide-on-mobile-xamkor">
                                                 <div className="container">
                                                     <div className="row align-items-center myHeaderCustomerStyle">
                                                         <div className="col-sm-12 col-md-auto col-lg-auto col-xl-auto text-left">№</div>
