@@ -24,6 +24,7 @@ export const AllRouterGuard = (props) => {
   const taminotchiAllowedRoutes = ['/storage', '/storage-add'];
   const sellerAllowedRoutes = ['/sale']
 
+  // SidebarStyle.jsx ichida ham sidebar allowed pagelarni olganman. agar allowed pagelar uzgarsa u yerni ham uzgartiraman
 
   useEffect(
     () => {
