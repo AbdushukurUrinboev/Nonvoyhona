@@ -200,7 +200,7 @@ const Staff = withAllRouterGuard(() => {
                                         </div>
                                         <div className="create-workform">
                                             <div className="d-flex flex-wrap align-items-center justify-content-between">
-                                                <div className="modal-product-search d-flex">
+                                                <div className="modal-product-search d-flex flex-wrap">
                                                     <Form className="mr-3 position-relative">
                                                         <Form.Group className="mb-0">
                                                             <Form.Control type="text"
@@ -259,7 +259,7 @@ const Staff = withAllRouterGuard(() => {
                                                 <Card>
                                                     <div className="container-fluid mt-5 myContainerStyleStaff">
                                                         <div className="d-grid gapStyleStaff mb-5">
-                                                            <div className="p-2">
+                                                            <div className="p-2 hide-on-mobile-staff">
                                                                 <div className="container">
                                                                     <div className="row align-items-center myHeaderStaffStyle">
                                                                         <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1 text-center">№</div>
