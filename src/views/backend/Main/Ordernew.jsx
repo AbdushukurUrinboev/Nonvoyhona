@@ -15,7 +15,7 @@ import deliveryIcon from '../../../assets/images/icon/deliveryIcon.gif'
 import { withAllRouterGuard } from "../App/guards/with-auth-guard";
 
 
-const Ordernew = withAllRouterGuard(() => {
+const Ordernew = withAllRouterGuard(() => {   
     const [order, setOrder] = useState('');
     const [addInputOrder, setAddInputOrder] = useState([{ order: '', productQuantity: '', price: '' }]);
 
@@ -37,9 +37,15 @@ const Ordernew = withAllRouterGuard(() => {
     const [error, setError] = useState(false);
 
     // Deadline quyish
-    const [deadlineDay, setDeadlineDay] = useState('')
-    const [deadlineMonth, setDeadlineMonth] = useState('')
-    const [deadlineYear, setDeadlineYear] = useState(2023)
+    const [deadlineDay, setDeadlineDay] = useState('');
+    const months = [
+        'Yanvar', 'Fevral', 'Mart', 'Aprel',
+        'May', 'Iyun', 'Iyul', 'Avgust',
+        'Sentyabr', 'Oktyabr', 'Noyabr', 'Dekabr'
+    ];
+    const currentMonthIndex = new Date().getMonth();
+    const [deadlineMonth, setDeadlineMonth] = useState(months[currentMonthIndex])
+    const [deadlineYear, setDeadlineYear] = useState(new Date().getFullYear())
 
     // delivery
     const [delivery, setDelivery] = useState(false)
