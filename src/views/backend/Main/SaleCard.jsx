@@ -119,7 +119,7 @@ const SaleCard = withAllRouterGuard(() => {
                             </Form.Group>
                         </Form>
 
-                        <Row xs={1} sm={2} md={3} lg={4}>
+                        <Row xs={1} sm={2} md={3} lg={4} className="justify-content-center disableCopiedSale">
                             {
                                 postsSail.map((sale, index) => (
                                     <Col key={index} className="mb-3 d-flex justify-content-between">
@@ -133,15 +133,16 @@ const SaleCard = withAllRouterGuard(() => {
 
                                             <Card.Body>
                                                 <Card.Title style={{ fontSize: '50px' }} className='align-items-center text-center'>
-                                                    {sale.breadName}                                                    
-                                                </Card.Title>
-                                                
-                                                <Card.Text className=''>                                                    
-                                                    <p style={{ textAlign: "center", color: "grey" }}>-----------------------------------------</p>
-                                                   
-                                                </Card.Text>
-                                                <Card.Subtitle className="mb-2 text-muted text-center" style={{ fontSize: '30px' }}>{sale.quantity} ta</Card.Subtitle>
+                                                    {sale.breadName}
+                                                </Card.Title>                                              
+
                                             </Card.Body>
+                                            <Card.Footer className="text-muted">
+                                                <p style={{ textAlign: "center", color: "grey" }}>-----------------------------------------</p>
+                                                <Card.Subtitle className="mb-2 text-muted text-center" style={{ fontSize: '30px' }}>{sale.quantity} ta</Card.Subtitle>
+
+                                                {/* {sale.quantity} ta */}
+                                            </Card.Footer>
                                         </Card>
 
                                     </Col>
