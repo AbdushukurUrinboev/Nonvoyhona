@@ -299,7 +299,7 @@ const OrderCard = withAllRouterGuard(({ isTable, setIsTable }) => {
                                     </Form>
                                 </div>
                                 <div className='col-12 col-md-auto'>
-                                <FilterPlans filterValueSelected={onFilterValueSelected}></FilterPlans>                                   
+                                    <FilterPlans filterValueSelected={onFilterValueSelected}></FilterPlans>
                                 </div>
                                 <div className='col-6 col-md-auto'>
                                     <img
