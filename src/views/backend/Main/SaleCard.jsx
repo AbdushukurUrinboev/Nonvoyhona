@@ -32,6 +32,7 @@ const SaleCard = withAllRouterGuard(() => {
     const history = useHistory()
     const [loading, setLoading] = useState(true)
     const [modalShowSale, setModalShowSale] = useState(false);
+    const [saleData, setSaleData] = useState(null);
 
     useEffect(() => {
         axios.get(SALE_URL)
@@ -74,6 +75,12 @@ const SaleCard = withAllRouterGuard(() => {
             setpostsSail(filterResult)
         }
         setFilterVal(e.target.value)
+    }
+
+    function handleModalChange(sale) {
+        console.log(sale);
+        setModalShowSale(true);
+        setSaleData(sale)
     }
 
 
@@ -127,7 +134,7 @@ const SaleCard = withAllRouterGuard(() => {
                             md={3}
                             lg={4}
                             className="justify-content-center disableCopiedSale"
-                            onClick={() => setModalShowSale(true)}
+
                         >
                             {
                                 postsSail.map((sale, index) => (
@@ -137,7 +144,10 @@ const SaleCard = withAllRouterGuard(() => {
                                             style={{
                                                 width: '18rem',
                                                 border: "1px solid"
-                                            }}>
+
+                                            }}
+                                            onClick={() => handleModalChange(sale)}
+                                        >
                                             <Card.Header style={{ backgroundColor: "#dfe7ff", borderBottom: "1px solid", display: "flex", justifyContent: "space-between" }}><img className="avatar myCalculateAvatar" src={sale.imageUrl === 'none' ? LogoBread : `${base_URL}/${sale.imageUrl}`} alt="Rasm" style={{ width: "35px" }} /> </Card.Header>
 
                                             <Card.Body>
@@ -161,8 +171,12 @@ const SaleCard = withAllRouterGuard(() => {
 
                         </Row>
                         <SaleAddModal
+                            saledata={saleData}
                             show={modalShowSale}
-                            onHide={() => setModalShowSale(false)}
+                            onHide={() => {
+                                setModalShowSale(false);
+                                setSaleData(null);
+                            }}
                         />
                         <div className='container text-center mt-5'>
                             {postsSail && postsSail.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
