@@ -1,47 +1,44 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
 function SaleAddModal({ saledata, show, onHide }) {
+    const [quantity, setQuantity] = useState('');
+    const [breadPrice, setBreadPrice] = useState('');
+    const inputRef = useRef(null);
 
+
+    useEffect(() => {
+        if (show) {
+            inputRef.current.focus();
+        }
+    }, [show]);
+
+    function handleKeyPress(e) {
+        if (e.key === 'Enter') {
+            handleChange(e);
+        }
+    }
 
     function handleChange(e) {
         e.preventDefault();
         onHide();
 
         console.log("Saved");
-        // const isValid = addInputOrder.every(elem => {
-        //     const isOrderIncluded = sotuvBreadList.some(bread => bread === elem.order);
-        //     return isOrderIncluded;
-        // });
-
-        // if (!isValid) {
-        //     console.log("At least one order is not included in sotuvBreadList");
-        //     setBreadNotIncluded(true);
-        //     return;
-        // }
-
-        // const newArrForPost = addInputOrder.map((elem) => {
-        //     return {
-        //         name: elem.order,
-        //         quantity: Number(elem.productQuantity),
-        //         price: elem.price,
-        //         customerID: elem.customerID
-        //     };
-        // });
+        console.log(quantity);
 
 
 
-        // console.log(
-        //     {
-        //         order: newArrForPost,
-        //         customerType: customerType,
-        //         customer,
-        //         avans,
-        //         price
-        //     }
-        // );
+        console.log(
+            {
+                breadName: saledata.breadName,
+                quantity: quantity,
+                breadPrice: Number(breadPrice)                
+            }
+        )
+        setQuantity('');
+        setBreadPrice('');
 
         // axios.post(SALE_URL, {
         //     order: newArrForPost,
@@ -53,8 +50,6 @@ function SaleAddModal({ saledata, show, onHide }) {
         //     .then(res => {
 
         //         console.log("Data is saved", res)
-        //         window.location.reload(history.push('/sale'));
-        //         history.push('/sale')
         //     })
         //     .catch(err => {
         //         console.log(err)
@@ -87,11 +82,34 @@ function SaleAddModal({ saledata, show, onHide }) {
                                 type="number"
                                 id="inputnumber"
                                 aria-describedby="numberHelpBlock"
+                                onKeyDown={handleKeyPress}  
+                                ref={inputRef}                             
+                                value={quantity}
+                                onChange={(event) => {
+                                    const enteredValue = event.target.value;
+                                    const parsedValue = parseInt(enteredValue);
+                                    if (!isNaN(parsedValue) && parsedValue >= 1 && parsedValue <= saledata.quantity) {
+                                        setQuantity(parsedValue);
+                                    } else {
+                                        setQuantity('');
+                                    }
+                                }}
                             />
-                            <Form.Text id="numberHelpBlock" muted>
-                                Ayni paytda {saledata.breadName} nonidan {saledata.quantity} ta mavjud.
+                             <Form.Text id="numberHelpBlockPrice" muted>
+                                Ushbu nondan {saledata.quantity} ta mavjud.
                                 Siz ko'pi bilan {saledata.quantity} tagacha raqam kiritishingiz mumkin
                             </Form.Text>
+
+                            <Form.Label htmlFor="inputnumberPrice" style={{ fontSize: "20px" }} className='mt-4'>Narxi</Form.Label>
+                            <Form.Control
+                                type="number"
+                                id="inputnumberPrice"
+                                aria-describedby="numberHelpBlockPrice"
+                                onKeyDown={handleKeyPress}                              
+                                value={breadPrice}
+                                onChange={(e) => setBreadPrice(e.target.value)}
+                            />
+                           
                         </Modal.Body>
                     </div>
 
