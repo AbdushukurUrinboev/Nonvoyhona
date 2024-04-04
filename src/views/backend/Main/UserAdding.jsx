@@ -41,16 +41,16 @@ const UserAdding = withAllRouterGuard(() => {
             password,
             role
         })
-        .then(res => {
-            console.log("Data is saved", res)
-            setLogin("");
-            setPassword("");
-            history.push('/');
-            // history.push('/storage')
-        })
-        .catch(err => console.log(err))
-        
-       
+            .then(res => {
+                console.log("Data is saved", res)
+                setLogin("");
+                setPassword("");
+                history.push('/');
+                // history.push('/storage')
+            })
+            .catch(err => console.log(err))
+
+
 
 
     }
@@ -121,7 +121,7 @@ const UserAdding = withAllRouterGuard(() => {
 
                             <div className="col-md-12 mt-3 mb-4 w-50 mx-auto">
                                 <div className="d-flex justify-content-end">
-                                    <Button variant="btn myButtonProducts qushishProduct" onClick={handleChange} disabled>
+                                    <Button variant="btn myButtonProducts qushishProduct" onClick={handleChange}>
                                         <svg xmlns="http://www.w3.org/2000/svg" className="mr-2" width="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                         </svg>
