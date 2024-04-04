@@ -78,7 +78,8 @@ const SailAdd = withAllRouterGuard(() => {
             customerType: customerType,
             customer,
             avans,
-            price
+            price,
+            // sellerID   ni ham qushib ketishim kerak !!!!!!!!!!!
         })
             .then(res => {
 

@@ -45,7 +45,8 @@ function SaleAddModal({ saledata, show, onHide }) {
         //     customerType: customerType,
         //     customer,
         //     avans,
-        //     price
+        //     price ,
+        //     sellerID
         // })
         //     .then(res => {
 
