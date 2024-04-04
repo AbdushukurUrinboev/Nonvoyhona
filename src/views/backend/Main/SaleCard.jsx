@@ -8,6 +8,7 @@ import './Sail.css'
 import { base_URL } from '../../../API';
 import Card from 'react-bootstrap/Card'
 import Datepickers from '../../../components/Datepicker';
+import SaleAddModal from './SaleAddModal';
 
 //img
 import LogoBread from '../../../assets/images/logoBread.png'
@@ -30,6 +31,7 @@ const SaleCard = withAllRouterGuard(() => {
 
     const history = useHistory()
     const [loading, setLoading] = useState(true)
+    const [modalShowSale, setModalShowSale] = useState(false);
 
     useEffect(() => {
         axios.get(SALE_URL)
@@ -119,7 +121,14 @@ const SaleCard = withAllRouterGuard(() => {
                             </Form.Group>
                         </Form>
 
-                        <Row xs={1} sm={2} md={3} lg={4} className="justify-content-center disableCopiedSale">
+                        <Row
+                            xs={1}
+                            sm={2}
+                            md={3}
+                            lg={4}
+                            className="justify-content-center disableCopiedSale"
+                            onClick={() => setModalShowSale(true)}
+                        >
                             {
                                 postsSail.map((sale, index) => (
                                     <Col key={index} className="mb-3 d-flex justify-content-between">
@@ -134,7 +143,7 @@ const SaleCard = withAllRouterGuard(() => {
                                             <Card.Body>
                                                 <Card.Title style={{ fontSize: '50px' }} className='align-items-center text-center'>
                                                     {sale.breadName}
-                                                </Card.Title>                                              
+                                                </Card.Title>
 
                                             </Card.Body>
                                             <Card.Footer className="text-muted">
@@ -151,6 +160,10 @@ const SaleCard = withAllRouterGuard(() => {
                             }
 
                         </Row>
+                        <SaleAddModal
+                            show={modalShowSale}
+                            onHide={() => setModalShowSale(false)}
+                        />
                         <div className='container text-center mt-5'>
                             {postsSail && postsSail.length ? '' : "Xozirda ma'lumotlar kiritilmagan"}
                         </div>
